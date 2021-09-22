@@ -3,7 +3,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/auth/auth_page.dart';
 import 'package:flutter_app_backend/models/get_article_info.dart';
 
 
@@ -136,9 +135,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child:
                 GestureDetector(
                     onTap:(){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>AuthPage())
-                      );
+                      null;
                     },
 
                 child:Container(
