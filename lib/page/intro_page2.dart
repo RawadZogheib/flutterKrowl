@@ -51,19 +51,19 @@ class Intro2 extends StatelessWidget {
 
               InkWell(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text("enter your uni space",
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Rubik',
-                          fontSize: 30,
+                          fontSize: 20,
                         )),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 5.0),
                       child: Icon(
                         Icons.arrow_right_alt,
-                        size: 40,
+                        size: 20,
                         color: Colors.white,
                       ),
                     ),
