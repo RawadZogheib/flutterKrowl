@@ -30,8 +30,7 @@ class Nosecretcode2 extends StatelessWidget {
             ),
 
             Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 40),
+              width: 270,
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "start typing your uni name ...",
