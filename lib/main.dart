@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/page/Registration2.dart';
 import 'package:flutter_app_backend/page/Sign_up.dart';
 import 'package:flutter_app_backend/page/Sign_up2.dart';
 import 'package:flutter_app_backend/page/intro_page.dart';
@@ -7,7 +8,10 @@ import 'package:flutter_app_backend/welcome/welcome_page.dart';
 import 'package:flutter_app_backend/page/no_secret_code.dart';
 import 'package:flutter_app_backend/page/no_secret_code2.dart';
 import 'package:flutter_app_backend/page/Uni_has_secret_code.dart';
-
+import 'package:flutter_app_backend/page/Registration.dart';
+import 'package:flutter_app_backend/page/Registration2.dart';
+import 'package:flutter_app_backend/page/Registration3.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +22,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    return Sizer(
+        builder: (context, orientation, deviceType) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -34,7 +40,11 @@ class MyApp extends StatelessWidget {
           '/no_secret_code': (context) => Nosecretcode(),
           '/no_secret_code2': (context) => Nosecretcode2(),
           '/Uni_has_secret_code': (context) => Hassecretcode2(),
+          '/Registration': (context) => Registration(),
+          '/Registration2': (context) => Registration2(),
+          '/Registration3': (context) => Registration3(),
+
         }
-    );
+    );});
   }
 }
