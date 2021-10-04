@@ -5,7 +5,6 @@ import 'package:flutter_app_backend/page/login2.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/intro_page.dart';
 import 'package:flutter_app_backend/page/intro_page2.dart';
-import 'package:flutter_app_backend/welcome/welcome_page.dart';
 import 'package:flutter_app_backend/page/Signup.dart';
 import 'package:flutter_app_backend/page/no_secret_code2.dart';
 import 'package:flutter_app_backend/page/Signup2.dart';
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WelcomePage(),
+      home: Intro(),
         initialRoute: '/intro_page',
         routes: {
           '/intro_page': (context) => Intro(),
