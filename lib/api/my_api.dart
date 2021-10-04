@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class CallApi{
-  final String _url = 'https://10.10.4.67:3000/api/v1/';
+  final String _url = 'http://10.10.4.67:3000/api/v1/';
   final String _imgUrl='http://mark.dbestech.com/uploads/';
   getImage(){
     return _imgUrl;
