@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -39,6 +40,10 @@ class Signup extends StatelessWidget {
                   ),
                   border: InputBorder.none,
                 ),
+                onChanged: (value){
+                  globals.email = value;
+                  print("" + globals.email);
+              },
               ),
             ),
             SizedBox(
@@ -100,6 +105,7 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
+
                           Navigator.pushNamed(context, '/Signup2');
                         },
                       ),
@@ -114,4 +120,6 @@ class Signup extends StatelessWidget {
       ),
     );
   }
+
+
 }

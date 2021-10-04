@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+
+late BuildContext cont;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -10,6 +16,7 @@ class Registration3 extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    cont = context;
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(25.0),
@@ -144,7 +151,9 @@ class Registration3 extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Code');
+
+                        _reg();
+
                       },
                     ),
                   ),
@@ -157,4 +166,38 @@ class Registration3 extends StatelessWidget {
       ),
     );
   }
+
+  _reg() async {
+
+    var data = {
+      'email'  : globals.email,
+      'first_name' : globals.fName,
+      'last_name' : globals.lName,
+      'username' : globals.userName,
+      'date_of_birth' : globals.dateOfBirth,
+      'photo' : globals.photo,
+      'terms_of_service' : globals.terms,
+      'crop_x' : globals.cropX,
+      'crop_y' : globals.cropY,
+      'crop_width' : globals.cropWidth,
+      'crop_height' : globals.cropHeight,
+      'university_ids' : globals.uniId,
+      'major_degree_ids': globals.majorId,
+      'minor_degree_ids': globals.minorId,
+    };
+    var res = await CallApi().postData(data, 'flutter_signup');
+    var body = json.decode(res.body);
+    print(body);
+    if(body['success']){
+
+      Navigator.pushNamed(cont, '/Code');
+      //SharedPreferences localStorage = await SharedPreferences.getInstance();
+      // localStorage.setString('token', body['token']);
+      //localStorage.setString('user', json.encode(body['user']));
+    }
+  }
+
+
+
+
 }

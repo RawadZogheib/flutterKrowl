@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   sizer: ^2.0.15
   http:
-  shared_preferences: ^0.5.6+1
+  shared_preferences: ^2.0.0-nullsafety
   dots_indicator: ^2.0.0
   flappy_search_bar: 1.4.1
 

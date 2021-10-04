@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
@@ -59,6 +60,10 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.uniId = value;
+                print("" + globals.uniId);
+              },
             ),
           ),
           SizedBox(
@@ -83,6 +88,10 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.majorId = value;
+                print("" + globals.minorId);
+              },
             ),
           ),
           SizedBox(
@@ -107,6 +116,10 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.minorId = value;
+                print("" + globals.minorId);
+              },
             ),
           ),
           SizedBox(

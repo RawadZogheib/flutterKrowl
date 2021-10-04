@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 String ddd = 'sss';
 
@@ -61,6 +62,10 @@ class Registration extends StatelessWidget {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.fName = value;
+                print("" + globals.fName);
+              },
             ),
           ),
           SizedBox(
@@ -85,6 +90,10 @@ class Registration extends StatelessWidget {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.lName = value;
+                print("" + globals.lName);
+              },
             ),
           ),
           SizedBox(
@@ -109,6 +118,10 @@ class Registration extends StatelessWidget {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.userName = value;
+                print("" + globals.userName);
+              },
             ),
           ),
           SizedBox(
@@ -133,6 +146,10 @@ class Registration extends StatelessWidget {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.dateOfBirth = value;
+                print("" + globals.dateOfBirth);
+              },
             ),
           ),
           SizedBox(
