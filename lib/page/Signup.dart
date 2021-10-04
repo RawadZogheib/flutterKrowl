@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-    ));
 
-class Hassecretcode2 extends StatelessWidget {
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+));
+
+class Signup extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -19,33 +20,30 @@ class Hassecretcode2 extends StatelessWidget {
             Image(
               image: AssetImage('Assets/krowl_logo.png'),
             ),
-            Container(
-              alignment: Alignment.center,
-              child: Text("great new! your uni has a secret code!",
-                  style: TextStyle(
-                    color: Colors.blue.shade900,
-                    fontFamily: 'Rubik',
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
-            SizedBox(
-              height: 50,
-            ),
+            Text("what is your email?",
+                style: TextStyle(
+                  color: Colors.blue.shade900,
+                  fontFamily: 'Rubik',
+                  fontSize: 30,
+                )),
 
             Container(
-              alignment: Alignment.center,
-              child: Text("look around your campus or ask your friends for the code ... unfortunately we can’t let you in without the code",
-                  style: TextStyle(
-                    color: Colors.blue.shade900,
+              width: 160,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "type your email here...",
+                  hintStyle: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.blue.shade900.withOpacity(0.5),
                     fontFamily: 'Rubik',
-                    fontSize: 30,
-                  )),
+                  ),
+                  border: InputBorder.none,
+                ),
+              ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -72,7 +70,7 @@ class Hassecretcode2 extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pop(context, '/no_secret_code2');
+                      Navigator.pop(context, '/intro_page');
                     },
                   ),
                 ),
@@ -102,7 +100,7 @@ class Hassecretcode2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/intro_page2');
+                          Navigator.pushNamed(context, '/Signup2');
                         },
                       ),
                     ),

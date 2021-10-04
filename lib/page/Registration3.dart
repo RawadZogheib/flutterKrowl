@@ -121,7 +121,7 @@ class Registration3 extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: 70,
+                    width: 97,
                     margin: EdgeInsets.only(left: 100.sp),
                     child: InkWell(
                       child: Row(
@@ -144,6 +144,7 @@ class Registration3 extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
+                        Navigator.pushNamed(context, '/Code');
                       },
                     ),
                   ),

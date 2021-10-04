@@ -5,7 +5,7 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Signup2 extends StatelessWidget {
+class Code extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

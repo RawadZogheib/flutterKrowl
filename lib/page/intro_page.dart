@@ -63,7 +63,7 @@ class Intro extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, '/Sign_up');
+                    Navigator.pushNamed(context, '/login');
                   },
                 ),
                 const SizedBox(
@@ -97,7 +97,7 @@ class Intro extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, '/no_secret_code');
+                    Navigator.pushNamed(context, '/Signup');
                   },
                 ),
               ],

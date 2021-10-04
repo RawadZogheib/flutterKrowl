@@ -5,8 +5,7 @@ import 'package:sizer/sizer.dart';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
-
-class Signup extends StatelessWidget {
+class Login extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,7 @@ class Signup extends StatelessWidget {
                               ],
                             ),
                             onTap: () {
-                              Navigator.pushNamed(context, '/Sign_up2');
+                              Navigator.pushNamed(context, '/login2');
                             },
                           ),
                         ),

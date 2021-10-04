@@ -6,7 +6,7 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
 ));
 
-class Nosecretcode extends StatelessWidget {
+class Login2 extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -20,18 +20,22 @@ class Nosecretcode extends StatelessWidget {
             Image(
               image: AssetImage('Assets/krowl_logo.png'),
             ),
-            Text("what is your email?",
-                style: TextStyle(
-                  color: Colors.blue.shade900,
-                  fontFamily: 'Rubik',
-                  fontSize: 30,
-                )),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(left: 5.0),
+              child: Text("What is your password ?",
+                  style: TextStyle(
+                    color: Colors.blue.shade900,
+                    fontFamily: 'Rubik',
+                    fontSize: 30,
+                  )),
+            ),
 
             Container(
-              width: 160,
+              width: 250,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "type your email here...",
+                  hintText: "type your password here ...",
                   hintStyle: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blue.shade900.withOpacity(0.5),
@@ -41,9 +45,9 @@ class Nosecretcode extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+
+
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -70,7 +74,7 @@ class Nosecretcode extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pop(context, '/intro_page');
+                      Navigator.pop(context, '/login');
                     },
                   ),
                 ),
@@ -100,7 +104,7 @@ class Nosecretcode extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/no_secret_code2');
+                          Navigator.pushNamed(context, '/intro_page2');
                         },
                       ),
                     ),
