@@ -111,7 +111,7 @@ class Intro2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/intro_page');
+                          Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
                         },
                       ),
                     ),

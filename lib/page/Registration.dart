@@ -14,6 +14,7 @@ class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         margin: EdgeInsets.all(25.0),
         alignment: Alignment.center,
