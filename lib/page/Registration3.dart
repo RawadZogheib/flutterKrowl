@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
@@ -129,7 +127,7 @@ class Registration3 extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: 97,
+                    width: 98,
                     margin: EdgeInsets.only(left: 100.sp),
                     child: InkWell(
                       child: Row(
@@ -153,7 +151,7 @@ class Registration3 extends StatelessWidget {
                       ),
                       onTap: () {
 
-                        _reg();
+                        /*_reg();*/
 
                       },
                     ),
@@ -168,7 +166,7 @@ class Registration3 extends StatelessWidget {
     );
   }
 
-  _reg() async {
+  /*_reg() async {
 
     var data = {
       'email'  : globals.email,
@@ -196,7 +194,7 @@ class Registration3 extends StatelessWidget {
       // localStorage.setString('token', body['token']);
       //localStorage.setString('user', json.encode(body['user']));
     }
-  }
+  }*/
 
 
 

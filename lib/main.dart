@@ -13,6 +13,7 @@ import 'package:flutter_app_backend/page/Registration2.dart';
 import 'package:flutter_app_backend/page/Registration3.dart';
 import 'package:sizer/sizer.dart';
 
+
 void main() {
   runApp(MyApp());
 }

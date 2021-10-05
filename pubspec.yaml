@@ -33,6 +33,8 @@ dependencies:
   shared_preferences: ^2.0.0-nullsafety
   dots_indicator: ^2.0.0
   flappy_search_bar: 1.4.1
+  email_validator: '^1.0.6'
+  form_field_validator: ^1.1.0
 
 dev_dependencies:
   flutter_test:

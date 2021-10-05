@@ -1,6 +1,6 @@
-# flutter_app_backend
+# flutterkrowl
 
-A new Flutter project.
+A new Flutter application.
 
 ## Getting Started
 
