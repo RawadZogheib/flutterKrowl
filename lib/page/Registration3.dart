@@ -191,16 +191,18 @@ class Registration3 extends StatelessWidget {
       'minor_degree_ids': globals.minorId,
     };
     var res = await CallApi().postData(data, '(Control)regist.php');
-    //var body = await json.decode(res.body);
+    var body = await json.decode(res.body);
     print("asdasdsadsad" + res.body);
+    print("asdasdsadsad");
+    print(body);
     //if(body['success']){
-
+    if(body == "success"){
       Navigator.pushNamed(cont, '/Code');
       //SharedPreferences localStorage = await SharedPreferences.getInstance();
       // localStorage.setString('token', body['token']);
       //localStorage.setString('user', json.encode(body['user']));
     }
-  //}
+  }
 
 
 
