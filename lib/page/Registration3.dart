@@ -66,6 +66,7 @@ class Registration3 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.password = value;
                 print("" + globals.password);
@@ -94,6 +95,7 @@ class Registration3 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              textInputAction: TextInputAction.done,
             ),
           ),
           SizedBox(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 //import 'package:form_field_validator/form_field_validator.dart';
 
@@ -67,6 +68,7 @@ class Registration extends StatelessWidget {
                       OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.blue.shade900)),
                 ),
+                textInputAction: TextInputAction.next,
                 onChanged: (value){
                   globals.fName = value;
                   print("" + globals.fName);
@@ -95,6 +97,7 @@ class Registration extends StatelessWidget {
                       OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.blue.shade900)),
                 ),
+                textInputAction: TextInputAction.next,
                 onChanged: (value){
                   globals.lName = value;
                   print("" + globals.lName);
@@ -123,6 +126,7 @@ class Registration extends StatelessWidget {
                       OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.blue.shade900)),
                 ),
+                textInputAction: TextInputAction.next,
                 onChanged: (value){
                   globals.userName = value;
                   print("" + globals.userName);
@@ -151,6 +155,7 @@ class Registration extends StatelessWidget {
                       OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.blue.shade900)),
                 ),
+                textInputAction: TextInputAction.done,
                 onChanged: (value){
                   globals.dateOfBirth = value;
                   print("" + globals.dateOfBirth);

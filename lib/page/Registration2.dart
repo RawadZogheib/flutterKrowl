@@ -61,6 +61,7 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.uniId = value;
                 print("" + globals.uniId);
@@ -89,6 +90,7 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.majorId = value;
                 print("" + globals.minorId);
@@ -117,6 +119,7 @@ class Registration2 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              textInputAction: TextInputAction.done,
               onChanged: (value){
                 globals.minorId = value;
                 print("" + globals.minorId);
