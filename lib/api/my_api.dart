@@ -9,7 +9,7 @@ class CallApi{
     return _imgUrl;
   }
   postData(data, apiUrl) async {
-    var fullUrl = _url + apiUrl + await _getToken();
+    var fullUrl = _url + apiUrl;// + await _getToken() ;
     print(fullUrl);
     return await http.post(   //post request
         Uri.parse(fullUrl),
@@ -18,7 +18,7 @@ class CallApi{
     );
   }
   getData(apiUrl) async {
-    var fullUrl = _url + apiUrl + await _getToken() ;
+    var fullUrl = _url + apiUrl;// + await _getToken();
     return await http.get(
         Uri.parse(fullUrl),
         headers: _setHeaders()
