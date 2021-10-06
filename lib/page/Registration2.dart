@@ -127,7 +127,7 @@ class Registration2 extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 130,
           ),
 
           Row(
@@ -185,8 +185,25 @@ class Registration2 extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/Registration3');
+                      onTap: () {if (globals.uniId != "null" && globals.majorId != "null" && globals.minorId != "null") {
+                        Navigator.pushNamed(context, '/Registration');
+                      } else {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text(
+                                'Those fields can not be empty.'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                       },
                     ),
                   ),

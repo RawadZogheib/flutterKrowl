@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-));
+      debugShowCheckedModeBanner: false,
+    ));
 
 class Signup extends StatelessWidget {
   // This widget is the root of your application.
@@ -28,7 +28,6 @@ class Signup extends StatelessWidget {
                   fontFamily: 'Rubik',
                   fontSize: 30,
                 )),
-
             Container(
               width: 160,
               child: TextField(
@@ -41,10 +40,10 @@ class Signup extends StatelessWidget {
                   ),
                   border: InputBorder.none,
                 ),
-                onChanged: (value){
-                  globals.email = value;
-                  print("" + globals.email);
-              },
+                onChanged: (value) {
+                  globals.emailSign_up = value;
+                  print("" + globals.emailSign_up);
+                },
               ),
             ),
             SizedBox(
@@ -106,21 +105,34 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-
-                          Navigator.pushNamed(context, '/Registration');
+                          if (globals.emailSign_up != "null") {
+                            Navigator.pushNamed(context, '/Registration');
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text('Email can not be empty.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         },
                       ),
                     ),
                   ],
                 ),
-
-
-              ],),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
-
-
 }

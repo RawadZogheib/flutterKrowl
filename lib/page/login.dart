@@ -114,7 +114,7 @@ class Login extends StatelessWidget {
                               builder: (BuildContext context) => AlertDialog(
                                 title: const Text('Error'),
                                 content: const Text(
-                                    'Can not leave this field empty.'),
+                                    'Email can not be empty.'),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>

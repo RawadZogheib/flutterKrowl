@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-));
+      debugShowCheckedModeBanner: false,
+    ));
 
 class Login2 extends StatelessWidget {
   // This widget is the root of your application.
@@ -31,7 +32,6 @@ class Login2 extends StatelessWidget {
                     fontSize: 30,
                   )),
             ),
-
             Container(
               width: 250,
               child: TextField(
@@ -44,11 +44,12 @@ class Login2 extends StatelessWidget {
                   ),
                   border: InputBorder.none,
                 ),
+                onChanged: (value){
+                  globals.emailPassword = value;
+                  print("" + globals.emailPassword);
+                },
               ),
             ),
-
-
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -88,7 +89,7 @@ class Login2 extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("next",
+                            Text("login",
                                 style: TextStyle(
                                   color: Colors.blue.shade900,
                                   fontFamily: 'Rubik',
@@ -105,15 +106,31 @@ class Login2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/intro_page2');
+                          if (globals.emailPassword != "null") {
+                            Navigator.pushNamed(context, '/intro_page2');
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text('Password can not be empty.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         },
                       ),
                     ),
                   ],
                 ),
-
-
-              ],),
+              ],
+            ),
           ],
         ),
       ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-//import 'package:form_field_validator/form_field_validator.dart';
 
 String ddd = 'sss';
 
@@ -219,7 +218,25 @@ class Registration extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, '/Registration2');
+                        if (globals.fName != "null" && globals.lName != "null" && globals.userName != "null" && globals.dateOfBirth != "null") {
+                          Navigator.pushNamed(context, '/Registration2');
+                        } else {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Error'),
+                              content: const Text(
+                                  'These fields can not be empty.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
 
                       },
                     ),
