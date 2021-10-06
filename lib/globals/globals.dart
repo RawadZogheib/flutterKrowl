@@ -1,5 +1,6 @@
 library flutterKrowl.globals;
 
+//Registration
 String email = "null";
 String fName = "null";
 String lName = "null";
@@ -15,3 +16,7 @@ String cropHeight = "null";
 String uniId = "null";
 String majorId = "null";
 String minorId = "null";
+
+//login
+String emailLogin = "null";
+String emailPassword = "null";

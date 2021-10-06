@@ -220,6 +220,7 @@ class Registration extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pushNamed(context, '/Registration2');
+
                       },
                     ),
                   ),
