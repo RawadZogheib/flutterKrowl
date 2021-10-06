@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi{
   final String _url = 'http://10.10.4.64/krowl/';
@@ -8,7 +8,7 @@ class CallApi{
   getImage(){
     return _imgUrl;
   }
-  postData(data, apiUrl) async {
+   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;// + await _getToken() ;
     print(fullUrl);
     return await http.post(   //post request
@@ -28,13 +28,14 @@ class CallApi{
   _setHeaders() => {
     'Content-type' : 'application/json',
     'Accept' : 'application/json',
+
   };
 
-  _getToken() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
-    return '?token=$token';
-  }
+ // _getToken() async {
+ //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+ //   var token = localStorage.getString('token');
+ //   return '?token=$token';
+ // }
 
 
   getArticles(apiUrl) async {

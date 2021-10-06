@@ -9,7 +9,7 @@ import 'package:flutter_app_backend/page/Signup.dart';
 import 'package:flutter_app_backend/page/no_secret_code2.dart';
 import 'package:flutter_app_backend/page/Signup2.dart';
 import 'package:flutter_app_backend/page/Registration.dart';
-import 'package:flutter_app_backend/page/Registration2.dart';
+//import 'package:flutter_app_backend/page/Registration2.dart';
 import 'package:flutter_app_backend/page/Registration3.dart';
 import 'package:sizer/sizer.dart';
 
