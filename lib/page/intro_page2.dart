@@ -16,7 +16,7 @@ class Intro2 extends StatelessWidget {
         margin: EdgeInsets.all(25.0),
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               height:50,
@@ -32,10 +32,6 @@ class Intro2 extends StatelessWidget {
                   fontSize: 72,
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 200,
-              height: 40,
             ),
             Container(
               margin: EdgeInsets.only(left: 25),

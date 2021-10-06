@@ -11,10 +11,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: ListView(
-        shrinkWrap: true,
-        reverse: true,
-        children: [
+      body:
           Container(
             margin: EdgeInsets.all(25.0),
             alignment: Alignment.center,
@@ -120,7 +117,6 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-      ].reversed.toList()),
     );
   }
 }

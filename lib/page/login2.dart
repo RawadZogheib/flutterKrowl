@@ -16,7 +16,7 @@ class Login2 extends StatelessWidget {
         margin: EdgeInsets.all(25.0),
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image(
               image: AssetImage('Assets/krowl_logo.png'),
