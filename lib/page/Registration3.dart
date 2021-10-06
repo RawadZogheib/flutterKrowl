@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
@@ -65,6 +66,10 @@ class Registration3 extends StatelessWidget {
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
+              onChanged: (value){
+                globals.password = value;
+                print("" + globals.password);
+              },
             ),
           ),
           SizedBox(
@@ -151,7 +156,7 @@ class Registration3 extends StatelessWidget {
                       ),
                       onTap: () {
 
-                        /*_reg();*/
+                        _reg();
 
                       },
                     ),
@@ -166,13 +171,14 @@ class Registration3 extends StatelessWidget {
     );
   }
 
-  /*_reg() async {
+  _reg() async {
 
     var data = {
       'email'  : globals.email,
       'first_name' : globals.fName,
       'last_name' : globals.lName,
       'username' : globals.userName,
+      'password' : globals.password,
       'date_of_birth' : globals.dateOfBirth,
       'photo' : globals.photo,
       'terms_of_service' : globals.terms,
@@ -184,17 +190,17 @@ class Registration3 extends StatelessWidget {
       'major_degree_ids': globals.majorId,
       'minor_degree_ids': globals.minorId,
     };
-    var res = await CallApi().postData(data, 'flutter_signup');
-    var body = json.decode(res.body);
-    print(body);
-    if(body['success']){
+    var res = await CallApi().postData(data, '(Control)regist.php');
+    //var body = await json.decode(res.body);
+    print("asdasdsadsad" + res.body);
+    //if(body['success']){
 
       Navigator.pushNamed(cont, '/Code');
       //SharedPreferences localStorage = await SharedPreferences.getInstance();
       // localStorage.setString('token', body['token']);
       //localStorage.setString('user', json.encode(body['user']));
     }
-  }*/
+  //}
 
 
 
