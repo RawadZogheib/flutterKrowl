@@ -295,15 +295,7 @@ class Registration3 extends StatelessWidget {
           ],
         ),
       );
-    } 
-
-
-
-
-
-
-
-
+    }
 
   }
 
