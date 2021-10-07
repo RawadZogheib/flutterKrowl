@@ -110,7 +110,7 @@ class Login extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailLogin.isNotEmpty) {
+                          if (globals.emailPassword != null) {
                             Navigator.pushNamed(context, '/login2');
                           } else {
                             showDialog<String>(
