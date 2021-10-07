@@ -68,7 +68,7 @@ class Registration extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.fName = value;
-                print("" + globals.fName);
+                //print("" + globals.fName);
               },
             ),
           ),
@@ -97,7 +97,7 @@ class Registration extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.lName = value;
-                print("" + globals.lName);
+                //print("" + globals.lName);
               },
             ),
           ),
@@ -126,7 +126,7 @@ class Registration extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.userName = value;
-                print("" + globals.userName);
+                //print("" + globals.userName);
               },
             ),
           ),
@@ -155,7 +155,7 @@ class Registration extends StatelessWidget {
               textInputAction: TextInputAction.done,
               onChanged: (value){
                 globals.dateOfBirth = value;
-                print("" + globals.dateOfBirth);
+                //print("" + globals.dateOfBirth);
               },
             ),
           ),

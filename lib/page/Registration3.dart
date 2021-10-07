@@ -69,7 +69,7 @@ class Registration3 extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.password = value;
-                print("" + globals.password);
+                //print("" + globals.password);
               },
             ),
           ),

@@ -64,7 +64,7 @@ class Registration2 extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.uniId = value;
-                print("" + globals.uniId);
+                //print("" + globals.uniId);
               },
             ),
           ),
@@ -93,7 +93,7 @@ class Registration2 extends StatelessWidget {
               textInputAction: TextInputAction.next,
               onChanged: (value){
                 globals.majorId = value;
-                print("" + globals.minorId);
+                //print("" + globals.minorId);
               },
             ),
           ),
@@ -122,7 +122,7 @@ class Registration2 extends StatelessWidget {
               textInputAction: TextInputAction.done,
               onChanged: (value){
                 globals.minorId = value;
-                print("" + globals.minorId);
+                //print("" + globals.minorId);
               },
             ),
           ),
