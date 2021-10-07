@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
 
@@ -35,6 +36,9 @@ class Login2 extends StatelessWidget {
             Container(
               width: 250,
               child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                ],
                 decoration: InputDecoration(
                   hintText: "type your password here ...",
                   hintStyle: TextStyle(
@@ -106,7 +110,7 @@ class Login2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailPassword != "null") {
+                          if (globals.emailPassword.isNotEmpty) {
                             Navigator.pushNamed(context, '/intro_page2');
                           } else {
                             showDialog<String>(

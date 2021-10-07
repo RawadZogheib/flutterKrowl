@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -35,6 +36,9 @@ class Login extends StatelessWidget {
             Container(
               width: 160,
               child: TextField(
+                inputFormatters :[
+                FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                ],
                 decoration: InputDecoration(
                   hintText: "type your email here ...",
                   hintStyle: TextStyle(
@@ -106,7 +110,7 @@ class Login extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailLogin != "null") {
+                          if (globals.emailLogin.isNotEmpty) {
                             Navigator.pushNamed(context, '/login2');
                           } else {
                             showDialog<String>(

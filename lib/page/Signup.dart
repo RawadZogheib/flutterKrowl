@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -32,6 +36,9 @@ class Signup extends StatelessWidget {
               width: 600,
               margin: EdgeInsets.only(left: 80),
               child: TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                ],
                 decoration: InputDecoration(
                   hintText: "type your email here...",
                   hintStyle: TextStyle(
@@ -106,7 +113,7 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != "null") {
+                          if (globals.email.isNotEmpty) {
                             Navigator.pushNamed(context, '/Registration');
                           } else {
                             showDialog<String>(
