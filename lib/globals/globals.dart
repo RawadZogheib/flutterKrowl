@@ -6,6 +6,7 @@ late String fName;
 late String lName;
 late String userName;
 late String password;
+late String repassword;
 late String dateOfBirth;
 late String photo;
 late String terms;

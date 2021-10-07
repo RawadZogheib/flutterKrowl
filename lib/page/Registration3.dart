@@ -181,6 +181,7 @@ class Registration3 extends StatelessWidget {
       'last_name' : globals.lName,
       'username' : globals.userName,
       'password' : globals.password,
+      'repassword' : globals.repassword,
       'date_of_birth' : globals.dateOfBirth,
       'photo' : globals.photo,
       'terms_of_service' : globals.terms,
