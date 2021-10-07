@@ -295,6 +295,22 @@ class Registration3 extends StatelessWidget {
           ],
         ),
       );
+    }else{
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'Failed to connect... Try again in few seconds.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
 
   }
