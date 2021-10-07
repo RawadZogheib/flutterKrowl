@@ -185,7 +185,7 @@ class Registration2 extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: () {if (globals.uniId != "null" && globals.majorId != "null" && globals.minorId != "null") {
+                      onTap: () {if (globals.uniId != null && globals.majorId != null && globals.minorId != null) {
                         Navigator.pushNamed(context, '/Registration3');
                       } else {
                         showDialog<String>(
