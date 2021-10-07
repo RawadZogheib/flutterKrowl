@@ -199,13 +199,8 @@ class Registration3 extends StatelessWidget {
     print("asdasdsadsad");
     print("asdasdsadsad");
     print(body[0]);
-    //print(body['stts']);
-    //if(body['success']){
     if(body[0] == "success"){
       Navigator.pushNamed(cont, '/Code');
-      //SharedPreferences localStorage = await SharedPreferences.getInstance();
-      // localStorage.setString('token', body['token']);
-      //localStorage.setString('user', json.encode(body['user']));
     }
   }
 
