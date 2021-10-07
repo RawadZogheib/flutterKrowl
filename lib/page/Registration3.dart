@@ -198,7 +198,7 @@ class Registration3 extends StatelessWidget {
     List<dynamic> body = json.decode(res.body);
     print("asdasdsadsad");
     print("asdasdsadsad");
-    print(body[0]);
+    print(body[0]); 
     if(body[0] == "success"){
       Navigator.pushNamed(cont, '/Code');
     }
