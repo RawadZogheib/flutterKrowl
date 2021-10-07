@@ -196,12 +196,115 @@ class Registration3 extends StatelessWidget {
     var res = await CallApi().postData(data, '(Control)regist.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    print("asdasdsadsad");
-    print("asdasdsadsad");
-    print(body[0]); 
     if(body[0] == "success"){
       Navigator.pushNamed(cont, '/Code');
+
+    }else if(body[0] == "error1"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'No Spaces Allowed.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }else if(body[0] == "error3"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'Please make sure your passwords match.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }else if(body[0] == "error4"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'Error with registration.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }else if(body[0] == "error5"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'UserName already exist.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }else if(body[0] == "error6"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'Email already exist.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }else if(body[0] == "error7"){
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'Connection error.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
+
+
+
+
+
+
+
+
+
   }
 
 
