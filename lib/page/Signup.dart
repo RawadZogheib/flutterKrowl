@@ -41,8 +41,8 @@ class Signup extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 onChanged: (value) {
-                  globals.emailSign_up = value;
-                  print("" + globals.emailSign_up);
+                  globals.email = value;
+                  print("" + globals.email);
                 },
               ),
             ),
@@ -105,7 +105,7 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailSign_up != "null") {
+                          if (globals.email != "null") {
                             Navigator.pushNamed(context, '/Registration');
                           } else {
                             showDialog<String>(

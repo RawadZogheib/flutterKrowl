@@ -20,6 +20,4 @@ String minorId = "null";
 //login
 String emailLogin = "null";
 String emailPassword = "null";
-//Sign_up
-String emailSign_up= "null";
 
