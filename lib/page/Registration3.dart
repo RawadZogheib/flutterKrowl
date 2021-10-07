@@ -33,7 +33,7 @@ class Registration3 extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 width: 250,
                 height: 130,
-                child:(
+                child: (
                     Text(
                       'Create your krowl account',
                       style: TextStyle(
@@ -67,7 +67,7 @@ class Registration3 extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
               textInputAction: TextInputAction.next,
-              onChanged: (value){
+              onChanged: (value) {
                 globals.password = value;
                 //print("" + globals.password);
               },
@@ -157,9 +157,7 @@ class Registration3 extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-
                         _reg();
-
                       },
                     ),
                   ),
@@ -174,152 +172,179 @@ class Registration3 extends StatelessWidget {
   }
 
   _reg() async {
-
-    var data = {
-      'email'  : globals.email,
-      'first_name' : globals.fName,
-      'last_name' : globals.lName,
-      'username' : globals.userName,
-      'password' : globals.password,
-      'repassword' : globals.repassword,
-      'date_of_birth' : globals.dateOfBirth,
-      'photo' : globals.photo,
-      'terms_of_service' : globals.terms,
-      'crop_x' : globals.cropX,
-      'crop_y' : globals.cropY,
-      'crop_width' : globals.cropWidth,
-      'crop_height' : globals.cropHeight,
-      'university_ids' : globals.uniId,
-      'major_degree_ids': globals.majorId,
-      'minor_degree_ids': globals.minorId,
-    };
-    var res = await CallApi().postData(data, '(Control)regist.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-    if(body[0] == "success"){
-      Navigator.pushNamed(cont, '/Code');
-
-    }else if(body[0] == "error1"){
+    if (!globals.email!.contains(" ") && !globals.fName!.contains(" ") &&
+        !globals.lName!.contains(" ")
+        && !globals.userName!.contains(" ") &&
+        !globals.password!.contains(" ") && !globals.repassword!.contains(" ")
+        && !globals.dateOfBirth!.contains(" ") &&
+        !globals.photo!.contains(" ") && !globals.terms!.contains(" ") &&
+        !globals.cropX!.contains(" ") && !globals.cropY!.contains(" ") &&
+        !globals.cropWidth!.contains(" ") &&
+        !globals.cropHeight!.contains(" ") && !globals.uniId!.contains("") &&
+        !globals.majorId!.contains("  ") &&
+        !globals.minorId!.contains(" ")) {
+      var data = {
+        'email': globals.email,
+        'first_name': globals.fName,
+        'last_name': globals.lName,
+        'username': globals.userName,
+        'password': globals.password,
+        'repassword': globals.repassword,
+        'date_of_birth': globals.dateOfBirth,
+        'photo': globals.photo,
+        'terms_of_service': globals.terms,
+        'crop_x': globals.cropX,
+        'crop_y': globals.cropY,
+        'crop_width': globals.cropWidth,
+        'crop_height': globals.cropHeight,
+        'university_ids': globals.uniId,
+        'major_degree_ids': globals.majorId,
+        'minor_degree_ids': globals.minorId,
+      };
+      var res = await CallApi().postData(data, '(Control)regist.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+      if (body[0] == "success") {
+        Navigator.pushNamed(cont, '/Code');
+      } else if (body[0] == "error1") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'No Spaces Allowed.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error3") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Please make sure your passwords match.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error4") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Error with registration.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error5") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'UserName already exist.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error6") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Email already exist.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error7") {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Connection error.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Failed to connect... Try again in few seconds.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      }
+    } else {
       showDialog<String>(
         context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'No Spaces Allowed.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else if(body[0] == "error3"){
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Please make sure your passwords match.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else if(body[0] == "error4"){
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Error with registration.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else if(body[0] == "error5"){
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'UserName already exist.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else if(body[0] == "error6"){
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Email already exist.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else if(body[0] == "error7"){
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Connection error.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }else{
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Failed to connect... Try again in few seconds.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () =>
-                  Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'No Spaces Allowed.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),);
     }
-
   }
-
-
-
-
 }
-
 /*
 var res = await CallApi().postData(data, '(Control)regist.php');
 print(res.body);
