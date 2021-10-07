@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+
+late BuildContext cont;
+
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -9,6 +16,7 @@ class Code extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    cont = context;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -50,6 +58,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code1 = value;
+                        print("" + globals.code1);
+                      },
                     ),
                   ),
 
@@ -66,6 +78,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code2 = value;
+                        print("" + globals.code2);
+                      },
                     ),
                   ),
 
@@ -82,6 +98,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code3 = value;
+                        print("" + globals.code3);
+                      },
                     ),
                   ),
 
@@ -112,6 +132,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code4 = value;
+                        print("" + globals.code4);
+                      },
                     ),
                   ),
 
@@ -128,6 +152,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code5 = value;
+                        print("" + globals.code5);
+                      },
                     ),
                   ),
 
@@ -144,6 +172,10 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
+                      onChanged: (value){
+                        globals.code6 = value;
+                        print("" + globals.code6);
+                      },
                     ),
                   ),
 
@@ -207,7 +239,11 @@ class Code extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
+
+                          _reg();
                           Navigator.pushNamed(context, '/intro_page2');
+
+
                         },
                       ),
                     ),
@@ -223,5 +259,20 @@ class Code extends StatelessWidget {
         ),
       ),
     );
+  }
+
+    _reg() async {
+
+    String vCode = globals.code1 + globals.code2 + globals.code3 +
+        globals.code4 + globals.code5 + globals.code6;
+      var data = {
+        'email'  : globals.email,
+        'vCode'  : vCode
+      };
+      var res = await CallApi().postData(data, '(Control)regist.php');
+      List<dynamic> body = json.decode(res.body);
+      if(body[0] == "success"){
+        Navigator.pushNamed(cont, '/Code');
+    }
   }
 }
