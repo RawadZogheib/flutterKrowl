@@ -29,7 +29,8 @@ class Signup extends StatelessWidget {
                   fontSize: 30,
                 )),
             Container(
-              width: 160,
+              width: 600,
+              margin: EdgeInsets.only(left: 80),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "type your email here...",
