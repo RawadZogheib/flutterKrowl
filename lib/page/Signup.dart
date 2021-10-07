@@ -43,7 +43,7 @@ class Signup extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   globals.email = value;
-                  print("" + globals.email);
+                  //print("" + globals.email);
                 },
               ),
             ),

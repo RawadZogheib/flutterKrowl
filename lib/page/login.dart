@@ -46,7 +46,7 @@ class Login extends StatelessWidget {
                 ),
                 onChanged: (value){
                   globals.emailLogin = value;
-                  print("" + globals.emailLogin);
+                  //print("" + globals.emailLogin);
                 },
               ),
             ),

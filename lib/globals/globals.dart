@@ -1,32 +1,32 @@
 library flutterKrowl.globals;
 
 //Registration
-late String email;
-late String fName;
-late String lName;
-late String userName;
-late String password;
-late String repassword;
-late String dateOfBirth;
-late String photo;
-late String terms;
-late String cropX;
-late String cropY;
-late String cropWidth;
-late String cropHeight;
-late String uniId;
-late String majorId;
-late String minorId;
+String? email = null;
+String? fName = null;
+String? lName = null;
+String? userName = null;
+String? password = null;
+String? repassword = null;
+String? dateOfBirth = null;
+String? photo = null;
+String? terms = null;
+String? cropX = null;
+String? cropY = null;
+String? cropWidth = null;
+String? cropHeight = null;
+String? uniId = null;
+String? majorId = null;
+String? minorId = null;
 
-late String code1;
-late String code2;
-late String code3;
-late String code4;
-late String code5;
-late String code6;
+String? code1 = null;
+String? code2 = null;
+String? code3 = null;
+String? code4 = null;
+String? code5 = null;
+String? code6 = null;
 
 
 //login
-late String emailLogin;
-late String emailPassword;
+String? emailLogin = null;
+String? emailPassword = null;
 
