@@ -39,6 +39,7 @@ class Login2 extends StatelessWidget {
                 inputFormatters: [
                   FilteringTextInputFormatter.deny(RegExp(r"\s")),
                 ],
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: "type your password here ...",
                   hintStyle: TextStyle(
@@ -110,7 +111,8 @@ class Login2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailPassword != null) {
+                          if (globals.emailPassword != null || !
+                          globals.emailPassword!.contains(" ")) {
                             Navigator.pushNamed(context, '/intro_page2');
                           } else {
                             showDialog<String>(

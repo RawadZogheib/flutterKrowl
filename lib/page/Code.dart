@@ -191,32 +191,6 @@ class Code extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.blue.shade900,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context, '/Sign_up');
-                    },
-                  ),
-                ),
                 Row(
                   children: [
                     Container(

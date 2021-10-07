@@ -34,11 +34,11 @@ class Signup extends StatelessWidget {
                 )),
             Container(
               width: 600,
-              margin: EdgeInsets.only(left: 80),
               child: TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.deny(RegExp(r"\s")),
                 ],
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: "type your email here...",
                   hintStyle: TextStyle(
@@ -113,7 +113,8 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != null) {
+                          if (globals.email != null || !
+                          globals.email!.contains(" ")) {
                             Navigator.pushNamed(context, '/Registration');
                           } else {
                             showDialog<String>(
