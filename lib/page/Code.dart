@@ -241,8 +241,6 @@ class Code extends StatelessWidget {
                         onTap: () {
 
                           _reg();
-                          Navigator.pushNamed(context, '/intro_page2');
-
 
                         },
                       ),
@@ -269,10 +267,27 @@ class Code extends StatelessWidget {
         'email'  : globals.email,
         'vCode'  : vCode
       };
-      var res = await CallApi().postData(data, '(Control)regist.php');
+      var res = await CallApi().postData(data, '(Control)getVCode.php');
       List<dynamic> body = json.decode(res.body);
+      print(body[0]);
       if(body[0] == "success"){
-        Navigator.pushNamed(cont, '/Code');
-    }
+        Navigator.pushNamed(cont, '/intro_page2');
+    }else{
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(
+                'Email can not be empty.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
   }
 }
