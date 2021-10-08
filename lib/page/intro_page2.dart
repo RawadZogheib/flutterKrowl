@@ -53,35 +53,7 @@ class Intro2 extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          margin: EdgeInsets.only(left: 10.sp),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context, '/intro_page');
-                    },
-                  ),
-                ),
-
-               Row(
+                Row(
                   children: [
                     Container(
                       width: 70,

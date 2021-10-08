@@ -222,6 +222,33 @@ class Code extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                  child: InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 30,
+                          margin: EdgeInsets.only(left: 10.sp),
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 25,
+                            color: Colors.blue.shade900,
+                          ),
+                        ),
+                        Text("previous",
+                            style: TextStyle(
+                              color: Colors.blue.shade900,
+                              fontFamily: 'Rubik',
+                              fontSize: 20,
+                            )),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.pop(context, '/Registration3');
+                    },
+                  ),
+                ),
                 Row(
                   children: [
                     Container(
@@ -282,7 +309,7 @@ class Code extends StatelessWidget {
       List<dynamic> body = json.decode(res.body);
       print(body[0]);
       if(body[0] == "success"){
-        Navigator.pushNamed(cont, '/intro_page2');
+        Navigator.pushNamedAndRemoveUntil(cont, '/intro_page2,', (route) => false);
     }else{
         showDialog<String>(
           context: cont,

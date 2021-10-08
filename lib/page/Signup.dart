@@ -114,6 +114,7 @@ class Signup extends StatelessWidget {
                         ),
                         onTap: () {
                           if (globals.email != null ) {
+                            if(globals.email!.isNotEmpty)
                             Navigator.pushNamed(context, '/Registration');
                           } else {
                             showDialog<String>(

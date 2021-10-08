@@ -111,8 +111,8 @@ class Login2 extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.emailPassword != null || !
-                          globals.emailPassword!.contains(" ")) {
+                          if (globals.emailPassword != null ) {
+                            if (globals.emailPassword!.isNotEmpty)
                             Navigator.pushNamed(context, '/intro_page2');
                           } else {
                             showDialog<String>(
