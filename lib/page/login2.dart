@@ -236,7 +236,7 @@ class _Login2State extends State<Login2> {
               AlertDialog(
                 title: const Text('Error'),
                 content: const Text(
-                    'No Spaces Allowed.'),
+                    'No empty Allowed.'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () =>
