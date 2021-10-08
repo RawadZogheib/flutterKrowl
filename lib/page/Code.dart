@@ -250,6 +250,10 @@ class _CodeState extends State<Code> {
                       ],
                     ),
                     onTap: () {
+                      globals.fName = null;
+                      globals.lName = null;
+                      globals.userName = null;
+                      globals.dateOfBirth = null;
                       Navigator.pop(context, '/Registration3');
                     },
                   ),
