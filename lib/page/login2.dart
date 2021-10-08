@@ -179,8 +179,8 @@ class _Login2State extends State<Login2> {
 
     if (globals.emailLogin != null
         && globals.emailPassword != null) {
-      if (!globals.emailLogin!.isNotEmpty
-          && !globals.emailPassword!.isNotEmpty) {
+      if (globals.emailLogin!.isNotEmpty
+          && globals.emailPassword!.isNotEmpty) {
 
         var data = {
           'email': globals.emailLogin,
