@@ -184,7 +184,7 @@ class _Login2State extends State<Login2> {
 
         var data = {
           'email': globals.emailLogin,
-          'first_name': globals.emailPassword
+          'password': globals.emailPassword
         };
 
         var res = await CallApi().postData(data, '(Control)login.php');
