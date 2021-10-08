@@ -202,21 +202,9 @@ class Registration3 extends StatelessWidget {
         && globals.majorId != null
         && globals.minorId != null) {
       if (!globals.email!.contains(" ")
-          && !globals.fName!.contains(" ")
-          && !globals.lName!.contains(" ")
           && !globals.userName!.contains(" ")
           && !globals.password!.contains(" ")
-          && !globals.repassword!.contains(" ")
-          && !globals.dateOfBirth!.contains(" ")
-          && !globals.photo!.contains(" ")
-          && !globals.terms!.contains(" ")
-          && !globals.cropX!.contains(" ")
-          && !globals.cropY!.contains(" ")
-          && !globals.cropWidth!.contains(" ")
-          && !globals.cropHeight!.contains(" ")
-          && !globals.uniId!.contains(" ")
-          && !globals.majorId!.contains("  ")
-          && !globals.minorId!.contains(" ")) {
+          && !globals.repassword!.contains(" ")) {
         if(globals.password==globals.repassword) {
           var data = {
             'email': globals.email,
