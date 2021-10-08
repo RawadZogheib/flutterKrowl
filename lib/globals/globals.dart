@@ -1,5 +1,8 @@
 library flutterKrowl.globals;
 
+String myIP = "http://10.10.4.64";
+
+
 //Registration
 String? email = null;
 String? fName = null;

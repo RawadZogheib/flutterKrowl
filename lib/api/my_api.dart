@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+
 
 class CallApi{
-  final String _url = 'http://10.10.4.64/krowl/';
+  final String _url = '${globals.myIP}/krowl/';
   final String _imgUrl='http://mark.dbestech.com/uploads/';
   getImage(){
     return _imgUrl;
   }
    postData(data, apiUrl) async {
-    var fullUrl = _url + apiUrl;// + await _getToken() ;
+    var fullUrl = _url + apiUrl + await _getToken() ;
     print(fullUrl);
     return await http.post(   //post request
         Uri.parse(fullUrl),
@@ -18,7 +20,7 @@ class CallApi{
     );
   }
   getData(apiUrl) async {
-    var fullUrl = _url + apiUrl;// + await _getToken();
+    var fullUrl = _url + apiUrl + await _getToken();
     return await http.get(
         Uri.parse(fullUrl),
         headers: _setHeaders()
@@ -31,11 +33,11 @@ class CallApi{
 
   };
 
- // _getToken() async {
- //   SharedPreferences localStorage = await SharedPreferences.getInstance();
- //   var token = localStorage.getString('token');
- //   return '?token=$token';
- // }
+  _getToken() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('token');
+    return '?token=$token';
+  }
 
 
   getArticles(apiUrl) async {

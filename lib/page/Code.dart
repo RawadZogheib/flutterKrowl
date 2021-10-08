@@ -281,8 +281,27 @@ class _CodeState extends State<Code> {
                           ],
                         ),
                         onTap: () {
+                          try {
+                            _sendCode();
+                          }catch(e){
 
-                          _reg();
+                            showDialog<String>(
+                              context: cont,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                    'OOPs! Something went wrong. Try again in few seconds.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+
+                          }
 
                         },
                       ),
@@ -301,7 +320,7 @@ class _CodeState extends State<Code> {
     );
   }
 
-    _reg() async {
+    _sendCode() async {
 
     String? vCode;
     vCode = globals.code1! + globals.code2! + globals.code3! +
@@ -314,7 +333,7 @@ class _CodeState extends State<Code> {
       List<dynamic> body = json.decode(res.body);
       print(body[0]);
       if(body[0] == "success"){
-        Navigator.pushNamedAndRemoveUntil(cont, '/intro_page2,', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(cont, '/intro_page2', (route) => false);
     }else{
         showDialog<String>(
           context: cont,
@@ -332,5 +351,8 @@ class _CodeState extends State<Code> {
           ),
         );
       }
+
+
+
   }
 }
