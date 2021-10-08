@@ -51,6 +51,7 @@ class Code extends StatelessWidget {
                     margin: EdgeInsets.only(left: 5),
                     child: TextField(
                       maxLength: 1,
+                      
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly
                       ],
