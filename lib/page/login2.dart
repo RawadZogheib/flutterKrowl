@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
+
+late BuildContext cont;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -12,6 +17,7 @@ class Login2 extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    cont = context;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -113,7 +119,7 @@ class Login2 extends StatelessWidget {
                         onTap: () {
                           if (globals.emailPassword != null ) {
                             if (globals.emailPassword!.isNotEmpty)
-                            Navigator.pushNamed(context, '/intro_page2');
+                              _login();
                           } else {
                             showDialog<String>(
                               context: context,
@@ -141,5 +147,185 @@ class Login2 extends StatelessWidget {
         ),
       ),
     );
+  }
+  _login()async  {
+
+    if (globals.emailLogin != null
+        && globals.emailPassword != null) {
+      if (!globals.emailLogin!.isNotEmpty
+          && !globals.emailPassword!.isNotEmpty) {
+
+        var data = {
+          'email': globals.emailLogin,
+          'first_name': globals.emailPassword
+        };
+
+        var res = await CallApi().postData(data, '(Control)regist.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+        if (body[0] == "success") {
+
+          Navigator.pushNamed(cont, '/intro_page2');
+        } else if (body[0] == "error1") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'No Spaces Allowed.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error3") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Please make sure your passwords match.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error4") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Error with registration.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error5") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'UserName already exist.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error6") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Email already exist.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error7") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Connection error.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Failed to connect... Try again in few seconds.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }
+
+      } else {
+
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'No Spaces Allowed.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),);
+      }
+
+    } else {
+
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'No nulls Allowed.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),);
+    }
+
+
+
   }
 }
