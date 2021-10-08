@@ -111,7 +111,7 @@ class Login extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != null ) {
+                          if (globals.emailLogin != null ) {
                             Navigator.pushNamed(context, '/login2' );
                           }
                           else {
