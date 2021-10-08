@@ -1,18 +1,23 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
-import 'package:flutter/services.dart';
 
+Color col1 = Colors.blue.shade50;
+Color col1_1 = Colors.blue.shade900;
+Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +45,19 @@ class Signup extends StatelessWidget {
                 ],
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade50),
+                      borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: col1,
+                  focusedBorder:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: col1_1)),
                   hintText: "type your email here...",
+
                   hintStyle: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.blue.shade900.withOpacity(0.5),
+                    color: col1_2,
                     fontFamily: 'Rubik',
                   ),
                   border: InputBorder.none,
@@ -83,6 +97,7 @@ class Signup extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
+                      globals.email = null;
                       Navigator.pop(context, '/intro_page');
                     },
                   ),
@@ -113,24 +128,57 @@ class Signup extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != null ) {
-                            if(globals.email!.isNotEmpty)
-                            Navigator.pushNamed(context, '/Registration');
-                          } else {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text('Email can not be empty.'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
+                          if (globals.email != null) {
+                            if (globals.email!.isNotEmpty) {
+                              setState(() {
+                                col1 = Colors.blue.shade50;
+                                col1_1 = Colors.blue.shade900;
+                                col1_2 = Colors.blue.shade900.withOpacity(0.5);
+                              });
+                              Navigator.pushNamed(context, '/Registration');
+                            } else {
+                              setState(() {
+                                col1 = Colors.red.shade50;
+                                col1_1 = Colors.red.shade900;
+                                col1_2 = Colors.red.shade900.withOpacity(0.5);
+                                });
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) => AlertDialog(
+                                    title: const Text('Error'),
+                                    content: const Text('Email can not be empty.'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
+                                );
+
+                            }
+                          } else {
+                            setState(() {
+                              col1 = Colors.red.shade50;
+                              col1_1 = Colors.red.shade900;
+                              col1_2 = Colors.red.shade900.withOpacity(0.5);
+                              });
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text('Email can not be null.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+
                           }
                         },
                       ),
