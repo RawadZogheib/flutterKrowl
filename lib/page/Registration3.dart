@@ -162,7 +162,29 @@ class Registration3 extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        _reg();
+                        try {
+                          _reg();
+                        }catch(e){
+
+                          showDialog<String>(
+                            context: cont,
+                            builder: (BuildContext context) =>
+                                AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text(
+                                      'OOPs! Something went wrong. Try again in few seconds.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                          );
+
+                        }
+
                       },
                     ),
                   ),
@@ -338,7 +360,7 @@ class Registration3 extends StatelessWidget {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Failed to connect... Try again in few seconds.'),
+                        'Failed to connect... Connection Problem.'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
