@@ -187,13 +187,12 @@ class _Login2State extends State<Login2> {
           'first_name': globals.emailPassword
         };
 
-        var res = await CallApi().postData(data, '(Control)regist.php');
+        var res = await CallApi().postData(data, '(Control)login.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
-        if (body[0] == "success") {
-
+        if (body[0] == "true") {
           Navigator.pushNamed(cont, '/intro_page2');
-        } else if (body[0] == "error1") {
+        } else if (body[0] == "false") {
           showDialog<String>(
             context: cont,
             builder: (BuildContext context) =>
@@ -201,91 +200,6 @@ class _Login2State extends State<Login2> {
                   title: const Text('Error'),
                   content: const Text(
                       'No Spaces Allowed.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error3") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Please make sure your passwords match.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error4") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Error with registration.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error5") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'UserName already exist.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error6") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Email already exist.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error7") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Connection error.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
