@@ -240,7 +240,7 @@ class Registration3 extends StatelessWidget {
           print(res.body);
           List<dynamic> body = json.decode(res.body);
           if (body[0] == "success") {
-            Navigator.pushNamed(cont, '/Code');
+            Navigator.pushNamedAndRemoveUntil(cont , '/Code', (route) => false);
           } else if (body[0] == "error1") {
             showDialog<String>(
               context: cont,

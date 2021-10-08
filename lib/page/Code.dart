@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -49,6 +50,10 @@ class Code extends StatelessWidget {
                     width: 50,
                     margin: EdgeInsets.only(left: 5),
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -70,6 +75,10 @@ class Code extends StatelessWidget {
                     height: 100,
                     width: 50,
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -90,6 +99,10 @@ class Code extends StatelessWidget {
                     height: 100,
                     width: 50,
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -125,6 +138,10 @@ class Code extends StatelessWidget {
                     width: 50,
                     margin: EdgeInsets.only(left: 5),
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -146,6 +163,10 @@ class Code extends StatelessWidget {
                     height: 100,
                     width: 50,
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
@@ -167,6 +188,10 @@ class Code extends StatelessWidget {
                     height: 100,
                     width: 50,
                     child: TextField(
+                      maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),

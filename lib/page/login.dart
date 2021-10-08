@@ -111,10 +111,10 @@ class Login extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != null || !
-                          globals.email!.contains(" ")) {
-                            Navigator.pushNamed(context, '/login2');
-                          } else {
+                          if (globals.email != null ) {
+                            Navigator.pushNamed(context, '/login2' );
+                          }
+                          else {
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
