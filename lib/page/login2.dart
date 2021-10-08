@@ -13,8 +13,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Login2 extends StatelessWidget {
+class Login2 extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Login2> createState() => _Login2State();
+}
+
+class _Login2State extends State<Login2> {
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -169,6 +174,7 @@ class Login2 extends StatelessWidget {
       ),
     );
   }
+
   _login()async  {
 
     if (globals.emailLogin != null
