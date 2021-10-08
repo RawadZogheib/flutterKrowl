@@ -51,7 +51,6 @@ class Code extends StatelessWidget {
                     margin: EdgeInsets.only(left: 5),
                     child: TextField(
                       maxLength: 1,
-                      
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly
                       ],
@@ -64,9 +63,9 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
-                      textInputAction: TextInputAction.next,
                       onChanged: (value){
                         globals.code1 = value;
+                        TextInputAction.next;
                         //print("" + globals.code1);
                       },
                     ),
@@ -88,9 +87,10 @@ class Code extends StatelessWidget {
                         focusedBorder:
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
-                      ),textInputAction: TextInputAction.next,
+                      ),
                       onChanged: (value){
                         globals.code2 = value;
+                        TextInputAction.next;
                         //print("" + globals.code2);
                       },
                     ),
@@ -113,9 +113,9 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
-                      textInputAction: TextInputAction.next,
                       onChanged: (value){
                         globals.code3 = value;
+                        TextInputAction.next;
                         //print("" + globals.code3);
                       },
                     ),
@@ -152,9 +152,9 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
-                      textInputAction: TextInputAction.next,
                       onChanged: (value){
                         globals.code4 = value;
+                        TextInputAction.next;
                         //print("" + globals.code4);
                       },
                     ),
@@ -177,9 +177,9 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
-                      textInputAction: TextInputAction.next,
                       onChanged: (value){
                         globals.code5 = value;
+                        TextInputAction.next;
                         //print("" + globals.code5);
                       },
                     ),
@@ -202,9 +202,9 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
-                      textInputAction: TextInputAction.done,
                       onChanged: (value){
                         globals.code6 = value;
+                        TextInputAction.done;
                         //print("" + globals.code6);
                       },
                     ),
