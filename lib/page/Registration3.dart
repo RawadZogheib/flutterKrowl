@@ -12,8 +12,13 @@ void main() =>
       debugShowCheckedModeBanner: false,
     ));
 
-class Registration3 extends StatelessWidget {
+class Registration3 extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Registration3> createState() => _Registration3State();
+}
+
+class _Registration3State extends State<Registration3> {
   @override
   Widget build(BuildContext context) {
     cont = context;

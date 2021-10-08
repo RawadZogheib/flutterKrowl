@@ -8,8 +8,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +39,7 @@ class Login extends StatelessWidget {
                   )),
             ),
             Container(
-              width: 160,
+              width: 500,
               child: TextField(
                 inputFormatters :[
                 FilteringTextInputFormatter.deny(RegExp(r"\s")),

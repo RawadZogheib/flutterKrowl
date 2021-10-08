@@ -7,8 +7,13 @@ import 'package:sizer/sizer.dart';
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Intro()));
 
-class Intro extends StatelessWidget {
+class Intro extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Intro> createState() => _IntroState();
+}
+
+class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

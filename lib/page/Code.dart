@@ -13,8 +13,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Code extends StatelessWidget {
+class Code extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Code> createState() => _CodeState();
+}
+
+class _CodeState extends State<Code> {
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -55,6 +60,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -64,7 +70,6 @@ class Code extends StatelessWidget {
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
                       textInputAction: TextInputAction.next,
-                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
                       onChanged: (value){
                         globals.code1 = value;
                         //print("" + globals.code1);
@@ -81,6 +86,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -89,7 +95,6 @@ class Code extends StatelessWidget {
                         OutlineInputBorder(borderRadius: BorderRadius.circular(14),
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),textInputAction: TextInputAction.next,
-                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
                       onChanged: (value){
                         globals.code2 = value;
                         //print("" + globals.code2);
@@ -106,6 +111,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -115,7 +121,6 @@ class Code extends StatelessWidget {
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
                       textInputAction: TextInputAction.next,
-                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
                       onChanged: (value){
                         globals.code3 = value;
                         //print("" + globals.code3);
@@ -146,6 +151,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -155,7 +161,6 @@ class Code extends StatelessWidget {
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
                       textInputAction: TextInputAction.next,
-                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
                       onChanged: (value){
                         globals.code4 = value;
                         //print("" + globals.code4);
@@ -172,6 +177,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -181,7 +187,6 @@ class Code extends StatelessWidget {
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
                       textInputAction: TextInputAction.next,
-                      onEditingComplete: () => FocusScope.of(context).nextFocus(),
                       onChanged: (value){
                         globals.code5 = value;
                         //print("" + globals.code5);
@@ -198,6 +203,7 @@ class Code extends StatelessWidget {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       decoration: InputDecoration(
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue.shade900),
                             borderRadius: BorderRadius.circular(14)),
@@ -207,7 +213,6 @@ class Code extends StatelessWidget {
                             borderSide: BorderSide(color: Colors.blue.shade900)),
                       ),
                       textInputAction: TextInputAction.done,
-                      onSubmitted: (_) => FocusScope.of(context).unfocus(),
                       onChanged: (value){
                         globals.code6 = value;
                         //print("" + globals.code6);

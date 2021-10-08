@@ -7,8 +7,13 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
 ));
 
-class Registration2 extends StatelessWidget {
+class Registration2 extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Registration2> createState() => _Registration2State();
+}
+
+class _Registration2State extends State<Registration2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
