@@ -8,8 +8,8 @@ Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
 Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
 void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-    ));
+  debugShowCheckedModeBanner: false,
+));
 
 class Signup extends StatefulWidget {
   // This widget is the root of your application.
@@ -141,34 +141,12 @@ class _SignupState extends State<Signup> {
                                 col1 = Colors.red.shade50;
                                 col1_1 = Colors.red.shade900;
                                 col1_2 = Colors.red.shade900.withOpacity(0.5);
-                                });
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text('Email can not be empty.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-
-                            }
-                          } else {
-                            setState(() {
-                              col1 = Colors.red.shade50;
-                              col1_1 = Colors.red.shade900;
-                              col1_2 = Colors.red.shade900.withOpacity(0.5);
                               });
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
                                   title: const Text('Error'),
-                                  content: const Text('Email can not be null.'),
+                                  content: const Text('Email can not be empty.'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () =>
@@ -179,7 +157,33 @@ class _SignupState extends State<Signup> {
                                 ),
                               );
 
+                            }
+                          } else {
+                            setState(() {
+                              col1 = Colors.red.shade50;
+                              col1_1 = Colors.red.shade900;
+                              col1_2 = Colors.red.shade900.withOpacity(0.5);
+                            });
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text('Email can not be null.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+
                           }
+
+
+
+
                         },
                       ),
                     ),
