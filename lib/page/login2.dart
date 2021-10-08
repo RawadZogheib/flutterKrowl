@@ -13,8 +13,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Login2 extends StatelessWidget {
+class Login2 extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<Login2> createState() => _Login2State();
+}
+
+class _Login2State extends State<Login2> {
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -169,6 +174,7 @@ class Login2 extends StatelessWidget {
       ),
     );
   }
+
   _login()async  {
 
     if (globals.emailLogin != null
@@ -181,13 +187,12 @@ class Login2 extends StatelessWidget {
           'first_name': globals.emailPassword
         };
 
-        var res = await CallApi().postData(data, '(Control)regist.php');
+        var res = await CallApi().postData(data, '(Control)login.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
-        if (body[0] == "success") {
-
+        if (body[0] == "true") {
           Navigator.pushNamed(cont, '/intro_page2');
-        } else if (body[0] == "error1") {
+        } else if (body[0] == "false") {
           showDialog<String>(
             context: cont,
             builder: (BuildContext context) =>
@@ -195,91 +200,6 @@ class Login2 extends StatelessWidget {
                   title: const Text('Error'),
                   content: const Text(
                       'No Spaces Allowed.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error3") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Please make sure your passwords match.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error4") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Error with registration.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error5") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'UserName already exist.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error6") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Email already exist.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        } else if (body[0] == "error7") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Connection error.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
@@ -316,7 +236,7 @@ class Login2 extends StatelessWidget {
               AlertDialog(
                 title: const Text('Error'),
                 content: const Text(
-                    'No Spaces Allowed.'),
+                    'No empty Allowed.'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () =>
