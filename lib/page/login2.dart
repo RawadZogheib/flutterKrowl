@@ -119,7 +119,28 @@ class Login2 extends StatelessWidget {
                         onTap: () {
                           if (globals.emailPassword != null ) {
                             if (globals.emailPassword!.isNotEmpty)
-                              _login();
+                              try {
+                                _login();
+                              }catch(e){
+
+                                showDialog<String>(
+                                  context: cont,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                        title: const Text('Error'),
+                                        content: const Text(
+                                            'OOPs! Something went wrong. Try again in few seconds.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ),
+                                );
+
+                              }
                           } else {
                             showDialog<String>(
                               context: context,
