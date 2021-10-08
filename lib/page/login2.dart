@@ -199,7 +199,24 @@ class _Login2State extends State<Login2> {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'No Spaces Allowed.'),
+                      'Invalid username or password.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        } else if (body[0] == "error7") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'Connection error.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
