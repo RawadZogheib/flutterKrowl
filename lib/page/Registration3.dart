@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
 
-late BuildContext cont;
+
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -21,7 +21,7 @@ class Registration3 extends StatefulWidget {
 class _Registration3State extends State<Registration3> {
   @override
   Widget build(BuildContext context) {
-    cont = context;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -168,7 +168,7 @@ class _Registration3State extends State<Registration3> {
                           _reg();
                         } catch (e) {
                           showDialog<String>(
-                            context: cont,
+                            context: context,
                             builder: (BuildContext context) => AlertDialog(
                               title: const Text('Error'),
                               content: const Text(
@@ -241,14 +241,14 @@ class _Registration3State extends State<Registration3> {
             'major_degree_ids': globals.majorId,
             'minor_degree_ids': globals.minorId,
           };
-          var res = await CallApi().postData(data, '(Control)regist.php');
+          var res = await CallApi().postData(data, '(Control)registration3.php');
           print(res.body);
           List<dynamic> body = json.decode(res.body);
           if (body[0] == "success") {
-            Navigator.pushNamed(cont, '/Code');
+            Navigator.pushNamed(context, '/Code');
           } else if (body[0] == "error1") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('No Spaces Allowed.'),
@@ -262,7 +262,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error2_1") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text(
@@ -277,7 +277,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error2_2") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text(
@@ -292,7 +292,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error2_3") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text(
@@ -307,7 +307,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error2_4") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Your age must be greater than 17.'),
@@ -321,7 +321,7 @@ class _Registration3State extends State<Registration3> {
             );
           }else if (body[0] == "error2_5") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('It\'s not a university email.'),
@@ -335,7 +335,7 @@ class _Registration3State extends State<Registration3> {
             );
           }  else if (body[0] == "error3") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Please make sure your passwords match.'),
@@ -349,7 +349,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error4") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Error with registration.'),
@@ -363,7 +363,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error5") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('UserName already exist.'),
@@ -377,7 +377,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error6") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Email already exist.'),
@@ -391,7 +391,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else if (body[0] == "error7") {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Connection error.'),
@@ -405,7 +405,7 @@ class _Registration3State extends State<Registration3> {
             );
           } else {
             showDialog<String>(
-              context: cont,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
                 content: const Text('Failed to connect... Connection Problem.'),
@@ -420,7 +420,7 @@ class _Registration3State extends State<Registration3> {
           }
         } else {
           showDialog<String>(
-            context: cont,
+            context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('Error'),
               content: const Text('Please make sure your passwords match.'),
@@ -435,7 +435,7 @@ class _Registration3State extends State<Registration3> {
         }
       } else {
         showDialog<String>(
-          context: cont,
+          context: context,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
             content: const Text('No Spaces Allowed.'),
@@ -450,7 +450,7 @@ class _Registration3State extends State<Registration3> {
       }
     } else {
       showDialog<String>(
-        context: cont,
+        context: context,
         builder: (BuildContext context) => AlertDialog(
           title: const Text('Error'),
           content: const Text('No nulls Allowed.'),

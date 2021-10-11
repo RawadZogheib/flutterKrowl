@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
 
@@ -128,17 +130,18 @@ class _SignupState extends State<Signup> {
                           ],
                         ),
                         onTap: () {
-                          if (globals.email != null) {
+                          onTap: _reg();
+                       /*   if (globals.email != null) {
                             if (globals.email!.isNotEmpty) {
                               if (!globals.email!.contains(" ")) {
+
                                 setState(() {
                                   col1 = Colors.blue.shade50;
                                   col1_1 = Colors.blue.shade900;
-                                  col1_2 =
-                                      Colors.blue.shade900.withOpacity(0.5);
+                                  col1_2 = Colors.blue.shade900.withOpacity(0.5);
                                 });
                                 Navigator.pushNamed(context, '/Registration');
-                              } else {
+                              }else {
                                 setState(() {
                                   col1 = Colors.red.shade50;
                                   col1_1 = Colors.red.shade900;
@@ -202,7 +205,9 @@ class _SignupState extends State<Signup> {
                                 ],
                               ),
                             );
-                          }
+                          }*/
+
+
                         },
                       ),
                     ),
@@ -215,4 +220,222 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
+
+  _reg() async {
+    globals.photo = "test";
+    globals.terms = "test";
+    globals.cropX = "test";
+    globals.cropY = "test";
+    globals.cropWidth = "test";
+    globals.cropHeight = "test";
+
+    if (globals.email != null) {
+      if (globals.email!.isNotEmpty) {
+        if (!globals.email!.contains(" ")) {
+
+          var data = {
+            'email': globals.email,
+          };
+          var res = await CallApi().postData(
+              data, '(Control)signup.php');
+          print("ujhruirrrrrrrrrrrrrrrrrrrrrrr"+res.body);
+          List<dynamic> body = json.decode(res.body);
+          if (body[0] == "success") {
+            setState(() {
+              col1 = Colors.blue.shade50;
+              col1_1 = Colors.blue.shade900;
+              col1_2 =
+                  Colors.blue.shade900.withOpacity(0.5);
+            });
+            Navigator.pushNamed(context, '/Registration');
+          } else if (body[0] == "error1") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'No Spaces Allowed.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error2_5") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'It\'s not a university email.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error6") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Email already exist.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          } else if (body[0] == "error7") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Connection error.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Failed to connect... Connection Problem.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+        } else {
+          setState(() {
+            col1 = Colors.red.shade50;
+            col1_1 = Colors.red.shade900;
+            col1_2 =
+                Colors.red.shade900.withOpacity(0.5);
+          });
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'No spaces Allowed .'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }
+      } else {
+        setState(() {
+          col1 = Colors.red.shade50;
+          col1_1 = Colors.red.shade900;
+          col1_2 = Colors.red.shade900.withOpacity(0.5);
+        });
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content:
+            const Text('Email can not be empty.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } else {
+      setState(() {
+        col1 = Colors.red.shade50;
+        col1_1 = Colors.red.shade900;
+        col1_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'Email can not be null.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
+  }
 }
+
