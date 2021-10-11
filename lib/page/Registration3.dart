@@ -273,7 +273,75 @@ class _Registration3State extends State<Registration3> {
                     ],
                   ),
             );
-          } else if (body[0] == "error3") {
+          }else if (body[0] == "error2_1") {
+            showDialog<String>(
+              context: cont,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your username must contain at least 8 characters.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }else if (body[0] == "error2_2") {
+            showDialog<String>(
+              context: cont,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your username can only contain low and hight characters.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }else if (body[0] == "error2_3") {
+            showDialog<String>(
+              context: cont,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(!,\$,#,@,%).'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }else if (body[0] == "error2_4") {
+            showDialog<String>(
+              context: cont,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your age must be greater than 17.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }else if (body[0] == "error3") {
             showDialog<String>(
               context: cont,
               builder: (BuildContext context) =>
