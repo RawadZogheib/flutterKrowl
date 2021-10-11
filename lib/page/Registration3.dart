@@ -319,7 +319,21 @@ class _Registration3State extends State<Registration3> {
                 ],
               ),
             );
-          } else if (body[0] == "error3") {
+          }else if (body[0] == "error2_5") {
+            showDialog<String>(
+              context: cont,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('It\'s not a university email.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          }  else if (body[0] == "error3") {
             showDialog<String>(
               context: cont,
               builder: (BuildContext context) => AlertDialog(
