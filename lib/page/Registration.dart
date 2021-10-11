@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -23,7 +21,7 @@ Color col4 = Colors.blue.shade50;
 Color col4_1 = Colors.blue.shade900;
 Color col4_2 = Colors.blue.shade900.withOpacity(0.5);
 
-
+RegExp exp = new RegExp(r"^[a-zA-Z0-9_\.]*$", caseSensitive: false);
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -133,7 +131,7 @@ class _RegistrationState extends State<Registration> {
                     borderSide: BorderSide(color: Colors.blue.shade50),
                     borderRadius: BorderRadius.circular(10)),
                 filled: true,
-                fillColor:col3,
+                fillColor: col3,
                 hintText: "Username",
                 hintStyle: TextStyle(
                   fontSize: 15.0,
@@ -208,6 +206,10 @@ class _RegistrationState extends State<Registration> {
                     ],
                   ),
                   onTap: () {
+                    globals.fName = null;
+                    globals.lName = null;
+                    globals.userName= null;
+                    globals.dateOfBirth = null;
                     Navigator.pop(context, '/intro_page2');
                   },
                 ),
@@ -239,35 +241,42 @@ class _RegistrationState extends State<Registration> {
                         ],
                       ),
                       onTap: () {
-
                         bool if1 = false;
                         bool if2 = false;
                         bool if3 = false;
+                        bool if33 = false;
+                        bool if333 = false;
+                        bool if3333 = false;
                         bool if4 = false;
 
-                        if (globals.fName != null)
-                          if(globals.fName!.isNotEmpty)
-                            if1=true;
+                        if (globals.fName != null) if (globals
+                            .fName!.isNotEmpty) if1 = true;
 
-                        if(globals.lName != null)
-                          if(globals.lName!.isNotEmpty)
-                            if2=true;
+                        if (globals.lName != null) if (globals
+                            .lName!.isNotEmpty) if2 = true;
 
-                        if(globals.userName != null)
-                          if(globals.userName!.isNotEmpty)
-                            if3=true;
+                        if (globals.userName != null) if (globals
+                            .userName!.isNotEmpty) {
+                          if3 = true; //empty or null
+                          if (!globals.userName!.contains(" "))
+                            if33 = true; //space
+                          if (globals.userName!.length >= 8)
+                            if333 = true; // 8 characters
+                          if (exp.hasMatch(globals.userName!))
+                            if3333 = true; //regular exp
 
-                        if(globals.dateOfBirth != null)
-                          if(globals.dateOfBirth!.isNotEmpty)
-                            if4=true;
+                        }
 
-                        if(if1){
+                        if (globals.dateOfBirth != null) if (globals
+                            .dateOfBirth!.isNotEmpty) if4 = true;
+
+                        if (if1) {
                           setState(() {
                             col1 = Colors.blue.shade50;
                             col1_1 = Colors.blue.shade900;
                             col1_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else{
+                        } else {
                           setState(() {
                             col1 = Colors.red.shade50;
                             col1_1 = Colors.red.shade900;
@@ -275,13 +284,13 @@ class _RegistrationState extends State<Registration> {
                           });
                         }
 
-                        if(if2){
+                        if (if2) {
                           setState(() {
                             col2 = Colors.blue.shade50;
                             col2_1 = Colors.blue.shade900;
                             col2_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else{
+                        } else {
                           setState(() {
                             col2 = Colors.red.shade50;
                             col2_1 = Colors.red.shade900;
@@ -289,14 +298,20 @@ class _RegistrationState extends State<Registration> {
                           });
                         }
 
-
-                        if(if3){
+                        if (if3 && if33 && if333 && if3333) {
                           setState(() {
                             col3 = Colors.blue.shade50;
                             col3_1 = Colors.blue.shade900;
                             col3_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else{
+                        }
+                        else if((if1 ==false || if2==false || if4==false) && (if33==false || if333==false || if3333==false) && if3 ==true){
+                          setState(() {
+                            col3 = Colors.blue.shade50;
+                            col3_1 = Colors.blue.shade900;
+                            col3_2 = Colors.blue.shade900.withOpacity(0.5);
+                          });
+                        }else {
                           setState(() {
                             col3 = Colors.red.shade50;
                             col3_1 = Colors.red.shade900;
@@ -304,14 +319,13 @@ class _RegistrationState extends State<Registration> {
                           });
                         }
 
-
-                        if(if4){
+                        if (if4) {
                           setState(() {
                             col4 = Colors.blue.shade50;
                             col4_1 = Colors.blue.shade900;
                             col4_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else{
+                        } else {
                           setState(() {
                             col4 = Colors.red.shade50;
                             col4_1 = Colors.red.shade900;
@@ -319,9 +333,67 @@ class _RegistrationState extends State<Registration> {
                           });
                         }
 
-                        if(if1==true && if2==true && if3==true && if4==true){
-                          Navigator.pushNamed(context, '/Registration2');
-                        }else{
+                        if (if1 == true &&
+                            if2 == true &&
+                            if3 == true &&
+                            if4 == true) {
+                          if (if33 == true) {
+                            if (if333 == true) {
+                              if (if3333 == true) {
+                                Navigator.pushNamed(context, '/Registration2');
+                              } else {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Error'),
+                                    content: const Text(
+                                        "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text(
+                                      "Your UserName must contains at least 8 characters."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                    "No Spaces allowed"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        } else {
                           showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
@@ -329,8 +401,7 @@ class _RegistrationState extends State<Registration> {
                               content: const Text("Fields can't be Empty."),
                               actions: <Widget>[
                                 TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'OK'),
+                                  onPressed: () => Navigator.pop(context, 'OK'),
                                   child: const Text('OK'),
                                 ),
                               ],
