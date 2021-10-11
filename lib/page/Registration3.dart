@@ -1,14 +1,14 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:sizer/sizer.dart';
 
 late BuildContext cont;
 
-void main() =>
-    runApp(MaterialApp(
+void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
@@ -31,26 +31,24 @@ class _Registration3State extends State<Registration3> {
           Stack(
             children: <Widget>[
               Container(
-                child: (
-                    Image(
-                      image: AssetImage('Assets/Register.png'),
-                    )),),
+                child: (Image(
+                  image: AssetImage('Assets/Register.png'),
+                )),
+              ),
               Container(
                 alignment: Alignment.bottomLeft,
                 width: 250,
                 height: 130,
-                child: (
-                    Text(
-                      'Create your krowl account',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade900,
-                        fontFamily: 'Rubik',
-                        fontSize: 35,
-                      ),
-                    )
-                ),),
-
+                child: (Text(
+                  'Create your krowl account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade900,
+                    fontFamily: 'Rubik',
+                    fontSize: 35,
+                  ),
+                )),
+              ),
             ],
           ),
           Container(
@@ -68,8 +66,8 @@ class _Registration3State extends State<Registration3> {
                   color: Colors.blue.shade900,
                 ),
                 border: InputBorder.none,
-                focusedBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
               textInputAction: TextInputAction.next,
@@ -97,11 +95,11 @@ class _Registration3State extends State<Registration3> {
                   color: Colors.blue.shade900,
                 ),
                 border: InputBorder.none,
-                focusedBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.blue.shade900)),
               ),
-              onChanged: (value){
+              onChanged: (value) {
                 globals.repassword = value;
                 //print("" + globals.repassword);
               },
@@ -111,7 +109,6 @@ class _Registration3State extends State<Registration3> {
           SizedBox(
             height: 20,
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -169,35 +166,29 @@ class _Registration3State extends State<Registration3> {
                       onTap: () {
                         try {
                           _reg();
-                        }catch(e){
-
+                        } catch (e) {
                           showDialog<String>(
                             context: cont,
-                            builder: (BuildContext context) =>
-                                AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text(
-                                      'OOPs! Something went wrong. Try again in few seconds.'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Error'),
+                              content: const Text(
+                                  'OOPs! Something went wrong. Try again in few seconds.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
                                 ),
+                              ],
+                            ),
                           );
-
                         }
-
                       },
                     ),
                   ),
                 ],
               ),
-
-
-            ],),
+            ],
+          ),
         ]),
       ),
     );
@@ -211,28 +202,27 @@ class _Registration3State extends State<Registration3> {
     globals.cropWidth = "test";
     globals.cropHeight = "test";
 
-
-    if (globals.email != null
-        && globals.fName != null
-        && globals.lName != null
-        && globals.userName != null
-        && globals.password != null
-        && globals.repassword != null
-        && globals.dateOfBirth != null
-        && globals.photo != null
-        && globals.terms != null
-        && globals.cropX != null
-        && globals.cropY != null
-        && globals.cropWidth != null
-        && globals.cropHeight != null
-        && globals.uniId != null
-        && globals.majorId != null
-        && globals.minorId != null) {
-      if (!globals.email!.contains(" ")
-          && !globals.userName!.contains(" ")
-          && !globals.password!.contains(" ")
-          && !globals.repassword!.contains(" ")) {
-        if(globals.password==globals.repassword) {
+    if (globals.email != null &&
+        globals.fName != null &&
+        globals.lName != null &&
+        globals.userName != null &&
+        globals.password != null &&
+        globals.repassword != null &&
+        globals.dateOfBirth != null &&
+        globals.photo != null &&
+        globals.terms != null &&
+        globals.cropX != null &&
+        globals.cropY != null &&
+        globals.cropWidth != null &&
+        globals.cropHeight != null &&
+        globals.uniId != null &&
+        globals.majorId != null &&
+        globals.minorId != null) {
+      if (!globals.email!.contains(" ") &&
+          !globals.userName!.contains(" ") &&
+          !globals.password!.contains(" ") &&
+          !globals.repassword!.contains(" ")) {
+        if (globals.password == globals.repassword) {
           var data = {
             'email': globals.email,
             'first_name': globals.fName,
@@ -255,249 +245,209 @@ class _Registration3State extends State<Registration3> {
           print(res.body);
           List<dynamic> body = json.decode(res.body);
           if (body[0] == "success") {
-            Navigator.pushNamed(cont , '/Code');
+            Navigator.pushNamed(cont, '/Code');
           } else if (body[0] == "error1") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'No Spaces Allowed.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('No Spaces Allowed.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
-          }else if (body[0] == "error2_1") {
+          } else if (body[0] == "error2_1") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Your username must contain at least 8 characters.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Your username must contain at least 8 characters.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
-          }else if (body[0] == "error2_2") {
+          } else if (body[0] == "error2_2") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Your username can only contain low and hight characters.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Your username can only contain lowercase and uppercase characters and special characters( _ .).'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
-          }else if (body[0] == "error2_3") {
+          } else if (body[0] == "error2_3") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(!,\$,#,@,%).'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(!,\$,#,@,%).'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
-          }else if (body[0] == "error2_4") {
+          } else if (body[0] == "error2_4") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Your age must be greater than 17.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Your age must be greater than 17.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
-          }else if (body[0] == "error3") {
+          } else if (body[0] == "error3") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Please make sure your passwords match.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Please make sure your passwords match.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
           } else if (body[0] == "error4") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Error with registration.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Error with registration.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
           } else if (body[0] == "error5") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'UserName already exist.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('UserName already exist.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
           } else if (body[0] == "error6") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Email already exist.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Email already exist.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
           } else if (body[0] == "error7") {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Connection error.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Connection error.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
                   ),
+                ],
+              ),
             );
           } else {
             showDialog<String>(
               context: cont,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Failed to connect... Connection Problem.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-            );
-          }
-        }else {
-
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Please make sure your passwords match.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),);
-        }
-      } else {
-
-        showDialog<String>(
-          context: cont,
-          builder: (BuildContext context) =>
-              AlertDialog(
+              builder: (BuildContext context) => AlertDialog(
                 title: const Text('Error'),
-                content: const Text(
-                    'No Spaces Allowed.'),
+                content: const Text('Failed to connect... Connection Problem.'),
                 actions: <Widget>[
                   TextButton(
-                    onPressed: () =>
-                        Navigator.pop(context, 'OK'),
+                    onPressed: () => Navigator.pop(context, 'OK'),
                     child: const Text('OK'),
                   ),
                 ],
-              ),);
-      }
-
-    } else {
-
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) =>
-            AlertDialog(
+              ),
+            );
+          }
+        } else {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) => AlertDialog(
               title: const Text('Error'),
-              content: const Text(
-                  'No nulls Allowed.'),
+              content: const Text('Please make sure your passwords match.'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
+                  onPressed: () => Navigator.pop(context, 'OK'),
                   child: const Text('OK'),
                 ),
               ],
-            ),);
+            ),
+          );
+        }
+      } else {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text('No Spaces Allowed.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } else {
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('No nulls Allowed.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 }
