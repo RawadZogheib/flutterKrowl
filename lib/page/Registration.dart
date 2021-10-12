@@ -157,7 +157,7 @@ class _RegistrationState extends State<Registration> {
               ),
               textInputAction: TextInputAction.done,
               onChanged: (value) {
-                globals.dateOfBirth = value;
+                globals.dateOfBirth = DateTime.parse(value);
                 //print("" + globals.dateOfBirth);
               },
             ),
@@ -193,15 +193,13 @@ class _RegistrationState extends State<Registration> {
                         bool if333 = false;
                         bool if3333 = false;
                         bool if4 = false;
+                        bool if44 = false;
 
-                        if (globals.fName != null) if (globals
-                            .fName!.isNotEmpty) if1 = true;
+                        if (globals.fName != null) if (globals.fName!.isNotEmpty) if1 = true;
 
-                        if (globals.lName != null) if (globals
-                            .lName!.isNotEmpty) if2 = true;
+                        if (globals.lName != null) if (globals.lName!.isNotEmpty) if2 = true;
 
-                        if (globals.userName != null) if (globals
-                            .userName!.isNotEmpty) {
+                        if (globals.userName != null) if (globals.userName!.isNotEmpty) {
                           if3 = true; //empty or null
                           if (!globals.userName!.contains(" "))
                             if33 = true; //space
@@ -212,8 +210,12 @@ class _RegistrationState extends State<Registration> {
 
                         }
 
-                        if (globals.dateOfBirth != null) if (globals
-                            .dateOfBirth!.isNotEmpty) if4 = true;
+                        if (globals.dateOfBirth != null) {
+                            if4 = true;
+                          if (double.parse(globals.dateOfBirth!.toString()) > 17)
+                            if44 = true;
+                        }
+
 
                         if (if1) {
                           setState(() {
@@ -249,8 +251,7 @@ class _RegistrationState extends State<Registration> {
                             col3_1 = Colors.blue.shade900;
                             col3_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }
-                        else if((if1 ==false || if2==false || if4==false) && (if33==false || if333==false || if3333==false) && if3 ==true){
+                        }else if((if1 ==false || if2==false || if4==false) && if3 ==true){
                           setState(() {
                             col3 = Colors.blue.shade50;
                             col3_1 = Colors.blue.shade900;
@@ -264,13 +265,19 @@ class _RegistrationState extends State<Registration> {
                           });
                         }
 
-                        if (if4) {
+                        if (if4 && if44) {
                           setState(() {
                             col4 = Colors.blue.shade50;
                             col4_1 = Colors.blue.shade900;
                             col4_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        } else {
+                        }else if((if1 ==false || if2==false || if3==false) && (if33==false || if333==false || if3333==false) && if4 ==true){
+                          setState(() {
+                            col4 = Colors.blue.shade50;
+                            col4_1 = Colors.blue.shade900;
+                            col4_2 = Colors.blue.shade900.withOpacity(0.5);
+                          });
+                        }else {
                           setState(() {
                             col4 = Colors.red.shade50;
                             col4_1 = Colors.red.shade900;
@@ -374,8 +381,8 @@ class _RegistrationState extends State<Registration> {
     globals.cropHeight = "test";
 
     if (globals.userName != null && globals.dateOfBirth !=null) {
-      if (globals.userName!.isNotEmpty && globals.dateOfBirth!.isNotEmpty) {
-        if (!globals.userName!.contains(" ") && !globals.dateOfBirth!.contains(" ")) {
+      if (globals.userName!.isNotEmpty) {
+        if (!globals.userName!.contains(" ")) {
 
           var data = {
             'username': globals.userName,
