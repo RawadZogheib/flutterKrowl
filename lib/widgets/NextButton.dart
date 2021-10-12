@@ -5,8 +5,8 @@ class NextButton extends StatelessWidget {
   var text;
   final onTap;
 
-  NextButton({ required this.text, this.color = Colors.white, required this.icon, this.onTap });
-  final Color color;
+  NextButton({ required this.text, this.color, required this.icon, this.onTap });
+  var color;
   final IconData icon;
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class NextButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text (text,
-            style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color: color),
+            style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color: Colors.blue.shade900),
 
             ),
           Icon(this.icon,
-            color: color,
+            color: Colors.blue.shade900,
             size: 25,
           ),
       ]

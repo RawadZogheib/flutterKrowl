@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
 
@@ -79,11 +80,10 @@ class _SignupState extends State<Signup> {
               children: [
                 Container(
                   child: InkWell(
-                    child:PreviousButton
-                    onTap: () {
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
                       globals.email = null;
                       Navigator.pop(context, '/intro_page');
-                    },
+                    },)
                   ),
                 ),
                 Row(
@@ -92,27 +92,8 @@ class _SignupState extends State<Signup> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("next",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          onTap: _reg();
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){ _reg(); },),
+
                        /*   if (globals.email != null) {
                             if (globals.email!.isNotEmpty) {
                               if (!globals.email!.contains(" ")) {
@@ -190,7 +171,7 @@ class _SignupState extends State<Signup> {
                           }*/
 
 
-                        },
+
                       ),
                     ),
                   ],

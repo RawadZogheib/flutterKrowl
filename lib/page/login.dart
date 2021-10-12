@@ -4,6 +4,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -66,10 +67,9 @@ class _LoginState extends State<Login> {
               children: [
                 Container(
                   child: InkWell(
-                    child: PreviousButton(text: "previous", icon: Icons.)
-                    onTap: () {
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
                       Navigator.pop(context, '/intro_page');
-                    },
+                    },)
                   ),
                 ),
                 Row(
@@ -78,29 +78,10 @@ class _LoginState extends State<Login> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("next",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
                           if (globals.emailLogin != null ) {
                             if (globals.emailLogin!.isNotEmpty)
-                            Navigator.pushNamed(context, '/login2' );
+                              Navigator.pushNamed(context, '/login2' );
                           }
                           else {
                             showDialog<String>(
@@ -119,7 +100,8 @@ class _LoginState extends State<Login> {
                               ),
                             );
                           }
-                        },
+                        }, )
+
                       ),
                     ),
                   ],
