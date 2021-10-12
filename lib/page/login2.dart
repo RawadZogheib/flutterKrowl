@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
@@ -71,29 +73,9 @@ class _Login2State extends State<Login2> {
               children: [
                 Container(
                   child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          margin: EdgeInsets.only(left: 10.sp),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.blue.shade900,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
-                    onTap: () {
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
                       Navigator.pop(context, '/login');
-                    },
+                    }, )
                   ),
                 ),
                 Row(
@@ -102,26 +84,7 @@ class _Login2State extends State<Login2> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("login",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {
+                        child:NextButton(text: "login", icon: Icons.arrow_forward, onTap: () {
                           if (globals.emailPassword != null ) {
                             if (globals.emailPassword!.isNotEmpty)
                               try {
@@ -162,7 +125,7 @@ class _Login2State extends State<Login2> {
                               ),
                             );
                           }
-                        },
+                        }, )
                       ),
                     ),
                   ],
