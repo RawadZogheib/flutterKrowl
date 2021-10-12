@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_app_backend/widgets/YesButton.dart';
+import 'package:flutter_app_backend/widgets/NoButton.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Intro()));
@@ -46,31 +48,10 @@ class _IntroState extends State<Intro> {
                   child: Container(
                     alignment: Alignment.center,
                     width: 140,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Yes",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 30,
-                            )),
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 33.0),
-                            child: Icon(
-                              Icons.arrow_right_alt,
-                              size: 40,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: YesButton( onTap: () {
+                      Navigator.pushNamed(context, '/login');
+                    }, ),
                   ),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
                 ),
                 const SizedBox(
                   width: 200,
@@ -80,31 +61,11 @@ class _IntroState extends State<Intro> {
                   child: Container(
                     width: 140,
                     padding: EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("No",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 30,
-                            )),
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 40.0),
-                            child: Icon(
-                              Icons.arrow_right_alt,
-                              size: 40,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: NoButton( onTap: () {
+                      Navigator.pushNamed(context, '/Signup');
+                    },),
                   ),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/Signup');
-                  },
+
                 ),
               ],
       ),),);

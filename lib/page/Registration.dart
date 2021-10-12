@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:sizer/sizer.dart';
 
 String ddd = 'sss';
@@ -45,29 +46,7 @@ class _RegistrationState extends State<Registration> {
         margin: EdgeInsets.all(25.0),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Stack(
-            children: <Widget>[
-              Container(
-                child: (Image(
-                  image: AssetImage('Assets/Register.png'),
-                )),
-              ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                width: 250,
-                height: 130,
-                child: (Text(
-                  'Create your krowl account',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade900,
-                    fontFamily: 'Rubik',
-                    fontSize: 35,
-                  ),
-                )),
-              ),
-            ],
-          ),
+          CustomStack(text: "Create your krowl account "),
           Container(
             width: 470,
             child: TextField(

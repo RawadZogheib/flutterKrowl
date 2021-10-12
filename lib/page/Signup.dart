@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
 
 Color col1 = Colors.blue.shade50;
@@ -78,26 +79,7 @@ class _SignupState extends State<Signup> {
               children: [
                 Container(
                   child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          margin: EdgeInsets.only(left: 10.sp),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.blue.shade900,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
+                    child:PreviousButton
                     onTap: () {
                       globals.email = null;
                       Navigator.pop(context, '/intro_page');
