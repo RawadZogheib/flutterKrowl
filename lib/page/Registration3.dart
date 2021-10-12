@@ -34,6 +34,7 @@ class _Registration3State extends State<Registration3> {
           Container(
             width: 470,
             child: TextField(
+              obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue.shade50),
@@ -63,6 +64,7 @@ class _Registration3State extends State<Registration3> {
           Container(
             width: 470,
             child: TextField(
+              obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue.shade50),

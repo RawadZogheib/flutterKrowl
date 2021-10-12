@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
-  CustomContainer({required this.child, required this.height, required this.width, this.onTap, required this.color});
+  CustomContainer({required this.children, required this.height, required this.width, this.onTap, required this.color});
   var onTap;
-  final Widget child;
+  final Widget children;
   final double height;
   final double width;
   final Color color;
