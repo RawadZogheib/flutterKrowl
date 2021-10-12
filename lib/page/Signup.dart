@@ -92,7 +92,17 @@ class _SignupState extends State<Signup> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){ _reg(); },),
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
+
+                          try {
+                            _reg();
+                          }catch(e){
+                            print(e);
+
+                          };
+
+
+                          },),
 
                        /*   if (globals.email != null) {
                             if (globals.email!.isNotEmpty) {

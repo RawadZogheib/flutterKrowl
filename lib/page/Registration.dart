@@ -11,6 +11,7 @@ import 'package:sizer/sizer.dart';
 
 String ddd = 'sss';
 
+
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
 Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
@@ -192,201 +193,10 @@ class _RegistrationState extends State<Registration> {
                     margin: EdgeInsets.only(left: 100.sp),
                     child: InkWell(
                       child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
-                        bool if1 = false;
-                        bool if2 = false;
-                        bool if3 = false;
-                        bool if33 = false;
-                        bool if333 = false;
-                        bool if3333 = false;
-                        bool if4 = false;
-                        bool if44 = false;
 
-                        if (globals.fName != null) if (globals.fName!.isNotEmpty) if1 = true;
-
-                        if (globals.lName != null) if (globals.lName!.isNotEmpty) if2 = true;
-
-                        if (globals.userName != null) if (globals.userName!.isNotEmpty) {
-                          if3 = true; //empty or null
-                          if (!globals.userName!.contains(" "))
-                            if33 = true; //space
-                          if (globals.userName!.length >= 8)
-                            if333 = true; // 8 characters
-                          if (exp.hasMatch(globals.userName!))
-                            if3333 = true; //regular exp
-
-                        }
-
-                        if (globals.dateOfBirth != null) {
-                            if4 = true;
-                            print(if4.toString());
-                          if (globals.dateOfBirth! > 17)
-                            if44 = true;
-                        }
+                        _test1();
 
 
-                        if (if1) {
-                          setState(() {
-                            col1 = Colors.blue.shade50;
-                            col1_1 = Colors.blue.shade900;
-                            col1_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        } else {
-                          setState(() {
-                            col1 = Colors.red.shade50;
-                            col1_1 = Colors.red.shade900;
-                            col1_2 = Colors.red.shade900.withOpacity(0.5);
-                          });
-                        }
-
-                        if (if2) {
-                          setState(() {
-                            col2 = Colors.blue.shade50;
-                            col2_1 = Colors.blue.shade900;
-                            col2_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        } else {
-                          setState(() {
-                            col2 = Colors.red.shade50;
-                            col2_1 = Colors.red.shade900;
-                            col2_2 = Colors.red.shade900.withOpacity(0.5);
-                          });
-                        }
-
-                        if (if3 && if33 && if333 && if3333) {
-                          setState(() {
-                            col3 = Colors.blue.shade50;
-                            col3_1 = Colors.blue.shade900;
-                            col3_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        }else if((if1 ==false || if2==false || if4==false) && if3 ==true){
-                          setState(() {
-                            col3 = Colors.blue.shade50;
-                            col3_1 = Colors.blue.shade900;
-                            col3_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        }else {
-                          setState(() {
-                            col3 = Colors.red.shade50;
-                            col3_1 = Colors.red.shade900;
-                            col3_2 = Colors.red.shade900.withOpacity(0.5);
-                          });
-                        }
-
-                        if (if4 && if44) {
-                          setState(() {
-                            col4 = Colors.blue.shade50;
-                            col4_1 = Colors.blue.shade900;
-                            col4_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        }else if((if1 ==false || if2==false || if3==false || if33==false || if333==false || if3333==false) && if4 ==true){
-                          setState(() {
-                            col4 = Colors.blue.shade50;
-                            col4_1 = Colors.blue.shade900;
-                            col4_2 = Colors.blue.shade900.withOpacity(0.5);
-                          });
-                        }else {
-                          setState(() {
-                            col4 = Colors.red.shade50;
-                            col4_1 = Colors.red.shade900;
-                            col4_2 = Colors.red.shade900.withOpacity(0.5);
-                          });
-                        }
-
-                        if (if1 == true &&
-                            if2 == true &&
-                            if3 == true &&
-                            if4 == true) {
-                          if (if33 == true) {
-                            if (if333 == true) {
-                              if (if3333 == true) {
-                                if (if44 == true) {
-                                  Navigator.pushNamed(
-                                      context, '/Registration2');
-                                }else {
-                                  showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                          title: const Text('Error'),
-                                          content: const Text(
-                                              "Your age must be greater than 17."),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context, 'OK'),
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                  );
-                                }
-                              }else {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text('Error'),
-                                        content: const Text(
-                                            "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                );
-                              }
-                            } else {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text(
-                                      "Your UserName must contains at least 8 characters."),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          } else {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text(
-                                    "No Spaces allowed"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        } else {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Error'),
-                              content: const Text("Fields can't be Empty."),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
                       }, )
                     ),
                   ),
@@ -398,6 +208,219 @@ class _RegistrationState extends State<Registration> {
       ),
     );
   }
+
+
+
+
+  _test1(){
+
+    bool if1 = false;
+    bool if2 = false;
+    bool if3 = false;
+    bool if33 = false;
+    bool if333 = false;
+    bool if3333 = false;
+    bool if4 = false;
+    bool if44 = false;
+
+    if (globals.fName != null) if (globals.fName!.isNotEmpty) if1 = true;
+
+    if (globals.lName != null) if (globals.lName!.isNotEmpty) if2 = true;
+
+    if (globals.userName != null) if (globals.userName!.isNotEmpty) {
+      if3 = true; //empty or null
+      if (!globals.userName!.contains(" "))
+        if33 = true; //space
+      if (globals.userName!.length >= 8)
+        if333 = true; // 8 characters
+      if (exp.hasMatch(globals.userName!))
+        if3333 = true; //regular exp
+
+    }
+
+    if (globals.dateOfBirth != null) {
+      if4 = true;
+      print(if4.toString());
+      if (globals.dateOfBirth! > 17)
+        if44 = true;
+    }
+
+
+    if (if1) {
+      setState(() {
+        col1 = Colors.blue.shade50;
+        col1_1 = Colors.blue.shade900;
+        col1_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    } else {
+      setState(() {
+        col1 = Colors.red.shade50;
+        col1_1 = Colors.red.shade900;
+        col1_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+    }
+
+    if (if2) {
+      setState(() {
+        col2 = Colors.blue.shade50;
+        col2_1 = Colors.blue.shade900;
+        col2_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    } else {
+      setState(() {
+        col2 = Colors.red.shade50;
+        col2_1 = Colors.red.shade900;
+        col2_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+    }
+
+    if (if3 && if33 && if333 && if3333) {
+      setState(() {
+        col3 = Colors.blue.shade50;
+        col3_1 = Colors.blue.shade900;
+        col3_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    }else if((if1 ==false || if2==false || if4==false) && if3 ==true){
+      setState(() {
+        col3 = Colors.blue.shade50;
+        col3_1 = Colors.blue.shade900;
+        col3_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    }else {
+      setState(() {
+        col3 = Colors.red.shade50;
+        col3_1 = Colors.red.shade900;
+        col3_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+    }
+
+    if (if4 && if44) {
+      setState(() {
+        col4 = Colors.blue.shade50;
+        col4_1 = Colors.blue.shade900;
+        col4_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    }else if((if1 ==false || if2==false || if3==false || if33==false || if333==false || if3333==false) && if4 ==true){
+      setState(() {
+        col4 = Colors.blue.shade50;
+        col4_1 = Colors.blue.shade900;
+        col4_2 = Colors.blue.shade900.withOpacity(0.5);
+      });
+    }else {
+      setState(() {
+        col4 = Colors.red.shade50;
+        col4_1 = Colors.red.shade900;
+        col4_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+    }
+
+    if (if1 == true &&
+        if2 == true &&
+        if3 == true &&
+        if4 == true) {
+      if (if33 == true) {
+        if (if333 == true) {
+          if (if3333 == true) {
+            if (if44 == true) {
+
+              _reg();
+
+            }else {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertDialog(
+                      title: const Text('Error'),
+                      content: const Text(
+                          "Your age must be greater than 17."),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+              );
+            }
+          }else {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+        } else {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  "Your UserName must contains at least 8 characters."),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(
+                "No Spaces allowed"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text("Fields can't be Empty."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+
+
+
+  }
+
+
+
+
+
+
+
 
   _reg() async {
     globals.photo = "test";
@@ -426,7 +449,7 @@ class _RegistrationState extends State<Registration> {
               col1_2 =
                   Colors.blue.shade900.withOpacity(0.5);
             });
-            Navigator.pushNamed(context, '/Registration');
+            Navigator.pushNamed(context, '/Registration2');
           } else if (body[0] == "error1") {
             setState(() {
               col3 = Colors.red.shade50;
