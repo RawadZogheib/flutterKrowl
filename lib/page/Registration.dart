@@ -218,6 +218,7 @@ class _RegistrationState extends State<Registration> {
 
                         if (globals.dateOfBirth != null) {
                             if4 = true;
+                            print(if4.toString());
                           if (globals.dateOfBirth! > 17)
                             if44 = true;
                         }
@@ -277,7 +278,7 @@ class _RegistrationState extends State<Registration> {
                             col4_1 = Colors.blue.shade900;
                             col4_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else if((if1 ==false || if2==false || if3==false || if33==false || if333==false || if3333==false || if44==false) && if4 ==true){
+                        }else if((if1 ==false || if2==false || if3==false || if33==false || if333==false || if3333==false) && if4 ==true){
                           setState(() {
                             col4 = Colors.blue.shade50;
                             col4_1 = Colors.blue.shade900;
@@ -428,9 +429,9 @@ class _RegistrationState extends State<Registration> {
             Navigator.pushNamed(context, '/Registration');
           } else if (body[0] == "error1") {
             setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
+              col3 = Colors.red.shade50;
+              col3_1 = Colors.red.shade900;
+              col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
@@ -452,9 +453,9 @@ class _RegistrationState extends State<Registration> {
           }
           else if (body[0] == "error2_1") {
             setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
+              col3 = Colors.red.shade50;
+              col3_1 = Colors.red.shade900;
+              col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
@@ -476,9 +477,9 @@ class _RegistrationState extends State<Registration> {
           }
           else if (body[0] == "error2_2") {
             setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
+              col3 = Colors.red.shade50;
+              col3_1 = Colors.red.shade900;
+              col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
@@ -500,9 +501,9 @@ class _RegistrationState extends State<Registration> {
           }
           else if (body[0] == "error2_4") {
             setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
+              col4 = Colors.red.shade50;
+              col4_1 = Colors.red.shade900;
+              col4_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
@@ -524,9 +525,9 @@ class _RegistrationState extends State<Registration> {
           }
           else if (body[0] == "error5") {
             setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
+              col3 = Colors.red.shade50;
+              col3_1 = Colors.red.shade900;
+              col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
@@ -551,6 +552,18 @@ class _RegistrationState extends State<Registration> {
               col1 = Colors.red.shade50;
               col1_1 = Colors.red.shade900;
               col1_2 = Colors.red.shade900.withOpacity(0.5);
+
+              col2 = Colors.red.shade50;
+              col2_1 = Colors.red.shade900;
+              col2_2 = Colors.red.shade900.withOpacity(0.5);
+
+              col3 = Colors.red.shade50;
+              col3_1 = Colors.red.shade900;
+              col3_2 = Colors.red.shade900.withOpacity(0.5);
+
+              col4 = Colors.red.shade50;
+              col4_1 = Colors.red.shade900;
+              col4_2 = Colors.red.shade900.withOpacity(0.5);
             });
             showDialog<String>(
               context: context,
