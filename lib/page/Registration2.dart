@@ -119,7 +119,11 @@ class _Registration2State extends State<Registration2> {
             children: [
               Container(
                 child: InkWell(
-                  child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+                  child: PreviousButton(text: "previous", icon: Icons.arrow_back,
+                    onTap: () {
+                      globals.uniId = null;
+                      globals.majorId = null;
+                      globals.minorId= null;
                     Navigator.pop(context, '/Registration');
                   },)
                 ),
