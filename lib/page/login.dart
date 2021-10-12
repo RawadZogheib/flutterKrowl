@@ -43,22 +43,30 @@ class _LoginState extends State<Login> {
             Container(
               width: 500,
               child: TextField(
-                inputFormatters :[
-                FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r"\s")),
                 ],
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: "type your email here ...",
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade50),
+                      borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: Colors.blue.shade50,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.blue.shade900)),
+                  hintText: "type your email here...",
                   hintStyle: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.blue.shade900.withOpacity(0.5),
+                    color: Colors.blue.shade900,
                     fontFamily: 'Rubik',
                   ),
                   border: InputBorder.none,
                 ),
-                onChanged: (value){
+                onChanged: (value) {
                   globals.emailLogin = value;
-                  //print("" + globals.emailLogin);
+                  //print("" + globals.email);
                 },
               ),
             ),

@@ -47,26 +47,32 @@ class _Login2State extends State<Login2> {
                   )),
             ),
             Container(
-              width: 250,
+              width: 600,
               child: TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                ],
+                obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: "type your password here ...",
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade50),
+                      borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: Colors.blue.shade50,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.blue.shade900)),
+                  hintText: "type your password here...",
                   hintStyle: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.blue.shade900.withOpacity(0.5),
+                    color: Colors.blue.shade900,
                     fontFamily: 'Rubik',
                   ),
                   border: InputBorder.none,
                 ),
-                onChanged: (value){
-                  globals.emailPassword = value;
-                  //print("" + globals.emailPassword);
+                onChanged: (value) {
+                  globals.email = value;
+                  //print("" + globals.email);
                 },
-              ),
+              )
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
