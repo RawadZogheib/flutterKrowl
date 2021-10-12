@@ -157,8 +157,14 @@ class _RegistrationState extends State<Registration> {
               ),
               textInputAction: TextInputAction.done,
               onChanged: (value) {
-                globals.dateOfBirth = DateTime.parse(value);
-                //print("" + globals.dateOfBirth);
+                if(value.length != 0) {
+                  globals.dateOfBirth = int.parse(value);
+                  print("" + globals.dateOfBirth!.toString());
+                }else{
+                  globals.dateOfBirth = null;
+                  print("null");
+                }
+
               },
             ),
           ),
@@ -212,7 +218,7 @@ class _RegistrationState extends State<Registration> {
 
                         if (globals.dateOfBirth != null) {
                             if4 = true;
-                          if (double.parse(globals.dateOfBirth!.toString()) > 17)
+                          if (globals.dateOfBirth! > 17)
                             if44 = true;
                         }
 
@@ -271,7 +277,7 @@ class _RegistrationState extends State<Registration> {
                             col4_1 = Colors.blue.shade900;
                             col4_2 = Colors.blue.shade900.withOpacity(0.5);
                           });
-                        }else if((if1 ==false || if2==false || if3==false) && (if33==false || if333==false || if3333==false) && if4 ==true){
+                        }else if((if1 ==false || if2==false || if3==false || if33==false || if333==false || if3333==false || if44==false) && if4 ==true){
                           setState(() {
                             col4 = Colors.blue.shade50;
                             col4_1 = Colors.blue.shade900;
@@ -292,8 +298,28 @@ class _RegistrationState extends State<Registration> {
                           if (if33 == true) {
                             if (if333 == true) {
                               if (if3333 == true) {
-                                Navigator.pushNamed(context, '/Registration2');
-                              } else {
+                                if (if44 == true) {
+                                  Navigator.pushNamed(
+                                      context, '/Registration2');
+                                }else {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Error'),
+                                          content: const Text(
+                                              "Your age must be greater than 17."),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, 'OK'),
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                  );
+                                }
+                              }else {
                                 showDialog<String>(
                                   context: context,
                                   builder: (BuildContext context) =>
