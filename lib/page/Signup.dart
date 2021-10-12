@@ -296,6 +296,30 @@ class _SignupState extends State<Signup> {
                   ),
             );
           }
+          else if (body[0] == "error2_6") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        ' It\'s not an  email format.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
           else if (body[0] == "error6") {
             setState(() {
               col1 = Colors.red.shade50;
