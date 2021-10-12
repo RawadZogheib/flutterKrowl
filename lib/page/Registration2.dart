@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Stack.dart';
@@ -117,28 +119,9 @@ class _Registration2State extends State<Registration2> {
             children: [
               Container(
                 child: InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 30,
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 25,
-                          color: Colors.blue.shade900,
-                        ),
-                      ),
-                      Text("previous",
-                          style: TextStyle(
-                            color: Colors.blue.shade900,
-                            fontFamily: 'Rubik',
-                            fontSize: 20,
-                          )),
-                    ],
-                  ),
-                  onTap: () {
+                  child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
                     Navigator.pop(context, '/Registration');
-                  },
+                  },)
                 ),
               ),
               Row(
@@ -147,27 +130,7 @@ class _Registration2State extends State<Registration2> {
                     width: 70,
                     margin: EdgeInsets.only(left: 100.sp),
                     child: InkWell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("next",
-                              style: TextStyle(
-                                color: Colors.blue.shade900,
-                                fontFamily: 'Rubik',
-                                fontSize: 20,
-                              )),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.arrow_forward,
-                              size: 25,
-                              color: Colors.blue.shade900,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onTap: () {if (globals.uniId != null && globals.majorId != null && globals.minorId != null) {
+                      child: NextButton(text: "next", icon: Icons.arrow_forward,   onTap: () {if (globals.uniId != null && globals.majorId != null && globals.minorId != null) {
                         Navigator.pushNamed(context, '/Registration3');
                       } else {
                         showDialog<String>(
@@ -186,7 +149,7 @@ class _Registration2State extends State<Registration2> {
                           ),
                         );
                       }
-                      },
+                      },)
                     ),
                   ),
                 ],

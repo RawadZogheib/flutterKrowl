@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:sizer/sizer.dart';
 
@@ -168,32 +170,13 @@ class _RegistrationState extends State<Registration> {
             children: [
               Container(
                 child: InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 30,
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 25,
-                          color: Colors.blue.shade900,
-                        ),
-                      ),
-                      Text("previous",
-                          style: TextStyle(
-                            color: Colors.blue.shade900,
-                            fontFamily: 'Rubik',
-                            fontSize: 20,
-                          )),
-                    ],
-                  ),
-                  onTap: () {
+                  child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
                     globals.fName = null;
                     globals.lName = null;
                     globals.userName= null;
                     globals.dateOfBirth = null;
                     Navigator.pop(context, '/intro_page2');
-                  },
+                  }, )
                 ),
               ),
               Row(
@@ -202,27 +185,7 @@ class _RegistrationState extends State<Registration> {
                     width: 70,
                     margin: EdgeInsets.only(left: 100.sp),
                     child: InkWell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("next",
-                              style: TextStyle(
-                                color: Colors.blue.shade900,
-                                fontFamily: 'Rubik',
-                                fontSize: 20,
-                              )),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.arrow_forward,
-                              size: 25,
-                              color: Colors.blue.shade900,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onTap: () {
+                      child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
                         bool if1 = false;
                         bool if2 = false;
                         bool if3 = false;
@@ -328,17 +291,17 @@ class _RegistrationState extends State<Registration> {
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
+                                        title: const Text('Error'),
+                                        content: const Text(
+                                            "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
                                 );
                               }
                             } else {
@@ -390,7 +353,7 @@ class _RegistrationState extends State<Registration> {
                             ),
                           );
                         }
-                      },
+                      }, )
                     ),
                   ),
                 ],

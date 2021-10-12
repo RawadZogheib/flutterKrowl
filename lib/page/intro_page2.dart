@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:sizer/sizer.dart';
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Intro2()));
@@ -64,28 +65,10 @@ class _Intro2State extends State<Intro2> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("next",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {
+                        child: NextButton(text: "next", icon: Icons.arrow_forward, onTap: () {
                           Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
-                        },
+                        },)
+
                       ),
                     ),
                   ],

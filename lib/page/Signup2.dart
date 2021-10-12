@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -56,29 +58,9 @@ class _Signup2State extends State<Signup2> {
               children: [
                 Container(
                   child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          margin: EdgeInsets.only(left: 10.sp),
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.blue.shade900,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
-                    onTap: () {
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
                       Navigator.pop(context, '/Signup2');
-                    },
+                    }, )
                   ),
                 ),
                 Row(
@@ -87,28 +69,9 @@ class _Signup2State extends State<Signup2> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("next",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                        onTap: () {
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward,onTap: () {
                           Navigator.pushNamed(context, '/Registration');
-                        },
+                        }, )
                       ),
                     ),
                   ],
