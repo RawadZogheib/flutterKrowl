@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:sizer/sizer.dart';
 
@@ -419,4 +422,277 @@ class _RegistrationState extends State<Registration> {
       ),
     );
   }
+
+  _reg() async {
+    globals.photo = "test";
+    globals.terms = "test";
+    globals.cropX = "test";
+    globals.cropY = "test";
+    globals.cropWidth = "test";
+    globals.cropHeight = "test";
+
+    if (globals.userName != null && globals.dateOfBirth !=null) {
+      if (globals.userName!.isNotEmpty && globals.dateOfBirth!.isNotEmpty) {
+        if (!globals.userName!.contains(" ") && !globals.dateOfBirth!.contains(" ")) {
+
+          var data = {
+            'username': globals.userName,
+            'date_of_birth':globals.dateOfBirth,
+          };
+          var res = await CallApi().postData(
+              data, '(Control)registration.php');
+          print(res.body);
+          List<dynamic> body = json.decode(res.body);
+          if (body[0] == "success") {
+            setState(() {
+              col1 = Colors.blue.shade50;
+              col1_1 = Colors.blue.shade900;
+              col1_2 =
+                  Colors.blue.shade900.withOpacity(0.5);
+            });
+            Navigator.pushNamed(context, '/Registration');
+          } else if (body[0] == "error1") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'No Spaces Allowed.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error2_1") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your username must contain at least 8 characters.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error2_2") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your username can only contain lowercase and uppercase characters and special characters( _ .).'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error2_4") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Your age must be greater than 17.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error5") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'UserName already exist.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else if (body[0] == "error7") {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Connection error.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+          else {
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        'Failed to connect... Connection Problem.'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(
+                                context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+        } else {
+          setState(() {
+            col1 = Colors.red.shade50;
+            col1_1 = Colors.red.shade900;
+            col1_2 =
+                Colors.red.shade900.withOpacity(0.5);
+          });
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      'No spaces Allowed .'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }
+      } else {
+        setState(() {
+          col1 = Colors.red.shade50;
+          col1_1 = Colors.red.shade900;
+          col1_2 = Colors.red.shade900.withOpacity(0.5);
+        });
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content:
+            const Text('Fields can not be empty.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } else {
+      setState(() {
+        col1 = Colors.red.shade50;
+        col1_1 = Colors.red.shade900;
+        col1_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'Field can not be null.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
+  }
 }
+
+
+
+
+
+
