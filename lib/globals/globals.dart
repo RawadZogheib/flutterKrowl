@@ -15,7 +15,7 @@ const String error3 = "Please make sure your passwords match.";
 const String error4 = "Error with registration.";
 const String error5 = "UserName already exist.";
 const String error6 = "Email already exist.";
-const String error7 = "Connection error.";
+const String error7 = "Field cannot be empty.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
 
