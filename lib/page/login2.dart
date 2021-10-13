@@ -91,8 +91,8 @@ class _Login2State extends State<Login2> {
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
                         child:NextButton(text: "login", icon: Icons.arrow_forward, onTap: () {
-                          if (globals.emailPassword != null ) {
-                            if (globals.emailPassword!.isNotEmpty)
+                          if (globals.passwordLogin != null ) {
+                            if (globals.passwordLogin!.isNotEmpty)
                               try {
                                 _login();
                               }catch(e){
@@ -147,13 +147,13 @@ class _Login2State extends State<Login2> {
   _login()async  {
 
     if (globals.emailLogin != null
-        && globals.emailPassword != null) {
+        && globals.passwordLogin != null) {
       if (globals.emailLogin!.isNotEmpty
-          && globals.emailPassword!.isNotEmpty) {
+          && globals.passwordLogin!.isNotEmpty) {
 
         var data = {
           'email': globals.emailLogin,
-          'password': globals.emailPassword
+          'password': globals.passwordLogin
         };
 
         var res = await CallApi().postData(data, '(Control)login.php');

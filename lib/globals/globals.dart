@@ -31,5 +31,5 @@ String? code6 = null;
 
 //login
 String? emailLogin = null;
-String? emailPassword = null;
+String? passwordLogin = null;
 
