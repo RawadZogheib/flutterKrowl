@@ -10,6 +10,11 @@ import 'package:flutter_app_backend/widgets/Stack.dart';
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
 Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
+
+Color col2 = Colors.blue.shade50;
+Color col2_1 = Colors.blue.shade900;
+Color col2_2 = Colors.blue.shade900.withOpacity(0.5);
+
 RegExp exp = new RegExp(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&:,?_-]).{8,}$");
 
 
@@ -73,16 +78,16 @@ class _Registration3State extends State<Registration3> {
                     borderSide: BorderSide(color: Colors.blue.shade50),
                     borderRadius: BorderRadius.circular(10)),
                 filled: true,
-                fillColor: col1,
+                fillColor: col2,
                 hintText: "Confirm password",
                 hintStyle: TextStyle(
                   fontSize: 15.0,
-                  color:col1_2,
+                  color:col2_2,
                 ),
                 border: InputBorder.none,
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col1_1)),
+                    borderSide: BorderSide(color: col2_1)),
               ),
               onChanged: (value) {
                 globals.repassword = value;
@@ -182,108 +187,118 @@ class _Registration3State extends State<Registration3> {
     );
   }
 _testpass() {
-  if (globals.password != null && globals.repassword != null) {
-    if (!globals.password!.contains(" ") &&
-        !globals.repassword!.contains(" ")) {
-      if (exp.hasMatch(globals.password!)) {
-        if (globals.password == globals.repassword) {
-          setState(() {
-            col1 = Colors.blue.shade50;
-            col1_1 = Colors.blue.shade900;
-            col1_2 =
-                Colors.blue.shade900.withOpacity(0.5);
-          });
-          return true;
-        }
-        else {
-          setState(() {
-            col1 = Colors.red.shade50;
-            col1_1 = Colors.red.shade900;
-            col1_2 = Colors.red.shade900.withOpacity(0.5);
-          });
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      'Please make sure your passwords match.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        }
-      } else {
-        setState(() {
-          col1 = Colors.red.shade50;
-          col1_1 = Colors.red.shade900;
-          col1_2 = Colors.red.shade900.withOpacity(0.5);
-        });
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text(
-                    'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(* . ! @ # \$ % ^ & : , ? _ -).'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-        );
-      }
-    } else {
-      setState(() {
-        col1 = Colors.red.shade50;
-        col1_1 = Colors.red.shade900;
-        col1_2 = Colors.red.shade900.withOpacity(0.5);
-      });
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  'No spaces Allowed.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),);
-    }
-  } else {
-    setState(() {
-      col1 = Colors.red.shade50;
-      col1_1 = Colors.red.shade900;
-      col1_2 = Colors.red.shade900.withOpacity(0.5);
-    });
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(
-            title: const Text('Error'),
-            content: const Text(
-                'No nulls Allowed.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () =>
-                    Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),);
+    bool if1= false;
+    bool if2= false;
+  if (globals.password != null){
+    if (globals.password!.isNotEmpty)
+        if1=true;
   }
-}
+    if (globals.repassword != null){
+      if (globals.repassword!.isNotEmpty)
+        if2=true;
+    }
+   if(if1 ==false) {
+     setState(() {
+       col1 = Colors.red.shade50;
+       col1_1 = Colors.red.shade900;
+       col1_2 = Colors.red.shade900.withOpacity(0.5);
+     });
+   }else{
+     setState(() {
+       col1 = Colors.blue.shade50;
+       col1_1 = Colors.blue.shade900;
+       col1_2 =
+           Colors.blue.shade900.withOpacity(0.5);
+     });
+   }
+     if (if2 == false) {
+       setState(() {
+         col2 = Colors.red.shade50;
+         col2_1 = Colors.red.shade900;
+         col2_2 = Colors.red.shade900.withOpacity(0.5);
+       });
+     }else{
+       setState(() {
+         col2 = Colors.blue.shade50;
+         col2_1 = Colors.blue.shade900;
+         col2_2 = Colors.blue.shade900.withOpacity(0.5);
+       });
+     }
+
+     if (if1 && if2) {
+       if (exp.hasMatch(globals.password!)) {
+
+         if (globals.password == globals.repassword) {
+           setState(() {
+             col1 = Colors.blue.shade50;
+             col1_1 = Colors.blue.shade900;
+             col1_2 =
+                 Colors.blue.shade900.withOpacity(0.5);
+           });
+           return true;
+         } else {
+           setState(() {
+             col2 = Colors.red.shade50;
+             col2_1 = Colors.red.shade900;
+             col2_2 = Colors.red.shade900.withOpacity(0.5);
+           });
+           showDialog<String>(
+             context: context,
+             builder: (BuildContext context) =>
+                 AlertDialog(
+                   title: const Text('Error'),
+                   content: const Text(
+                       'Please make sure your passwords match.'),
+                   actions: <Widget>[
+                     TextButton(
+                       onPressed: () => Navigator.pop(context, 'OK'),
+                       child: const Text('OK'),
+                     ),
+                   ],
+                 ),
+           );
+         }
+       } else {
+         setState(() {
+           col1 = Colors.red.shade50;
+           col1_1 = Colors.red.shade900;
+           col1_2 = Colors.red.shade900.withOpacity(0.5);
+         });
+         showDialog<String>(
+           context: context,
+           builder: (BuildContext context) =>
+               AlertDialog(
+                 title: const Text('Error'),
+                 content: const Text(
+                     'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(* . ! @ # \$ % ^ & : , ? _ -).'),
+                 actions: <Widget>[
+                   TextButton(
+                     onPressed: () => Navigator.pop(context, 'OK'),
+                     child: const Text('OK'),
+                   ),
+                 ],
+               ),
+         );
+       }
+     }else {
+       showDialog<String>(
+         context: context,
+         builder: (BuildContext context) =>
+             AlertDialog(
+               title: const Text('Error'),
+               content: const Text(
+                   'No nulls Allowed.'),
+               actions: <Widget>[
+                 TextButton(
+                   onPressed: () =>
+                       Navigator.pop(context, 'OK'),
+                   child: const Text('OK'),
+                 ),
+               ],
+             ),);
+     }
+   }
+
 
   _reg() async {
     globals.photo = "test";
@@ -310,9 +325,7 @@ _testpass() {
         globals.majorId != null &&
         globals.minorId != null) {
       if (!globals.email!.contains(" ") &&
-          !globals.userName!.contains(" ") &&
-          !globals.password!.contains(" ") &&
-          !globals.repassword!.contains(" ")) {
+          !globals.userName!.contains(" ")) {
         //if(exp.hasMatch(globals.password!)) {
         //if (globals.password == globals.repassword) {
         var data = {
