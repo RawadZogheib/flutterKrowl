@@ -233,7 +233,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'No Spaces Allowed.'),
+                        globals.error1),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -257,7 +257,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'It\'s not a university email.'),
+                        globals.error2_6),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -281,7 +281,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        ' It\'s not an  email format.'),
+                        globals.error2_5),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>

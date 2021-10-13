@@ -332,7 +332,7 @@ class _RegistrationState extends State<Registration> {
                     AlertDialog(
                       title: const Text('Error'),
                       content: const Text(
-                          "Your age must be greater than 17."),
+                          globals.error2_4),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () =>
@@ -350,7 +350,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        "Your username can only contain lowercase and uppercase characters and special characters( _ .). "),
+                        globals.error2_2),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -486,7 +486,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Your username must contain at least 8 characters.'),
+                        globals.error2_1),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -510,7 +510,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Your username can only contain lowercase and uppercase characters and special characters( _ .).'),
+                        globals.error2_2),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -534,7 +534,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Your age must be greater than 17.'),
+                        globals.error2_4),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
