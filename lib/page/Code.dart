@@ -294,7 +294,7 @@ class _CodeState extends State<Code> {
                               builder: (BuildContext context) => AlertDialog(
                                 title: const Text('Error'),
                                 content: const Text(
-                                    'OOPs! Something went wrong. Try again in few seconds.'),
+                                    globals.errorException),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>

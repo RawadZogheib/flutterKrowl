@@ -462,7 +462,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'No Spaces Allowed.'),
+                        globals.error1),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -558,7 +558,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'UserName already exist.'),
+                        globals.error5),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -594,7 +594,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Connection error.'),
+                        globals.error7),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -618,7 +618,7 @@ class _RegistrationState extends State<Registration> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Failed to connect... Connection Problem.'),
+                        globals.errorElse),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>

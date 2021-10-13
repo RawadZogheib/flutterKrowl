@@ -257,7 +257,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        globals.error2_6),
+                        globals.error2_5),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -281,7 +281,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        globals.error2_5),
+                        globals.error2_6),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -305,7 +305,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Email already exist.'),
+                        globals.error6),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -328,7 +328,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Connection error.'),
+                        globals.error7),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>
@@ -352,7 +352,7 @@ class _SignupState extends State<Signup> {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Failed to connect... Connection Problem.'),
+                        globals.errorElse),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () =>

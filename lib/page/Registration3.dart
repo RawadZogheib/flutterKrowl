@@ -165,7 +165,7 @@ class _Registration3State extends State<Registration3> {
                             builder: (BuildContext context) => AlertDialog(
                               title: const Text('Error'),
                               content: const Text(
-                                  'OOPs! Something went wrong. Try again in few seconds.'),
+                                  globals.errorException),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, 'OK'),
@@ -248,7 +248,7 @@ _testpass() {
                  AlertDialog(
                    title: const Text('Error'),
                    content: const Text(
-                       'Please make sure your passwords match.'),
+                       globals.error3),
                    actions: <Widget>[
                      TextButton(
                        onPressed: () => Navigator.pop(context, 'OK'),
@@ -270,7 +270,7 @@ _testpass() {
                AlertDialog(
                  title: const Text('Error'),
                  content: const Text(
-                     'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(* . ! @ # \$ % ^ & : , ? _ -).'),
+                     globals.error2_3),
                  actions: <Widget>[
                    TextButton(
                      onPressed: () => Navigator.pop(context, 'OK'),
@@ -358,7 +358,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('No Spaces Allowed.'),
+                  content: const Text(globals.error1),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -374,7 +374,7 @@ _testpass() {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Your username must contain at least 8 characters.'),
+                      globals.error2_1),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -390,7 +390,7 @@ _testpass() {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Your username can only contain lowercase and uppercase characters and special characters( _ .).'),
+                      globals.error2_2),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -421,7 +421,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('Your age must be greater than 17.'),
+                  content: const Text(globals.error2_4),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -436,7 +436,22 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('It\'s not a university email.'),
+                  content: const Text(globals.error2_5),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }else if (body[0] == "error2_6") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(globals.error2_6),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -452,7 +467,7 @@ _testpass() {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Please make sure your passwords match.'),
+                      globals.error3),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -467,7 +482,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('Error with registration.'),
+                  content: const Text(globals.error4),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -482,7 +497,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('UserName already exist.'),
+                  content: const Text(globals.error5),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -497,7 +512,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('Email already exist.'),
+                  content: const Text(globals.error6),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -512,7 +527,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('Connection error.'),
+                  content: const Text(globals.error7),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -528,7 +543,7 @@ _testpass() {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Failed to connect... Connection Problem.'),
+                      globals.errorElse),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -545,7 +560,7 @@ _testpass() {
                   AlertDialog(
                     title: const Text('Error'),
                     content: const Text(
-                        'Please make sure your passwords match.'),
+                        globals.error3),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'OK'),
@@ -561,7 +576,7 @@ _testpass() {
             builder: (BuildContext context) =>
                 AlertDialog(
                   title: const Text('Error'),
-                  content: const Text('Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(* . ! @ # \$ % ^ & : , ? _ -).'),
+                  content: const Text(globals.error2_3,
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -576,7 +591,7 @@ _testpass() {
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
-            content: const Text('No Spaces Allowed.'),
+            content: const Text(globals.error1),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),

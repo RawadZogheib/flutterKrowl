@@ -103,7 +103,7 @@ class _Login2State extends State<Login2> {
                                       AlertDialog(
                                         title: const Text('Error'),
                                         content: const Text(
-                                            'OOPs! Something went wrong. Try again in few seconds.'),
+                                            globals.errorException),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () =>
@@ -185,7 +185,7 @@ class _Login2State extends State<Login2> {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Connection error.'),
+                      globals.error7),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
