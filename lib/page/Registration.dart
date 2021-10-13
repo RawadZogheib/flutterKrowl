@@ -45,166 +45,172 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Container(
         margin: EdgeInsets.all(25.0),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CustomStack(text: "Create your krowl account "),
-          Container(
-            width: 470,
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col1,
-                hintText: "First name",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: col1_2,
-                ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col1_1)),
+        CustomStack(text: "Create your krowl account "),
+        Container(
+          width: 470,
+          child: TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue.shade50),
+                  borderRadius: BorderRadius.circular(10)),
+              filled: true,
+              fillColor: col1,
+              hintText: "First name",
+              hintStyle: TextStyle(
+                fontSize: 15.0,
+                color: col1_2,
               ),
-              textInputAction: TextInputAction.next,
-              onChanged: (value) {
-                globals.fName = value;
-                //print("" + globals.fName);
-              },
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: col1_1)),
             ),
+            textInputAction: TextInputAction.next,
+            onChanged: (value) {
+              globals.fName = value;
+              //print("" + globals.fName);
+            },
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 470,
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col2,
-                hintText: "Last name",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: col2_2,
-                ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col2_1)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: 470,
+          child: TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue.shade50),
+                  borderRadius: BorderRadius.circular(10)),
+              filled: true,
+              fillColor: col2,
+              hintText: "Last name",
+              hintStyle: TextStyle(
+                fontSize: 15.0,
+                color: col2_2,
               ),
-              textInputAction: TextInputAction.next,
-              onChanged: (value) {
-                globals.lName = value;
-                //print("" + globals.lName);
-              },
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: col2_1)),
             ),
+            textInputAction: TextInputAction.next,
+            onChanged: (value) {
+              globals.lName = value;
+              //print("" + globals.lName);
+            },
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 470,
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col3,
-                hintText: "Username",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: col3_2,
-                ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col3_1)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: 470,
+          child: TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue.shade50),
+                  borderRadius: BorderRadius.circular(10)),
+              filled: true,
+              fillColor: col3,
+              hintText: "Username",
+              hintStyle: TextStyle(
+                fontSize: 15.0,
+                color: col3_2,
               ),
-              textInputAction: TextInputAction.next,
-              onChanged: (value) {
-                globals.userName = value;
-                //print("" + globals.userName);
-              },
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: col3_1)),
             ),
+            textInputAction: TextInputAction.next,
+            onChanged: (value) {
+              globals.userName = value;
+              //print("" + globals.userName);
+            },
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 470,
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col4,
-                hintText: "Age",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: col4_2,
-                ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col4_1)),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: 470,
+          child: TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue.shade50),
+                  borderRadius: BorderRadius.circular(10)),
+              filled: true,
+              fillColor: col4,
+              hintText: "Age",
+              hintStyle: TextStyle(
+                fontSize: 15.0,
+                color: col4_2,
               ),
-              textInputAction: TextInputAction.done,
-              onChanged: (value) {
-                if(value.length != 0) {
-                  globals.dateOfBirth = int.parse(value);
-                  print("" + globals.dateOfBirth!.toString());
-                }else{
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: col4_1)),
+            ),
+            textInputAction: TextInputAction.done,
+            onChanged: (value) {
+              if(value.length != 0) {
+                globals.dateOfBirth = int.parse(value);
+                print("" + globals.dateOfBirth!.toString());
+              }else{
+                globals.dateOfBirth = null;
+                print("null");
+              }
+
+            },
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: InkWell(
+                child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+                  globals.fName = null;
+                  globals.lName = null;
+                  globals.userName= null;
                   globals.dateOfBirth = null;
-                  print("null");
-                }
-
-              },
+                  Navigator.pop(context, '/intro_page2');
+                }, )
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: InkWell(
-                  child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
-                    globals.fName = null;
-                    globals.lName = null;
-                    globals.userName= null;
-                    globals.dateOfBirth = null;
-                    Navigator.pop(context, '/intro_page2');
-                  }, )
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 70,
-                    margin: EdgeInsets.only(left: 100.sp),
-                    child: InkWell(
-                      child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
+            Row(
+              children: [
+                Container(
+                  width: 70,
+                  margin: EdgeInsets.only(left: 100.sp),
+                  child: InkWell(
+                    child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
 
-                        _test1();
+                      _test1();
 
 
-                      }, )
-                    ),
+                    }, )
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        ),
+          ]),
           ),
-        ]),
       ),
     );
   }
