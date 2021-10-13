@@ -6,6 +6,8 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Stack.dart';
 
+
+
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
 ));
@@ -17,7 +19,6 @@ class Registration2 extends StatefulWidget {
 }
 
 class _Registration2State extends State<Registration2> {
-
   @override
   void initState() {
     super.initState();
@@ -54,8 +55,8 @@ class _Registration2State extends State<Registration2> {
               ),
               textInputAction: TextInputAction.next,
               onChanged: (value){
-                globals.uniId = value;
-                //print("" + globals.uniId);
+                globals.majorId = value;
+                //print("" + globals.minorId);
               },
             ),
           ),

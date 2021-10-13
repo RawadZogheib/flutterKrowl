@@ -8,6 +8,7 @@ import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:sizer/sizer.dart';
+import 'package:intl/intl.dart';
 
 String ddd = 'sss';
 
@@ -41,6 +42,28 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  DateTime _date = DateTime.now();
+  TextEditingController _datecontroller = new TextEditingController();
+
+  var myFormat = DateFormat('d-MM-yyyy');
+  Future<Null?> _selectDate(BuildContext context) async{
+
+    DateTime? _datePicker = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1947),
+      lastDate: DateTime(2022),
+      initialDate: _date,
+      initialDatePickerMode: DatePickerMode.year,
+    );
+    if (_datePicker != null && _datePicker != _date){
+      setState(() {
+        _date = _datePicker;
+        print(
+          _date.toString(),
+        );
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +71,7 @@ class _RegistrationState extends State<Registration> {
       body: SingleChildScrollView(
         reverse: true,
         child: Container(
-        margin: EdgeInsets.all(25.0),
+        margin: EdgeInsets.only(right: 25.0, left: 25.0, top: 100.0),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CustomStack(text: "Create your krowl account "),
@@ -141,34 +164,33 @@ class _RegistrationState extends State<Registration> {
         ),
         Container(
           width: 470,
-          child: TextField(
+          child: TextFormField(
+            controller: _datecontroller,
+            cursorColor: Colors.blue.shade900,
+            readOnly: true,
+            onTap: (){
+              setState(() {
+                _selectDate(context);
+              });
+            },
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue.shade50),
                   borderRadius: BorderRadius.circular(10)),
               filled: true,
-              fillColor: col4,
-              hintText: "Age",
+              fillColor: Colors.blue.shade50,
+              labelText: "Date of birth",
+              labelStyle: TextStyle( color: Colors.blue.shade900.withOpacity(0.5)),
+              hintText: ('${myFormat.format(_date)}'),
               hintStyle: TextStyle(
+                color: Colors.blue.shade900,
                 fontSize: 15.0,
-                color: col4_2,
               ),
-              border: InputBorder.none,
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: col4_1)),
+                  borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
+                  borderRadius: BorderRadius.circular(10)
+              ),
             ),
-            textInputAction: TextInputAction.done,
-            onChanged: (value) {
-              if(value.length != 0) {
-                globals.dateOfBirth = int.parse(value);
-                print("" + globals.dateOfBirth!.toString());
-              }else{
-                globals.dateOfBirth = null;
-                print("null");
-              }
-
-            },
           ),
         ),
         SizedBox(
@@ -177,30 +199,24 @@ class _RegistrationState extends State<Registration> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: InkWell(
-                child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
-                  globals.fName = null;
-                  globals.lName = null;
-                  globals.userName= null;
-                  globals.dateOfBirth = null;
-                  Navigator.pop(context, '/intro_page2');
-                }, )
-              ),
-            ),
+            PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+              globals.fName = null;
+              globals.lName = null;
+              globals.userName= null;
+              globals.dateOfBirth = null;
+              Navigator.pop(context, '/intro_page2');
+            }, ),
             Row(
               children: [
                 Container(
                   width: 70,
                   margin: EdgeInsets.only(left: 100.sp),
-                  child: InkWell(
-                    child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
+                  child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
 
-                      _test1();
+                    _test1();
 
 
-                    }, )
-                  ),
+                  }, ),
                 ),
               ],
             ),
