@@ -17,6 +17,13 @@ class Registration2 extends StatefulWidget {
 }
 
 class _Registration2State extends State<Registration2> {
+
+  @override
+  void initState() {
+    super.initState();
+    _getLists();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,4 +172,10 @@ class _Registration2State extends State<Registration2> {
       ),
     );
   }
+
+  _getLists() {
+
+
+  }
+
 }

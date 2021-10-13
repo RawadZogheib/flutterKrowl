@@ -19,7 +19,12 @@ const String error7 = "Field cannot be empty.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
 
-
+//List of Universities
+List<String> univercitiesName = [];
+//List of Majors
+List<String> majorsName = [];
+//List of Minors
+List<String> minorsName = [];
 
 //Registration  (page[/signup.dart /registration.dart /registration2.dart /registration3.dart])
 String? email = null;
