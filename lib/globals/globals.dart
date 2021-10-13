@@ -12,7 +12,7 @@ const String error2_4 = "Your age must be greater than 17.";
 const String error2_5 = "It's not an email format.";
 const String error2_6 = "It's not a university email.";
 const String error3 = "Please make sure your passwords match.";
-const String error4 = "Error with registration.";
+const String error4 = "Cannot connect to the dataBase.";
 const String error5 = "UserName already exist.";
 const String error6 = "Email already exist.";
 const String error7 = "Field cannot be empty.";
@@ -20,11 +20,11 @@ const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
 
 //List of Universities
-List<String> univercitiesName = [];
+List<dynamic> univercitiesName = [];
 //List of Majors
-List<String> majorsName = [];
+List<dynamic> majorsName = [];
 //List of Minors
-List<String> minorsName = [];
+List<dynamic> minorsName = [];
 
 //Registration  (page[/signup.dart /registration.dart /registration2.dart /registration3.dart])
 String? email = null;

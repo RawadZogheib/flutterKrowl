@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
@@ -174,9 +177,33 @@ class _Registration2State extends State<Registration2> {
     );
   }
 
-  _getLists() {
+  _getLists() async {
+    var data = {};
+    var res = await CallApi().postData(data,'(Control)registration2.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    print("sdfsdfsdf");
+    print(body[0][0]);
+    if (body[0] == "success") {
+      //globals.majorsName = body[1];
+      print(body[1][27]);
 
-
+    } else if (body[0] == "error4") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error4),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
   }
 
 }
