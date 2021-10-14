@@ -65,7 +65,7 @@ class _Intro2State extends State<Intro2> {
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
                       child: InkWell(
-                        child: NextButton(text: "next", icon: Icons.arrow_forward, onTap: () {
+                        child: NextButton(text: "next",color:Colors.white, icon: Icons.arrow_forward, onTap: () {
                           Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
                         },)
 

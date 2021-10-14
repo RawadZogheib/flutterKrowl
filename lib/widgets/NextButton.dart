@@ -16,11 +16,11 @@ class NextButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text (text,
-            style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color: Colors.blue.shade900),
+            style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color: color),
 
             ),
           Icon(this.icon,
-            color: Colors.blue.shade900,
+            color: color,
             size: 25,
           ),
       ]
