@@ -87,110 +87,27 @@ class _SignupState extends State<Signup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: InkWell(
-                      child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
-                        globals.email = null;
-                        Navigator.pop(context, '/intro_page');
-                      },)
-                    ),
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
+                      globals.email = null;
+                      Navigator.pop(context, '/intro_page');
+                    },),
                   ),
                   Row(
                     children: [
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: InkWell(
-                          child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
 
-                            try {
-                              _reg();
-                            }catch(e){
-                              print(e);
+                          try {
+                            _reg();
+                          }catch(e){
+                            print(e);
 
-                            };
-
-
-                            },),
-
-                         /*   if (globals.email != null) {
-                              if (globals.email!.isNotEmpty) {
-                                if (!globals.email!.contains(" ")) {
-
-                                  setState(() {
-                                    col1 = Colors.blue.shade50;
-                                    col1_1 = Colors.blue.shade900;
-                                    col1_2 = Colors.blue.shade900.withOpacity(0.5);
-                                  });
-                                  Navigator.pushNamed(context, '/Registration');
-                                }else {
-                                  setState(() {
-                                    col1 = Colors.red.shade50;
-                                    col1_1 = Colors.red.shade900;
-                                    col1_2 = Colors.red.shade900.withOpacity(0.5);
-                                  });
-                                  showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text('No spaces Allowed .'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, 'OK'),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              } else {
-                                setState(() {
-                                  col1 = Colors.red.shade50;
-                                  col1_1 = Colors.red.shade900;
-                                  col1_2 = Colors.red.shade900.withOpacity(0.5);
-                                });
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content:
-                                        const Text('Email can not be empty.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            } else {
-                              setState(() {
-                                col1 = Colors.red.shade50;
-                                col1_1 = Colors.red.shade900;
-                                col1_2 = Colors.red.shade900.withOpacity(0.5);
-                              });
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text('Email can not be null.'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }*/
+                          };
 
 
-
-                        ),
+                          },),
                       ),
                     ],
                   ),

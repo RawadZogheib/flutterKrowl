@@ -85,43 +85,38 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: InkWell(
-                      child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
-                        Navigator.pop(context, '/intro_page');
-                      },)
-                    ),
+                    child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+                      Navigator.pop(context, '/intro_page');
+                    },),
                   ),
                   Row(
                     children: [
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: InkWell(
-                          child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
-                            if (globals.emailLogin != null ) {
-                              if (globals.emailLogin!.isNotEmpty)
-                                Navigator.pushNamed(context, '/login2' );
-                            }
-                            else {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text(
-                                      'Email can not be empty.'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          }, )
-
-                        ),
+                        child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
+                          if (globals.emailLogin != null ) {
+                            if (globals.emailLogin!.isNotEmpty)
+                              Navigator.pushNamed(context, '/login2' );
+                          }
+                          else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                    'Email can not be empty.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        }, ),
                       ),
                     ],
                   ),
