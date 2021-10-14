@@ -27,118 +27,130 @@ class _Login2State extends State<Login2> {
     cont = context;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        margin: EdgeInsets.all(25.0),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image(
-              image: AssetImage('Assets/krowl_logo.png'),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 5.0),
-              child: Text("What is your password ?",
-                  style: TextStyle(
-                    color: Colors.blue.shade900,
-                    fontFamily: 'Rubik',
-                    fontSize: 30,
-                  )),
-            ),
-            Container(
-              width: 600,
-              child: TextField(
-                obscureText: true,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade50),
-                      borderRadius: BorderRadius.circular(10)),
-                  filled: true,
-                  fillColor: Colors.blue.shade50,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.blue.shade900)),
-                  hintText: "type your password here...",
-                  hintStyle: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.blue.shade900,
-                    fontFamily: 'Rubik',
-                  ),
-                  border: InputBorder.none,
-                ),
-                onChanged: (value) {
-                  globals.passwordLogin = value;
-                  //print("" + globals.email);
-                },
-              )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: InkWell(
-                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
-                      Navigator.pop(context, '/login');
-                    }, )
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: 70,
-                      margin: EdgeInsets.only(left: 100.sp),
-                      child: InkWell(
-                        child:NextButton(text: "login", icon: Icons.arrow_forward, onTap: () {
-                          if (globals.passwordLogin != null ) {
-                            if (globals.passwordLogin!.isNotEmpty)
-                              try {
-                                _login();
-                              }catch(e){
-
-                                showDialog<String>(
-                                  context: cont,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: const Text('Error'),
-                                        content: const Text(
-                                            globals.errorException),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                );
-
-                              }
-                          } else {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text('Password can not be empty.'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        }, )
-                      ),
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Container(
+          margin: EdgeInsets.all(25.0),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image(
+                image: AssetImage('Assets/krowl_logo.png'),
+              ),
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(left: 5.0),
+                child: Text("What is your password ?",
+                    style: TextStyle(
+                      color: Colors.blue.shade900,
+                      fontFamily: 'Rubik',
+                      fontSize: 30,
+                    )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: 600,
+                child: TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(10)),
+                    filled: true,
+                    fillColor: Colors.blue.shade50,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.blue.shade900)),
+                    hintText: "type your password here...",
+                    hintStyle: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.blue.shade900,
+                      fontFamily: 'Rubik',
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (value) {
+                    globals.passwordLogin = value;
+                    //print("" + globals.email);
+                  },
+                )
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: InkWell(
+                      child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
+                        Navigator.pop(context, '/login');
+                      }, )
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        margin: EdgeInsets.only(left: 100.sp),
+                        child: InkWell(
+                          child:NextButton(text: "login", icon: Icons.arrow_forward, onTap: () {
+                            if (globals.passwordLogin != null ) {
+                              if (globals.passwordLogin!.isNotEmpty)
+                                try {
+                                  _login();
+                                }catch(e){
+
+                                  showDialog<String>(
+                                    context: cont,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                          title: const Text('Error'),
+                                          content: const Text(
+                                              globals.errorException),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, 'OK'),
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                  );
+
+                                }
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text('Password can not be empty.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }, )
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
