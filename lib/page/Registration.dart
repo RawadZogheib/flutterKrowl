@@ -58,9 +58,14 @@ class _RegistrationState extends State<Registration> {
     if (_datePicker != null && _datePicker != _date){
       setState(() {
         _date = _datePicker;
-        print(
-          _date.toString(),
-        );
+        print(_date.toString(),);
+
+        final DateTime? date2 = DateTime.now();
+        int difference = date2!.difference(_date).inDays;
+
+        print("gsghdhsagdshagdshgdjhgd: " + (difference/365).toString());
+        globals.dateOfBirth = (difference/365).round();
+        print("gsghdhsagdshagdshgdjhgd: " + (globals.dateOfBirth).toString());
       });
     }
   }
@@ -265,6 +270,7 @@ class _RegistrationState extends State<Registration> {
     }
 
     if (globals.dateOfBirth != null) {
+
       if4 = true;
       print(if4.toString());
       if (globals.dateOfBirth! > 17)
