@@ -1,7 +1,14 @@
 library flutterKrowl.globals;
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 //Server Ip  (page[/my_api.dart])
 String myIP = "http://10.10.4.64";
+
+//Colors
+Color claraWhite = Colors.white;
+
 
 //Errors
 const String error1 = "No Spaces Allowed.";
