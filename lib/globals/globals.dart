@@ -22,9 +22,7 @@ const String errorException = "OOPs! Something went wrong. Try again in few seco
 //List of Universities
 List<dynamic> univercitiesName = [];
 //List of Majors
-List<dynamic> majorsName = [];
-//List of Minors
-List<dynamic> minorsName = [];
+List<dynamic> degrees = [];
 
 //Registration  (page[/signup.dart /registration.dart /registration2.dart /registration3.dart])
 String? email = null;
