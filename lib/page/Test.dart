@@ -16,6 +16,23 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
+  DateTime _date = DateTime.now();
+  Future<Null> _selectDate(BuildContext context) async{
+    DateTime? _datePicker = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1947),
+      lastDate: DateTime(2021),
+    );
+    if (_datePicker != null && _datePicker != _date){
+      setState(() {
+        _date = _datePicker;
+        print(
+          _date.toString(),
+        );
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +45,25 @@ class _TestState extends State<Test> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextInput (textString: "hello"),
+            TextFormField(
+              cursorColor: Colors.blue.shade900,
+              readOnly: true,
+              onTap: (){
+                setState(() {
+                  _selectDate(context);
+                });
+              },
+              decoration: InputDecoration(
+                  hintText: ("Select a date"),
+                  hintStyle: TextStyle(
+                    color: Colors.blue.shade900,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
+                      borderRadius: BorderRadius.circular(10)
+                  )
+              ),
+            ),
 
           ],
         ),

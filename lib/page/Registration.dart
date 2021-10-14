@@ -71,10 +71,12 @@ class _RegistrationState extends State<Registration> {
       body: SingleChildScrollView(
         reverse: true,
         child: Container(
-        margin: EdgeInsets.only(right: 25.0, left: 25.0, top: 100.0),
+        margin: EdgeInsets.only(right: 25.0, left: 25.0, top: 50.0,bottom: 25),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CustomStack(text: "Create your krowl account "),
+        Column(
+          children:[
         Container(
           width: 470,
           child: TextField(
@@ -193,6 +195,10 @@ class _RegistrationState extends State<Registration> {
             ),
           ),
         ),
+            Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            ),
+        ]),
         SizedBox(
           height: 20,
         ),
@@ -222,9 +228,7 @@ class _RegistrationState extends State<Registration> {
             ),
           ],
         ),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        ),
+
           ]),
           ),
       ),

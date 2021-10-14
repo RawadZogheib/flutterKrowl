@@ -39,62 +39,72 @@ class _Registration3State extends State<Registration3> {
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CustomStack(text: "Create your krowl account"),
-          Container(
-            width: 470,
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col1,
-                hintText: "Password",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color: col1_2,
+          SingleChildScrollView(
+            reverse: true,
+            child:
+            Column(
+                children: [
+            Container(
+              width: 470,
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade50),
+                      borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: col1,
+                  hintText: "Password",
+                  hintStyle: TextStyle(
+                    fontSize: 15.0,
+                    color: col1_2,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: col1_1)),
                 ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col1_1)),
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {
+                  globals.password = value;
+                  //print("" + globals.password);
+                },
               ),
-              textInputAction: TextInputAction.next,
-              onChanged: (value) {
-                globals.password = value;
-                //print("" + globals.password);
-              },
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 470,
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade50),
-                    borderRadius: BorderRadius.circular(10)),
-                filled: true,
-                fillColor: col2,
-                hintText: "Confirm password",
-                hintStyle: TextStyle(
-                  fontSize: 15.0,
-                  color:col2_2,
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 470,
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade50),
+                      borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: col2,
+                  hintText: "Confirm password",
+                  hintStyle: TextStyle(
+                    fontSize: 15.0,
+                    color:col2_2,
+                  ),
+                  border: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: col2_1)),
                 ),
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: col2_1)),
+                onChanged: (value) {
+                  globals.repassword = value;
+                  //print("" + globals.repassword);
+                },
+                textInputAction: TextInputAction.done,
               ),
-              onChanged: (value) {
-                globals.repassword = value;
-                //print("" + globals.repassword);
-              },
-              textInputAction: TextInputAction.done,
             ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  ),
+            ]),
           ),
           SizedBox(
             height: 20,
