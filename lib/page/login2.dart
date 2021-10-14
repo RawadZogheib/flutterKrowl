@@ -69,7 +69,7 @@ class _Login2State extends State<Login2> {
                   border: InputBorder.none,
                 ),
                 onChanged: (value) {
-                  globals.email = value;
+                  globals.passwordLogin = value;
                   //print("" + globals.email);
                 },
               )
