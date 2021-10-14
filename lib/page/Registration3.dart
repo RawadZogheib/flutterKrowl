@@ -34,14 +34,13 @@ class _Registration3State extends State<Registration3> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        margin: EdgeInsets.all(25.0),
-        alignment: Alignment.center,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CustomStack(text: "Create your krowl account"),
-          SingleChildScrollView(
-            reverse: true,
-            child:
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Container(
+          margin: EdgeInsets.only(left: 25, right: 25, top:100, bottom: 25),
+          alignment: Alignment.center,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            CustomStack(text: "Create your krowl account"),
             Column(
                 children: [
             Container(
@@ -105,94 +104,94 @@ class _Registration3State extends State<Registration3> {
                     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   ),
             ]),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 30,
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 25,
-                          color: Colors.blue.shade900,
-                        ),
-                      ),
-                      Text("previous",
-                          style: TextStyle(
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: InkWell(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 30,
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 25,
                             color: Colors.blue.shade900,
-                            fontFamily: 'Rubik',
-                            fontSize: 20,
-                          )),
-                    ],
-                  ),
-                  onTap: () {
-                    globals.password = null;
-                    globals.repassword = null;
-                    Navigator.pop(context, '/Registration2');
-                  },
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 98,
-                    margin: EdgeInsets.only(left: 100.sp),
-                    child: InkWell(
-                      child: Row(
-                        children: [
-                          Text("Sign up",
-                              style: TextStyle(
-                                color: Colors.blue.shade900,
-                                fontFamily: 'Rubik',
-                                fontSize: 20,
-                              )),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.arrow_forward,
-                              size: 25,
-                              color: Colors.blue.shade900,
-                            ),
                           ),
-                        ],
-                      ),
-                      onTap: () {
-                        try {
-                          if(_testpass() == true)
-                            _reg();
-                        } catch (e) {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Error'),
-                              content: const Text(
-                                  globals.errorException),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                        ),
+                        Text("previous",
+                            style: TextStyle(
+                              color: Colors.blue.shade900,
+                              fontFamily: 'Rubik',
+                              fontSize: 20,
+                            )),
+                      ],
                     ),
+                    onTap: () {
+                      globals.password = null;
+                      globals.repassword = null;
+                      Navigator.pop(context, '/Registration2');
+                    },
                   ),
-                ],
-              ),
-            ],
-          ),
-        ]),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 98,
+                      margin: EdgeInsets.only(left: 100.sp),
+                      child: InkWell(
+                        child: Row(
+                          children: [
+                            Text("Sign up",
+                                style: TextStyle(
+                                  color: Colors.blue.shade900,
+                                  fontFamily: 'Rubik',
+                                  fontSize: 20,
+                                )),
+                            Container(
+                              width: 30,
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 25,
+                                color: Colors.blue.shade900,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          try {
+                            if(_testpass() == true)
+                              _reg();
+                          } catch (e) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                    globals.errorException),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }
