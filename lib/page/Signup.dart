@@ -27,94 +27,124 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        margin: EdgeInsets.all(25.0),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image(
-              image: AssetImage('Assets/krowl_logo.png'),
-            ),
-            Text("what is your email?",
-                style: TextStyle(
-                  color: Colors.blue.shade900,
-                  fontFamily: 'Rubik',
-                  fontSize: 30,
-                )),
-            Container(
-              width: 600,
-              child: TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                ],
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade50),
-                      borderRadius: BorderRadius.circular(10)),
-                  filled: true,
-                  fillColor: col1,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: col1_1)),
-                  hintText: "type your email here...",
-                  hintStyle: TextStyle(
-                    fontSize: 20.0,
-                    color: col1_2,
-                    fontFamily: 'Rubik',
-                  ),
-                  border: InputBorder.none,
-                ),
-                onChanged: (value) {
-                  globals.email = value;
-                  //print("" + globals.email);
-                },
+      body: SingleChildScrollView(
+        reverse: true,
+        child: Container(
+          margin: EdgeInsets.all(25.0),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image(
+                image: AssetImage('Assets/krowl_logo.png'),
               ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: InkWell(
-                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
-                      globals.email = null;
-                      Navigator.pop(context, '/intro_page');
-                    },)
+              Text("what is your email?",
+                  style: TextStyle(
+                    color: Colors.blue.shade900,
+                    fontFamily: 'Rubik',
+                    fontSize: 30,
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: 600,
+                child: TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                  ],
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(10)),
+                    filled: true,
+                    fillColor: col1,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: col1_1)),
+                    hintText: "type your email here...",
+                    hintStyle: TextStyle(
+                      fontSize: 20.0,
+                      color: col1_2,
+                      fontFamily: 'Rubik',
+                    ),
+                    border: InputBorder.none,
                   ),
+                  onChanged: (value) {
+                    globals.email = value;
+                    //print("" + globals.email);
+                  },
                 ),
-                Row(
-                  children: [
-                    Container(
-                      width: 70,
-                      margin: EdgeInsets.only(left: 100.sp),
-                      child: InkWell(
-                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: InkWell(
+                      child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
+                        globals.email = null;
+                        Navigator.pop(context, '/intro_page');
+                      },)
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        margin: EdgeInsets.only(left: 100.sp),
+                        child: InkWell(
+                          child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
 
-                          try {
-                            _reg();
-                          }catch(e){
-                            print(e);
+                            try {
+                              _reg();
+                            }catch(e){
+                              print(e);
 
-                          };
+                            };
 
 
-                          },),
+                            },),
 
-                       /*   if (globals.email != null) {
-                            if (globals.email!.isNotEmpty) {
-                              if (!globals.email!.contains(" ")) {
+                         /*   if (globals.email != null) {
+                              if (globals.email!.isNotEmpty) {
+                                if (!globals.email!.contains(" ")) {
 
-                                setState(() {
-                                  col1 = Colors.blue.shade50;
-                                  col1_1 = Colors.blue.shade900;
-                                  col1_2 = Colors.blue.shade900.withOpacity(0.5);
-                                });
-                                Navigator.pushNamed(context, '/Registration');
-                              }else {
+                                  setState(() {
+                                    col1 = Colors.blue.shade50;
+                                    col1_1 = Colors.blue.shade900;
+                                    col1_2 = Colors.blue.shade900.withOpacity(0.5);
+                                  });
+                                  Navigator.pushNamed(context, '/Registration');
+                                }else {
+                                  setState(() {
+                                    col1 = Colors.red.shade50;
+                                    col1_1 = Colors.red.shade900;
+                                    col1_2 = Colors.red.shade900.withOpacity(0.5);
+                                  });
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Error'),
+                                      content: const Text('No spaces Allowed .'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else {
                                 setState(() {
                                   col1 = Colors.red.shade50;
                                   col1_1 = Colors.red.shade900;
@@ -122,10 +152,10 @@ class _SignupState extends State<Signup> {
                                 });
                                 showDialog<String>(
                                   context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
+                                  builder: (BuildContext context) => AlertDialog(
                                     title: const Text('Error'),
-                                    content: const Text('No spaces Allowed .'),
+                                    content:
+                                        const Text('Email can not be empty.'),
                                     actions: <Widget>[
                                       TextButton(
                                         onPressed: () =>
@@ -146,8 +176,7 @@ class _SignupState extends State<Signup> {
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
                                   title: const Text('Error'),
-                                  content:
-                                      const Text('Email can not be empty.'),
+                                  content: const Text('Email can not be null.'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () =>
@@ -157,38 +186,18 @@ class _SignupState extends State<Signup> {
                                   ],
                                 ),
                               );
-                            }
-                          } else {
-                            setState(() {
-                              col1 = Colors.red.shade50;
-                              col1_1 = Colors.red.shade900;
-                              col1_2 = Colors.red.shade900.withOpacity(0.5);
-                            });
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text('Email can not be null.'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }*/
+                            }*/
 
 
 
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
