@@ -35,6 +35,8 @@ List<dynamic> degrees = [];
 
 //Registration  (page[/signup.dart /registration.dart /registration2.dart /registration3.dart])
 String? email = null;
+int?val2=null;  //for testing purpose
+String? val=null; //for testing purpose
 String? fName = null;
 String? lName = null;
 String? userName = null;
