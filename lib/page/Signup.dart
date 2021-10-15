@@ -12,6 +12,8 @@ Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
 Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
 
+RegExp exp = new RegExp(r"[^@\s]+@[^@\s]+");
+
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -100,13 +102,10 @@ class _SignupState extends State<Signup> {
                         child: NextButton(text: "Next", color: Colors.blue.shade900 , icon: Icons.arrow_forward, onTap: (){
 
                           try {
-                            _reg();
+                            _test1();
                           }catch(e){
                             print(e);
-
                           };
-
-
                           },),
                       ),
                     ],
@@ -120,6 +119,107 @@ class _SignupState extends State<Signup> {
     );
   }
 
+
+  _test1(){
+    if (globals.email != null) {
+      if (globals.email!.isNotEmpty) {
+        if (!globals.email!.contains(" ")) {
+          if (exp.hasMatch(globals.email!)) {
+            _reg();
+            setState(() {
+              col1 = Colors.blue.shade50;
+              col1_1 = Colors.blue.shade900;
+              col1_2 = Colors.blue.shade900.withOpacity(0.5);
+            });
+          }else{
+            setState(() {
+              col1 = Colors.red.shade50;
+              col1_1 = Colors.red.shade900;
+              col1_2 = Colors.red.shade900.withOpacity(0.5);
+            });
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(globals.error2_5),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+          }
+        }else {
+          setState(() {
+            col1 = Colors.red.shade50;
+            col1_1 = Colors.red.shade900;
+            col1_2 = Colors.red.shade900.withOpacity(0.5);
+          });
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(globals.error1),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }
+      }else {
+        setState(() {
+          col1 = Colors.red.shade50;
+          col1_1 = Colors.red.shade900;
+          col1_2 = Colors.red.shade900.withOpacity(0.5);
+        });
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content:
+            const Text(globals.error7),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }else {
+      setState(() {
+        col1 = Colors.red.shade50;
+        col1_1 = Colors.red.shade900;
+        col1_2 = Colors.red.shade900.withOpacity(0.5);
+      });
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   _reg() async {
     globals.photo = "test";
     globals.terms = "test";
@@ -131,13 +231,14 @@ class _SignupState extends State<Signup> {
     if (globals.email != null) {
       if (globals.email!.isNotEmpty) {
         if (!globals.email!.contains(" ")) {
+          if (exp.hasMatch(globals.email!)) {
 
           var data = {
             'email': globals.email,
           };
           var res = await CallApi().postData(
               data, '(Control)signup.php');
-          print("ujhruirrrrrrrrrrrrrrrrrrrrrrr"+res.body);
+          print(res.body);
           List<dynamic> body = json.decode(res.body);
           if (body[0] == "success") {
             setState(() {
@@ -290,7 +391,7 @@ class _SignupState extends State<Signup> {
                   ),
             );
           }
-        } else {
+        }else {
           setState(() {
             col1 = Colors.red.shade50;
             col1_1 = Colors.red.shade900;
@@ -303,7 +404,29 @@ class _SignupState extends State<Signup> {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'No spaces Allowed .'),
+                      globals.error1),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }
+        }else{
+          setState(() {
+            col1 = Colors.red.shade50;
+            col1_1 = Colors.red.shade900;
+            col1_2 = Colors.red.shade900.withOpacity(0.5);
+          });
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(globals.error2_5),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
@@ -325,7 +448,7 @@ class _SignupState extends State<Signup> {
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
             content:
-            const Text('Email can not be empty.'),
+            const Text(globals.error7),
             actions: <Widget>[
               TextButton(
                 onPressed: () =>
@@ -348,7 +471,7 @@ class _SignupState extends State<Signup> {
             AlertDialog(
               title: const Text('Error'),
               content: const Text(
-                  'Email can not be null.'),
+                  globals.error7),
               actions: <Widget>[
                 TextButton(
                   onPressed: () =>
