@@ -24,7 +24,7 @@ class Signup extends StatefulWidget {
   State<Signup> createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupState extends State<Signup>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +75,7 @@ class _SignupState extends State<Signup> {
                   ),
                   onChanged: (value) {
                     globals.email = value;
+                    //globals.val = value;
                     //print("" + globals.email);
                   },
                 ),
@@ -99,12 +100,17 @@ class _SignupState extends State<Signup> {
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: NextButton(text: "Next", color: Colors.blue.shade900 , icon: Icons.arrow_forward, onTap: (){
-
+                        child: NextButton(text: "Next", color: Colors.blue.shade900 , icon: Icons.arrow_forward, onTap: () async {
                           try {
                             _test1();
                           }catch(e){
                             print(e);
+                            var data = {
+                              'exceptionEmail': e.toString(),
+                            };
+                            var res = await CallApi().postData(
+                                data, '(Control)exceptionEmail.php');
+                            print("hjrkehgjjjgggggggggggggggggggg"+res.body);
                           };
                           },),
                       ),
@@ -221,6 +227,8 @@ class _SignupState extends State<Signup> {
   }
 
   _reg() async {
+    //globals.val2=int.parse(globals.val!);
+
     globals.photo = "test";
     globals.terms = "test";
     globals.cropX = "test";
