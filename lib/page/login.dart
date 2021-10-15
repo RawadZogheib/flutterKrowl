@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter/services.dart';
@@ -17,9 +18,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  var blue1;
-  var blue2;
-  var white;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

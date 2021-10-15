@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
@@ -111,80 +114,38 @@ class _Registration3State extends State<Registration3> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: InkWell(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 30,
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.blue.shade900,
-                          ),
-                        ),
-                        Text("previous",
-                            style: TextStyle(
-                              color: Colors.blue.shade900,
-                              fontFamily: 'Rubik',
-                              fontSize: 20,
-                            )),
-                      ],
-                    ),
-                    onTap: () {
-                      globals.password = null;
-                      globals.repassword = null;
-                      Navigator.pop(context, '/Registration2');
-                    },
-                  ),
+                  child: PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
+                    globals.password = null;
+                    globals.repassword = null;
+                    Navigator.pop(context, '/Registration2');
+                  },)
                 ),
                 Row(
                   children: [
                     Container(
                       width: 98,
                       margin: EdgeInsets.only(left: 100.sp),
-                      child: InkWell(
-                        child: Row(
-                          children: [
-                            Text("Sign up",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
-                            Container(
-                              width: 30,
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
+                      child: NextButton(text: "signup", color: blue1, icon: Icons. arrow_forward, onTap: () {
+                        try {
+                          if(_testpass() == true)
+                            _reg();
+                        } catch (e) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Error'),
+                              content: const Text(
+                                  globals.errorException),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        onTap: () {
-                          try {
-                            if(_testpass() == true)
-                              _reg();
-                          } catch (e) {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text(
-                                    globals.errorException),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        },
-                      ),
+                          );
+                        }
+                      },)
                     ),
                   ],
                 ),
