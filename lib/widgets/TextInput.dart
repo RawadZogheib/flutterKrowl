@@ -14,6 +14,7 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       textAlign: TextAlign.center,
       cursorColor: Colors.blue.shade900,
       decoration: InputDecoration(
