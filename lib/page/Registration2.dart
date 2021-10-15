@@ -6,9 +6,11 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Stack.dart';
+import 'package:flutter_app_backend/Data/University_data.dart';
 
 
 
@@ -23,6 +25,8 @@ class Registration2 extends StatefulWidget {
 }
 
 class _Registration2State extends State<Registration2> {
+  final controllerCity = TextEditingController();
+  String? selectedCity;
   @override
   void initState() {
     super.initState();
@@ -45,29 +49,7 @@ class _Registration2State extends State<Registration2> {
                 children: [
                   Container(
                     width: 470,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue.shade50),
-                            borderRadius: BorderRadius.circular(10)),
-                        filled: true,
-                        fillColor: Colors.blue.shade50,
-                        hintText: "Find your university",
-                        hintStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.blue.shade900,
-                        ),
-                        border: InputBorder.none,
-                        focusedBorder:
-                        OutlineInputBorder(borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.blue.shade900)),
-                      ),
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value){
-                        globals.majorId = value;
-                        //print("" + globals.minorId);
-                      },
-                    ),
+                    child: buildCity(),
                   ),
                   SizedBox(
                     height: 20,
@@ -211,5 +193,35 @@ class _Registration2State extends State<Registration2> {
       );
     }
   }
+  Widget buildCity() => TypeAheadFormField<dynamic>(
+    textFieldConfiguration: TextFieldConfiguration(
 
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue.shade50),
+            borderRadius: BorderRadius.circular(10)),
+        filled: true,
+        fillColor: Colors.blue.shade50,
+        hintText: "Find your university",
+        hintStyle: TextStyle(
+          fontSize: 15.0,
+          color: Colors.blue.shade900,
+        ),
+        border: InputBorder.none,
+        focusedBorder:
+        OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.blue.shade900)),
+
+      ),
+      controller: controllerCity,
+    ),
+    suggestionsCallback: CityData.getSuggestions ,
+    itemBuilder: (context, dynamic suggestion) => ListTile(title: Text(suggestion!),
+    ),
+    onSuggestionSelected: (dynamic suggestion) => controllerCity.text = suggestion! ,
+    onSaved: (value) => selectedCity = value,
+
+
+  );
 }
+

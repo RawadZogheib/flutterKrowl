@@ -29,7 +29,7 @@ const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
 
 //List of Universities
-List<dynamic> univercitiesName = [];
+List<dynamic> univercitiesName = ["item1", "item2", "item3", ];
 //List of Majors
 List<dynamic> degrees = [];
 
