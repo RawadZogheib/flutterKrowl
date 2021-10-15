@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
@@ -57,22 +58,18 @@ class _Signup2State extends State<Signup2> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: InkWell(
-                    child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
-                      Navigator.pop(context, '/Signup2');
-                    }, )
-                  ),
+                  child: PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
+                    Navigator.pop(context, '/Signup2');
+                  }, ),
                 ),
                 Row(
                   children: [
                     Container(
                       width: 70,
                       margin: EdgeInsets.only(left: 100.sp),
-                      child: InkWell(
-                        child: NextButton(text: "Next", icon: Icons.arrow_forward,onTap: () {
-                          Navigator.pushNamed(context, '/Registration');
-                        }, )
-                      ),
+                      child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,onTap: () {
+                        Navigator.pushNamed(context, '/Registration');
+                      }, ),
                     ),
                   ],
                 ),

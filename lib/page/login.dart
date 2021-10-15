@@ -17,6 +17,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  var blue1;
+  var blue2;
+  var white;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +88,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+                    child: PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
                       Navigator.pop(context, '/intro_page');
                     },),
                   ),
@@ -94,7 +97,7 @@ class _LoginState extends State<Login> {
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
+                        child: NextButton(text: "Next", color: blue1 ,icon: Icons.arrow_forward,   onTap: () {
                           if (globals.emailLogin != null ) {
                             if (globals.emailLogin!.isNotEmpty)
                               Navigator.pushNamed(context, '/login2' );

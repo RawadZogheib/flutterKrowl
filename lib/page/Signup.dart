@@ -87,7 +87,7 @@ class _SignupState extends State<Signup> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
+                    child: PreviousButton(text: "previous", color: Colors.blue.shade900, icon: Icons.arrow_back,  onTap: () {
                       globals.email = null;
                       Navigator.pop(context, '/intro_page');
                     },),
@@ -97,7 +97,7 @@ class _SignupState extends State<Signup> {
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: NextButton(text: "Next", icon: Icons.arrow_forward, onTap: (){
+                        child: NextButton(text: "Next", color: Colors.blue.shade900 , icon: Icons.arrow_forward, onTap: (){
 
                           try {
                             _reg();

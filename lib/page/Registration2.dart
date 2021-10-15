@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
@@ -138,7 +139,7 @@ class _Registration2State extends State<Registration2> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  PreviousButton(text: "previous", icon: Icons.arrow_back,
+                  PreviousButton(text: "previous", color:blue1 ,icon: Icons.arrow_back,
                     onTap: () {
                       globals.uniId = null;
                       globals.majorId = null;
@@ -150,7 +151,7 @@ class _Registration2State extends State<Registration2> {
                       Container(
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: NextButton(text: "next", icon: Icons.arrow_forward,   onTap: () {if (globals.uniId != null && globals.majorId != null && globals.minorId != null) {
+                        child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward,   onTap: () {if (globals.uniId != null && globals.majorId != null && globals.minorId != null) {
                           Navigator.pushNamed(context, '/Registration3');
                         } else {
                           showDialog<String>(

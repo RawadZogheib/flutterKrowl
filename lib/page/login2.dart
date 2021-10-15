@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
@@ -22,6 +23,9 @@ class Login2 extends StatefulWidget {
 }
 
 class _Login2State extends State<Login2> {
+  var blue1;
+  var blue2;
+  var white;
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -90,7 +94,7 @@ class _Login2State extends State<Login2> {
                 children: [
                   Container(
                     child: InkWell(
-                      child: PreviousButton(text: "previous", icon: Icons.arrow_back,  onTap: () {
+                      child: PreviousButton(text: "previous",color: blue1, icon: Icons.arrow_back,  onTap: () {
                         Navigator.pop(context, '/login');
                       }, )
                     ),
@@ -101,7 +105,7 @@ class _Login2State extends State<Login2> {
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
                         child: InkWell(
-                          child:NextButton(text: "login", icon: Icons.arrow_forward, onTap: () {
+                          child:NextButton(text: "login",color: blue1, icon: Icons.arrow_forward, onTap: () {
                             if (globals.passwordLogin != null ) {
                               if (globals.passwordLogin!.isNotEmpty)
                                 try {

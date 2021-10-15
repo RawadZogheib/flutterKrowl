@@ -5,7 +5,7 @@ class NextButton extends StatelessWidget {
   var text;
   final onTap;
 
-  NextButton({ required this.text, this.color, required this.icon, this.onTap });
+  NextButton({ required this.text, required this.color, required this.icon, this.onTap });
   var color;
   final IconData icon;
   @override

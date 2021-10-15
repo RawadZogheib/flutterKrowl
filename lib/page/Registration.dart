@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
@@ -210,7 +211,7 @@ class _RegistrationState extends State<Registration> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PreviousButton(text: "previous", icon: Icons.arrow_back, onTap: () {
+            PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
               globals.fName = null;
               globals.lName = null;
               globals.userName= null;
@@ -222,7 +223,7 @@ class _RegistrationState extends State<Registration> {
                 Container(
                   width: 70,
                   margin: EdgeInsets.only(left: 100.sp),
-                  child: NextButton(text: "Next", icon: Icons.arrow_forward,   onTap: () {
+                  child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,   onTap: () {
 
                     _test1();
 

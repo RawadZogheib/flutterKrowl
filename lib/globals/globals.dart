@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 String myIP = "http://10.10.4.64";
 
 //Colors
-Color claraWhite = Colors.white;
+Color white = Colors.white;
+Color blue1 = Colors.blue.shade900;
+Color blue2 = Colors.blue.shade50;
 
 
 //Errors
