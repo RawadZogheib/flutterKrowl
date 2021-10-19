@@ -193,14 +193,14 @@ class _Registration2State extends State<Registration2> {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.blue.shade900)),
           ),
-          controller: controllerCity,
+          textInputAction: TextInputAction.next,
+
         ),
         suggestionsCallback: CityData.getSuggestions,
         itemBuilder: (context, dynamic suggestion) => ListTile(
           title: Text(suggestion!),
         ),
-        onSuggestionSelected: (dynamic suggestion) =>
-            controllerCity.text = suggestion!,
+        onSuggestionSelected: (dynamic suggestion) => suggestion!,
         onSaved: (value) => selectedCity = value,
       );
 
@@ -223,14 +223,13 @@ class _Registration2State extends State<Registration2> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.blue.shade900)),
       ),
-      controller: controllerCity,
+      textInputAction: TextInputAction.next,
     ),
     suggestionsCallback: CityData2.getSuggestions,
     itemBuilder: (context, dynamic suggestion) => ListTile(
       title: Text(suggestion!),
     ),
-    onSuggestionSelected: (dynamic suggestion) =>
-    controllerCity.text = suggestion!,
+    onSuggestionSelected: (dynamic suggestion) => suggestion!,
     onSaved: (value) => selectedCity = value,
   );
 
@@ -253,14 +252,13 @@ class _Registration2State extends State<Registration2> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: Colors.blue.shade900)),
       ),
-      controller: controllerCity,
+      textInputAction: TextInputAction.done,
     ),
     suggestionsCallback: CityData2.getSuggestions,
     itemBuilder: (context, dynamic suggestion) => ListTile(
       title: Text(suggestion!),
     ),
-    onSuggestionSelected: (dynamic suggestion) =>
-    controllerCity.text = suggestion!,
+    onSuggestionSelected: (dynamic suggestion) => suggestion!,
     onSaved: (value) => selectedCity = value,
   );
 }
