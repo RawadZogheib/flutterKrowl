@@ -49,7 +49,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 140,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/Registration2');
+                      Navigator.pushNamed(context, '/login');
                     }, ),
                   ),
                 ),
