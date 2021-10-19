@@ -168,14 +168,19 @@ class _Registration2State extends State<Registration2> {
   _getLists() async {
     var data = {};
     var res = await CallApi().postData(data,'(Control)registration2.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-    print("sdfsdfsdf");
-    print(body[0][0]);
-    if (body[0] == "success") {
-      //globals.majorsName = body[1];
-      print(body[1][27]);
 
+    List<dynamic> body = json.decode(res.body);
+    print(body[0]);
+    print("sdfsdfsdf");
+    //print(body[0][0]);
+
+    if (body[0] == "[\"success\"]") {
+
+      //setState(() {
+        //globals.univercitiesName = body[1];
+        //globals.univercitiesName = body[2];
+     // });
+      print("asdasdsadsadsadsdsd");
     } else if (body[0] == "error4") {
       showDialog<String>(
         context: context,
