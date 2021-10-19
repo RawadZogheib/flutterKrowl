@@ -25,8 +25,6 @@ class Registration2 extends StatefulWidget {
 
 class _Registration2State extends State<Registration2> {
   final controllerCity = TextEditingController();
-  final controllerCity1 = TextEditingController();
-  final controllerCity2 = TextEditingController();
   String? selectedCity;
 
   @override
@@ -56,11 +54,17 @@ class _Registration2State extends State<Registration2> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(width: 470, child: buildCity2()),
+                Container(
+                  width: 470,
+                  child: buildCity2()
+                ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(width: 470, child: buildCity3()),
+                Container(
+                  width: 470,
+                  child: buildCity3()
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -142,14 +146,12 @@ class _Registration2State extends State<Registration2> {
       //globals.univercitiesName = body[1];
       //print(globals.univercitiesName[1]);
       for (int i = 0; i < body[1].length; i++) {
-        globals.univercitiesName
-            .add(body[1][i].toString().replaceAll("[", "").replaceAll("]", ""));
-        //print(globals.univercitiesName);
+      globals.univercitiesName.add(body[1][i].toString().replaceAll("[", "").replaceAll("]", ""));
+      //print(globals.univercitiesName);
       }
 
       for (int i = 0; i < body[2].length; i++) {
-        globals.degrees
-            .add(body[2][i].toString().replaceAll("[", "").replaceAll("]", ""));
+        globals.degrees.add(body[2][i].toString().replaceAll("[", "").replaceAll("]", ""));
         //print(globals.degrees);
       }
 
@@ -191,78 +193,74 @@ class _Registration2State extends State<Registration2> {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.blue.shade900)),
           ),
-          controller: controllerCity,
+          textInputAction: TextInputAction.next,
+
         ),
         suggestionsCallback: CityData.getSuggestions,
         itemBuilder: (context, dynamic suggestion) => ListTile(
           title: Text(suggestion!),
         ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity.text = suggestion!;
-      globals.uniId = suggestion!;
-      print(globals.uniId);
-    },
+        onSuggestionSelected: (dynamic suggestion) => suggestion!,
+        onSaved: (value) => selectedCity = value,
       );
+
 
   Widget buildCity2() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue.shade50),
-                borderRadius: BorderRadius.circular(10)),
-            filled: true,
-            fillColor: Colors.blue.shade50,
-            hintText: "Find your Major",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.blue.shade900,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.blue.shade900)),
-          ),
-          controller: controllerCity1,
+    textFieldConfiguration: TextFieldConfiguration(
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue.shade50),
+            borderRadius: BorderRadius.circular(10)),
+        filled: true,
+        fillColor: Colors.blue.shade50,
+        hintText: "Find your Major",
+        hintStyle: TextStyle(
+          fontSize: 15.0,
+          color: Colors.blue.shade900,
         ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity1.text = suggestion!;
-      globals.majorId = suggestion!;
-      print(globals.majorId);
-    },
-      );
+        border: InputBorder.none,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.blue.shade900)),
+      ),
+      textInputAction: TextInputAction.next,
+    ),
+    suggestionsCallback: CityData2.getSuggestions,
+    itemBuilder: (context, dynamic suggestion) => ListTile(
+      title: Text(suggestion!),
+    ),
+    onSuggestionSelected: (dynamic suggestion) => suggestion!,
+    onSaved: (value) => selectedCity = value,
+  );
+
 
   Widget buildCity3() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue.shade50),
-                borderRadius: BorderRadius.circular(10)),
-            filled: true,
-            fillColor: Colors.blue.shade50,
-            hintText: "Find your Minor",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.blue.shade900,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.blue.shade900)),
-          ),
-          controller: controllerCity2,
+    textFieldConfiguration: TextFieldConfiguration(
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue.shade50),
+            borderRadius: BorderRadius.circular(10)),
+        filled: true,
+        fillColor: Colors.blue.shade50,
+        hintText: "Find your Minor",
+        hintStyle: TextStyle(
+          fontSize: 15.0,
+          color: Colors.blue.shade900,
         ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-            controllerCity2.text = suggestion!;
-            globals.minorId = suggestion!;
-            print(globals.minorId);
-        },
-      );
+        border: InputBorder.none,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.blue.shade900)),
+      ),
+      textInputAction: TextInputAction.done,
+    ),
+    suggestionsCallback: CityData2.getSuggestions,
+    itemBuilder: (context, dynamic suggestion) => ListTile(
+      title: Text(suggestion!),
+    ),
+    onSuggestionSelected: (dynamic suggestion) => suggestion!,
+    onSaved: (value) => selectedCity = value,
+  );
 }
+
+
