@@ -253,7 +253,7 @@ class _CodeState extends State<Code> {
                       globals.fName = null;
                       globals.lName = null;
                       globals.userName = null;
-                      globals.dateOfBirthCalac = null;
+                      globals.dateOfBirthCalc = null;
                       Navigator.pop(context, '/Registration3');
                     },
                   ),

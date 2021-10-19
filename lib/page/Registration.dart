@@ -59,14 +59,15 @@ class _RegistrationState extends State<Registration> {
     if (_datePicker != null && _datePicker != _date){
       setState(() {
         _date = _datePicker;
+        globals.dateOfBirth = _date;
         print(_date.toString(),);
 
         final DateTime? date2 = DateTime.now();
         int difference = date2!.difference(_date).inDays;
 
         print("gsghdhsagdshagdshgdjhgd: " + (difference/365).toString());
-        globals.dateOfBirth = (difference/365).round();
-        print("gsghdhsagdshagdshgdjhgd: " + (globals.dateOfBirth).toString());
+        globals.dateOfBirthCalc = (difference/365).round();
+        print("gsghdhsagdshagdshgdjhgd: " + (globals.dateOfBirthCalc).toString());
       });
     }
   }
@@ -216,6 +217,7 @@ class _RegistrationState extends State<Registration> {
               globals.lName = null;
               globals.userName= null;
               globals.dateOfBirth = null;
+              globals.dateOfBirthCalc = null;
               Navigator.pop(context, '/intro_page2');
             }, ),
             Row(
@@ -270,11 +272,11 @@ class _RegistrationState extends State<Registration> {
 
     }
 
-    if (globals.dateOfBirth != null) {
+    if (globals.dateOfBirthCalc != null) {
 
       if4 = true;
       print(if4.toString());
-      if (globals.dateOfBirth! > 17)
+      if (globals.dateOfBirthCalc! > 17)
         if44 = true;
     }
 
@@ -469,7 +471,7 @@ class _RegistrationState extends State<Registration> {
 
           var data = {
             'username': globals.userName,
-            'date_of_birth':globals.dateOfBirth,
+            'date_of_birth':globals.dateOfBirth.toString(),
           };
           var res = await CallApi().postData(
               data, '(Control)registration.php');
