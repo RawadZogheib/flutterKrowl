@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
 
-class CustomContainer extends StatefulWidget {
-  CustomContainer({ this.children, this.icon,  this.height,  this.width, this.color});
+class QuietTable extends StatefulWidget {
+  QuietTable({ this.children, this.icon,  this.height,  this.width, this.color});
   var children;
   var height;
   var width;
@@ -12,10 +12,10 @@ class CustomContainer extends StatefulWidget {
   var icon;
 
   @override
-  State<CustomContainer> createState() => _CustomContainerState();
+  State<QuietTable> createState() => _CustomContainerState();
 }
 
-class _CustomContainerState extends State<CustomContainer> {
+class _CustomContainerState extends State<QuietTable> {
   @override
   Widget build(BuildContext context) {
     return Container(
