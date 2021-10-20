@@ -1,8 +1,5 @@
-import 'package:hovering/hovering.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart';
 
 class Chair extends StatefulWidget {
   Chair({ this.icon,  this.height,  this.width, this.color});
