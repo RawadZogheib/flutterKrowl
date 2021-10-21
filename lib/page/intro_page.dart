@@ -1,9 +1,16 @@
 import 'dart:ui';
+<<<<<<< Updated upstream
+=======
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+>>>>>>> Stashed changes
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/YesButton.dart';
 import 'package:flutter_app_backend/widgets/NoButton.dart';
+
+var passL;
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Intro()));
@@ -13,6 +20,7 @@ class Intro extends StatefulWidget {
   @override
   State<Intro> createState() => _IntroState();
 }
+
 
 class _IntroState extends State<Intro> {
   @override
@@ -48,6 +56,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 140,
                     child: YesButton( onTap: () {
+                      _getSaved();
                       Navigator.pushNamed(context, '/login');
                     }, ),
                   ),
@@ -70,4 +79,18 @@ class _IntroState extends State<Intro> {
       ),),);
 
   }
-}
+
+
+  _getSaved() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var e = localStorage.getString("email");
+    var p = localStorage.getString("password");
+    if (e != null)
+      if (p != null) {
+        print(e);
+        setState(() {
+          globals.emailLogin = e;
+          globals.passwordLogin = p;
+        });
+      }
+}}

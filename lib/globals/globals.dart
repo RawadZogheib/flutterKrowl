@@ -66,4 +66,4 @@ String? code6 = null;
 //login  (page[/login.dart /login2.dart])
 String? emailLogin = null;
 String? passwordLogin = null;
-
+String? emailL=null;

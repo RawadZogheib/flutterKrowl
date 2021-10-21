@@ -67,6 +67,7 @@ class _Intro2State extends State<Intro2> {
                       child: InkWell(
                         child: NextButton(text: "next",color:Colors.white, icon: Icons.arrow_forward, onTap: () {
                           Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
+
                         },)
 
                       ),
@@ -74,11 +75,11 @@ class _Intro2State extends State<Intro2> {
                   ],
                 ),
 
-
               ],),
           ],
         ),
       ),
     );
   }
+
 }

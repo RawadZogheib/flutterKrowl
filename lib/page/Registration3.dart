@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
@@ -305,7 +306,7 @@ _testpass() {
           'username': globals.userName,
           'password': globals.password,
           'repassword': globals.repassword,
-          'date_of_birth': globals.dateOfBirth,
+          'date_of_birth': globals.dateOfBirth.toString(),
           'photo': globals.photo,
           'terms_of_service': globals.terms,
           'crop_x': globals.cropX,
@@ -321,7 +322,9 @@ _testpass() {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "success") {
-          Navigator.pushNamed(context, '/Code');
+            _saveLogin();
+           Navigator.pushNamed(context, '/Code');
+
         } else if (body[0] == "error1") {
           showDialog<String>(
             context: context,
@@ -587,6 +590,15 @@ _testpass() {
       );
     }
   }
+ _saveLogin() async{
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setString("email",globals.email!);
+    localStorage.setString("password",globals.password!);
+    return true;
+  }
+
+
+
 }
 /*
 var res = await CallApi().postData(data, '(Control)regist.php');

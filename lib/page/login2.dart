@@ -58,7 +58,8 @@ class _Login2State extends State<Login2> {
               ),
               Container(
                 width: 600,
-                child: TextField(
+                child: TextFormField(
+                  initialValue: globals.passwordLogin,
                   obscureText: true,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
