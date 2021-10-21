@@ -181,7 +181,8 @@ class _Login2State extends State<Login2> {
 
           SharedPreferences localStorage = await SharedPreferences.getInstance();
           localStorage.setString('token', body[1]);
-
+          var tt = localStorage.getString('token');
+          print(tt);
           Navigator.pushNamed(cont, '/intro_page2');
         } else if (body[0] == "false") {
           showDialog<String>(
