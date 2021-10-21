@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/globals/globals.dart';
+import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
@@ -235,97 +237,34 @@ class _CodeState extends State<Code> {
                   ],
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 30,
-                              margin: EdgeInsets.only(left: 10.sp),
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 25,
-                                color: Colors.blue.shade900,
-                              ),
+                Container(
+                  width: 70,
+                  margin: EdgeInsets.only(left: 180.sp),
+                  child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward, onTap: () {
+                    try {
+                      _sendCode();
+                    }catch(e){
+
+                      showDialog<String>(
+                        context: cont,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text(
+                              globals.errorException),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
                             ),
-                            Text("previous",
-                                style: TextStyle(
-                                  color: Colors.blue.shade900,
-                                  fontFamily: 'Rubik',
-                                  fontSize: 20,
-                                )),
                           ],
                         ),
-                        onTap: () {
-                          globals.fName = null;
-                          globals.lName = null;
-                          globals.userName = null;
-                          globals.dateOfBirthCalc = null;
-                          Navigator.pop(context, '/Registration3');
-                        },
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 70,
-                          margin: EdgeInsets.only(left: 100.sp),
-                          child: InkWell(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text("next",
-                                    style: TextStyle(
-                                      color: Colors.blue.shade900,
-                                      fontFamily: 'Rubik',
-                                      fontSize: 20,
-                                    )),
-                                Container(
-                                  width: 30,
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    size: 25,
-                                    color: Colors.blue.shade900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            onTap: () {
-                              try {
-                                _sendCode();
-                              }catch(e){
+                      );
 
-                                showDialog<String>(
-                                  context: cont,
-                                  builder: (BuildContext context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        globals.errorException),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                    }
 
-                              }
-
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-
-
-                  ],),
+                  },)
+                ),
 
 
 
