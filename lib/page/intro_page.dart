@@ -53,7 +53,6 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 140,
                     child: YesButton( onTap: () {
-                      _getSaved();
                       Navigator.pushNamed(context, '/login');
                     }, ),
                   ),
@@ -77,17 +76,4 @@ class _IntroState extends State<Intro> {
 
   }
 
-
-  _getSaved() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var e = localStorage.getString("email");
-    var p = localStorage.getString("password");
-    if (e != null)
-      if (p != null) {
-        print(e);
-
-          globals.emailLogin = e;
-          globals.passwordLogin = p;
-
-      }
-}}
+}
