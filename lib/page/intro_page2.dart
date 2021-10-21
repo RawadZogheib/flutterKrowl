@@ -71,14 +71,53 @@ class _Intro2State extends State<Intro2> {
                 'user_id': 69
                 };
 
-                var res = await CallApi().postData(data, 'test3_2.php');
+                var res = await CallApi().postData(data, '(Control)tokenCheck.php');
                 print(res.body);
                 List<dynamic> body = json.decode(res.body);
-                if (body[0].toString() == "truee") {
+                if (body[0] == "true") {
                   SharedPreferences localStorage = await SharedPreferences.getInstance();
                   localStorage.setString('token', body[1]);
                   print(body[1]);
+                }else if (body[0] == "errorToken") {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text(
+                              globals.errorToken),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                  );
+                }else {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text(
+                              globals.errorElse),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                  );
+
+
                 }
+
+
+
 
               },
             ),
