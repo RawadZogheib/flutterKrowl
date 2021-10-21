@@ -25,9 +25,10 @@ const String error4 = "Cannot connect to the dataBase.";
 const String error5 = "UserName already exist.";
 const String error6 = "Email already exist.";
 const String error7 = "Field cannot be empty.";
+const String errorToken = "Token Error.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
-
+const String rememberme= "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 //List of Universities
 List<dynamic> univercitiesName = [];
 //List of Majors
@@ -64,6 +65,6 @@ String? code6 = null;
 
 
 //login  (page[/login.dart /login2.dart])
-String? emailLogin = null;
-String? passwordLogin = null;
-String? emailL=null;
+String? emailLogin ="";
+String? passwordLogin = "";
+
