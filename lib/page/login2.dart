@@ -8,6 +8,7 @@ import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 late BuildContext cont;
@@ -57,7 +58,8 @@ class _Login2State extends State<Login2> {
               ),
               Container(
                 width: 600,
-                child: TextField(
+                child: TextFormField(
+                  initialValue: globals.passwordLogin,
                   obscureText: true,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -176,6 +178,10 @@ class _Login2State extends State<Login2> {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
+
+          SharedPreferences localStorage = await SharedPreferences.getInstance();
+          localStorage.setString('token', body[1]);
+
           Navigator.pushNamed(cont, '/intro_page2');
         } else if (body[0] == "false") {
           showDialog<String>(

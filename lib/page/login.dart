@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -48,7 +48,8 @@ class _LoginState extends State<Login> {
               ),
               Container(
                 width: 500,
-                child: TextField(
+                child: TextFormField(
+                  initialValue: globals.emailLogin,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r"\s")),
                   ],
@@ -70,6 +71,7 @@ class _LoginState extends State<Login> {
                     ),
                     border: InputBorder.none,
                   ),
+
                   onChanged: (value) {
                     globals.emailLogin = value;
                     //print("" + globals.email);
@@ -129,4 +131,5 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
 }
