@@ -592,9 +592,11 @@ _testpass() {
   }
  _saveLogin() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    //localStorage.setBool("remember",true);
+   // localStorage.setBool("bool",true);
     localStorage.setString("email",globals.email!);
     localStorage.setString("password",globals.password!);
-    return true;
+
   }
 
 

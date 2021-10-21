@@ -59,7 +59,7 @@ class _Login2State extends State<Login2> {
               Container(
                 width: 600,
                 child: TextFormField(
-                  initialValue: globals.passwordLogin,
+                  initialValue: globals.passwordLogin.toString(),
                   obscureText: true,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -273,8 +273,36 @@ class _Login2State extends State<Login2> {
               ],
             ),);
     }
+  }
+
+  _yesRemember() async{
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setBool("bool",true);
+    var e = localStorage.getString("email");
+    var p = localStorage.getString("password");
+    setState(() {
+      print("yessss"+e.toString());
+      globals.emailLogin = e;
+      globals.passwordLogin = p;
+    });
+    Navigator.pushNamed(context, '/login2');
+  }
 
 
+  _noRemember() async{
+    setState(() {
+      globals.emailLogin = null;
+      globals.passwordLogin = null;
+    });
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove("bool");
+    localStorage.remove("email");
+    localStorage.remove("password");
+    Navigator.pushNamed(context, '/login2');
 
   }
+
+
+
+
 }

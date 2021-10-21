@@ -159,18 +159,20 @@ class _LoginState extends State<Login> {
   _getSaved() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
 
-    var b = localStorage.getBool("bool");
     var e = localStorage.getString("email");
     var p = localStorage.getString("password");
-    print(b);    if(b!=null)
-      if(b !=false)
+
         if (e != null)
           if (p != null) {
 
               setState(() {
-                print("finnn"+e.toString());
+
                 globals.emailLogin = e;
                 globals.passwordLogin = p;
+
+                print("loginnnn"+ globals.emailLogin!);
+                print("loginnnn"+ globals.passwordLogin!);
+
               });
 
             }
