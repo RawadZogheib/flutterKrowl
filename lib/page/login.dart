@@ -18,6 +18,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getSaved();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,6 +139,27 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+
+  _getSaved() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+
+    var b = localStorage.getBool("bool");
+    var e = localStorage.getString("email");
+    var p = localStorage.getString("password");
+    print(b);
+    if(b!=null)
+      if(b !=false)
+        if (e != null)
+          if (p != null) {
+
+              setState(() {
+                globals.emailLogin = e;
+                globals.passwordLogin = p;
+              });
+            }
+    print("finnn"+b.toString());
   }
 
 }

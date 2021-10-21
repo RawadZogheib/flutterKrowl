@@ -29,65 +29,52 @@ class _IntroState extends State<Intro> {
         margin: EdgeInsets.all(25.0.sp),
         alignment: Alignment.center,
         child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 5.0),
-                  child: Text(
-                    'Studying. But better.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontFamily: 'Rubik',
-                      fontSize: 72,
-                    ),
-                  ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 5.0),
+              child: Text(
+                'Studying. But better.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'Rubik',
+                  fontSize: 72,
                 ),
-                const SizedBox(
-                  width: 200,
-                  height: 20,
-                ),
-                InkWell(
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 140,
-                    child: YesButton( onTap: () {
-                      _getSaved();
-                      Navigator.pushNamed(context, '/login');
-                    }, ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 200,
-                  height: 10,
-                ),
-                InkWell(
-                  child: Container(
-                    width: 140,
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: NoButton( onTap: () {
-                      Navigator.pushNamed(context, '/Signup');
-                    },),
-                  ),
+              ),
+            ),
+            const SizedBox(
+              width: 200,
+              height: 20,
+            ),
+            InkWell(
+              child: Container(
+                alignment: Alignment.center,
+                width: 140,
+                child: YesButton(onTap: () {
+                  Navigator.pushNamed(context, '/login');
+                },),
+              ),
+            ),
+            const SizedBox(
+              width: 200,
+              height: 10,
+            ),
+            InkWell(
+              child: Container(
+                width: 140,
+                padding: EdgeInsets.only(left: 10.0),
+                child: NoButton(onTap: () {
+                  Navigator.pushNamed(context, '/Signup');
+                },),
+              ),
 
-                ),
-              ],
-      ),),);
-
+            ),
+          ],
+        ),),);
   }
 
+}
 
-  _getSaved() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var e = localStorage.getString("email");
-    var p = localStorage.getString("password");
-    if (e != null)
-      if (p != null) {
-        print(e);
-        setState(() {
-          globals.emailLogin = e;
-          globals.passwordLogin = p;
-        });
-      }
-}}
+
