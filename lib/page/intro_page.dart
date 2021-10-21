@@ -1,8 +1,5 @@
 import 'dart:ui';
-<<<<<<< Updated upstream
-=======
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
->>>>>>> Stashed changes
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
