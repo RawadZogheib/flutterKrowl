@@ -58,7 +58,7 @@ class _LoginState extends State<Login> {
               Container(
                 width: 500,
                 child: TextFormField(
-                  initialValue: globals.emailLogin,
+                  initialValue: globals.emailLogin.toString(),
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r"\s")),
                   ],
@@ -109,9 +109,23 @@ class _LoginState extends State<Login> {
                         child: NextButton(text: "Next", color: blue1 ,icon: Icons.arrow_forward,   onTap: () {
                           if (globals.emailLogin != null ) {
                             if (globals.emailLogin!.isNotEmpty)
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                      title: const Text('Remember Me'),
+                                      content: const Text(globals.error1),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                              );
                               Navigator.pushNamed(context, '/login2' );
-                          }
-                          else {
+                          } else {
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
@@ -148,18 +162,19 @@ class _LoginState extends State<Login> {
     var b = localStorage.getBool("bool");
     var e = localStorage.getString("email");
     var p = localStorage.getString("password");
-    print(b);
-    if(b!=null)
+    print(b);    if(b!=null)
       if(b !=false)
         if (e != null)
           if (p != null) {
 
               setState(() {
+                print("finnn"+e.toString());
                 globals.emailLogin = e;
                 globals.passwordLogin = p;
               });
+
             }
-    print("finnn"+b.toString());
+
   }
 
 }
