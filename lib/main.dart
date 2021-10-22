@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/page/Code.dart';
+import 'package:flutter_app_backend/page/Library.dart';
 import 'package:flutter_app_backend/page/Registration.dart';
 import 'package:flutter_app_backend/page/Registration2.dart';
 import 'package:flutter_app_backend/page/Registration3.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: Intro(),
+         //home: Intro(),
           initialRoute: '/intro_page',
           routes: {
             '/intro_page': (context) => Intro(),
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
             '/Registration': (context) => Registration(),
             '/Registration2': (context) => Registration2(),
             '/Registration3': (context) => Registration3(),
+            '/Library': (context) => Library(),
             '/Test': (context) => Test(),
           });
     });
