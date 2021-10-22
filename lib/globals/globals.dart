@@ -3,6 +3,8 @@ library flutterKrowl.globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const String version = "v1.0";
+
 //Server Ip  (page[/my_api.dart])
 String myIP = "http://10.10.4.64";
 
