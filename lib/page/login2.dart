@@ -182,9 +182,6 @@ class _Login2State extends State<Login2> {
           SharedPreferences localStorage = await SharedPreferences.getInstance();
 
           localStorage.setString('token', body[1]);
-          var i=localStorage.getInt("i");
-          if(i==1){
-            localStorage.setInt("i",2);
           showDialog<String>(
             context: context,
             builder: (BuildContext context) =>
@@ -203,7 +200,7 @@ class _Login2State extends State<Login2> {
                   ],
                 ),
           );
-          }
+
           Navigator.pushNamed(cont, '/intro_page2');
         }else if (body[0] == "errorToken") {
           showDialog<String>(
