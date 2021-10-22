@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Intro2()));
@@ -60,8 +60,10 @@ class _Intro2State extends State<Intro2> {
               ),
 
 
-
-              InkWell( //For Test Only
+              /*
+              InkWell(//For Test Only   (add:     $json = file_get_contents('php://input');
+                                               // $data = json_decode($json);
+                                     //  to the php file "(Control)tokenCheck.php")
                 child: Container(
                   child: Text(
                     "test",
@@ -69,66 +71,56 @@ class _Intro2State extends State<Intro2> {
                   ),
                 ),
                 onTap: () async {
+                  SharedPreferences localStorage =
+                      await SharedPreferences.getInstance();
 
-                  SharedPreferences localStorage = await SharedPreferences.getInstance();
+                  var data = {'user_id': 69};
 
-                  var data = {
-                  'user_id': 69
-                  };
-
-
-
-
-                  var res = await CallApi().postData(data, '(Control)tokenCheck.php');
+                  var res =
+                      await CallApi().postData(data, '(Control)tokenCheck.php');
                   print(res.body);
                   List<dynamic> body = json.decode(res.body);
                   if (body[0] == "true") {
-                    SharedPreferences localStorage = await SharedPreferences.getInstance();
+                    SharedPreferences localStorage =
+                        await SharedPreferences.getInstance();
                     localStorage.setString('token', body[1]);
                     print(body[1]);
-                  }else if (body[0] == "errorToken") {
+                  } else if (body[0] == "errorToken") {
                     showDialog<String>(
                       context: context,
-                      builder: (BuildContext context) =>
-                          AlertDialog(
-                            title: const Text('Error'),
-                            content: const Text(
-                                globals.errorToken),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text(globals.errorToken),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
                           ),
+                        ],
+                      ),
                     );
-                  }else {
+                  } else {
                     showDialog<String>(
                       context: context,
-                      builder: (BuildContext context) =>
-                          AlertDialog(
-                            title: const Text('Error'),
-                            content: const Text(
-                                globals.errorElse),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text(globals.errorElse),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
                           ),
+                        ],
+                      ),
                     );
-
-
                   }
-
-
-
-
                 },
               ),
+               */
+
+
+
+
               SizedBox(
                 height: 100,
               ),
