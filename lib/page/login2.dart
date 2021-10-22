@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,6 +58,7 @@ class _Login2State extends State<Login2> {
               Container(
                 width: 600,
                 child: TextFormField(
+                  key: Key(globals.passwordLogin.toString()),
                   initialValue: globals.passwordLogin.toString(),
                   obscureText: true,
                   textAlign: TextAlign.center,
@@ -170,6 +170,7 @@ class _Login2State extends State<Login2> {
           && globals.passwordLogin!.isNotEmpty) {
 
         var data = {
+          'version': globals.version,
           'email': globals.emailLogin,
           'password': globals.passwordLogin
         };
@@ -178,10 +179,30 @@ class _Login2State extends State<Login2> {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
-
           SharedPreferences localStorage = await SharedPreferences.getInstance();
           localStorage.setString('token', body[1]);
-
+          var i=localStorage.getInt("i");
+          if(i==1){
+            localStorage.setInt("i",2);
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Remember Me'),
+                  content: const Text(globals.errorRememberMe),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>_yesRemember(),
+                      child: const Text('Yes'),
+                    ),
+                    TextButton(
+                      onPressed: () => _noRemember(),
+                      child: const Text('No'),
+                    ),
+                  ],
+                ),
+          );
+          }
           Navigator.pushNamed(cont, '/intro_page2');
         } else if (body[0] == "false") {
           showDialog<String>(
@@ -217,6 +238,25 @@ class _Login2State extends State<Login2> {
                   ],
                 ),
           );
+
+        } else if (body[0] == "errorVersion") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(globals.version + "\n"+
+                      globals.errorVersion),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+
         } else {
           showDialog<String>(
             context: cont,
@@ -277,28 +317,30 @@ class _Login2State extends State<Login2> {
 
   _yesRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.setBool("bool",true);
+
     var e = localStorage.getString("email");
     var p = localStorage.getString("password");
+
     setState(() {
       print("yessss"+e.toString());
       globals.emailLogin = e;
       globals.passwordLogin = p;
     });
-    Navigator.pushNamed(context, '/login2');
+
+
   }
 
 
   _noRemember() async{
-    setState(() {
-      globals.emailLogin = null;
-      globals.passwordLogin = null;
-    });
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.remove("bool");
     localStorage.remove("email");
     localStorage.remove("password");
-    Navigator.pushNamed(context, '/login2');
+    setState(() {
+      globals.emailLogin = "";
+      globals.passwordLogin = "";
+    });
+
+    Navigator.pushNamed(cont, '/intro_page2');
 
   }
 
