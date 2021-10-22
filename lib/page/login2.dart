@@ -331,8 +331,8 @@ class _Login2State extends State<Login2> {
 
   _yesRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.setString('emailField',globals.emailLogin!);
-    localStorage.setString('passwordField',globals.passwordLogin!);
+    localStorage.setString('email',globals.emailLogin!);
+    localStorage.setString('password',globals.passwordLogin!);
 
     Navigator.pushNamed(cont, '/intro_page2');
   }

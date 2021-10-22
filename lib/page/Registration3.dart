@@ -326,7 +326,7 @@ _testpass() {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "success") {
-            _saveLogin();
+           _saveLogin();
            Navigator.pushNamed(context, '/Code');
 
         } else if (body[0] == "errorVersion") {
@@ -630,11 +630,8 @@ _testpass() {
     }
   }
  _saveLogin() async{
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    //localStorage.setBool("remember",true);
-   // localStorage.setBool("bool",true);
-    localStorage.setString("email",globals.email!);
-    localStorage.setString("password",globals.password!);
+    globals.emailLogin = globals.email.toString();
+    globals.passwordLogin = globals.password.toString();
 
   }
 

@@ -175,6 +175,8 @@ class _LoginState extends State<Login> {
 
     var e = localStorage.getString("email");
     var p = localStorage.getString("password");
+    print ('kjkjlkg '+globals.emailLogin.toString() + "\n");
+    print(e);
 
     if (e != null)
       if (p != null) {
