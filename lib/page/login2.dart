@@ -179,8 +179,9 @@ class _Login2State extends State<Login2> {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
-          SharedPreferences localStorage = await SharedPreferences.getInstance();
 
+
+          SharedPreferences localStorage = await SharedPreferences.getInstance();
           localStorage.setString('token', body[1]);
           showDialog<String>(
             context: context,
@@ -201,7 +202,7 @@ class _Login2State extends State<Login2> {
                 ),
           );
 
-          Navigator.pushNamed(cont, '/intro_page2');
+
         }else if (body[0] == "errorToken") {
           showDialog<String>(
             context: context,
@@ -330,17 +331,10 @@ class _Login2State extends State<Login2> {
 
   _yesRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setString('emailField',globals.emailLogin!);
+    localStorage.setString('passwordField',globals.passwordLogin!);
 
-    var e = localStorage.getString("email");
-    var p = localStorage.getString("password");
-
-    setState(() {
-      print("yessss"+e.toString());
-      globals.emailLogin = e;
-      globals.passwordLogin = p;
-    });
-
-
+    Navigator.pushNamed(cont, '/intro_page2');
   }
 
 
@@ -353,11 +347,9 @@ class _Login2State extends State<Login2> {
       globals.passwordLogin = "";
     });
 
-    //Navigator.pushNamed(cont, '/intro_page2');
+    Navigator.pushNamed(cont, '/intro_page2');
 
   }
-
-
 
 
 }
