@@ -303,6 +303,7 @@ _testpass() {
         //if(exp.hasMatch(globals.password!)) {
         //if (globals.password == globals.repassword) {
         var data = {
+          'version': globals.version,
           'email': globals.email,
           'first_name': globals.fName,
           'last_name': globals.lName,
@@ -328,6 +329,41 @@ _testpass() {
             _saveLogin();
            Navigator.pushNamed(context, '/Code');
 
+        } else if (body[0] == "errorVersion") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text("Your version: " + globals.version + "\n"+
+                      globals.errorVersion),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+
+        }else if (body[0] == "errorToken") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      globals.errorToken),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
         } else if (body[0] == "error1") {
           showDialog<String>(
             context: context,
@@ -382,7 +418,7 @@ _testpass() {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'Your password must contain at least 8 characters, 1 lowercase(a-z),1 uppercase(A-Z),1 numeric character(0-9) and 1 special character(!,\$,#,@,%).'),
+                    globals.error2_3),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'OK'),
@@ -582,7 +618,7 @@ _testpass() {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: const Text('Error'),
-          content: const Text('No nulls Allowed.'),
+          content: const Text(globals.error7),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),

@@ -250,6 +250,7 @@ class _SignupState extends State<Signup> {
         if (!globals.email!.contains(" ")) {
           if (exp.hasMatch(globals.email!)) {
             var data = {
+              'version': globals.version,
               'email': globals.email,
             };
             var res = await CallApi().postData(data, '(Control)signup.php');
@@ -262,6 +263,41 @@ class _SignupState extends State<Signup> {
                 col1_2 = Colors.blue.shade900.withOpacity(0.5);
               });
               Navigator.pushNamed(context, '/Registration');
+            } else if (body[0] == "errorVersion") {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertDialog(
+                      title: const Text('Error'),
+                      content: const Text("Your version: " + globals.version + "\n"+
+                          globals.errorVersion),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+              );
+
+            }else if (body[0] == "errorToken") {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertDialog(
+                      title: const Text('Error'),
+                      content: const Text(
+                          globals.errorToken),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+              );
             } else if (body[0] == "error1") {
               setState(() {
                 col1 = Colors.red.shade50;

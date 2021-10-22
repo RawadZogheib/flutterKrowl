@@ -8,8 +8,8 @@ import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
-import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
 String ddd = 'sss';
 
@@ -469,10 +469,11 @@ class _RegistrationState extends State<Registration> {
     globals.cropHeight = "test";
 
     if (globals.userName != null && globals.dateOfBirth !=null) {
-      if (globals.userName!.isNotEmpty) {
+      if (globals.userName!.isNotEmpty && globals.dateOfBirth.toString().isNotEmpty) {
         if (!globals.userName!.contains(" ")) {
 
           var data = {
+            'version': globals.version,
             'username': globals.userName,
             'date_of_birth':globals.dateOfBirth.toString(),
           };
@@ -488,6 +489,41 @@ class _RegistrationState extends State<Registration> {
                   Colors.blue.shade900.withOpacity(0.5);
             });
             Navigator.pushNamed(context, '/Registration2');
+          } else if (body[0] == "errorVersion") {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text("Your version: " + globals.version + "\n"+
+                        globals.errorVersion),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
+
+          }else if (body[0] == "errorToken") {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                        globals.errorToken),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+            );
           } else if (body[0] == "error1") {
             setState(() {
               col3 = Colors.red.shade50;
@@ -681,7 +717,7 @@ class _RegistrationState extends State<Registration> {
                 AlertDialog(
                   title: const Text('Error'),
                   content: const Text(
-                      'No spaces Allowed .'),
+                      globals.error1),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () =>
@@ -703,7 +739,7 @@ class _RegistrationState extends State<Registration> {
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
             content:
-            const Text('Fields can not be empty.'),
+            const Text(globals.error7),
             actions: <Widget>[
               TextButton(
                 onPressed: () =>
@@ -726,7 +762,7 @@ class _RegistrationState extends State<Registration> {
             AlertDialog(
               title: const Text('Error'),
               content: const Text(
-                  'Field can not be null.'),
+                  globals.error7),
               actions: <Widget>[
                 TextButton(
                   onPressed: () =>
