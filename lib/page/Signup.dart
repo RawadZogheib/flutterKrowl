@@ -119,12 +119,9 @@ class _SignupState extends State<Signup> {
                               } catch (e) {
                                 print(e);
                                 var data = {
-                                  'exceptionEmail': e.toString(),
+                                  'exception': e.toString(),
                                 };
-                                var res = await CallApi().postData(
-                                    data, '(Control)exceptionEmail.php');
-                                print("hjrkehgjjjgggggggggggggggggggg" +
-                                    res.body);
+                                var res = await CallApi().postData(data, '(Control)exception.php');
                               }
                               ;
                             },
@@ -236,263 +233,271 @@ class _SignupState extends State<Signup> {
   }
 
   _reg() async {
-    //globals.val2=int.parse(globals.val!);
+    try{
+  //globals.val2=int.parse(globals.val!);
 
-    globals.photo = "test";
-    globals.terms = "test";
-    globals.cropX = "test";
-    globals.cropY = "test";
-    globals.cropWidth = "test";
-    globals.cropHeight = "test";
+  globals.photo = "test";
+  globals.terms = "test";
+  globals.cropX = "test";
+  globals.cropY = "test";
+  globals.cropWidth = "test";
+  globals.cropHeight = "test";
 
-    if (globals.email != null) {
-      if (globals.email!.isNotEmpty) {
-        if (!globals.email!.contains(" ")) {
-          if (exp.hasMatch(globals.email!)) {
-            var data = {
-              'version': globals.version,
-              'email': globals.email,
-            };
-            var res = await CallApi().postData(data, '(Control)signup.php');
-            print(res.body);
-            List<dynamic> body = json.decode(res.body);
-            if (body[0] == "success") {
-              setState(() {
-                col1 = Colors.blue.shade50;
-                col1_1 = Colors.blue.shade900;
-                col1_2 = Colors.blue.shade900.withOpacity(0.5);
-              });
-              Navigator.pushNamed(context, '/Registration');
-            } else if (body[0] == "errorVersion") {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) =>
-                    AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text("Your version: " + globals.version + "\n"+
-                          globals.errorVersion),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-              );
+  if (globals.email != null) {
+  if (globals.email!.isNotEmpty) {
+  if (!globals.email!.contains(" ")) {
+  if (exp.hasMatch(globals.email!)) {
+  var data = {
+  'version': globals.version,
+  'email': globals.email,
+  };
+  var res = await CallApi().postData(data, '(Control)signup.php');
+  print(res.body);
+  List<dynamic> body = json.decode(res.body);
+  if (body[0] == "success") {
+  setState(() {
+  col1 = Colors.blue.shade50;
+  col1_1 = Colors.blue.shade900;
+  col1_2 = Colors.blue.shade900.withOpacity(0.5);
+  });
+  Navigator.pushNamed(context, '/Registration');
+  } else if (body[0] == "errorVersion") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text("Your version: " + globals.version + "\n"+
+  globals.errorVersion),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () =>
+  Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
 
-            }else if (body[0] == "errorToken") {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) =>
-                    AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text(
-                          globals.errorToken),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-              );
-            } else if (body[0] == "error1") {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error1),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            } else if (body[0] == "error2_5") {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_5),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            } else if (body[0] == "error2_6") {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            } else if (body[0] == "error6") {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            } else if (body[0] == "error7") {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error7),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              setState(() {
-                col1 = Colors.red.shade50;
-                col1_1 = Colors.red.shade900;
-                col1_2 = Colors.red.shade900.withOpacity(0.5);
-              });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.errorElse),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            }
-          } else {
-            setState(() {
-              col1 = Colors.red.shade50;
-              col1_1 = Colors.red.shade900;
-              col1_2 = Colors.red.shade900.withOpacity(0.5);
-            });
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.error1),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-            );
-          }
-        } else {
-          setState(() {
-            col1 = Colors.red.shade50;
-            col1_1 = Colors.red.shade900;
-            col1_2 = Colors.red.shade900.withOpacity(0.5);
-          });
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error2_5),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        }
-      } else {
-        setState(() {
-          col1 = Colors.red.shade50;
-          col1_1 = Colors.red.shade900;
-          col1_2 = Colors.red.shade900.withOpacity(0.5);
-        });
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error7),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    } else {
-      setState(() {
-        col1 = Colors.red.shade50;
-        col1_1 = Colors.red.shade900;
-        col1_2 = Colors.red.shade900.withOpacity(0.5);
-      });
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
+  }else if (body[0] == "errorToken") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text(
+  globals.errorToken),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () =>
+  Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else if (body[0] == "error1") {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error1),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else if (body[0] == "error2_5") {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error2_5),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else if (body[0] == "error2_6") {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error2_6),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else if (body[0] == "error6") {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error6),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else if (body[0] == "error7") {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error7),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  } else {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.errorElse),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  } else {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error1),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  } else {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error2_5),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  } else {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error7),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  } else {
+  setState(() {
+  col1 = Colors.red.shade50;
+  col1_1 = Colors.red.shade900;
+  col1_2 = Colors.red.shade900.withOpacity(0.5);
+  });
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) => AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error7),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  } catch (e) {
+  print(e);
+  var data = {
+  'exception': e.toString(),
+  };
+  var res = await CallApi().postData(data, '(Control)exception.php');
+  }
   }
 
   _back() {

@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 String ddd = 'sss';
-
+String dateFormat = "";
 
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
@@ -44,7 +44,7 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   DateTime _date = DateTime.now();
-  TextEditingController _datecontroller = new TextEditingController();
+  //TextEditingController _datecontroller = new TextEditingController();
 
   var myFormat = DateFormat('d-MM-yyyy');
   Future<Null?> _selectDate(BuildContext context) async{
@@ -62,6 +62,7 @@ class _RegistrationState extends State<Registration> {
         globals.dateOfBirth = _date;
         print(_date.toString(),);
 
+        dateFormat = globals.dateOfBirth!.day.toString() + "-" +  globals.dateOfBirth!.month.toString() + "-" +  globals.dateOfBirth!.year.toString()  ;
         final DateTime? date2 = DateTime.now();
         int difference = date2!.difference(_date).inDays;
 
@@ -176,7 +177,9 @@ class _RegistrationState extends State<Registration> {
           Container(
             width: 470,
             child: TextFormField(
-              controller: _datecontroller,
+              key: Key(dateFormat),
+              initialValue: dateFormat,
+              //controller: _datecontroller,
               cursorColor: Colors.blue.shade900,
               readOnly: true,
               onTap: (){
@@ -189,16 +192,16 @@ class _RegistrationState extends State<Registration> {
                     borderSide: BorderSide(color: Colors.blue.shade50),
                     borderRadius: BorderRadius.circular(10)),
                 filled: true,
-                fillColor: Colors.blue.shade50,
+                fillColor: col4,
                 labelText: "Date of birth",
-                labelStyle: TextStyle( color: Colors.blue.shade900.withOpacity(0.5)),
+                labelStyle: TextStyle( color: col4_2),
                 hintText: ('${myFormat.format(_date)}'),
                 hintStyle: TextStyle(
-                  color: Colors.blue.shade900,
+                  color: col4_2,
                   fontSize: 15.0,
                 ),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
+                    borderSide: BorderSide(color: col4_1),
                     borderRadius: BorderRadius.circular(10)
                 ),
               ),
@@ -227,10 +230,16 @@ class _RegistrationState extends State<Registration> {
                   Container(
                     width: 70,
                     margin: EdgeInsets.only(left: 100.sp),
-                    child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,   onTap: () {
-
+                    child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,   onTap: () async {
+                      try{
                       _test1();
-
+                      } catch (e) {
+                        print(e);
+                        var data = {
+                          'exception': e.toString(),
+                        };
+                        var res = await CallApi().postData(data, '(Control)exception.php');
+                      }
 
                     }, ),
                   ),
@@ -461,6 +470,7 @@ class _RegistrationState extends State<Registration> {
 
 
   _reg() async {
+    try{
     globals.photo = "test";
     globals.terms = "test";
     globals.cropX = "test";
@@ -773,15 +783,30 @@ class _RegistrationState extends State<Registration> {
             ),
       );
     }
+  } catch (e) {
+  print(e);
+  var data = {
+  'exception': e.toString(),
+  };
+  var res = await CallApi().postData(data, '(Control)exception.php');
+  }
   }
 
-  _back() {
+  _back() async {
+    try{
     globals.fName = null;
     globals.lName = null;
     globals.userName= null;
     globals.dateOfBirth = null;
     globals.dateOfBirthCalc = null;
     return true;
+  } catch (e) {
+  print(e);
+  var data = {
+  'exception': e.toString(),
+  };
+  var res = await CallApi().postData(data, '(Control)exception.php');
+  }
   }
 }
 

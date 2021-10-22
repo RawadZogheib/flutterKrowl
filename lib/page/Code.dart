@@ -240,10 +240,14 @@ class _CodeState extends State<Code> {
                 Container(
                   width: 70,
                   margin: EdgeInsets.only(left: 180.sp),
-                  child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward, onTap: () {
+                  child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward, onTap: () async {
                     try {
                       _sendCode();
                     }catch(e){
+                        var data = {
+                        'exception': e.toString(),
+                        };
+                        var res = await CallApi().postData(data, '(Control)exception.php');
 
                       showDialog<String>(
                         context: cont,

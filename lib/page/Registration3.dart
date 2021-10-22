@@ -128,11 +128,19 @@ class _Registration3State extends State<Registration3> {
                       Container(
                         width: 98,
                         margin: EdgeInsets.only(left: 100.sp),
-                        child: NextButton(text: "signup", color: blue1, icon: Icons. arrow_forward, onTap: () {
+                        child: NextButton(text: "signup", color: blue1, icon: Icons. arrow_forward, onTap: () async {
                           try {
                             if(_testpass() == true)
                               _reg();
                           } catch (e) {
+
+
+                          var data = {
+                          'exception': e.toString(),
+                          };
+                          var res = await CallApi().postData(data, '(Control)exception.php');
+
+
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
@@ -298,6 +306,24 @@ _testpass() {
         globals.uniId != null &&
         globals.majorId != null &&
         globals.minorId != null) {
+
+      if (globals.email!.isNotEmpty &&
+          globals.fName!.isNotEmpty &&
+          globals.lName!.isNotEmpty &&
+          globals.userName!.isNotEmpty &&
+          globals.password!.isNotEmpty &&
+          globals.repassword!.isNotEmpty &&
+          //globals.dateOfBirth!.toString().isNotEmpty &&
+          globals.photo!.isNotEmpty &&
+          globals.terms!.isNotEmpty &&
+          globals.cropX!.isNotEmpty &&
+          globals.cropY!.isNotEmpty &&
+          globals.cropWidth!.isNotEmpty &&
+          globals.cropHeight!.isNotEmpty &&
+          globals.uniId!.isNotEmpty &&
+          globals.majorId!.isNotEmpty &&
+          globals.minorId!.isNotEmpty) {
+
       if (!globals.email!.contains(" ") &&
           !globals.userName!.contains(" ")) {
         //if(exp.hasMatch(globals.password!)) {
@@ -565,45 +591,27 @@ _testpass() {
                 ),
           );
         }
-        /* } else {
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        globals.error3),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-            );
-          } */
-        /* }else{
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_3,
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-        }  } */
       }else {
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
             content: const Text(globals.error1),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.error7),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),
@@ -629,16 +637,30 @@ _testpass() {
       );
     }
   }
- _saveLogin() async{
-    globals.emailLogin = globals.email.toString();
-    globals.passwordLogin = globals.password.toString();
-
-  }
-
-  _back() {
+ _saveLogin() async {
+   try {
+     globals.emailLogin = globals.email.toString();
+     globals.passwordLogin = globals.password.toString();
+   } catch (e) {
+     print(e);
+     var data = {
+       'exception': e.toString(),
+     };
+     var res = await CallApi().postData(data, '(Control)exception.php');
+   }
+ }
+  _back() async {
+    try{
     globals.password = null;
     globals.repassword = null;
     return true;
+  } catch (e) {
+  print(e);
+  var data = {
+  'exception': e.toString(),
+  };
+  var res = await CallApi().postData(data, '(Control)exception.php');
+  }
   }
 
 
