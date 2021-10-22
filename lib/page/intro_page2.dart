@@ -20,134 +20,143 @@ class Intro2 extends StatefulWidget {
 class _Intro2State extends State<Intro2> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue[900],
-      body: Container(
-        margin: EdgeInsets.all(25.0),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 50,
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                'all done :)',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Rubik',
-                  fontSize: 72,
-                ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: Colors.blue[900],
+        body: Container(
+          margin: EdgeInsets.all(25.0),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: 50,
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 25),
-              alignment: Alignment.center,
-              child: Text(
-                'Welcome to Krowl',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: 'Rubik',
-                  fontSize: 72,
-                ),
-              ),
-            ),
-            InkWell(
-              child: Container(
+              Container(
+                alignment: Alignment.center,
                 child: Text(
-                  "test",
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+                  'all done :)',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Rubik',
+                    fontSize: 72,
+                  ),
                 ),
               ),
-              onTap: () async {
-
-                SharedPreferences localStorage = await SharedPreferences.getInstance();
-
-                var data = {
-                'user_id': 69
-                };
-
-                var res = await CallApi().postData(data, '(Control)tokenCheck.php');
-                print(res.body);
-                List<dynamic> body = json.decode(res.body);
-                if (body[0] == "true") {
-                  SharedPreferences localStorage = await SharedPreferences.getInstance();
-                  localStorage.setString('token', body[1]);
-                  print(body[1]);
-                }else if (body[0] == "errorToken") {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        AlertDialog(
-                          title: const Text('Error'),
-                          content: const Text(
-                              globals.errorToken),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                  );
-                }else {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        AlertDialog(
-                          title: const Text('Error'),
-                          content: const Text(
-                              globals.errorElse),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                  );
-
-
-                }
-
-
-
-
-              },
-            ),
-            SizedBox(
-              height: 100,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 70,
-                      margin: EdgeInsets.only(left: 100.sp),
-                      child: InkWell(
-                          child: NextButton(
-                        text: "next",
-                        color: Colors.white,
-                        icon: Icons.arrow_forward,
-                        onTap: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/intro_page', (route) => false);
-                        },
-                      )),
-                    ),
-                  ],
+              Container(
+                margin: EdgeInsets.only(left: 25),
+                alignment: Alignment.center,
+                child: Text(
+                  'Welcome to Krowl',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Rubik',
+                    fontSize: 72,
+                  ),
                 ),
-              ],
-            ),
-          ],
+              ),
+
+
+
+              InkWell( //For Test Only
+                child: Container(
+                  child: Text(
+                    "test",
+                    style: TextStyle(fontSize: 22, color: Colors.white),
+                  ),
+                ),
+                onTap: () async {
+
+                  SharedPreferences localStorage = await SharedPreferences.getInstance();
+
+                  var data = {
+                  'user_id': 69
+                  };
+
+
+
+
+                  var res = await CallApi().postData(data, '(Control)tokenCheck.php');
+                  print(res.body);
+                  List<dynamic> body = json.decode(res.body);
+                  if (body[0] == "true") {
+                    SharedPreferences localStorage = await SharedPreferences.getInstance();
+                    localStorage.setString('token', body[1]);
+                    print(body[1]);
+                  }else if (body[0] == "errorToken") {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text(
+                                globals.errorToken),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                    );
+                  }else {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text(
+                                globals.errorElse),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                    );
+
+
+                  }
+
+
+
+
+                },
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        margin: EdgeInsets.only(left: 100.sp),
+                        child: InkWell(
+                            child: NextButton(
+                          text: "next",
+                          color: Colors.white,
+                          icon: Icons.arrow_forward,
+                          onTap: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/intro_page', (route) => false);
+                          },
+                        )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

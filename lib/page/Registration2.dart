@@ -37,92 +37,95 @@ class _Registration2State extends State<Registration2> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          margin: EdgeInsets.only(left: 25, right: 25, top: 100, bottom: 25),
-          alignment: Alignment.center,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CustomStack(text: "Create your krowl account"),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 470,
-                  child: buildCity(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(width: 470, child: buildCity2()),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(width: 470, child: buildCity3()),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                PreviousButton(
-                  text: "previous",
-                  color: blue1,
-                  icon: Icons.arrow_back,
-                  onTap: () {
-                    globals.uniId = null;
-                    globals.majorId = null;
-                    globals.minorId = null;
-                    Navigator.pop(context, '/Registration');
-                  },
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: 70,
-                      margin: EdgeInsets.only(left: 100.sp),
-                      child: NextButton(
-                        text: "next",
-                        color: blue1,
-                        icon: Icons.arrow_forward,
-                        onTap: () {
-                          if (globals.uniId != null &&
-                              globals.majorId != null &&
-                              globals.minorId != null) {
-                            Navigator.pushNamed(context, '/Registration3');
-                          } else {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Error'),
-                                content: const Text(
-                                    'Those fields can not be empty.'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        },
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          reverse: true,
+          child: Container(
+            margin: EdgeInsets.only(left: 25, right: 25, top: 100, bottom: 25),
+            alignment: Alignment.center,
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              CustomStack(text: "Create your krowl account"),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 470,
+                    child: buildCity(),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(width: 470, child: buildCity2()),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(width: 470, child: buildCity3()),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PreviousButton(
+                    text: "previous",
+                    color: blue1,
+                    icon: Icons.arrow_back,
+                    onTap: () {
+                      globals.uniId = null;
+                      globals.majorId = null;
+                      globals.minorId = null;
+                      Navigator.pop(context, '/Registration');
+                    },
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        margin: EdgeInsets.only(left: 100.sp),
+                        child: NextButton(
+                          text: "next",
+                          color: blue1,
+                          icon: Icons.arrow_forward,
+                          onTap: () {
+                            if (globals.uniId != null &&
+                                globals.majorId != null &&
+                                globals.minorId != null) {
+                              Navigator.pushNamed(context, '/Registration3');
+                            } else {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text(
+                                      'Those fields can not be empty.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ]),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
@@ -265,4 +268,11 @@ class _Registration2State extends State<Registration2> {
             print(globals.minorId);
         },
       );
+
+  _back() {
+    globals.uniId = null;
+    globals.majorId = null;
+    globals.minorId = null;
+    return true;
+  }
 }

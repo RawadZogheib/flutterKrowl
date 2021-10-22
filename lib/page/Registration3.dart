@@ -36,123 +36,126 @@ class _Registration3State extends State<Registration3> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          margin: EdgeInsets.only(left: 25, right: 25, top:100, bottom: 25),
-          alignment: Alignment.center,
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CustomStack(text: "Create your krowl account"),
-            Column(
-                children: [
-            Container(
-              width: 470,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade50),
-                      borderRadius: BorderRadius.circular(10)),
-                  filled: true,
-                  fillColor: col1,
-                  hintText: "Password",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: col1_2,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: col1_1)),
-                ),
-                textInputAction: TextInputAction.next,
-                onChanged: (value) {
-                  globals.password = value;
-                  //print("" + globals.password);
-                },
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 470,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue.shade50),
-                      borderRadius: BorderRadius.circular(10)),
-                  filled: true,
-                  fillColor: col2,
-                  hintText: "Confirm password",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color:col2_2,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: col2_1)),
-                ),
-                onChanged: (value) {
-                  globals.repassword = value;
-                  //print("" + globals.repassword);
-                },
-                textInputAction: TextInputAction.done,
-              ),
-            ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                  ),
-            ]),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
-                    globals.password = null;
-                    globals.repassword = null;
-                    Navigator.pop(context, '/Registration2');
-                  },)
-                ),
-                Row(
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          reverse: true,
+          child: Container(
+            margin: EdgeInsets.only(left: 25, right: 25, top:100, bottom: 25),
+            alignment: Alignment.center,
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              CustomStack(text: "Create your krowl account"),
+              Column(
                   children: [
-                    Container(
-                      width: 98,
-                      margin: EdgeInsets.only(left: 100.sp),
-                      child: NextButton(text: "signup", color: blue1, icon: Icons. arrow_forward, onTap: () {
-                        try {
-                          if(_testpass() == true)
-                            _reg();
-                        } catch (e) {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Error'),
-                              content: const Text(
-                                  globals.errorException),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },)
+              Container(
+                width: 470,
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(10)),
+                    filled: true,
+                    fillColor: col1,
+                    hintText: "Password",
+                    hintStyle: TextStyle(
+                      fontSize: 15.0,
+                      color: col1_2,
                     ),
-                  ],
+                    border: InputBorder.none,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: col1_1)),
+                  ),
+                  textInputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    globals.password = value;
+                    //print("" + globals.password);
+                  },
                 ),
-              ],
-            ),
-          ]),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: 470,
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue.shade50),
+                        borderRadius: BorderRadius.circular(10)),
+                    filled: true,
+                    fillColor: col2,
+                    hintText: "Confirm password",
+                    hintStyle: TextStyle(
+                      fontSize: 15.0,
+                      color:col2_2,
+                    ),
+                    border: InputBorder.none,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: col2_1)),
+                  ),
+                  onChanged: (value) {
+                    globals.repassword = value;
+                    //print("" + globals.repassword);
+                  },
+                  textInputAction: TextInputAction.done,
+                ),
+              ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                    ),
+              ]),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
+                      globals.password = null;
+                      globals.repassword = null;
+                      Navigator.pop(context, '/Registration2');
+                    },)
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 98,
+                        margin: EdgeInsets.only(left: 100.sp),
+                        child: NextButton(text: "signup", color: blue1, icon: Icons. arrow_forward, onTap: () {
+                          try {
+                            if(_testpass() == true)
+                              _reg();
+                          } catch (e) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                    globals.errorException),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },)
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
@@ -597,6 +600,12 @@ _testpass() {
     localStorage.setString("email",globals.email!);
     localStorage.setString("password",globals.password!);
 
+  }
+
+  _back() {
+    globals.password = null;
+    globals.repassword = null;
+    return true;
   }
 
 

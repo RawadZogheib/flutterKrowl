@@ -73,172 +73,175 @@ class _RegistrationState extends State<Registration> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-        margin: EdgeInsets.only(right: 25.0, left: 25.0, top: 50.0,bottom: 25),
-        alignment: Alignment.center,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        CustomStack(text: "Create your krowl account "),
-        Column(
-          children:[
-        Container(
-          width: 470,
-          child: TextField(
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.shade50),
-                  borderRadius: BorderRadius.circular(10)),
-              filled: true,
-              fillColor: col1,
-              hintText: "First name",
-              hintStyle: TextStyle(
-                fontSize: 15.0,
-                color: col1_2,
-              ),
-              border: InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: col1_1)),
-            ),
-            textInputAction: TextInputAction.next,
-            onChanged: (value) {
-              globals.fName = value;
-              //print("" + globals.fName);
-            },
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          width: 470,
-          child: TextField(
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.shade50),
-                  borderRadius: BorderRadius.circular(10)),
-              filled: true,
-              fillColor: col2,
-              hintText: "Last name",
-              hintStyle: TextStyle(
-                fontSize: 15.0,
-                color: col2_2,
-              ),
-              border: InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: col2_1)),
-            ),
-            textInputAction: TextInputAction.next,
-            onChanged: (value) {
-              globals.lName = value;
-              //print("" + globals.lName);
-            },
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          width: 470,
-          child: TextField(
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.shade50),
-                  borderRadius: BorderRadius.circular(10)),
-              filled: true,
-              fillColor: col3,
-              hintText: "Username",
-              hintStyle: TextStyle(
-                fontSize: 15.0,
-                color: col3_2,
-              ),
-              border: InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: col3_1)),
-            ),
-            textInputAction: TextInputAction.next,
-            onChanged: (value) {
-              globals.userName = value;
-              //print("" + globals.userName);
-            },
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          width: 470,
-          child: TextFormField(
-            controller: _datecontroller,
-            cursorColor: Colors.blue.shade900,
-            readOnly: true,
-            onTap: (){
-              setState(() {
-                _selectDate(context);
-              });
-            },
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.shade50),
-                  borderRadius: BorderRadius.circular(10)),
-              filled: true,
-              fillColor: Colors.blue.shade50,
-              labelText: "Date of birth",
-              labelStyle: TextStyle( color: Colors.blue.shade900.withOpacity(0.5)),
-              hintText: ('${myFormat.format(_date)}'),
-              hintStyle: TextStyle(
-                color: Colors.blue.shade900,
-                fontSize: 15.0,
-              ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
-                  borderRadius: BorderRadius.circular(10)
-              ),
-            ),
-          ),
-        ),
-            Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            ),
-        ]),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
-              globals.fName = null;
-              globals.lName = null;
-              globals.userName= null;
-              globals.dateOfBirth = null;
-              globals.dateOfBirthCalc = null;
-              Navigator.pop(context, '/intro_page2');
-            }, ),
-            Row(
-              children: [
-                Container(
-                  width: 70,
-                  margin: EdgeInsets.only(left: 100.sp),
-                  child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,   onTap: () {
-
-                    _test1();
-
-
-                  }, ),
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          reverse: true,
+          child: Container(
+          margin: EdgeInsets.only(right: 25.0, left: 25.0, top: 50.0,bottom: 25),
+          alignment: Alignment.center,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          CustomStack(text: "Create your krowl account "),
+          Column(
+            children:[
+          Container(
+            width: 470,
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade50),
+                    borderRadius: BorderRadius.circular(10)),
+                filled: true,
+                fillColor: col1,
+                hintText: "First name",
+                hintStyle: TextStyle(
+                  fontSize: 15.0,
+                  color: col1_2,
                 ),
-              ],
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: col1_1)),
+              ),
+              textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                globals.fName = value;
+                //print("" + globals.fName);
+              },
             ),
-          ],
-        ),
-
-          ]),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 470,
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade50),
+                    borderRadius: BorderRadius.circular(10)),
+                filled: true,
+                fillColor: col2,
+                hintText: "Last name",
+                hintStyle: TextStyle(
+                  fontSize: 15.0,
+                  color: col2_2,
+                ),
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: col2_1)),
+              ),
+              textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                globals.lName = value;
+                //print("" + globals.lName);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 470,
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade50),
+                    borderRadius: BorderRadius.circular(10)),
+                filled: true,
+                fillColor: col3,
+                hintText: "Username",
+                hintStyle: TextStyle(
+                  fontSize: 15.0,
+                  color: col3_2,
+                ),
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: col3_1)),
+              ),
+              textInputAction: TextInputAction.next,
+              onChanged: (value) {
+                globals.userName = value;
+                //print("" + globals.userName);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 470,
+            child: TextFormField(
+              controller: _datecontroller,
+              cursorColor: Colors.blue.shade900,
+              readOnly: true,
+              onTap: (){
+                setState(() {
+                  _selectDate(context);
+                });
+              },
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade50),
+                    borderRadius: BorderRadius.circular(10)),
+                filled: true,
+                fillColor: Colors.blue.shade50,
+                labelText: "Date of birth",
+                labelStyle: TextStyle( color: Colors.blue.shade900.withOpacity(0.5)),
+                hintText: ('${myFormat.format(_date)}'),
+                hintStyle: TextStyle(
+                  color: Colors.blue.shade900,
+                  fontSize: 15.0,
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
+                    borderRadius: BorderRadius.circular(10)
+                ),
+              ),
+            ),
+          ),
+              Padding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              ),
+          ]),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PreviousButton(text: "previous", color: blue1, icon: Icons.arrow_back, onTap: () {
+                globals.fName = null;
+                globals.lName = null;
+                globals.userName= null;
+                globals.dateOfBirth = null;
+                globals.dateOfBirthCalc = null;
+                Navigator.pop(context, '/intro_page2');
+              }, ),
+              Row(
+                children: [
+                  Container(
+                    width: 70,
+                    margin: EdgeInsets.only(left: 100.sp),
+                    child: NextButton(text: "Next", color: blue1, icon: Icons.arrow_forward,   onTap: () {
+
+                      _test1();
+
+
+                    }, ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+            ]),
+            ),
+        ),
       ),
     );
   }
@@ -734,6 +737,15 @@ class _RegistrationState extends State<Registration> {
             ),
       );
     }
+  }
+
+  _back() {
+    globals.fName = null;
+    globals.lName = null;
+    globals.userName= null;
+    globals.dateOfBirth = null;
+    globals.dateOfBirthCalc = null;
+    return true;
   }
 }
 
