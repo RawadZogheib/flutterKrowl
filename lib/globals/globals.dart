@@ -28,7 +28,7 @@ const String error7 = "Field cannot be empty.";
 const String errorToken = "Token Error.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
-const String rememberme= "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
+const String errorRememberMe= "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 //List of Universities
 List<dynamic> univercitiesName = [];
 //List of Majors
