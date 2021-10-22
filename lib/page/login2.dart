@@ -180,6 +180,7 @@ class _Login2State extends State<Login2> {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
           SharedPreferences localStorage = await SharedPreferences.getInstance();
+
           localStorage.setString('token', body[1]);
           var i=localStorage.getInt("i");
           if(i==1){
@@ -204,6 +205,41 @@ class _Login2State extends State<Login2> {
           );
           }
           Navigator.pushNamed(cont, '/intro_page2');
+        }else if (body[0] == "errorToken") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text(
+                      globals.errorToken),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+        }else if (body[0] == "errorVersion") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) =>
+                AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text("Your version: "+globals.version + "\n"+
+                      globals.errorVersion),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+          );
+
         } else if (body[0] == "false") {
           showDialog<String>(
             context: cont,
@@ -238,26 +274,7 @@ class _Login2State extends State<Login2> {
                   ],
                 ),
           );
-
-        } else if (body[0] == "errorVersion") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.version + "\n"+
-                      globals.errorVersion),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-
-        } else {
+        }else {
           showDialog<String>(
             context: cont,
             builder: (BuildContext context) =>
@@ -296,7 +313,6 @@ class _Login2State extends State<Login2> {
       }
 
     } else {
-
       showDialog<String>(
         context: cont,
         builder: (BuildContext context) =>
@@ -340,7 +356,7 @@ class _Login2State extends State<Login2> {
       globals.passwordLogin = "";
     });
 
-    Navigator.pushNamed(cont, '/intro_page2');
+    //Navigator.pushNamed(cont, '/intro_page2');
 
   }
 

@@ -58,6 +58,7 @@ class _LoginState extends State<Login> {
               Container(
                 width: 500,
                 child: TextFormField(
+                  key: Key(globals.emailLogin.toString()),
                   initialValue: globals.emailLogin.toString(),
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r"\s")),
@@ -108,12 +109,14 @@ class _LoginState extends State<Login> {
                         margin: EdgeInsets.only(left: 100.sp),
                         child: NextButton(text: "Next", color: blue1 ,icon: Icons.arrow_forward,   onTap: () {
                           if (globals.emailLogin != null ) {
-                            if (globals.emailLogin!.isNotEmpty)
-                              showDialog<String>(
+                            if (globals.emailLogin!.isNotEmpty) {
+                                 Navigator.pushNamed(context, '/login2' );
+                            }
+                           else{ showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) =>
                                     AlertDialog(
-                                      title: const Text('Remember Me'),
+                                      title: const Text('Error'),
                                       content: const Text(globals.error1),
                                       actions: <Widget>[
                                         TextButton(
@@ -124,8 +127,8 @@ class _LoginState extends State<Login> {
                                       ],
                                     ),
                               );
-                              Navigator.pushNamed(context, '/login2' );
-                          } else {
+                          }
+                          }else {
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
