@@ -282,6 +282,7 @@ class _CodeState extends State<Code> {
     vCode = globals.code1! + globals.code2! + globals.code3! +
         globals.code4! + globals.code5! + globals.code6!;
       var data = {
+        'version': globals.version,
         'email'  : globals.email,
         'vCode'  : vCode
       };
@@ -290,7 +291,42 @@ class _CodeState extends State<Code> {
       print(body[0]);
       if(body[0] == "success"){
         Navigator.pushNamedAndRemoveUntil(cont, '/intro_page2', (route) => false);
-    }else{
+      } else if (body[0] == "errorVersion") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text("Your version: " + globals.version + "\n"+
+                    globals.errorVersion),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+
+      }else if (body[0] == "errorToken") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    globals.errorToken),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else{
         showDialog<String>(
           context: cont,
           builder: (BuildContext context) => AlertDialog(

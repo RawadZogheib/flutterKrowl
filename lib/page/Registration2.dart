@@ -132,7 +132,9 @@ class _Registration2State extends State<Registration2> {
   }
 
   _getLists() async {
-    var data = {};
+    var data = {
+      'version': globals.version
+    };
     var res = await CallApi().postData(data, '(Control)registration2.php');
 
     List<dynamic> body = json.decode(res.body);
@@ -159,6 +161,41 @@ class _Registration2State extends State<Registration2> {
       //globals.degrees = body[2].cast<String>();
       //});
       print("asdasdsadsadsadsdsd");
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text("Your version: " + globals.version + "\n"+
+                  globals.errorVersion),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+
+    }else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  globals.errorToken),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
     } else if (body[0] == "error4") {
       showDialog<String>(
         context: context,
