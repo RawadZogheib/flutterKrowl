@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/TextInput.dart';
-import 'package:flutter_app_backend/widgets/chairs.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/CreateRoom.dart';
+
+
+
 
 
 void main() =>
@@ -14,24 +17,13 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      body: Container(
-        margin: EdgeInsets.all(25.0),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextInput (textString: "hello"),
-            Chair()
-
-          ],
-        ),
-      ),
+      backgroundColor: globals.white,
+      body: CreateRoom(),
     );
   }
 }
