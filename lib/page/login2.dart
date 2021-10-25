@@ -107,17 +107,12 @@ class _Login2State extends State<Login2> {
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
                         child: InkWell(
-                          child:NextButton(text: "login",color: blue1, icon: Icons.arrow_forward, onTap: () async {
+                          child:NextButton(text: "login",color: blue1, icon: Icons.arrow_forward, onTap: () {
                             if (globals.passwordLogin != null ) {
                               if (globals.passwordLogin!.isNotEmpty)
                                 try {
                                   _login();
                                 }catch(e){
-
-                                  var data = {
-                                  'exception': e.toString(),
-                                  };
-                                  var res = await CallApi().postData(data, '(Control)exception.php');
 
                                   showDialog<String>(
                                     context: cont,
@@ -335,24 +330,15 @@ class _Login2State extends State<Login2> {
   }
 
   _yesRemember() async{
-    try{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.setString('email',globals.emailLogin!);
     localStorage.setString('password',globals.passwordLogin!);
 
     Navigator.pushNamed(cont, '/intro_page2');
-    } catch (e) {
-      print(e);
-      var data = {
-        'exception': e.toString(),
-      };
-      var res = await CallApi().postData(data, '(Control)exception.php');
-    }
-    }
+  }
 
 
   _noRemember() async{
-    try{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove("email");
     localStorage.remove("password");
@@ -362,13 +348,7 @@ class _Login2State extends State<Login2> {
     });
 
     Navigator.pushNamed(cont, '/intro_page2');
-  } catch (e) {
-  print(e);
-  var data = {
-  'exception': e.toString(),
-  };
-  var res = await CallApi().postData(data, '(Control)exception.php');
-  }
+
   }
 
 

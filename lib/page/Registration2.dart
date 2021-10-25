@@ -46,8 +46,7 @@ class _Registration2State extends State<Registration2> {
           child: Container(
             margin: EdgeInsets.only(left: 25, right: 25, top: 100, bottom: 25),
             alignment: Alignment.center,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, children: [
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               CustomStack(text: "Create your krowl account"),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -69,10 +68,7 @@ class _Registration2State extends State<Registration2> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery
-                            .of(context)
-                            .viewInsets
-                            .bottom),
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                   ),
                 ],
               ),
@@ -107,19 +103,18 @@ class _Registration2State extends State<Registration2> {
                             } else {
                               showDialog<String>(
                                 context: context,
-                                builder: (BuildContext context) =>
-                                    AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text(
-                                          'Those fields can not be empty.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, 'OK'),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text(
+                                      'Those fields can not be empty.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
                                     ),
+                                  ],
+                                ),
                               );
                             }
                           },
@@ -137,7 +132,6 @@ class _Registration2State extends State<Registration2> {
   }
 
   _getLists() async {
-    try{
     var data = {
       'version': globals.version
     };
@@ -173,7 +167,7 @@ class _Registration2State extends State<Registration2> {
         builder: (BuildContext context) =>
             AlertDialog(
               title: const Text('Error'),
-              content: const Text("Your version: " + globals.version + "\n" +
+              content: const Text("Your version: " + globals.version + "\n"+
                   globals.errorVersion),
               actions: <Widget>[
                 TextButton(
@@ -184,7 +178,8 @@ class _Registration2State extends State<Registration2> {
               ],
             ),
       );
-    } else if (body[0] == "errorToken") {
+
+    }else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) =>
@@ -204,27 +199,20 @@ class _Registration2State extends State<Registration2> {
     } else if (body[0] == "error4") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error4),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error4),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     }
-  } catch (e) {
-print(e);
-var data = {
-'exception': e.toString(),
-};
-var res = await CallApi().postData(data, '(Control)exception.php');
-}
-}
+  }
+
   Widget buildCity() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
@@ -318,18 +306,10 @@ var res = await CallApi().postData(data, '(Control)exception.php');
         },
       );
 
-  _back() async {
-    try{
+  _back() {
     globals.uniId = null;
     globals.majorId = null;
     globals.minorId = null;
     return true;
-  } catch (e) {
-        print(e);
-        var data = {
-        'exception': e.toString(),
-        };
-        var res = await CallApi().postData(data, '(Control)exception.php');
-        }
-}
+  }
 }

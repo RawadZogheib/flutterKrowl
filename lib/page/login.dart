@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
@@ -172,7 +171,6 @@ class _LoginState extends State<Login> {
 
 
   _getSaved() async {
-    try{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
 
     var e = localStorage.getString("email");
@@ -190,14 +188,9 @@ class _LoginState extends State<Login> {
           print("loginnnn" + globals.passwordLogin!);
         });
       }
-    } catch (e) {
-      print(e);
-      var data = {
-        'exception': e.toString(),
-      };
-      var res = await CallApi().postData(data, '(Control)exception.php');
-    }
-    }
+  }
+
+
 
 
 
