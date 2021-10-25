@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Chair extends StatefulWidget {
-  Chair({ this.icon,  this.height,  this.width, this.color});
+class Chair1 extends StatefulWidget {
+  Chair1({ this.icon,  this.height,  this.width, this.color});
   var height;
   var width;
   var color;
   var icon;
 
   @override
-  State<Chair> createState() => _CustomContainerState();
+  State<Chair1> createState() => _CustomContainerState();
 }
 
-class _CustomContainerState extends State<Chair> {
+class _CustomContainerState extends State<Chair1> {
   @override
   Widget build(BuildContext context) {
     return Container(

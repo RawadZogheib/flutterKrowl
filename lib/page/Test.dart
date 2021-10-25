@@ -24,7 +24,7 @@ class _TestState extends State<Test> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
-      body: QuietTable(),
+      body: QuietTable(text: "HIII",),
     );
   }
 }

@@ -40,8 +40,8 @@ class _TestState extends State<Library> {
               CreateRoom(),
               Column(
                   children: [
-                    QuietTable(),
-                    QuietTable(),
+                    QuietTable(text: "HIII",),
+                    QuietTable(text: "HIII",),
                     SizedBox(width: 20,),
                   ]
               ),
@@ -61,8 +61,8 @@ class _TestState extends State<Library> {
                 CreateRoom(),
                 Column(
                     children: [
-                      QuietTable(),
-                      QuietTable(),
+                      QuietTable(text: "HIII",),
+                      QuietTable(text: "HIII",),
                       SizedBox(width: 20,),
                     ]
                 ),
@@ -82,8 +82,8 @@ class _TestState extends State<Library> {
               flex: _size.width > 1058? 2:4,
               child: Row(
                   children: [
-                    QuietTable(),
-                    QuietTable(),
+                    QuietTable(text: "HIII",),
+                    QuietTable(text: "HIII",),
                     SizedBox(width: 20,),
                   ]
               ),
