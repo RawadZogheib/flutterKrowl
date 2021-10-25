@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
-import 'package:flutter_app_backend/widgets/ChairBottom.dart';
-import 'package:flutter_app_backend/widgets/ChairLeft.dart';
-import 'package:flutter_app_backend/widgets/ChairRight.dart';
-import 'package:flutter_app_backend/widgets/ChairTop.dart';
+import 'package:flutter_app_backend/widgets/myButton.dart';
 
 class QuietTable extends StatefulWidget {
   var children;
@@ -52,7 +49,36 @@ class _CustomContainerState extends State<QuietTable> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Positioned(
+          left: 10,
+          height: 50,
+          width: 250,
+          child: Row(
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                    color: blue1, fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                " - Choose a seat to join",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(top: 45, left: 100, child: myButton()),
+        Positioned(top: 45, left: 180, child: myButton()),
+        Positioned(top: 110, left: 245, child: myButton()),
+        Positioned(top: 190, left: 245, child: myButton()),
+        Positioned(top: 245, left: 180, child: myButton()),
+        Positioned(top: 245, left: 100, child: myButton()),
+        Positioned(top: 110, left: 45, child: myButton()),
+        Positioned(top: 190, left: 45, child: myButton()),
         Container(
+          margin: EdgeInsets.all(5),
           padding: EdgeInsets.all(70),
           decoration: BoxDecoration(
             border: Border.all(
@@ -110,82 +136,6 @@ class _CustomContainerState extends State<QuietTable> {
               )
             ]),
           ),
-        ),
-        Positioned(
-          left: 10,
-          height: 50,
-          width: 250,
-          child: Row(
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                    color: blue1, fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                " - Choose a seat to join",
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 36,
-          left: 100,
-          width: 45,
-          height: 35,
-          child: Chair1()
-        ),
-        Positioned(
-            top: 36,
-            left: 190,
-            width: 45,
-            height: 35,
-            child: Chair1()
-        ),
-        Positioned(
-            top: 110,
-            left: 271,
-            width: 35,
-            height: 45,
-            child: Chair2()
-        ),
-        Positioned(
-            top: 190,
-            left: 271,
-            width: 35,
-            height: 45,
-            child: Chair2()
-        ),
-        Positioned(
-            top: 271,
-            left: 190,
-            width: 45,
-            height: 35,
-            child: Chair3()
-        ),
-        Positioned(
-            top: 271,
-            left: 100,
-            width: 45,
-            height: 35,
-            child: Chair3()
-        ),
-        Positioned(
-            top: 110,
-            left: 36,
-            width: 35,
-            height: 45,
-            child: Chair4()
-        ),
-        Positioned(
-            top: 190,
-            left: 36,
-            width: 35,
-            height: 45,
-            child: Chair4()
         ),
       ],
     );

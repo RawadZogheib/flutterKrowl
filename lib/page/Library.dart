@@ -53,33 +53,30 @@ class _TestState extends State<Library> {
         tablet:
         SingleChildScrollView(
           reverse: true,
-          child: Container(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CreateRoom(),
-                Column(
-                    children: [
-                      QuietTable(text: "HIII",),
-                      QuietTable(text: "HIII",),
-                      SizedBox(width: 20,),
-                    ]
-                ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CreateRoom(),
+              Column(
+                  children: [
+                    QuietTable(text: "HIII",),
+                    QuietTable(text: "HIII",),
+                    SizedBox(width: 20,),
+                  ]
+              ),
 
-              ],
-            ),
-        ),
+            ],
+          ),
       ), desktop: SingleChildScrollView(
         reverse: true,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-                flex: _size.width > 1058?  1:2,
+                flex: _size.width > 1058?  2:4,
                 child: CreateRoom()
             ), Expanded(
-              flex: _size.width > 1058? 2:4,
+              flex: _size.width > 1058? 3:6,
               child: Row(
                   children: [
                     QuietTable(text: "HIII",),
