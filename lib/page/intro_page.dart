@@ -53,7 +53,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 140,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/Library');
                     }, ),
                   ),
                 ),
