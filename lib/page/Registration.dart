@@ -13,6 +13,8 @@ import 'package:sizer/sizer.dart';
 
 String ddd = 'sss';
 
+String dateOfBirthText = '';
+
 
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
@@ -60,6 +62,7 @@ class _RegistrationState extends State<Registration> {
       setState(() {
         _date = _datePicker;
         globals.dateOfBirth = _date;
+        dateOfBirthText = myFormat.format(_date);
         print(_date.toString(),);
 
         final DateTime? date2 = DateTime.now();
@@ -176,7 +179,9 @@ class _RegistrationState extends State<Registration> {
           Container(
             width: 470,
             child: TextFormField(
-              controller: _datecontroller,
+              key: Key(dateOfBirthText),
+              initialValue: dateOfBirthText,
+              //controller: _datecontroller,
               cursorColor: Colors.blue.shade900,
               readOnly: true,
               onTap: (){
