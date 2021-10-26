@@ -50,7 +50,8 @@ class _CustomContainerState extends State<QuietTable> {
     return Stack(
       children: [
         Positioned(
-          left: 10,
+          top: 5,
+          left: 25,
           height: 50,
           width: 250,
           child: Row(
@@ -69,17 +70,17 @@ class _CustomContainerState extends State<QuietTable> {
             ],
           ),
         ),
-        Positioned(top: 45, left: 100, child: myButton()),
-        Positioned(top: 45, left: 180, child: myButton()),
-        Positioned(top: 110, left: 245, child: myButton()),
-        Positioned(top: 190, left: 245, child: myButton()),
-        Positioned(top: 245, left: 180, child: myButton()),
-        Positioned(top: 245, left: 100, child: myButton()),
-        Positioned(top: 110, left: 45, child: myButton()),
-        Positioned(top: 190, left: 45, child: myButton()),
+        Positioned(top: 65, left: 100, child: myButton()),
+        Positioned(top: 65, left: 180, child: myButton()),
+        Positioned(top: 130, left: 245, child: myButton()),
+        Positioned(top: 210, left: 245, child: myButton()),
+        Positioned(top: 265, left: 180, child: myButton()),
+        Positioned(top: 265, left: 100, child: myButton()),
+        Positioned(top: 130, left: 45, child: myButton()),
+        Positioned(top: 210, left: 45, child: myButton()),
         Container(
           margin: EdgeInsets.all(5),
-          padding: EdgeInsets.all(70),
+          padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey.shade400,
@@ -112,9 +113,12 @@ class _CustomContainerState extends State<QuietTable> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.videocam,
-                    color: Colors.grey,
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Icon(
+                      Icons.videocam,
+                      color: Colors.grey,
+                    ),
                   ),
                   Text(".",
                       style: TextStyle(
@@ -122,9 +126,12 @@ class _CustomContainerState extends State<QuietTable> {
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                       )),
-                  Icon(
-                    Icons.mic,
-                    color: Colors.grey,
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Icon(
+                      Icons.mic,
+                      color: Colors.grey,
+                    ),
                   ),
                   Text(".",
                       style: TextStyle(

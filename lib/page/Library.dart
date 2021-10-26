@@ -7,7 +7,10 @@ import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/QuietTable.dart';
+import 'package:flutter_app_backend/widgets/SilentTable.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:sizer/sizer.dart';
+import 'package:desktop_window/desktop_window.dart';
 
 
 
@@ -26,6 +29,7 @@ class _TestState extends State<Library> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
+    DesktopWindow.setMinWindowSize(Size(500, 500));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
@@ -40,7 +44,7 @@ class _TestState extends State<Library> {
               CreateRoom(),
               Column(
                   children: [
-                    QuietTable(text: "HIII",),
+                    SilentTable(text: "HIII",),
                     QuietTable(text: "HIII",),
                     SizedBox(width: 20,),
                   ]
@@ -73,13 +77,13 @@ class _TestState extends State<Library> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-                flex: _size.width > 1058?  2:4,
+                flex: _size.width > 1100?  1:4,
                 child: CreateRoom()
             ), Expanded(
-              flex: _size.width > 1058? 3:6,
+              flex: _size.width > 1100? 2:6,
               child: Row(
                   children: [
-                    QuietTable(text: "HIII",),
+                    SilentTable(text: "HIII",),
                     QuietTable(text: "HIII",),
                     SizedBox(width: 20,),
                   ]

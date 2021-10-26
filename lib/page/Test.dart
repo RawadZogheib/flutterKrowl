@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/QuietTable.dart';
+import 'package:flutter_app_backend/widgets/SilentTable.dart';
 
 
 
@@ -24,7 +25,12 @@ class _TestState extends State<Test> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
-      body: QuietTable(text: "HIII",),
+      body: Column(
+        children: [
+          QuietTable(text: "HIII",),
+      SilentTable(text: "Hellooooo",),
+        ],
+      ),
     );
   }
 }
