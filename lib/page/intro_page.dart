@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_app_backend/widgets/YesButton.dart';
-import 'package:flutter_app_backend/widgets/NoButton.dart';
+import 'package:flutter_app_backend/widgets/LoginButton.dart';
+import 'package:flutter_app_backend/widgets/SignupButton.dart';
 
 var passL;
 
@@ -53,7 +53,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 140,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/Library');
+                      Navigator.pushNamed(context, '/login');
                     }, ),
                   ),
                 ),

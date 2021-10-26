@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NoButton extends StatelessWidget {
+class YesButton extends StatelessWidget {
   var text;
   final onTap;
 
-  NoButton ({ this.text, this.color = Colors.white, this.icon, required this.onTap });
+  YesButton({ this.text, this.color = Colors.white, this.icon, required this.onTap });
   final Color color;
   var icon;
   @override
@@ -15,15 +15,15 @@ class NoButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("No",
+          Text("Login",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'Rubik',
-                fontSize: 30,
+                fontSize: 25,
               )),
           Container(
             child: Padding(
-              padding: EdgeInsets.only(left: 40.0),
+              padding: EdgeInsets.only(left: 20.0),
               child: Icon(
                 Icons.arrow_right_alt,
                 size: 40,
