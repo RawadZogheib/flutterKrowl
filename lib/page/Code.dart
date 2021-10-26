@@ -241,27 +241,8 @@ class _CodeState extends State<Code> {
                   width: 70,
                   margin: EdgeInsets.only(left: 180.sp),
                   child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward, onTap: () {
-                    try {
+
                       _sendCode();
-                    }catch(e){
-
-                      showDialog<String>(
-                        context: cont,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Error'),
-                          content: const Text(
-                              globals.errorException),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-
-                    }
 
                   },)
                 ),
@@ -277,7 +258,7 @@ class _CodeState extends State<Code> {
   }
 
     _sendCode() async {
-
+try{
     String? vCode;
     vCode = globals.code1! + globals.code2! + globals.code3! +
         globals.code4! + globals.code5! + globals.code6!;
@@ -326,13 +307,29 @@ class _CodeState extends State<Code> {
                 ],
               ),
         );
-      } else{
+      } else if (body[0] == "false") {
         showDialog<String>(
           context: cont,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
             content: const Text(
-                'Email can not be empty.'),
+                'Wrong Code !'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        showDialog<String>(
+          context: cont,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(
+                globals.errorElse),
             actions: <Widget>[
               TextButton(
                 onPressed: () =>
@@ -345,6 +342,22 @@ class _CodeState extends State<Code> {
       }
 
 
+}catch(e){
+  showDialog<String>(
+    context: cont,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('Error'),
+      content: const Text(
+          globals.errorException),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () =>
+              Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
 
-  }
+}}
 }
