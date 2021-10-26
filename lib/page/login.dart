@@ -178,8 +178,8 @@ class _LoginState extends State<Login> {
         var p = localStorage.getString("password");
             print(e);
             print(p);
-        if (globals.emailLogin.toString().isNotEmpty) {
-          if (globals.passwordLogin.toString().isNotEmpty) {
+        if (globals.emailLogin.toString().isEmpty) {
+          if (globals.passwordLogin.toString().isEmpty) {
             if (e != null) {
               if (p != null) {
                 setState(() {
