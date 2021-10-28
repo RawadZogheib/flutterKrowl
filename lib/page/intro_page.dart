@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[900],
@@ -51,9 +54,9 @@ class _IntroState extends State<Intro> {
                 InkWell(
                   child: Container(
                     alignment: Alignment.center,
-                    width: 140,
+                    width: 130,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/Library');
                     }, ),
                   ),
                 ),

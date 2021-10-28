@@ -94,9 +94,10 @@ class _NextButtonState extends State<CreateRoom> {
                   RoomButton(text: "Private", index: 4)
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 15,),
               Container(
                 width: 235,
+                height: 35,
                 child: TextButton(
                   child: Text( 'Create Room',
                     textAlign: TextAlign.center,

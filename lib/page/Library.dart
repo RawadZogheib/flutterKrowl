@@ -1,19 +1,14 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/CreateRoom.dart';
+import 'package:flutter_app_backend/widgets/CustomTab.dart';
+import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/QuietTable.dart';
 import 'package:flutter_app_backend/widgets/SilentTable.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:sizer/sizer.dart';
 import 'package:desktop_window/desktop_window.dart';
-
-
-
 
 
 void main() =>
@@ -25,11 +20,33 @@ class Library extends StatefulWidget {
   State<Library> createState() => _TestState();
 }
 
-class _TestState extends State<Library> {
+class _TestState extends State<Library> with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  List<ContentView> contentViews = [
+    ContentView(tab: CustomTab(title: 'Library'), content: Center(
+      child: Container(color: Colors.black, width: 90, height: 100,),
+    )),
+    ContentView(tab: CustomTab(title: 'Chats'), content: Center(
+      child: Container(),
+    )),
+    ContentView(tab: CustomTab(title: 'Forum'), content: Center(
+      child: Container(),
+    )),
+    ContentView(tab: CustomTab(title: 'Students'), content: Center(
+      child: Container(),
+    )),
+    ContentView(tab: CustomTab(title: 'Reminders'), content: Center(
+      child: Container(),
+    )),
+  ];
   @override
+  void initState(){
+    super.initState();
+    tabController = TabController(length: contentViews.length, vsync: this);
+  }
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 500));
+    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
@@ -44,8 +61,8 @@ class _TestState extends State<Library> {
               CreateRoom(),
               Column(
                   children: [
-                    SilentTable(text: "HIII",),
-                    QuietTable(text: "HIII",),
+                    SilentTable(text: "Room name",),
+                    QuietTable(text: "Room name",),
                     SizedBox(width: 20,),
                   ]
               ),
@@ -63,8 +80,8 @@ class _TestState extends State<Library> {
               CreateRoom(),
               Column(
                   children: [
-                    QuietTable(text: "HIII",),
-                    QuietTable(text: "HIII",),
+                    QuietTable(text: "Room name",),
+                    QuietTable(text: "Room name",),
                     SizedBox(width: 20,),
                   ]
               ),
@@ -73,7 +90,24 @@ class _TestState extends State<Library> {
           ),
       ), desktop: SingleChildScrollView(
         reverse: true,
-        child: Row(
+        child:Column(
+        children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage('Assets/krowl_logo.png'),
+              width: 200,
+              height: 200,
+            ),
+            SizedBox(width: 200 ,),
+            CustomTabBar(
+              controller: tabController,
+              tabs: contentViews.map((e) => e.tab).toList(),
+            ),
+          ],
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
@@ -83,15 +117,15 @@ class _TestState extends State<Library> {
               flex: _size.width > 1100? 2:6,
               child: Row(
                   children: [
-                    SilentTable(text: "HIII",),
-                    QuietTable(text: "HIII",),
-                    SizedBox(width: 20,),
+                    SilentTable(text: "Room name",),
+                    QuietTable(text: "Room name",),
+                    SizedBox(width: 20),
                   ]
               ),
             ),
 
           ],
-        ),
+        ),]),
       ),)
     );
   }

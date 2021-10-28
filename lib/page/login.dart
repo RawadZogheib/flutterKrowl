@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/NextButton.dart';
 import 'package:flutter_app_backend/widgets/PreviousButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
@@ -28,6 +28,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -99,7 +101,7 @@ class _LoginState extends State<Login> {
                   Container(
                     child: PreviousButton(
                       text: "previous",
-                      color: blue1,
+                      color: globals.blue1,
                       icon: Icons.arrow_back,
                       onTap: () {
                         Navigator.pop(context, '/intro_page');
@@ -113,7 +115,7 @@ class _LoginState extends State<Login> {
                         margin: EdgeInsets.only(left: 100.sp),
                         child: NextButton(
                           text: "Next",
-                          color: blue1,
+                          color: globals.blue1,
                           icon: Icons.arrow_forward,
                           onTap: () {
                             if (globals.emailLogin != null) {

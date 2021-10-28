@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,8 @@ class _CodeState extends State<Code> {
   @override
   Widget build(BuildContext context) {
     cont = context;
+    Size _size = MediaQuery.of(context).size;
+    DesktopWindow.setMinWindowSize(Size(500, 800));
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

@@ -1,3 +1,4 @@
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
@@ -18,6 +19,8 @@ class Signup2 extends StatefulWidget {
 class _Signup2State extends State<Signup2> {
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    DesktopWindow.setMinWindowSize(Size(500, 800));
     return WillPopScope(
       onWillPop: () async => _back(),
       child: Scaffold(
