@@ -31,9 +31,8 @@ class _NextButtonState extends State<CreateRoom> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.all(25),
-          width: 320,
-          height:450,
+          width: 250,
+          height: 400,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey.shade400,
@@ -44,11 +43,12 @@ class _NextButtonState extends State<CreateRoom> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: 65,),
                   Text("Create a Room",
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'Rubik', color:Colors.black),),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Rubik', color:Colors.black),),
                 ],
               ),
               SizedBox(height: 20,),
@@ -62,7 +62,7 @@ class _NextButtonState extends State<CreateRoom> {
               ),
               SizedBox(height: 10,),
               Container(
-                  width: 280,
+                  width: 220,
                   height:40,
                   child: TextInput1()),
               SizedBox(height: 20,),
@@ -81,7 +81,7 @@ class _NextButtonState extends State<CreateRoom> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(width:88,child: RoomButton(text: "Quiet", index: 1)),
-                  SizedBox(width: 50,),
+                  SizedBox(width: 35,),
                   Container(width:95,child: RoomButton(text: "Silent", index: 2))
                 ],
               ),
@@ -90,14 +90,14 @@ class _NextButtonState extends State<CreateRoom> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RoomButton(text: "Public", index: 3),
-                  SizedBox(width: 50,),
+                  SizedBox(width: 35,),
                   RoomButton(text: "Private", index: 4)
                 ],
               ),
               SizedBox(height: 15,),
               Container(
-                width: 235,
-                height: 35,
+                width: 220,
+                height: 40,
                 child: TextButton(
                   child: Text( 'Create Room',
                     textAlign: TextAlign.center,

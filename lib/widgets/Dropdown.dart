@@ -24,7 +24,7 @@ class _NextButtonState extends State<Dropdown1> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 17, right: 17),
-      width: 280,
+      width: 220,
       height:40,
       decoration: BoxDecoration(
         border: Border.all(

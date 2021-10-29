@@ -111,7 +111,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-                flex: _size.width > 1100?  1:4,
+                flex: _size.width > 1100?  1:2,
                 child: CreateRoom()
             ), Expanded(
               flex: _size.width > 1100? 2:6,
