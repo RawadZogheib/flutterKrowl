@@ -31,7 +31,7 @@ class _Login2State extends State<Login2> {
   Widget build(BuildContext context) {
     cont = context;
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(

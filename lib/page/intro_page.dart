@@ -23,7 +23,6 @@ class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[900],

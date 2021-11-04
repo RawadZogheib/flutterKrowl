@@ -61,7 +61,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: globals.white,

@@ -30,7 +30,6 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
     return WillPopScope(
       onWillPop: () async => _back(),
       child: Scaffold(

@@ -29,7 +29,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(

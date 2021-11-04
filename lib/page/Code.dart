@@ -26,7 +26,6 @@ class _CodeState extends State<Code> {
   Widget build(BuildContext context) {
     cont = context;
     Size _size = MediaQuery.of(context).size;
-    DesktopWindow.setMinWindowSize(Size(500, 800));
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
