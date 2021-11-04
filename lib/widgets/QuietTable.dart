@@ -70,14 +70,7 @@ class _CustomContainerState extends State<QuietTable> {
             ],
           ),
         ),
-        Positioned(top: 65, left: 100, child: myButton()),
-        Positioned(top: 65, left: 180, child: myButton()),
-        Positioned(top: 130, left: 245, child: myButton()),
-        Positioned(top: 210, left: 245, child: myButton()),
-        Positioned(top: 265, left: 180, child: myButton()),
-        Positioned(top: 265, left: 100, child: myButton()),
-        Positioned(top: 130, left: 45, child: myButton()),
-        Positioned(top: 210, left: 45, child: myButton()),
+
         Container(
           padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
           decoration: BoxDecoration(
@@ -96,7 +89,7 @@ class _CustomContainerState extends State<QuietTable> {
                 borderRadius: BorderRadius.all(Radius.circular(14)),
                 border: Border.all(color: blue1, width: 4)),
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text("Quiet room",
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
@@ -143,6 +136,16 @@ class _CustomContainerState extends State<QuietTable> {
             ]),
           ),
         ),
+
+        Positioned(top: 65, left: 100, child: myButton()),
+        Positioned(top: 65, left: 180, child: myButton()),
+        Positioned(top: 130, left: 245, child: myButton()),
+        Positioned(top: 210, left: 245, child: myButton()),
+        Positioned(top: 265, left: 180, child: myButton()),
+        Positioned(top: 265, left: 100, child: myButton()),
+        Positioned(top: 130, left: 45, child: myButton()),
+        Positioned(top: 210, left: 45, child: myButton()),
+
       ],
     );
   }

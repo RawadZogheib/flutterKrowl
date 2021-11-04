@@ -70,15 +70,6 @@ class _CustomContainerState extends State<SilentTable> {
             ],
           ),
         ),
-
-        Positioned(top: 65, left: 100, child: myButton()),
-        Positioned(top: 65, left: 180, child: myButton()),
-        Positioned(top: 130, left: 245, child: myButton()),
-        Positioned(top: 210, left: 245, child: myButton()),
-        Positioned(top: 265, left: 180, child: myButton()),
-        Positioned(top: 265, left: 100, child: myButton()),
-        Positioned(top: 130, left: 45, child: myButton()),
-        Positioned(top: 210, left: 45, child: myButton()),
         Container(
           padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
           decoration: BoxDecoration(
@@ -144,6 +135,15 @@ class _CustomContainerState extends State<SilentTable> {
             ]),
           ),
         ),
+        Positioned(top: 65, left: 100, child: myButton()),
+        Positioned(top: 65, left: 180, child: myButton()),
+        Positioned(top: 130, left: 245, child: myButton()),
+        Positioned(top: 210, left: 245, child: myButton()),
+        Positioned(top: 265, left: 180, child: myButton()),
+        Positioned(top: 265, left: 100, child: myButton()),
+        Positioned(top: 130, left: 45, child: myButton()),
+        Positioned(top: 210, left: 45, child: myButton()),
+
       ],
     );
   }
