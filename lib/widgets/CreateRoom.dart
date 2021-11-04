@@ -28,11 +28,11 @@ class _NextButtonState extends State<CreateRoom> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
           width: 250,
-          height: 400,
+          height: 415,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey.shade400,

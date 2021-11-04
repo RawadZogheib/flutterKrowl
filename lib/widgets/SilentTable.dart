@@ -80,14 +80,13 @@ class _CustomContainerState extends State<SilentTable> {
         Positioned(top: 130, left: 45, child: myButton()),
         Positioned(top: 210, left: 45, child: myButton()),
         Container(
-          margin: EdgeInsets.all(5),
           padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey.shade400,
               width: 1,
             ),
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(2),
           ),
           child: Container(
             height: 200,
