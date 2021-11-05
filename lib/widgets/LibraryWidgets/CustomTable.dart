@@ -1,49 +1,60 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart';
-import 'package:flutter_app_backend/widgets/myButton.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/Buttons/myButton.dart';
 
-class QuietTable extends StatefulWidget {
+class CustomTable extends StatefulWidget {
   var children;
   var text;
+  var text2;
   var height;
   var width;
   var color;
+  var color2;
   var icon;
 
-  QuietTable(
+  CustomTable(
       {this.children,
-      required this.text,
-      this.icon,
-      this.height,
-      this.width,
-      this.color});
+        required this.text,
+        required this.text2,
+        required this.color2,
+        this.icon,
+        this.height,
+        this.width,
+        this.color
+      });
 
   @override
-  State<QuietTable> createState() => _CustomContainerState(
+  State<CustomTable> createState() => _CustomContainerState(
       children: children,
       text: text,
+      text2: text2,
       height: height,
       width: width,
       color: color,
+      color2: color2,
       icon: icon);
 }
 
-class _CustomContainerState extends State<QuietTable> {
+class _CustomContainerState extends State<CustomTable> {
   var children;
   var text;
+  var text2;
   var height;
   var width;
   var color;
+  var color2;
   var icon;
 
   _CustomContainerState(
       {this.children,
-      required this.text,
-      this.icon,
-      this.height,
-      this.width,
-      this.color});
+        required this.text,
+        this.icon,
+        this.height,
+        this.width,
+        this.color,
+        required this.text2,
+        required this.color2});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +70,7 @@ class _CustomContainerState extends State<QuietTable> {
               Text(
                 text,
                 style: TextStyle(
-                    color: blue1, fontSize: 15, fontWeight: FontWeight.bold),
+                    color: globals.blue1, fontSize: 15, fontWeight: FontWeight.bold),
               ),
               Text(
                 " - Choose a seat to join",
@@ -70,7 +81,6 @@ class _CustomContainerState extends State<QuietTable> {
             ],
           ),
         ),
-
         Container(
           padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
           decoration: BoxDecoration(
@@ -85,12 +95,12 @@ class _CustomContainerState extends State<QuietTable> {
             width: 200,
             padding: EdgeInsets.only(right: 12, left: 1),
             decoration: BoxDecoration(
-                color: blue2,
+                color: globals.blue2,
                 borderRadius: BorderRadius.all(Radius.circular(14)),
-                border: Border.all(color: blue1, width: 4)),
+                border: Border.all(color: globals.blue1, width: 4)),
             child:
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text("Quiet room",
+              Text(text2,
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
               Text(
@@ -127,7 +137,7 @@ class _CustomContainerState extends State<QuietTable> {
                   ),
                   Text(".",
                       style: TextStyle(
-                        color: Colors.green,
+                        color: color2,
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                       ))
@@ -136,7 +146,6 @@ class _CustomContainerState extends State<QuietTable> {
             ]),
           ),
         ),
-
         Positioned(top: 65, left: 100, child: myButton()),
         Positioned(top: 65, left: 180, child: myButton()),
         Positioned(top: 130, left: 245, child: myButton()),

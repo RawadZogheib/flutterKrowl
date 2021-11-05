@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
-import 'package:flutter_app_backend/widgets/NextButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 

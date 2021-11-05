@@ -4,8 +4,8 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_app_backend/widgets/LoginButton.dart';
-import 'package:flutter_app_backend/widgets/SignupButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/LoginButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/SignupButton.dart';
 
 var passL;
 

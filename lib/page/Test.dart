@@ -2,10 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/CustomTab.dart';
-import 'package:flutter_app_backend/widgets/QuietTable.dart';
-import 'package:flutter_app_backend/widgets/SilentTable.dart';
 import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
 
 

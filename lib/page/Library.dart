@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
-import 'package:flutter_app_backend/widgets/CreateRoom.dart';
+import 'package:flutter_app_backend/widgets/LibraryWidgets/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
-import 'package:flutter_app_backend/widgets/QuietTable.dart';
-import 'package:flutter_app_backend/widgets/SilentTable.dart';
+import 'package:flutter_app_backend/widgets/LibraryWidgets/CustomTable.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -75,12 +74,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CreateRoom(),
                   SizedBox(height: 20,),
                   Column(children: [
-                    SilentTable(
-                      text: "Room name",
-                    ),
-                    QuietTable(
-                      text: "Room name",
-                    ),
+                    CustomTable(text: "room name", text2: "room", color2: Colors.green)
                   ]),
                 ],
               ),
@@ -96,12 +90,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                  QuietTable(
-                    text: "Room name",
-                  ),
-                  QuietTable(
-                    text: "Room name",
-                  ),
+                 CustomTable(text: "room name", text2: "room type", color2: Colors.red),
+                      CustomTable(text: "room name", text2: "room type", color2: Colors.green)
                 ]),
               ],
             ),
@@ -133,12 +123,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               children: [
                         CreateRoom(),
                     SizedBox(width: 20,),
-                    SilentTable(
-                      text: "Room name",
-                    ),
-                    QuietTable(
-                      text: "Room name",
-                    ),
+                    CustomTable(text: "room name", text2: " room", color2: Colors.green,),
+                    CustomTable(text: "room name", text2: "room type", color2: Colors.red),
                     SizedBox(width: 20),
                   ]),),
 

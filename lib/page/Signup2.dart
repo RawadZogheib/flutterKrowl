@@ -2,8 +2,8 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
-import 'package:flutter_app_backend/widgets/NextButton.dart';
-import 'package:flutter_app_backend/widgets/PreviousButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(

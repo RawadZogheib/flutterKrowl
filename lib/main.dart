@@ -10,7 +10,6 @@ import 'package:flutter_app_backend/page/intro_page.dart';
 import 'package:flutter_app_backend/page/intro_page2.dart';
 import 'package:flutter_app_backend/page/login.dart';
 import 'package:flutter_app_backend/page/login2.dart';
-import 'package:flutter_app_backend/page/no_secret_code2.dart';
 import 'package:flutter_app_backend/page/Test.dart';
 import 'package:sizer/sizer.dart';
 
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
             '/Code': (context) => Code(),
             '/intro_page2': (context) => Intro2(),
             '/Signup': (context) => Signup(),
-            '/no_secret_code2': (context) => Nosecretcode2(),
             '/Signup2': (context) => Signup2(),
             '/Registration': (context) => Registration(),
             '/Registration2': (context) => Registration2(),

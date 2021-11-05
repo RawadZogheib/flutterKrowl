@@ -1,11 +1,6 @@
-import 'dart:convert';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/NextButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:sizer/sizer.dart';
 
 void main() =>

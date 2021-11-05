@@ -29,7 +29,6 @@ class Responsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-
     return LayoutBuilder(
       // If our width is more than 1100 then we consider it a desktop
       builder: (context, constraints) {

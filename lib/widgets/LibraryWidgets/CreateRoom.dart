@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
-import 'package:flutter_app_backend/widgets/RadioButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 

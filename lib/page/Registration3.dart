@@ -7,8 +7,8 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
-import 'package:flutter_app_backend/widgets/NextButton.dart';
-import 'package:flutter_app_backend/widgets/PreviousButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
+import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Color col1 = Colors.blue.shade50;
