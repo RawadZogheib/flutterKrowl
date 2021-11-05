@@ -4,19 +4,19 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
 
 
-class myButton extends StatefulWidget {
+class Chair extends StatefulWidget {
   var height;
   var width;
   var color = Colors.blueGrey.shade100;
   var onTap;
 
-  myButton({this.height, this.width,  this.onTap});
+  Chair({this.height, this.width,  this.onTap});
 
   @override
-  State<myButton> createState() => _myButtonState();
+  State<Chair> createState() => _myButtonState();
 }
 
-class _myButtonState extends State<myButton> {
+class _myButtonState extends State<Chair> {
   @override
   Widget build(BuildContext context) {
     return InkWell(

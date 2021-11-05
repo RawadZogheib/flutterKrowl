@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
-import 'package:flutter_app_backend/widgets/LibraryWidgets/CreateRoom.dart';
+import 'package:flutter_app_backend/widgets/Library/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
-import 'package:flutter_app_backend/widgets/LibraryWidgets/CustomTable.dart';
+import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));

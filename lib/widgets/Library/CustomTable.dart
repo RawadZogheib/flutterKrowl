@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Buttons/myButton.dart';
+import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
@@ -146,14 +146,14 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 65, left: 100, child: myButton()),
-        Positioned(top: 65, left: 180, child: myButton()),
-        Positioned(top: 130, left: 245, child: myButton()),
-        Positioned(top: 210, left: 245, child: myButton()),
-        Positioned(top: 265, left: 180, child: myButton()),
-        Positioned(top: 265, left: 100, child: myButton()),
-        Positioned(top: 130, left: 45, child: myButton()),
-        Positioned(top: 210, left: 45, child: myButton()),
+        Positioned(top: 65, left: 100, child: Chair()),
+        Positioned(top: 65, left: 180, child: Chair()),
+        Positioned(top: 130, left: 245, child: Chair()),
+        Positioned(top: 210, left: 245, child: Chair()),
+        Positioned(top: 265, left: 180, child: Chair()),
+        Positioned(top: 265, left: 100, child: Chair()),
+        Positioned(top: 130, left: 45, child: Chair()),
+        Positioned(top: 210, left: 45, child: Chair()),
 
       ],
     );
