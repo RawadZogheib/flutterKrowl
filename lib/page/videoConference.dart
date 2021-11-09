@@ -130,21 +130,28 @@ class _VideoConferenceState extends State<VideoConference> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        child: GridView.builder(
-          shrinkWrap: true,
-          itemCount: plist.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 5.0,
-            crossAxisSpacing: 5.0,
-            childAspectRatio: 1.0,
+      body: Wrap(
+        children: <Widget>[Container(
+          padding: EdgeInsets.all(10.0),
+          child: GridView.builder(
+            shrinkWrap: true,
+            itemCount: plist.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 5.0,
+              crossAxisSpacing: 5.0,
+              childAspectRatio: 1.0,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return getItemView(plist[index]);
+            },
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return getItemView(plist[index]);
-          },
         ),
+
+          B
+
+
+        ]
       ),
 
       // floatingActionButton: FloatingActionButton(
