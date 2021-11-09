@@ -11,6 +11,7 @@ import 'package:flutter_app_backend/page/intro_page2.dart';
 import 'package:flutter_app_backend/page/login.dart';
 import 'package:flutter_app_backend/page/login2.dart';
 import 'package:flutter_app_backend/page/Test.dart';
+import 'package:flutter_app_backend/page/videoConference.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
             '/Registration3': (context) => Registration3(),
             '/Library': (context) => Library(),
             '/Test': (context) => Test(),
+            '/VideoConference': (context) => VideoConference(),
           });
     });
   }

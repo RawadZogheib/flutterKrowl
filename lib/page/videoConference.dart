@@ -9,8 +9,7 @@ import 'package:uuid/uuid.dart';
 
 
 class VideoConference extends StatefulWidget {
-  VideoConference({Key? key, required this.title}) : super(key: key);
-  final String title;
+  VideoConference({Key? key}) : super(key: key);
 
   @override
   _VideoConferenceState createState() => _VideoConferenceState();
@@ -131,9 +130,6 @@ class _VideoConferenceState extends State<VideoConference> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Container(
         padding: EdgeInsets.all(10.0),
         child: GridView.builder(
@@ -150,11 +146,12 @@ class _VideoConferenceState extends State<VideoConference> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: pubSub,
-        tooltip: 'Increment',
-        child: Icon(Icons.video_call),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: pubSub,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.video_call),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
 
     );
   }

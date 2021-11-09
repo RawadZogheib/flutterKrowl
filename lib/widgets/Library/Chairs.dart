@@ -24,6 +24,7 @@ class _myButtonState extends State<Chair> {
           setState(() {
             widget.color = Colors.red;
           });
+          Navigator.pushNamed(context, '/VideoConference');
           widget.onTap();
           },
         child: Stack(
