@@ -148,12 +148,12 @@ class _CustomContainerState extends State<CustomTable> {
         ),
         Positioned(top: 65, left: 100, child: Chair(onTap: (){},)),
         Positioned(top: 65, left: 180, child: Chair(onTap: (){})),
-        Positioned(top: 130, left: 245, child: Chair(onTap: (){})),
-        Positioned(top: 210, left: 245, child: Chair(onTap: (){})),
-        Positioned(top: 265, left: 180, child: Chair(onTap: (){})),
-        Positioned(top: 265, left: 100, child: Chair(onTap: (){})),
-        Positioned(top: 130, left: 45, child: Chair(onTap: (){})),
-        Positioned(top: 210, left: 45, child: Chair(onTap: (){})),
+        Positioned(top: 120, left: 245, child: Chair(onTap: (){})),
+        Positioned(top: 200, left: 245, child: Chair(onTap: (){})),
+        Positioned(top: 255, left: 180, child: Chair(onTap: (){})),
+        Positioned(top: 255, left: 100, child: Chair(onTap: (){})),
+        Positioned(top: 120, left: 45, child: Chair(onTap: (){})),
+        Positioned(top: 200, left: 45, child: Chair(onTap: (){})),
 
       ],
     );
