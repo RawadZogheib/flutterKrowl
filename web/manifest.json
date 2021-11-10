@@ -1,6 +1,6 @@
 {
-    "name": "flutterkrowl",
-    "short_name": "flutterkrowl",
+    "name": "flutter_many2many",
+    "short_name": "flutter_many2many",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

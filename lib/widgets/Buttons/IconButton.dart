@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart'  as globals;
 
-class myButton extends StatelessWidget {
+class MyButton extends StatelessWidget {
   final onTap;
 
-  myButton({  required this.icon, required this.onTap });
+  MyButton({required this.icon, required this.onTap });
   var icon;
   @override
   Widget build(BuildContext context) {
