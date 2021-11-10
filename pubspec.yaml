@@ -63,6 +63,15 @@ flutter:
     - Assets/krowl_logo.png
     - Assets/press_enter.png
     - Assets/Register.png
+    - Assets/userImage1.jpeg
+    - Assets/userImage2.jpeg
+    - Assets/userImage3.jpeg
+    - Assets/userImage4.jpeg
+    - Assets/userImage5.jpeg
+    - Assets/userImage6.jpeg
+    - Assets/userImage7.jpeg
+    - Assets/userImage8.jpeg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
