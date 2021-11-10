@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/Library.dart';
-import 'package:flutter_app_backend/page/Registration.dart';
-import 'package:flutter_app_backend/page/Registration2.dart';
-import 'package:flutter_app_backend/page/Registration3.dart';
-import 'package:flutter_app_backend/page/Signup.dart';
-import 'package:flutter_app_backend/page/Signup2.dart';
+import 'package:flutter_app_backend/page/Signup/Registration.dart';
+import 'package:flutter_app_backend/page/Signup/Registration2.dart';
+import 'package:flutter_app_backend/page/Signup/Registration3.dart';
+import 'package:flutter_app_backend/page/Signup/Signup.dart';
+import 'package:flutter_app_backend/page/Signup/Signup2.dart';
 import 'package:flutter_app_backend/page/intro_page.dart';
 import 'package:flutter_app_backend/page/intro_page2.dart';
-import 'package:flutter_app_backend/page/login.dart';
-import 'package:flutter_app_backend/page/login2.dart';
+import 'package:flutter_app_backend/page/Login/login.dart';
+import 'package:flutter_app_backend/page/Login/login2.dart';
 import 'package:flutter_app_backend/page/Test.dart';
 import 'package:flutter_app_backend/page/videoConference.dart';
+import 'package:flutter_app_backend/page/MainChat.dart';
 import 'package:flutter_app_backend/page/videoConference2.dart';
 import 'package:sizer/sizer.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
          //home: Intro(),
-          initialRoute: '/Library',
+          initialRoute: '/MainChat',
           routes: {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
             '/Library': (context) => Library(),
             '/Test': (context) => Test(),
             '/VideoConference': (context) => VideoConference(),
+            '/MainChat': (context) => MainChat(),
             '/VideoConference2': (context) => VideoConference2(),
           });
     });
