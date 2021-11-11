@@ -146,7 +146,7 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 65, left: 100, child: Chair(onTap: (){},)),
+        Positioned(top: 65, left: 100, child: Chair(onTap: (){})),
         Positioned(top: 65, left: 180, child: Chair(onTap: (){})),
         Positioned(top: 120, left: 245, child: Chair(onTap: (){})),
         Positioned(top: 200, left: 245, child: Chair(onTap: (){})),

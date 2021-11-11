@@ -268,5 +268,6 @@ class _VideoConferenceState extends State<VideoConference> {
     setState(() {
       plist.clear();
     });
+    return true;
   }
 }

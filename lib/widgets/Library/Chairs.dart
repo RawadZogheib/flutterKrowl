@@ -20,7 +20,9 @@ class _ChairState extends State<Chair> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
         onTap: () {
           setState(() {
             widget.color = Colors.red;
