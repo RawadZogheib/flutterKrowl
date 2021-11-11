@@ -35,7 +35,7 @@ class _VideoConferenceState extends State<VideoConference> {
 
   // ion.Signal? _signal;
   String ServerURL = '';
-  ion.Client? _client;
+  ion.Client? client;
   ion.LocalStream? _localStream;
   //ion.LocalStream? _localStream2;
   final String _uuid = Uuid().v4();
@@ -75,11 +75,11 @@ class _VideoConferenceState extends State<VideoConference> {
     log("serverurl " + ServerURL);
     //if (_client == null) {
     // create new client
-    _client =
+    client =
         await ion.Client.create(sid: "test room", uid: _uuid, signal: _signal);
 
     // peer ontrack
-    _client?.ontrack = (track, ion.RemoteStream remoteStream) async {
+    client?.ontrack = (track, ion.RemoteStream remoteStream) async {
       if (track.kind == 'video') {
         print('ontrack: remote stream: ${remoteStream.stream}');
         var renderer = RTCVideoRenderer();
@@ -95,7 +95,7 @@ class _VideoConferenceState extends State<VideoConference> {
     //_localStream2 = await ion.LocalStream.getUserMedia(constraints: stts);
 
     // publish the stream
-    await _client?.publish(_localStream!);
+    await client?.publish(_localStream!);
 
     var renderer = RTCVideoRenderer();
     await renderer.initialize();
@@ -259,15 +259,19 @@ class _VideoConferenceState extends State<VideoConference> {
   }
 
   _back() async {
-    // unPublish and remove stream from video element
-    await _localStream?.stream.dispose();
-    _localStream = null;
-    _client?.close();
-    _client = null;
+    if(client != null) {
+      // unPublish and remove stream from video element
+      await _localStream?.stream.dispose();
+      _localStream = null;
 
-    setState(() {
-      plist.clear();
-    });
-    return true;
+      client?.close();
+      client = null;
+
+      setState(() {
+        plist.clear();
+        qlist.clear();
+      });
+    }
+    Navigator.pop(context);
   }
 }
