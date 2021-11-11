@@ -1,45 +1,18 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/widgets/Buttons/IconButton.dart';
 import 'package:flutter_ion/flutter_ion.dart' as ion;
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:sizer/sizer.dart';
 import 'package:uuid/uuid.dart';
 
-
-String? stts = null;
-
-ion.Constraints def = ion.Constraints(
-    resolution: 'hd',
-    codec: 'vp8',
-    audio: false,
-    video: false,
-    simulcast: false);
-
-ion.Constraints sttsVideo = ion.Constraints(
+ion.Constraints stts = ion.Constraints(
     resolution: 'hd',
     codec: 'vp8',
     audio: true,
     video: true,
     simulcast: false);
-
-ion.Constraints sttsOnlyVideo = ion.Constraints(
-    resolution: 'hd',
-    codec: 'vp8',
-    audio: false,
-    video: true,
-    simulcast: false);
-
-ion.Constraints sttsAudio = ion.Constraints(
-    resolution: 'hd',
-    codec: 'vp8',
-    audio: true,
-    video: false,
-    simulcast: false);
-
 
 class VideoConference extends StatefulWidget {
   VideoConference({Key? key}) : super(key: key);
@@ -64,6 +37,7 @@ class _VideoConferenceState extends State<VideoConference> {
   String ServerURL = '';
   ion.Client? _client;
   ion.LocalStream? _localStream;
+  //ion.LocalStream? _localStream2;
   final String _uuid = Uuid().v4();
 
   var iconMic = Icons.mic_off;
@@ -100,82 +74,25 @@ class _VideoConferenceState extends State<VideoConference> {
     });
     log("serverurl " + ServerURL);
     //if (_client == null) {
-      // create new client
-      _client = await ion.Client.create(
-          sid: "test room", uid: _uuid, signal: _signal);
+    // create new client
+    _client =
+        await ion.Client.create(sid: "test room", uid: _uuid, signal: _signal);
 
-      // peer ontrack
-      _client?.ontrack = (track, ion.RemoteStream remoteStream) async {
-        if (track.kind == 'video') {
-          print('ontrack: remote stream: ${remoteStream.stream}');
-          var renderer = RTCVideoRenderer();
-          await renderer.initialize();
-          renderer.srcObject = remoteStream.stream;
-          setState(() {
-            plist.add(
-                Participant('RemoteStream', renderer, remoteStream.stream));
-          });
-        }
-      };
-
-    _localStream = await ion.LocalStream.getUserMedia(
-        constraints: def);
-
-
-    // publish the stream
-    await _client?.publish(_localStream!);
-
-     var renderer = RTCVideoRenderer();
-    await renderer.initialize();
-    renderer.srcObject = _localStream?.stream;
-    setState(() {
-    qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
-    });
-
-//} else {
-
-      // // unPublish and remove stream from video element
-      // await _localStream?.stream.dispose();
-      // _localStream = null;
-      // _client?.close();
-      // _client = null;
-      //
-      //  setState(() {
-      //    plist.clear();
-      //  });
-    //}
-  }
-
-  void qubSub() async {
-    log("serverurl " + ServerURL);
-
-      if(stts == "audio"){
-         _localStream = await ion.LocalStream.getUserMedia(
-             constraints: sttsAudio);
-        // setState(() {
-        //   qlist[0].stream = _localStream!.stream;
-        // });
-      }else if(stts == "video"){
-        _localStream = await ion.LocalStream.getUserMedia(
-            constraints: sttsVideo);
-        // setState(() {
-        //   qlist[0].stream = _localStream!.stream;
-        // });
+    // peer ontrack
+    _client?.ontrack = (track, ion.RemoteStream remoteStream) async {
+      if (track.kind == 'video') {
+        print('ontrack: remote stream: ${remoteStream.stream}');
+        var renderer = RTCVideoRenderer();
+        await renderer.initialize();
+        renderer.srcObject = remoteStream.stream;
+        setState(() {
+          plist.add(Participant('RemoteStream', renderer, remoteStream.stream));
+        });
       }
-      else if(stts == "onlyVideo"){
-        _localStream = await ion.LocalStream.getUserMedia(
-            constraints: sttsOnlyVideo);
-        // setState(() {
-        //   qlist[0].stream = _localStream!.stream;
-        // });
-      }else if(stts == "shareScreen"){
-        _localStream = await ion.LocalStream.getDisplayMedia(
-            constraints: sttsVideo);
-        // setState(() {
-        //   qlist[0].stream = _localStream!.stream;
-        // });
-      }
+    };
 
+    _localStream = await ion.LocalStream.getUserMedia(constraints: stts);
+    //_localStream2 = await ion.LocalStream.getUserMedia(constraints: stts);
 
     // publish the stream
     await _client?.publish(_localStream!);
@@ -183,9 +100,13 @@ class _VideoConferenceState extends State<VideoConference> {
     var renderer = RTCVideoRenderer();
     await renderer.initialize();
     renderer.srcObject = _localStream?.stream;
-     setState(() {
-       qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
-     });
+    setState(() {
+      qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
+    });
+
+    _localStream!.mute('audio');
+    //_localStream!.mute('video');
+    //_localStream2!.mute('video');
   }
 
   Widget getItemView(Participant item) {
@@ -261,13 +182,7 @@ class _VideoConferenceState extends State<VideoConference> {
                   child: MyButton(
                       icon: iconMic,
                       onTap: () {
-
-                        stts = "audio";
-                        if(mic == false)
-                          qubSub();
-
-                        mic = !mic;
-                        _setButtons();
+                        _setAudioButton();
                       }),
                 ),
                 Padding(
@@ -275,17 +190,7 @@ class _VideoConferenceState extends State<VideoConference> {
                   child: MyButton(
                       icon: videocam,
                       onTap: () {
-
-                        stts = "video";
-                        if(video == false)
-                          if(shareScreen == false) {
-                            qubSub();
-                          }else{
-                            shareScreen = !shareScreen;
-                            qubSub();
-                          }
-                        video = !video;
-                        _setButtons();
+                        _setVideoButton();
                       }),
                 ),
                 Padding(
@@ -293,87 +198,75 @@ class _VideoConferenceState extends State<VideoConference> {
                   child: MyButton(
                       icon: screen_share_outlined,
                       onTap: () async {
-
-                        stts = "shareScreen";
-                        if(shareScreen == false)
-                          if(video == false) {
-                            qubSub();
-                          }else{
-                            video = !video;
-                            qubSub();
-                          }
-                        shareScreen = !shareScreen;
-                        _setButtons();
-                        // sttsAudio..video = true;
-                        //
-                        //   _localStream = await ion.LocalStream.getUserMedia(
-                        //       constraints: sttsAudio);
-                        //
-                        //   // publish the stream
-                        //   await _client?.publish(_localStream!);
-                        //
-                        //   var renderer = RTCVideoRenderer();
-                        //   await renderer.initialize();
-                        //   renderer.srcObject = _localStream?.stream;
-                        //   setState(() {
-                        //   plist.add(Participant("LocalStream", renderer, _localStream?.stream));
-                        //   });
+                        _setShareScreenButton();
                       }),
                 ),
               ],
             ),
           )
         ]),
-
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: pubSub,
-        //   tooltip: 'Increment',
-        //   child: Icon(Icons.video_call),
-        // ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
 
-  _setButtons() {
+  _setAudioButton() {
     //voice/video/shareScreen
     if (mic == true) {
-      setState(() {
-        iconMic = Icons.mic;
-      });
-    } else if (mic == false) {
+      _localStream!.mute('audio');
       setState(() {
         iconMic = Icons.mic_off;
       });
-    }
-    if (video == true) {
+      mic = !mic;
+    } else if (mic == false) {
+      _localStream!.unmute('audio');
       setState(() {
-        videocam = Icons.videocam;
+        iconMic = Icons.mic;
       });
-    } else if (video == false) {
+      mic = !mic;
+    }
+  }
+
+  _setVideoButton() {
+    if (video == true) {
+      _localStream!.mute('video');
       setState(() {
         videocam = Icons.videocam_off;
       });
+      video = !video;
+    } else if (video == false) {
+      _localStream!.unmute('video');
+      setState(() {
+        videocam = Icons.videocam;
+      });
+      video = !video;
     }
+  }
+
+  _setShareScreenButton() {
     if (shareScreen == true) {
       setState(() {
-        screen_share_outlined = Icons.screen_share_outlined;
-      });
-    } else if (shareScreen == false) {
-      setState(() {
+        _localStream!.mute('video');
         screen_share_outlined = Icons.stop_screen_share_outlined;
       });
+      shareScreen = !shareScreen;
+    } else if (shareScreen == false) {
+      setState(() {
+        _localStream!.unmute('video');
+        screen_share_outlined = Icons.screen_share_outlined;
+      });
+      shareScreen = !shareScreen;
     }
   }
 
   _back() async {
     // unPublish and remove stream from video element
-    print("tt1");
     await _localStream?.stream.dispose();
     _localStream = null;
     _client?.close();
     _client = null;
-    print("tt2");
 
-    //plist.clear();
+    setState(() {
+      plist.clear();
+    });
   }
 }
