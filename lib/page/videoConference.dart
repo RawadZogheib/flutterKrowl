@@ -12,6 +12,13 @@ import 'package:uuid/uuid.dart';
 
 String? stts = null;
 
+ion.Constraints def = ion.Constraints(
+    resolution: 'hd',
+    codec: 'vp8',
+    audio: false,
+    video: false,
+    simulcast: false);
+
 ion.Constraints sttsVideo = ion.Constraints(
     resolution: 'hd',
     codec: 'vp8',
@@ -110,7 +117,22 @@ class _VideoConferenceState extends State<VideoConference> {
           });
         }
       };
-    //} else {
+
+    _localStream = await ion.LocalStream.getUserMedia(
+        constraints: def);
+
+
+    // publish the stream
+    await _client?.publish(_localStream!);
+
+     var renderer = RTCVideoRenderer();
+    await renderer.initialize();
+    renderer.srcObject = _localStream?.stream;
+    setState(() {
+    qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
+    });
+
+//} else {
 
       // // unPublish and remove stream from video element
       // await _localStream?.stream.dispose();
@@ -125,38 +147,45 @@ class _VideoConferenceState extends State<VideoConference> {
   }
 
   void qubSub() async {
-    setState(() {
-      qlist.clear();
-    });
     log("serverurl " + ServerURL);
-      // create new client
-      // _client = await ion.Client.create(
-      //     sid: "test room", uid: _uuid, signal: _signal);
 
       if(stts == "audio"){
-        _localStream = await ion.LocalStream.getUserMedia(
-            constraints: sttsAudio);
+         _localStream = await ion.LocalStream.getUserMedia(
+             constraints: sttsAudio);
+        // setState(() {
+        //   qlist[0].stream = _localStream!.stream;
+        // });
       }else if(stts == "video"){
         _localStream = await ion.LocalStream.getUserMedia(
             constraints: sttsVideo);
-      }else if(stts == "onlyVideo"){
+        // setState(() {
+        //   qlist[0].stream = _localStream!.stream;
+        // });
+      }
+      else if(stts == "onlyVideo"){
         _localStream = await ion.LocalStream.getUserMedia(
             constraints: sttsOnlyVideo);
+        // setState(() {
+        //   qlist[0].stream = _localStream!.stream;
+        // });
       }else if(stts == "shareScreen"){
         _localStream = await ion.LocalStream.getDisplayMedia(
             constraints: sttsVideo);
+        // setState(() {
+        //   qlist[0].stream = _localStream!.stream;
+        // });
       }
 
-      // publish the stream
-      await _client?.publish(_localStream!);
 
-      var renderer = RTCVideoRenderer();
-      await renderer.initialize();
-      renderer.srcObject = _localStream?.stream;
-      setState(() {
-        qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
-      });
+    // publish the stream
+    await _client?.publish(_localStream!);
 
+    var renderer = RTCVideoRenderer();
+    await renderer.initialize();
+    renderer.srcObject = _localStream?.stream;
+     setState(() {
+       qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
+     });
   }
 
   Widget getItemView(Participant item) {
