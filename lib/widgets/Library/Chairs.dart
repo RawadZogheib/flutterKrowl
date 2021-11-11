@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/globals/globals.dart';
+
 
 
 class Chair extends StatefulWidget {
@@ -13,13 +13,14 @@ class Chair extends StatefulWidget {
   Chair({this.height, this.width,  this.onTap});
 
   @override
-  State<Chair> createState() => _myButtonState();
+  State<Chair> createState() => _ChairState();
 }
 
-class _myButtonState extends State<Chair> {
+class _ChairState extends State<Chair> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
         onTap: () {
           setState(() {
             widget.color = Colors.red;
@@ -33,7 +34,7 @@ class _myButtonState extends State<Chair> {
               width: 65,
               height: 65,
               decoration:
-                  BoxDecoration(color: widget.color , shape: BoxShape.circle),
+                  BoxDecoration(color: widget.color , shape: BoxShape.circle, ),
             ),
             Positioned(
               top: 2.5,
