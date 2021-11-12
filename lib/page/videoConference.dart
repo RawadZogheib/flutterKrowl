@@ -105,7 +105,7 @@ class _VideoConferenceState extends State<VideoConference> {
     });
 
     _localStream!.mute('audio');
-    //_localStream!.mute('video');
+    _localStream!.mute('video');
     //_localStream2!.mute('video');
   }
 
