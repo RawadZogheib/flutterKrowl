@@ -12,7 +12,7 @@ ion.Constraints stts = ion.Constraints(
     codec: 'vp8',
     audio: true,
     video: true,
-    simulcast: false);
+    simulcast: true);
 
 class VideoConference extends StatefulWidget {
   VideoConference({Key? key}) : super(key: key);
