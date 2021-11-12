@@ -104,8 +104,8 @@ class _VideoConferenceState extends State<VideoConference> {
       qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
     });
 
-    _localStream!.mute('audio');
-    _localStream!.mute('video');
+    //_localStream!.mute('audio');
+    //_localStream!.mute('video');
     //_localStream2!.mute('video');
   }
 
