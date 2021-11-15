@@ -27,7 +27,7 @@ class _ChairState extends State<Chair> {
           setState(() {
             widget.color = Colors.red;
           });
-          Navigator.pushNamed(context, '/VideoConference');
+          Navigator.pushNamed(context, '/VideoConference2');
           widget.onTap();
           },
         child: Stack(
