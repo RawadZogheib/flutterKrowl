@@ -104,8 +104,8 @@ class _VideoConferenceState extends State<VideoConference> {
       qlist.add(Participant("LocalStream", renderer, _localStream?.stream));
     });
 
-    _localStream!.mute('audio');
-    _localStream!.mute('video');
+    //_localStream!.mute('audio');
+    //_localStream!.mute('video');
     //_localStream2!.mute('video');
   }
 
@@ -210,52 +210,52 @@ class _VideoConferenceState extends State<VideoConference> {
   }
 
   _setAudioButton() {
-    //voice/video/shareScreen
-    if (mic == true) {
-      _localStream!.mute('audio');
-      setState(() {
-        iconMic = Icons.mic_off;
-      });
-      mic = !mic;
-    } else if (mic == false) {
-      _localStream!.unmute('audio');
-      setState(() {
-        iconMic = Icons.mic;
-      });
-      mic = !mic;
-    }
+    // //voice/video/shareScreen
+    // if (mic == true) {
+    //   _localStream!.mute('audio');
+    //   setState(() {
+    //     iconMic = Icons.mic_off;
+    //   });
+    //   mic = !mic;
+    // } else if (mic == false) {
+    //   _localStream!.unmute('audio');
+    //   setState(() {
+    //     iconMic = Icons.mic;
+    //   });
+    //   mic = !mic;
+    // }
   }
 
   _setVideoButton() {
-    if (video == true) {
-      _localStream!.mute('video');
-      setState(() {
-        videocam = Icons.videocam_off;
-      });
-      video = !video;
-    } else if (video == false) {
-      _localStream!.unmute('video');
-      setState(() {
-        videocam = Icons.videocam;
-      });
-      video = !video;
-    }
+    // if (video == true) {
+    //   _localStream!.mute('video');
+    //   setState(() {
+    //     videocam = Icons.videocam_off;
+    //   });
+    //   video = !video;
+    // } else if (video == false) {
+    //   _localStream!.unmute('video');
+    //   setState(() {
+    //     videocam = Icons.videocam;
+    //   });
+    //   video = !video;
+    // }
   }
 
   _setShareScreenButton() {
-    if (shareScreen == true) {
-      setState(() {
-        _localStream!.mute('video');
-        screen_share_outlined = Icons.stop_screen_share_outlined;
-      });
-      shareScreen = !shareScreen;
-    } else if (shareScreen == false) {
-      setState(() {
-        _localStream!.unmute('video');
-        screen_share_outlined = Icons.screen_share_outlined;
-      });
-      shareScreen = !shareScreen;
-    }
+    // if (shareScreen == true) {
+    //   setState(() {
+    //     _localStream!.mute('video');
+    //     screen_share_outlined = Icons.stop_screen_share_outlined;
+    //   });
+    //   shareScreen = !shareScreen;
+    // } else if (shareScreen == false) {
+    //   setState(() {
+    //     _localStream!.unmute('video');
+    //     screen_share_outlined = Icons.screen_share_outlined;
+    //   });
+    //   shareScreen = !shareScreen;
+    // }
   }
 
   _back() async {
