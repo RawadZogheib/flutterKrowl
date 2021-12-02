@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_window
   flutter_webrtc
+  url_launcher_windows
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

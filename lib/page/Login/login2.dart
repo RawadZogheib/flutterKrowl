@@ -342,10 +342,9 @@ class _Login2State extends State<Login2> {
   _noRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove("email");
-    localStorage.remove("password");
     setState(() {
       globals.emailLogin = "";
-      globals.passwordLogin = "";
+
     });
 
     Navigator.pushNamed(cont, '/intro_page2');

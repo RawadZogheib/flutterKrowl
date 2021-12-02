@@ -70,3 +70,4 @@ String? code6 = null;
 String? emailLogin ="";
 String? passwordLogin = "";
 
+const String jaasUrl ="https://edubee.org/?room=";

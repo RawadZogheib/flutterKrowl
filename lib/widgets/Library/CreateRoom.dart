@@ -4,6 +4,7 @@ import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:url_launcher/url_launcher.dart';
 
 
 class CreateRoom extends StatefulWidget {
@@ -103,7 +104,9 @@ class _NextButtonState extends State<CreateRoom> {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: globals.white,fontSize: 20, fontFamily: 'Rubik'),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                      _createRoom(globals.jaasUrl + "fdffdsfdfsdfes-hgfbgbghg-ytytthghghg/test2");
+                  },
                   style: TextButton.styleFrom(backgroundColor: globals.blue1),
                 ),
               ),
@@ -114,4 +117,15 @@ class _NextButtonState extends State<CreateRoom> {
     );
 
   }
-}
+
+  Future<void> _createRoom(String url) async {
+      if (!await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      )) {
+        throw 'Could not launch $url';
+      }
+    }
+  }
