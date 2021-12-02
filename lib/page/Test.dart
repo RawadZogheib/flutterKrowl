@@ -7,7 +7,9 @@ import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
+import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 
 
 
@@ -70,7 +72,31 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
       backgroundColor: globals.white,
       body: Column(
         children: [
-          SizedBox(height: 150,),
+          Container(
+            margin: EdgeInsets.only(left: 100),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Chair(angle: -90 * 3.14159265359 / 180,),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  child: Image.asset('Assets/krowl_logo.png', scale: 2.0,), onTap: (){
+                  Navigator.pushNamed(context, '/Library', );
+                },),
+                SizedBox(
+                  width: 460,
+                ),
+                CustomTabBar(
+                  controller: tabController,
+                  tabs: contentViews.map((e) => e.tab).toList(),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 30,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,8 +140,6 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
                   Question(),
                   SizedBox(height: 20,),
                   Question(),
-                  SizedBox(height: 20,),
-                  Question()
                 ],
               ),
               Row(

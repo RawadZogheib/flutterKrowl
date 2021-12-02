@@ -9,8 +9,8 @@ class Chair extends StatefulWidget {
   var width;
   var color = Colors.blueGrey.shade100;
   var onTap;
-
-  Chair({this.height, this.width,  this.onTap});
+var angle;
+  Chair({this.height, this.width,required this.angle, this.onTap});
 
   @override
   State<Chair> createState() => _ChairState();
@@ -19,39 +19,16 @@ class Chair extends StatefulWidget {
 class _ChairState extends State<Chair> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        onTap: () {
-          setState(() {
-            widget.color = Colors.red;
-          });
-          Navigator.pushNamed(context, '/VideoConference');
-          widget.onTap();
-          },
-        child: Stack(
-          children: [
-            Container(
-              width: 65,
-              height: 65,
-              decoration:
-                  BoxDecoration(color: widget.color ,  borderRadius: BorderRadius.circular(20)),
-            ),
-            Positioned(
-              top: 2.5,
-              left: 2.5,
-              child: Container(
-                width: 60,
-                height: 60,
-                //margin: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: globals.white, width: 3 ),
-              ),
-            ),)
-          ],
-        ));
+    return Transform.rotate(
+          angle: angle,
+          child: Container(
+            width: 50,
+            height: 25,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('Assets/clara3.png'),
+                  fit: BoxFit.cover),
+            ),),
+    );
   }
 }

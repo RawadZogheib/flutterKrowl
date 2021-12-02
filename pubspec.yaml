@@ -42,9 +42,9 @@ dependencies:
   flutter_ion: ^1.0.0
   google_fonts: ^2.1.0
   like_button: ^2.0.3
-  flutter_animated_button: ^2.0.0
-  animated_button: ^0.2.0
   bouncing_widget: ^2.0.0
+  animated_text_kit: ^4.2.1
+  url_launcher: ^6.0.17
 
 
 dev_dependencies:
@@ -75,6 +75,7 @@ flutter:
     - Assets/userImage6.jpeg
     - Assets/userImage7.jpeg
     - Assets/userImage8.jpeg
+    - Assets/clara3.png
 
   #   - images/a_dot_ham.jpeg
 
