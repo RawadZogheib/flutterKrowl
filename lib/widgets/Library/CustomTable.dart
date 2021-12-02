@@ -151,7 +151,7 @@ class _CustomContainerState extends State<CustomTable> {
         Positioned(top: 140, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
         Positioned(top: 215, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
         Positioned(top: 291, left: 180, child: Chair(onTap: (){},  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 100, child: Chair(onTap: (){},  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 105 , child: Chair(onTap: (){},  angle: -180 * 3.14159265359 / 180,)),
         Positioned(top: 140, left: 34, child: Chair(onTap: (){},  angle: -90 * 3.14159265359 / 180,)),
         Positioned(top: 215, left: 34, child: Chair(onTap: (){},  angle: -90 * 3.14159265359 / 180,)),
 
