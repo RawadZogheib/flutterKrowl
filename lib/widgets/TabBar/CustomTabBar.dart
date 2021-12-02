@@ -13,7 +13,14 @@ class CustomTabBar extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: 550,
-      child: TabBar(controller: controller, tabs: tabs, indicatorColor: Colors.transparent, labelColor: globals.blue1, unselectedLabelColor: Colors.black),
+      child: Theme(
+          data:ThemeData(
+            highlightColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent
+          ),
+          child: TabBar(controller: controller, tabs: tabs, indicatorColor: Colors.transparent, labelColor: globals.blue1, unselectedLabelColor: Colors.black)),
     );
   }
 }

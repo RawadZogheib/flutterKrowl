@@ -1,10 +1,13 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/CustomTab.dart';
-import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
-
+import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
+import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
+import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
+import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 
 
 
@@ -21,22 +24,40 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> with SingleTickerProviderStateMixin {
   late TabController tabController;
   List<ContentView> contentViews = [
-    ContentView(tab: CustomTab(title: 'Library'), content: Center(
-      child: Container(color: Colors.black, width: 90, height: 100,),
-    )),
-    ContentView(tab: CustomTab(title: 'Chats'), content: Center(
-      child: Container(color: Colors.black , width: 90, height: 100,),
-    )),
-    ContentView(tab: CustomTab(title: 'Forum'), content: Center(
-      child: Container(color: Colors.black, width: 90, height: 100,),
-    )),
-    ContentView(tab: CustomTab(title: 'Students'), content: Center(
-      child: Container(color: Colors.black, width: 90, height: 100,),
-    )),
-    ContentView(tab: CustomTab(title: 'Reminders'), content: Center(
-      child: Container(color: Colors.black, width: 90, height: 100,),
-    )),
+    ContentView(
+        tab: CustomTab(title: 'Library'),
+        content: Center(
+          child: Container(
+            color: Colors.black,
+            width: 90,
+            height: 100,
+          ),
+        )),
+    ContentView(
+        tab: CustomTab(title: 'Chats'),
+        content: Center(
+          child: Container(),
+        )),
+    ContentView(
+        tab: CustomTab(title: 'Forum'),
+        content: Center(
+          child: Container(),
+        )),
+    ContentView(
+        tab: CustomTab(title: 'Students'),
+        content: Center(
+          child: Container(),
+        )),
+    ContentView(
+        tab: CustomTab(title: 'Reminders'),
+        content: Center(
+          child: Container(),
+        )),
   ];
+
+  List<TopContributors> Users = [
+
+    ];
   @override
   void initState(){
     super.initState();
@@ -48,25 +69,71 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 150,),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(width: 130,),
 
-              CustomTabBar(
-                controller: tabController,
-                tabs: contentViews.map((e) => e.tab).toList(),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BouncingWidget(
+                        duration: Duration(milliseconds: 100),
+                        scaleFactor: 1.5,
+                        onPressed: () {
+                          print("onPressed");
+                        },
+                        child: Text(
+                          "Forum",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Rubik',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                          ),
+                        ),
+                      ),
+                     /* Text('Forum',
+                          style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Rubik',
+                              color: Colors.black)),*/
+                      SizedBox(width: 430,),
+                      AskQuestionButton(),
+                    ],
+                  ),
+                  SizedBox(height: 20,),
+                  SearchBar(),
+                  SizedBox(height: 20,),
+                  Question(),
+                  SizedBox(height: 20,),
+                  Question(),
+                  SizedBox(height: 20,),
+                  Question()
+                ],
               ),
-            ],
-          ),
-          Container(
-            height: 400,
-            child: TabBarView(
-              controller: tabController,
-                children: contentViews.map((e) => e.content).toList()),
+              Row(
+                children: [
+                  SizedBox(width: 20,),
+                  TopContributors(),
+                ],
+              ),
+          ],
           ),
         ],
       ),
     );
   }
+}
+
+class Users {
+  String text;
+  var icon;
+  Users({required this.text, this.icon});
 }

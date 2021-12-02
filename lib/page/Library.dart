@@ -5,8 +5,8 @@ import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateRoom.dart';
-import 'package:flutter_app_backend/widgets/CustomTab.dart';
-import 'package:flutter_app_backend/widgets/CustomTabBar.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 
 void main() =>

@@ -36,7 +36,7 @@ class _ChairState extends State<Chair> {
               width: 65,
               height: 65,
               decoration:
-                  BoxDecoration(color: widget.color , shape: BoxShape.circle, ),
+                  BoxDecoration(color: widget.color ,  borderRadius: BorderRadius.circular(20)),
             ),
             Positioned(
               top: 2.5,
@@ -48,9 +48,9 @@ class _ChairState extends State<Chair> {
                 decoration: BoxDecoration(
                     color: Colors.transparent,
                     shape: BoxShape.circle,
-                    border: Border.all(color: globals.white, width: 3)),
+                    border: Border.all(color: globals.white, width: 3 ),
               ),
-            ),
+            ),)
           ],
         ));
   }
