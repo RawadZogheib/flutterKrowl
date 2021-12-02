@@ -9,7 +9,7 @@ class Chair extends StatefulWidget {
   var width;
   var color = Colors.blueGrey.shade100;
   var onTap;
-var angle;
+  var angle;
   Chair({this.height, this.width,required this.angle, this.onTap});
 
   @override
@@ -20,7 +20,7 @@ class _ChairState extends State<Chair> {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
-          angle: angle,
+          angle: widget.angle,
           child: Container(
             width: 50,
             height: 25,
