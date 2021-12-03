@@ -74,7 +74,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CreateRoom(),
                   SizedBox(height: 20,),
                   Column(children: [
-                    CustomTable(text: "room name", text2: "room", color2: Colors.green)
+                    CustomTable(roomName: "room name", roomType: "room", color2: Colors.green)
                   ]),
                 ],
               ),
@@ -90,7 +90,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CreateRoom(),
                   SizedBox(height: 20,),
                   Column(children: [
-                    CustomTable(text: "room name", text2: "room", color2: Colors.green)
+                    CustomTable(roomName: "room name", roomType: "room", color2: Colors.green)
                   ]),
                 ],
               ),
@@ -123,8 +123,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               children: [
                         CreateRoom(),
                     SizedBox(width: 20,),
-                    CustomTable(text: "room name", text2: " room", color2: Colors.green,),
-                    CustomTable(text: "room name", text2: "room type", color2: Colors.red),
+                    CustomTable(roomName: "room name", roomType: " room", color2: Colors.green,),
+                    CustomTable(roomName: "room name", roomType: "room type", color2: Colors.red),
                     SizedBox(width: 20),
                   ]),),
 

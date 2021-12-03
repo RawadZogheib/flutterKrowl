@@ -23,22 +23,28 @@ class _ChairState extends State<Chair> {
     return Transform.rotate(
           angle: widget.angle,
           child:
-          HoverCrossFadeWidget(
-            duration: Duration(milliseconds: 50),
-            firstChild: Container(
-                width: 50,
-                height: 25,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('Assets/clara4.PNG'),
-                      fit: BoxFit.cover),)),
-            secondChild: Container(
-                width: 50,
-                height: 25,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('Assets/clara3.png'),
-                      fit: BoxFit.cover),)),),
+          InkWell(
+            onTap: widget.onTap,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            child: HoverCrossFadeWidget(
+              duration: Duration(milliseconds: 50),
+              firstChild: Container(
+                  width: 50,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('Assets/clara4.PNG'),
+                        fit: BoxFit.cover),)),
+              secondChild: Container(
+                  width: 50,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('Assets/clara3.png'),
+                        fit: BoxFit.cover),)),),
+          ),
     );
   }
 }

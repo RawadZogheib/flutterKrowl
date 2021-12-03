@@ -105,7 +105,7 @@ class _NextButtonState extends State<CreateRoom> {
                     style: TextStyle(color: globals.white,fontSize: 20, fontFamily: 'Rubik'),
                   ),
                   onPressed: () {
-                      _createRoom(globals.jaasUrl + "fdffdsfdfsdfes-hgfbgbghg-ytytthghghg/test2");
+
                   },
                   style: TextButton.styleFrom(backgroundColor: globals.blue1),
                 ),
@@ -118,14 +118,4 @@ class _NextButtonState extends State<CreateRoom> {
 
   }
 
-  Future<void> _createRoom(String url) async {
-      if (!await launch(
-        url,
-        forceSafariVC: false,
-        forceWebView: true,
-        headers: <String, String>{'my_header_key': 'my_header_value'},
-      )) {
-        throw 'Could not launch $url';
-      }
-    }
   }

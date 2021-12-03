@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
-String myIP = "http://10.10.4.64";
+const String myIP = "http://10.10.4.64";
+const String jaasUrl ="https://edubee.org/jit/?room=";
 
 //Colors
 Color white = Colors.white;
@@ -69,5 +70,3 @@ String? code6 = null;
 //login  (page[/login.dart /login2.dart])
 String? emailLogin ="";
 String? passwordLogin = "";
-
-const String jaasUrl ="https://edubee.org/?room=";

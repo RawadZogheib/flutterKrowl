@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
-  var text;
-  var text2;
+  var roomName;
+  var roomType;
   var height;
   var width;
   var color;
@@ -15,8 +16,8 @@ class CustomTable extends StatefulWidget {
 
   CustomTable(
       {this.children,
-        required this.text,
-        required this.text2,
+        required this.roomName,
+        required this.roomType,
         required this.color2,
         this.icon,
         this.height,
@@ -27,8 +28,8 @@ class CustomTable extends StatefulWidget {
   @override
   State<CustomTable> createState() => _CustomContainerState(
       children: children,
-      text: text,
-      text2: text2,
+      text: roomName,
+      text2: roomType,
       height: height,
       width: width,
       color: color,
@@ -146,7 +147,7 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 66, left: 105, child: Chair(onTap: (){}, angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 105, child: Chair(onTap: (){_createRoom("test3");}, angle: -0 * 3.14159265359 / 180,)),
         Positioned(top: 66, left: 180, child: Chair(onTap: (){},  angle: -0 * 3.14159265359 / 180,)),
         Positioned(top: 140, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
         Positioned(top: 215, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
@@ -157,5 +158,16 @@ class _CustomContainerState extends State<CustomTable> {
 
       ],
     );
+  }
+
+  Future<void> _createRoom(String url) async {
+    if (!await launch(
+      globals.jaasUrl + url,
+      forceSafariVC: false,
+      forceWebView: true,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    )) {
+      throw 'Could not launch ${globals.jaasUrl + url}';
+    }
   }
 }
