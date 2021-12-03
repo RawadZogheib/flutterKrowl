@@ -180,10 +180,11 @@ class _Login2State extends State<Login2> {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
-
-
           SharedPreferences localStorage = await SharedPreferences.getInstance();
           localStorage.setString('token', body[1]);
+          localStorage.setString('user_id', body[2]);
+          localStorage.setString('username', body[3]);
+
           showDialog<String>(
             context: context,
             builder: (BuildContext context) =>
