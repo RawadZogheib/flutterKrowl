@@ -75,7 +75,7 @@ class _CustomContainerState extends State<CustomTable> {
                 border: Border.all(color: globals.blue1, width: 4)),
             child:
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(widget.roomType,
+              Text(widget.roomType + " Room",
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
               Text(
