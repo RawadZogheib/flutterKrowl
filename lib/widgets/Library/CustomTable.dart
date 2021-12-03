@@ -119,20 +119,20 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 66, left: 105, child: Chair(onTap: () => _createRoom(widget.roomName), angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 66, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -90 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 105, child: Chair(onTap: () => _createRoom(widget.roomName, 1), angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName, 2),  angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName, 3),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName, 4),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName, 5),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _createRoom(widget.roomName, 6),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName, 7),  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName, 8),  angle: -90 * 3.14159265359 / 180,)),
 
       ],
     );
   }
 
-  Future<void> _createRoom(String url) async {
+  Future<void> _createRoom(String url, int id) async {
     if (!await launch(
       globals.jaasUrl + url,
       forceSafariVC: false,
