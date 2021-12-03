@@ -11,18 +11,16 @@ class CustomTable extends StatefulWidget {
   var height;
   var width;
   var color;
-  var color2;
   var icon;
 
   CustomTable(
       {this.children,
         required this.roomName,
         required this.roomType,
-        required this.color2,
+        required this.color,
         this.icon,
         this.height,
         this.width,
-        this.color
       });
 
   @override
@@ -112,7 +110,7 @@ class _CustomContainerState extends State<CustomTable> {
                   ),
                   Text(".",
                       style: TextStyle(
-                        color: widget.color2,
+                        color: widget.color,
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                       ))
