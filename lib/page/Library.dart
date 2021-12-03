@@ -82,18 +82,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           ),
           tablet: SingleChildScrollView(
             reverse: true,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CreateRoom(),
-                SizedBox(height: 20,),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                 CustomTable(text: "room name", text2: "room type", color2: Colors.red),
-                      CustomTable(text: "room name", text2: "room type", color2: Colors.green)
-                ]),
-              ],
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CreateRoom(),
+                  SizedBox(height: 20,),
+                  Column(children: [
+                    CustomTable(text: "room name", text2: "room", color2: Colors.green)
+                  ]),
+                ],
+              ),
             ),
           ),
           desktop: SingleChildScrollView(

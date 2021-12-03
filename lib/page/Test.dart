@@ -7,10 +7,9 @@ import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
-import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
-import 'package:hovering/hovering.dart';
+
 
 
 
