@@ -123,8 +123,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               children: [
                         CreateRoom(),
                     SizedBox(width: 20,),
-                    CustomTable(roomName: "room name", roomType: " room", color2: Colors.green,),
-                    CustomTable(roomName: "room name", roomType: "room type", color2: Colors.red),
+                    CustomTable(roomName: "test2", roomType: " room", color2: Colors.green,),
+                    CustomTable(roomName: "test3", roomType: "room type", color2: Colors.red),
                     SizedBox(width: 20),
                   ]),),
 

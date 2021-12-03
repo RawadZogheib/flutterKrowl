@@ -26,36 +26,10 @@ class CustomTable extends StatefulWidget {
       });
 
   @override
-  State<CustomTable> createState() => _CustomContainerState(
-      children: children,
-      text: roomName,
-      text2: roomType,
-      height: height,
-      width: width,
-      color: color,
-      color2: color2,
-      icon: icon);
+  State<CustomTable> createState() => _CustomContainerState();
 }
 
 class _CustomContainerState extends State<CustomTable> {
-  var children;
-  var text;
-  var text2;
-  var height;
-  var width;
-  var color;
-  var color2;
-  var icon;
-
-  _CustomContainerState(
-      {this.children,
-        required this.text,
-        this.icon,
-        this.height,
-        this.width,
-        this.color,
-        required this.text2,
-        required this.color2});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +43,7 @@ class _CustomContainerState extends State<CustomTable> {
           child: Row(
             children: [
               Text(
-                text,
+                widget.roomName,
                 style: TextStyle(
                     color: globals.blue1, fontSize: 15, fontWeight: FontWeight.bold),
               ),
@@ -101,7 +75,7 @@ class _CustomContainerState extends State<CustomTable> {
                 border: Border.all(color: globals.blue1, width: 4)),
             child:
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(text2,
+              Text(widget.roomType,
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
               Text(
@@ -138,7 +112,7 @@ class _CustomContainerState extends State<CustomTable> {
                   ),
                   Text(".",
                       style: TextStyle(
-                        color: color2,
+                        color: widget.color2,
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                       ))
@@ -147,14 +121,14 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 66, left: 105, child: Chair(onTap: (){_createRoom("test3");}, angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 66, left: 180, child: Chair(onTap: (){},  angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 259, child: Chair(onTap: (){},  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 180, child: Chair(onTap: (){},  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 105 , child: Chair(onTap: (){},  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 34, child: Chair(onTap: (){},  angle: -90 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 34, child: Chair(onTap: (){},  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 105, child: Chair(onTap: () => _createRoom(widget.roomName), angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName),  angle: -90 * 3.14159265359 / 180,)),
 
       ],
     );
