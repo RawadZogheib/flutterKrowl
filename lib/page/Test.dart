@@ -10,6 +10,7 @@ import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:hovering/hovering.dart';
 
 
 
@@ -78,7 +79,6 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Chair(angle: -90 * 3.14159265359 / 180,),
                 InkWell(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,

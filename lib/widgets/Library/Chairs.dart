@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:hovering/hovering.dart';
 
 
 
@@ -21,14 +22,23 @@ class _ChairState extends State<Chair> {
   Widget build(BuildContext context) {
     return Transform.rotate(
           angle: widget.angle,
-          child: Container(
-            width: 50,
-            height: 25,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('Assets/clara3.png'),
-                  fit: BoxFit.cover),
-            ),),
+          child:
+          HoverCrossFadeWidget(
+            duration: Duration(milliseconds: 50),
+            firstChild: Container(
+                width: 50,
+                height: 25,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('Assets/clara4.PNG'),
+                      fit: BoxFit.cover),)),
+            secondChild: Container(
+                width: 50,
+                height: 25,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('Assets/clara3.png'),
+                      fit: BoxFit.cover),)),),
     );
   }
 }

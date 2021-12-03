@@ -45,6 +45,7 @@ dependencies:
   bouncing_widget: ^2.0.0
   animated_text_kit: ^4.2.1
   url_launcher: ^6.0.17
+  hovering: ^1.0.4
 
 
 dev_dependencies:
@@ -76,6 +77,7 @@ flutter:
     - Assets/userImage7.jpeg
     - Assets/userImage8.jpeg
     - Assets/clara3.png
+    - Assets/clara4.PNG
 
   #   - images/a_dot_ham.jpeg
 
