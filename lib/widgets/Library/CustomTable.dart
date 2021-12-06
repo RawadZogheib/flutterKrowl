@@ -16,6 +16,7 @@ class CustomTable extends StatefulWidget {
   var width;
   var color;
   var icon;
+  var seats;
 
   CustomTable(
       {this.children,
@@ -25,6 +26,7 @@ class CustomTable extends StatefulWidget {
         this.icon,
         this.height,
         this.width,
+        this.seats
       });
 
   @override

@@ -181,6 +181,7 @@ class _Login2State extends State<Login2> {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
           SharedPreferences localStorage = await SharedPreferences.getInstance();
+          print("fffffffffffffff: ${body[1]}");
           localStorage.setString('token', body[1]);
           localStorage.setString('user_id', body[2]);
           localStorage.setString('username', body[3]);
@@ -336,7 +337,7 @@ class _Login2State extends State<Login2> {
     localStorage.setString('email',globals.emailLogin!);
     localStorage.setString('password',globals.passwordLogin!);
 
-    Navigator.pushNamed(cont, '/intro_page2');
+    Navigator.pushNamed(cont, '/Library');
   }
 
 
@@ -348,7 +349,7 @@ class _Login2State extends State<Login2> {
 
     });
 
-    Navigator.pushNamed(cont, '/intro_page2');
+    Navigator.pushNamed(cont, '/Library');
 
   }
 

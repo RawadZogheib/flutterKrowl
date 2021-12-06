@@ -1,13 +1,20 @@
+import 'dart:convert';
+
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateRoom.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final children = <Widget>[];
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -56,10 +63,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(length: contentViews.length, vsync: this);
+    _loadTables();
   }
 
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size _size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: globals.white,
@@ -74,7 +84,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CreateRoom(),
                   SizedBox(height: 20,),
                   Column(children: [
-                    CustomTable(roomName: "room name", roomType: "room", color: Colors.green)
+                    CustomTable(roomName: "room name",
+                        roomType: "room",
+                        color: Colors.green)
                   ]),
                 ],
               ),
@@ -90,7 +102,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CreateRoom(),
                   SizedBox(height: 20,),
                   Column(children: [
-                    CustomTable(roomName: "room name", roomType: "room", color: Colors.green)
+                    CustomTable(roomName: "room name",
+                        roomType: "room",
+                        color: Colors.green)
                   ]),
                 ],
               ),
@@ -106,7 +120,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   Image.asset('Assets/krowl_logo.png', scale: 2.0,),
                   SizedBox(
                     width: 200,
-                  ), 
+                  ),
                   CustomTabBar(
                     controller: tabController,
                     tabs: contentViews.map((e) => e.tab).toList(),
@@ -118,15 +132,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                        CreateRoom(),
-                    SizedBox(width: 20,),
-                    CustomTable(roomName: "test2", roomType: "Quiet", color: Colors.green,),
-                    CustomTable(roomName: "test3", roomType: "Silent", color: Colors.red),
-                    SizedBox(width: 20),
-                  ]),),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CreateRoom(),
+                          SizedBox(width: 20,),
+                          Wrap(
+                            children: children,
+                          ),
+                          SizedBox(width: 20),
+                        ]),),
 
                 ],
               ),
@@ -134,4 +149,35 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           ),
         ));
   }
-}
+
+  Future<void> _loadTables() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user_id = localStorage.getString("user_id");
+
+    var data = {
+      'version': globals.version,
+      'user_id': user_id
+    };
+
+    var res = await CallApi().postData(
+        data, '(Control)loadTables.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      for (var i = 0; i < body[1].length; i++) {
+        //localStorage.setString('contrat_Id', value)
+        children.add(
+          CustomTable(roomName: body[1][i][0],
+              roomType: "Quiet",
+              color: Colors.green,
+              seats: body[1][i][1]),
+        );
+      }
+      setState(() {
+        children;
+      });
+    }
+    else{print("errroorrrrrr");}
+
+    }
+  }
