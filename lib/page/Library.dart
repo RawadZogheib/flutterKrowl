@@ -14,7 +14,8 @@ import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final children = <Widget>[];
+final children1 = <Widget>[];
+final children2 = <Widget>[];
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -134,11 +135,19 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   Expanded(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CreateRoom(),
                           SizedBox(width: 20,),
                           Wrap(
-                            children: children,
+                            children: [
+                              Column(
+                                children: children1,
+                              ),
+                              Column(
+                                children: children2,
+                              )
+                            ],
                           ),
                           SizedBox(width: 20),
                         ]),),
@@ -166,18 +175,29 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         //localStorage.setString('contrat_Id', value)
-        children.add(
-          CustomTable(roomName: body[1][i][0],
-              roomType: "Quiet",
-              color: Colors.green,
-              seats: body[1][i][1]),
-        );
+        if (i % 2 == 0) {
+          children1.add(
+            CustomTable(roomName: body[1][i][0],
+                roomType: "Quiet",
+                color: Colors.green,
+                seats: body[1][i][1]),
+          );
+        } else {
+          children2.add(
+            CustomTable(roomName: body[1][i][0],
+                roomType: "Quiet",
+                color: Colors.green,
+                seats: body[1][i][1]),
+          );
+        }
       }
       setState(() {
-        children;
+        children1;
+        children2;
       });
     }
-    else{print("errroorrrrrr");}
-
+    else {
+      print("errroorrrrrr");
     }
   }
+}
