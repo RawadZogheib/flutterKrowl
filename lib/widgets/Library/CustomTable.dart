@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
@@ -119,27 +123,47 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 66, left: 105, child: Chair(onTap: () => _createRoom(widget.roomName, 1), angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 66, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName, 2),  angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName, 3),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 259, child: Chair(onTap: () => _createRoom(widget.roomName, 4),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 180, child: Chair(onTap: () => _createRoom(widget.roomName, 5),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _createRoom(widget.roomName, 6),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName, 7),  angle: -90 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 34, child: Chair(onTap: () => _createRoom(widget.roomName, 8),  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 105, child: Chair(onTap: () => _sitOnChair(widget.roomName, 1), angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 66, left: 180, child: Chair(onTap: () => _sitOnChair(widget.roomName, 2),  angle: -0 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 259, child: Chair(onTap: () => _sitOnChair(widget.roomName, 3),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 259, child: Chair(onTap: () => _sitOnChair(widget.roomName, 4),  angle: -270 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 180, child: Chair(onTap: () => _sitOnChair(widget.roomName, 5),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _sitOnChair(widget.roomName, 6),  angle: -180 * 3.14159265359 / 180,)),
+        Positioned(top: 140, left: 34, child: Chair(onTap: () => _sitOnChair(widget.roomName, 7),  angle: -90 * 3.14159265359 / 180,)),
+        Positioned(top: 215, left: 34, child: Chair(onTap: () => _sitOnChair(widget.roomName, 8),  angle: -90 * 3.14159265359 / 180,)),
 
       ],
     );
   }
 
-  Future<void> _createRoom(String url, int id) async {
-    if (!await launch(
-      globals.jaasUrl + url,
-      forceSafariVC: false,
-      forceWebView: true,
-      headers: <String, String>{'my_header_key': 'my_header_value'},
-    )) {
-      throw 'Could not launch ${globals.jaasUrl + url}';
+  Future<void> _sitOnChair(String roomName, int position) async {
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user_id = localStorage.getString("user_id");
+
+      var data = {
+      'version': globals.version,
+      'user_id':user_id,
+      'roomName':roomName,
+      'position': position
+    };
+
+    var res = await CallApi().postData(
+        data, '(Control)sitOnChair.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      if (!await launch(
+        globals.jaasUrl + roomName,
+        forceSafariVC: false,
+        forceWebView: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      )) {
+        throw 'Could not launch ${globals.jaasUrl + roomName}';
+      }
+    }else {
+
     }
+
   }
 }
