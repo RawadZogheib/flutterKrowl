@@ -182,6 +182,8 @@ class _Login2State extends State<Login2> {
         if (body[0] == "true") {
           SharedPreferences localStorage = await SharedPreferences.getInstance();
           print("fffffffffffffff: ${body[1]}");
+          print("fffffffffffffff: ${body[2]}");
+          print("fffffffffffffff: ${body[3]}");
           localStorage.setString('token', body[1]);
           localStorage.setString('user_id', body[2]);
           localStorage.setString('username', body[3]);
