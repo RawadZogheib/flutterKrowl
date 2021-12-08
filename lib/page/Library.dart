@@ -14,9 +14,9 @@ import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final children = <Widget>[];
-final children1 = <Widget>[];
-final children2 = <Widget>[];
+var children = <Widget>[];
+var children1 = <Widget>[];
+var children2 = <Widget>[];
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -165,8 +165,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         data, '(Control)loadTables.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    if (body[0] == "success") {
+    try {
       localStorage.setString('token', body[1]);
+    }catch(e){
+      print('no token found');
+    }
+
+    if (body[0] == "success") {
       for (var i = 0; i < body[2].length; i++) {
         //localStorage.setString('contrat_Id', value)
         children.add(

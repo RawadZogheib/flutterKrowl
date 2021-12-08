@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/page/Library.dart';
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
@@ -13,12 +14,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class CreateRoom extends StatefulWidget {
-
-
- CreateRoom ({ this.children, });
   var children;
+  var onTap;
+
+ CreateRoom ({ this.children,this.onTap });
+
+
   @override
   State<CreateRoom> createState() => _NextButtonState();
+
 }
 
 class _NextButtonState extends State<CreateRoom> {
@@ -115,7 +119,15 @@ class _NextButtonState extends State<CreateRoom> {
                 width: 220,
                 height: 40,
                 child: ElevatedButton(onPressed: (){
-                  _createRoom();
+                  //_createRoom();
+
+
+                  setState(() {
+                    children.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
+                    children1.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
+                    children2.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
+                  });
+
                 },
                   style:
                   ButtonStyle(
@@ -142,6 +154,7 @@ class _NextButtonState extends State<CreateRoom> {
   }
 
 
+
   Future<void> _createRoom() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
@@ -149,18 +162,24 @@ class _NextButtonState extends State<CreateRoom> {
     var data = {
       'version': globals.version,
       'user_id': user_id,
-      'roomName': 'dana',
+      'roomName': 'dan1a',
       'seats': '8',
-      'private': '0'
+      'private': '1'
     };
 
     var res = await CallApi().postData(data, '(Control)createRoom.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
+    try {
       localStorage.setString('token', body[1]);
-      CustomTable(roomName: TextInput1, roomType: 0, color: Colors.red);
+    }catch(e){
+      print('no token found');
+    }
+
+    if (body[0] == "success") {
+
+      widget.onTap();
 
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
