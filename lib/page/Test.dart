@@ -3,16 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/Forum/AskQuestion.dart';
 import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
-
-
-
-
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Test()));
@@ -57,16 +54,15 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
         )),
   ];
 
-  List<TopContributors> Users = [
+  List<TopContributors> Users = [];
 
-    ];
   @override
-  void initState(){
+  void initState() {
     super.initState();
     tabController = TabController(length: contentViews.length, vsync: this);
   }
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: globals.white,
@@ -82,9 +78,17 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  child: Image.asset('Assets/krowl_logo.png', scale: 2.0,), onTap: (){
-                  Navigator.pushNamed(context, '/Library', );
-                },),
+                  child: Image.asset(
+                    'Assets/krowl_logo.png',
+                    scale: 2.0,
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/Library',
+                    );
+                  },
+                ),
                 SizedBox(
                   width: 460,
                 ),
@@ -95,13 +99,16 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(
+            height: 30,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: 130,),
-
+              SizedBox(
+                width: 130,
+              ),
               Column(
                 children: [
                   Row(
@@ -123,31 +130,41 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                     /* Text('Forum',
+                      /* Text('Forum',
                           style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Rubik',
                               color: Colors.black)),*/
-                      SizedBox(width: 430,),
+                      SizedBox(
+                        width: 430,
+                      ),
                       AskQuestionButton(),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   SearchBar(),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Question(),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Question(),
                 ],
               ),
               Row(
                 children: [
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   TopContributors(),
                 ],
               ),
-          ],
+            ],
           ),
         ],
       ),
@@ -158,5 +175,6 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
 class Users {
   String text;
   var icon;
+
   Users({required this.text, this.icon});
 }
