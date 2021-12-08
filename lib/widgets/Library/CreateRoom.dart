@@ -35,11 +35,21 @@ class _NextButtonState extends State<CreateRoom> {
           width: 250,
           height: 415,
           decoration: BoxDecoration(
+            color: Colors.white,
             border: Border.all(
               color: Colors.grey.shade400,
               width: 1,
             ),
-            borderRadius: BorderRadius.circular(5),),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -99,16 +109,23 @@ class _NextButtonState extends State<CreateRoom> {
               Container(
                 width: 220,
                 height: 40,
-                child: TextButton(
-                  child: Text( 'Create Room',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: globals.white,fontSize: 20, fontFamily: 'Rubik'),
+                child: ElevatedButton(onPressed: (){
+                },
+                  style:
+                  ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(globals.blue1),
+                      shadowColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: BorderSide(color: globals.blue1)
+                          )
+                      )
                   ),
-                  onPressed: () {
+                  child: Text ('Create room',
+                    style: TextStyle(fontSize: 17, fontFamily: 'Rubik', color: globals.white),
 
-                  },
-                  style: TextButton.styleFrom(backgroundColor: globals.blue1),
-                ),
+                  ),),
               ),
             ],
           ),
