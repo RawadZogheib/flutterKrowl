@@ -34,7 +34,7 @@ class CustomTable extends StatefulWidget {
 }
 
 class _CustomContainerState extends State<CustomTable> {
-  List<bool> enablee = [false,false,false,false,false,false,false,false];
+  List<bool> enablee = [false, false, false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -185,8 +185,8 @@ class _CustomContainerState extends State<CustomTable> {
               angle: -90 * 3.14159265359 / 180,
             )),
         enablee[0] == true
-          ?Positioned(top: 66, left: 105, child: Chair2())
-          : Container(),
+            ? Positioned(top: 66, left: 105, child: Chair2())
+            : Container(),
         enablee[1] == true
             ? Positioned(top: 66, left: 180, child: Chair2())
             : Container(),
@@ -226,6 +226,14 @@ class _CustomContainerState extends State<CustomTable> {
     var res = await CallApi().postData(data, '(Control)sitOnChair.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
+
+    try {
+      localStorage.setString('token', body[1]);
+    }catch(e){
+      print('no token found');
+    }
+
+
     if (body[0] == "success") {
       if (!await launch(
         globals.jaasUrl + roomName,
@@ -302,7 +310,7 @@ class _CustomContainerState extends State<CustomTable> {
     }
     else if (body[0] == "error9") {
       setState(() {
-        enablee[position-1] = false;
+        enablee[position - 1] = false;
       });
       showDialog<String>(
         context: context,
