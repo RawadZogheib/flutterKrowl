@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
+import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,20 +21,27 @@ class CustomTable extends StatefulWidget {
 
   CustomTable(
       {this.children,
-        required this.roomName,
-        required this.roomType,
-        required this.color,
-        this.icon,
-        this.height,
-        this.width,
-        this.seats
-      });
+      required this.roomName,
+      required this.roomType,
+      required this.color,
+      this.icon,
+      this.height,
+      this.width,
+      this.seats});
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
 }
 
 class _CustomContainerState extends State<CustomTable> {
+  bool enable1 = false;
+  bool enable2 = false;
+  bool enable3 = false;
+  bool enable4 = false;
+  bool enable5 = false;
+  bool enable6 = false;
+  bool enable7 = false;
+  bool enable8 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,9 @@ class _CustomContainerState extends State<CustomTable> {
               Text(
                 widget.roomName,
                 style: TextStyle(
-                    color: globals.blue1, fontSize: 15, fontWeight: FontWeight.bold),
+                    color: globals.blue1,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 " - Choose a seat to join",
@@ -61,7 +71,7 @@ class _CustomContainerState extends State<CustomTable> {
           ),
         ),
         Container(
-          padding: EdgeInsets.only(top: 90, bottom: 70, right: 70,left: 70),
+          padding: EdgeInsets.only(top: 90, bottom: 70, right: 70, left: 70),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.grey.shade400,
@@ -78,7 +88,7 @@ class _CustomContainerState extends State<CustomTable> {
                 borderRadius: BorderRadius.all(Radius.circular(14)),
                 border: Border.all(color: globals.blue1, width: 4)),
             child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(widget.roomType + " Room",
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
@@ -125,33 +135,133 @@ class _CustomContainerState extends State<CustomTable> {
             ]),
           ),
         ),
-        Positioned(top: 66, left: 105, child: Chair(onTap: () => _sitOnChair(widget.roomName, 1), angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 66, left: 180, child: Chair(onTap: () => _sitOnChair(widget.roomName, 2),  angle: -0 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 259, child: Chair(onTap: () => _sitOnChair(widget.roomName, 3),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 259, child: Chair(onTap: () => _sitOnChair(widget.roomName, 4),  angle: -270 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 180, child: Chair(onTap: () => _sitOnChair(widget.roomName, 5),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 291, left: 105 , child: Chair(onTap: () => _sitOnChair(widget.roomName, 6),  angle: -180 * 3.14159265359 / 180,)),
-        Positioned(top: 140, left: 34, child: Chair(onTap: () => _sitOnChair(widget.roomName, 7),  angle: -90 * 3.14159265359 / 180,)),
-        Positioned(top: 215, left: 34, child: Chair(onTap: () => _sitOnChair(widget.roomName, 8),  angle: -90 * 3.14159265359 / 180,)),
-
+        Positioned(
+            top: 66,
+            left: 105,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable1 = true;
+                });
+                _sitOnChair(widget.roomName, 1);},
+              angle: 0.0,
+            )),
+        Positioned(
+            top: 66,
+            left: 180,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable2 = true;
+                });
+              _sitOnChair(widget.roomName, 2);},
+              angle: 0.0,
+            )),
+        Positioned(
+            top: 140,
+            left: 259,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable3 = true;
+                });
+                _sitOnChair(widget.roomName, 3);},
+              angle: -270 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 215,
+            left: 259,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable4 = true;
+                });
+              _sitOnChair(widget.roomName, 4);},
+              angle: -270 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 291,
+            left: 180,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable5 = true;
+                });
+              _sitOnChair(widget.roomName, 5);},
+              angle: -180 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 291,
+            left: 105,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable6 = true;
+                });
+              _sitOnChair(widget.roomName, 6);},
+              angle: -180 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 140,
+            left: 34,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable7 = true;
+                });
+              _sitOnChair(widget.roomName, 7);},
+              angle: -90 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 215,
+            left: 34,
+            child: Chair(
+              onTap: () {
+                setState(() {
+                  enable8 = true;
+                });
+              _sitOnChair(widget.roomName, 8);},
+              angle: -90 * 3.14159265359 / 180,
+            )),
+        if(enable1 == true)
+            Positioned(top: 66, left: 105, child: Chair2()),
+        enable2 == true
+            ? Positioned(top: 66, left: 180, child: Chair2())
+            : Container(),
+        enable3 == true
+            ? Positioned(top: 127, left: 248, child: Chair2())
+            : Container(),
+        enable4 == true
+            ? Positioned(top: 202.5, left: 248, child: Chair2())
+            : Container(),
+        enable5 == true
+            ? Positioned(top: 266, left: 180, child: Chair2())
+            : Container(),
+        enable6 == true
+            ? Positioned(top: 266, left: 105, child: Chair2())
+            : Container(),
+        enable7 == true
+            ? Positioned(top: 127, left: 45, child: Chair2())
+            : Container(),
+        enable8 == true
+            ? Positioned(top: 202.5, left: 45, child: Chair2())
+            : Container(),
       ],
     );
   }
 
   Future<void> _sitOnChair(String roomName, int position) async {
-
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
 
-      var data = {
+    var data = {
       'version': globals.version,
-      'user_id':user_id,
-      'roomName':roomName,
+      'user_id': user_id,
+      'roomName': roomName,
       'position': position
     };
 
-    var res = await CallApi().postData(
-        data, '(Control)sitOnChair.php');
+    var res = await CallApi().postData(data, '(Control)sitOnChair.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
@@ -163,9 +273,6 @@ class _CustomContainerState extends State<CustomTable> {
       )) {
         throw 'Could not launch ${globals.jaasUrl + roomName}';
       }
-    }else {
-
-    }
-
+    } else {}
   }
 }

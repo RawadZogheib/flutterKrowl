@@ -4,13 +4,14 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:hovering/hovering.dart';
 
 
-
 class Chair extends StatefulWidget {
   var height;
   var width;
   var color = Colors.blueGrey.shade100;
   var onTap;
   var angle;
+  String img1 = 'Assets/clara4.PNG';
+  String img2 = 'Assets/clara3.png';
   Chair({this.height, this.width,required this.angle, this.onTap});
 
   @override
@@ -24,7 +25,9 @@ class _ChairState extends State<Chair> {
           angle: widget.angle,
           child:
           InkWell(
-            onTap: widget.onTap,
+            onTap: () {
+              //widget.onTap();
+            },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
@@ -35,14 +38,14 @@ class _ChairState extends State<Chair> {
                   height: 25,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('Assets/clara4.PNG'),
+                        image: AssetImage(widget.img1),
                         fit: BoxFit.cover),)),
               secondChild: Container(
                   width: 50,
                   height: 25,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('Assets/clara3.png'),
+                        image: AssetImage(widget.img2),
                         fit: BoxFit.cover),)),),
           ),
     );
