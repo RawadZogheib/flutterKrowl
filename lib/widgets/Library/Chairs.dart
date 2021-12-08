@@ -26,7 +26,7 @@ class _ChairState extends State<Chair> {
           child:
           InkWell(
             onTap: () {
-              //widget.onTap();
+              widget.onTap();
             },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,

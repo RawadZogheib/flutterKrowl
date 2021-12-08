@@ -7,6 +7,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
@@ -33,14 +34,7 @@ class CustomTable extends StatefulWidget {
 }
 
 class _CustomContainerState extends State<CustomTable> {
-  bool enable1 = false;
-  bool enable2 = false;
-  bool enable3 = false;
-  bool enable4 = false;
-  bool enable5 = false;
-  bool enable6 = false;
-  bool enable7 = false;
-  bool enable8 = false;
+  List<bool> enablee = [false,false,false,false,false,false,false,false];
 
   @override
   Widget build(BuildContext context) {
@@ -190,6 +184,30 @@ class _CustomContainerState extends State<CustomTable> {
               onTap: () => _sitOnChair(widget.roomName, 8),
               angle: -90 * 3.14159265359 / 180,
             )),
+        enablee[0] == true
+          ?Positioned(top: 66, left: 105, child: Chair2())
+          : Container(),
+        enablee[1] == true
+            ? Positioned(top: 66, left: 180, child: Chair2())
+            : Container(),
+        enablee[2] == true
+            ? Positioned(top: 127, left: 248, child: Chair2())
+            : Container(),
+        enablee[3] == true
+            ? Positioned(top: 202.5, left: 248, child: Chair2())
+            : Container(),
+        enablee[4] == true
+            ? Positioned(top: 266, left: 180, child: Chair2())
+            : Container(),
+        enablee[5] == true
+            ? Positioned(top: 266, left: 105, child: Chair2())
+            : Container(),
+        enablee[6] == true
+            ? Positioned(top: 127, left: 45, child: Chair2())
+            : Container(),
+        enablee[7] == true
+            ? Positioned(top: 202.5, left: 45, child: Chair2())
+            : Container(),
       ],
     );
   }
@@ -283,6 +301,9 @@ class _CustomContainerState extends State<CustomTable> {
       );
     }
     else if (body[0] == "error9") {
+      setState(() {
+        enablee[position-1] = false;
+      });
       showDialog<String>(
         context: context,
         builder: (BuildContext context) =>
