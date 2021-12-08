@@ -273,6 +273,86 @@ class _CustomContainerState extends State<CustomTable> {
       )) {
         throw 'Could not launch ${globals.jaasUrl + roomName}';
       }
-    } else {}
+    } else if (body[0] == "errorVersion") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text("Your version: " + globals.version + "\n"+
+  globals.errorVersion),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () =>
+  Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+
+  }else if (body[0] == "errorToken") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text(
+  globals.errorToken),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () =>
+  Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }else if (body[0] == "error7") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error7),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }else if (body[0] == "error8") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error8),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
+  }
+  else if (body[0] == "error9") {
+  showDialog<String>(
+  context: context,
+  builder: (BuildContext context) =>
+  AlertDialog(
+  title: const Text('Error'),
+  content: const Text(globals.error9),
+  actions: <Widget>[
+  TextButton(
+  onPressed: () => Navigator.pop(context, 'OK'),
+  child: const Text('OK'),
+  ),
+  ],
+  ),
+  );
   }
 }
