@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -110,6 +114,7 @@ class _NextButtonState extends State<CreateRoom> {
                 width: 220,
                 height: 40,
                 child: ElevatedButton(onPressed: (){
+                  _createRoom();
                 },
                   style:
                   ButtonStyle(
@@ -135,4 +140,84 @@ class _NextButtonState extends State<CreateRoom> {
 
   }
 
+
+  Future<void> _createRoom() async {
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user_id = localStorage.getString("user_id");
+
+    var data = {
+      'version': globals.version,
+      'user_id': user_id,
+      'roomName': TextInput1(),
+      'seats': Dropdown1(),
+      'private':'0'
+    };
+
+    var res = await CallApi().postData(data, '(Control)sitOnChair.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+
+    if (body[0] == "success") {
+      if (!await launch(
+        globals.jaasUrl + roomName,
+        forceSafariVC: false,
+        forceWebView: true,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      )) {
+        throw 'Could not launch ${globals.jaasUrl + roomName}';
+      }
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text("Your version: " + globals.version + "\n" +
+                  globals.errorVersion),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  globals.errorToken),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                      Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    } else if (body[0] == "error10") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error10),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
   }
+
+
+}

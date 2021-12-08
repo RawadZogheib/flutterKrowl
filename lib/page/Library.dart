@@ -166,27 +166,28 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
-      for (var i = 0; i < body[1].length; i++) {
+      localStorage.setString('token', body[1]);
+      for (var i = 0; i < body[2].length; i++) {
         //localStorage.setString('contrat_Id', value)
         children.add(
-          CustomTable(roomName: body[1][i][0],
+          CustomTable(roomName: body[2][i][0],
               roomType: "Quiet",
               color: Colors.green,
-              seats: body[1][i][1]),
+              seats: body[2][i][1]),
         );
         if (i % 2 == 0) {
           children1.add(
-            CustomTable(roomName: body[1][i][0],
+            CustomTable(roomName: body[2][i][0],
                 roomType: "Quiet",
                 color: Colors.green,
-                seats: body[1][i][1]),
+                seats: body[2][i][1]),
           );
         } else {
           children2.add(
-            CustomTable(roomName: body[1][i][0],
+            CustomTable(roomName: body[2][i][0],
                 roomType: "Quiet",
                 color: Colors.green,
-                seats: body[1][i][1]),
+                seats: body[2][i][1]),
           );
         }
       }
