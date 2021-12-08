@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
+import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -142,31 +143,25 @@ class _NextButtonState extends State<CreateRoom> {
 
 
   Future<void> _createRoom() async {
-
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
-
+    print(TextInput1().toString());
     var data = {
       'version': globals.version,
       'user_id': user_id,
-      'roomName': TextInput1(),
-      'seats': Dropdown1(),
-      'private':'0'
+      'roomName': 'dana',
+      'seats': '8',
+      'private': '0'
     };
 
-    var res = await CallApi().postData(data, '(Control)sitOnChair.php');
+    var res = await CallApi().postData(data, '(Control)createRoom.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      if (!await launch(
-        globals.jaasUrl + roomName,
-        forceSafariVC: false,
-        forceWebView: true,
-        headers: <String, String>{'my_header_key': 'my_header_value'},
-      )) {
-        throw 'Could not launch ${globals.jaasUrl + roomName}';
-      }
+      localStorage.setString('token', body[1]);
+      CustomTable(roomName: TextInput1, roomType: 0, color: Colors.red);
+
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
@@ -201,7 +196,23 @@ class _NextButtonState extends State<CreateRoom> {
               ],
             ),
       );
-    } else if (body[0] == "error10") {
+    } else if (body[0] == "error7") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error7),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
+    else if (body[0] == "error10") {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) =>
@@ -218,6 +229,4 @@ class _NextButtonState extends State<CreateRoom> {
       );
     }
   }
-
-
 }

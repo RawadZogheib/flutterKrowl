@@ -30,6 +30,7 @@ const String error7 = "Field cannot be empty.";
 const String error8 = "Full Room";
 const String error9 = "Position Taken";
 const String error10 = "Oops! Can't create the Room";
+const String error11 = "Oops! Can't load Rooms";
 const String errorToken = "Token Error.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
