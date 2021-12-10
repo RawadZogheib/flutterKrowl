@@ -16,7 +16,7 @@ class CustomTable extends StatefulWidget {
   var roomType;
   var height;
   var width;
-  var color;
+  var color ;
   var icon;
   var seats;
 
@@ -33,187 +33,302 @@ class CustomTable extends StatefulWidget {
   State<CustomTable> createState() => _CustomContainerState();
 }
 
-class _CustomContainerState extends State<CustomTable> {
+class _CustomContainerState extends State<CustomTable> with TickerProviderStateMixin{
   List<bool> enablee = [false, false, false, false, false, false, false, false];
+
+  bool toggleValue = false;
+  late AnimationController controller;
+
+  var hiddenBool = false;
+
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    )..addListener(() {
+      setState(() {});
+    });
+    startToggleButton();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 8,
-      shadowColor: Colors.grey.shade400,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 5,
-            left: 25,
-            height: 50,
-            width: 250,
-            child: Row(
-              children: [
-                Text(
-                  widget.roomName,
-                  style: TextStyle(
-                      color: globals.blue1,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  " - Choose a seat to join",
-                  style: TextStyle(
+    return Stack(
+      children: [
+        Positioned(
+          top: 5,
+          left: 25,
+          height: 50,
+          width: 250,
+          child: Row(
+            children: [
+              Text(
+                widget.roomName,
+                style: TextStyle(
+                    color: globals.blue1,
                     fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 90, bottom: 70, right: 70, left: 70),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey.shade400,
-                width: 1,
+                    fontWeight: FontWeight.bold),
               ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Container(
-              height: 200,
-              width: 200,
-              padding: EdgeInsets.only(right: 12, left: 1),
-              decoration: BoxDecoration(
-                  color: globals.blue2,
-                  borderRadius: BorderRadius.all(Radius.circular(14)),
-                  border: Border.all(color: globals.blue1, width: 4)),
-              child:
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(widget.roomType + " Room",
-                    style: TextStyle(
-                        color: Colors.grey.shade600, fontFamily: 'Rubik')),
-                Text(
-                  "0/8",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade700,
-                    fontFamily: 'Rubik',
-                    fontSize: 30,
-                  ),
+              Text(
+                " - Choose a seat to join",
+                style: TextStyle(
+                  fontSize: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Icon(
-                        Icons.videocam,
-                        color: Colors.grey,
-                      ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 90, bottom: 70, right: 70, left: 70),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey.shade400,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: Container(
+            height: 200,
+            width: 200,
+            padding: EdgeInsets.only(right: 12, left: 1),
+            decoration: BoxDecoration(
+                color: globals.blue2,
+                borderRadius: BorderRadius.all(Radius.circular(14)),
+                border: Border.all(color: globals.blue1, width: 4)),
+            child:
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(widget.roomType + " Room",
+                  style: TextStyle(
+                      color: Colors.grey.shade600, fontFamily: 'Rubik')),
+              Text(
+                "0/8",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                  fontFamily: 'Rubik',
+                  fontSize: 30,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Icon(
+                      Icons.videocam,
+                      color: Colors.grey,
                     ),
-                    Text(".",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Icon(
-                        Icons.mic,
-                        color: Colors.grey,
-                      ),
+                  ),
+                  Text(".",
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      )),
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Icon(
+                      Icons.mic,
+                      color: Colors.grey,
                     ),
-                    Text(".",
-                        style: TextStyle(
-                          color: widget.color,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ))
-                  ],
-                )
-              ]),
+                  ),
+                  Text(".",
+                      style: TextStyle(
+                        color: widget.color,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ))
+                ],
+              )
+            ]),
+          ),
+        ),
+        Positioned(
+            top: 65,
+            left: 105,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 1),
+              angle: 0.0,
+            )),
+        Positioned(
+            top: 65,
+            left: 180,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 2),
+              angle: 0.0,
+            )),
+        Positioned(
+            top: 140,
+            left: 259,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 3),
+              angle: -270 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 215,
+            left: 259,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 4),
+              angle: -270 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 291,
+            left: 180,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 5),
+              angle: -180 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 291,
+            left: 105,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 6),
+              angle: -180 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 140,
+            left: 34,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 7),
+              angle: -90 * 3.14159265359 / 180,
+            )),
+        Positioned(
+            top: 215,
+            left: 34,
+            child: Chair(
+              onTap: () => _sitOnChair(widget.roomName, 8),
+              angle: -90 * 3.14159265359 / 180,
+            )),
+        enablee[0] == true
+            ? Positioned(top: 66, left: 105, child: Chair2())
+            : Container(),
+        enablee[1] == true
+            ? Positioned(top: 66, left: 180, child: Chair2())
+            : Container(),
+        enablee[2] == true
+            ? Positioned(top: 127, left: 248, child: Chair2())
+            : Container(),
+        enablee[3] == true
+            ? Positioned(top: 202.5, left: 248, child: Chair2())
+            : Container(),
+        enablee[4] == true
+            ? Positioned(top: 266, left: 180, child: Chair2())
+            : Container(),
+        enablee[5] == true
+            ? Positioned(top: 266, left: 105, child: Chair2())
+            : Container(),
+        enablee[6] == true
+            ? Positioned(top: 127, left: 45, child: Chair2())
+            : Container(),
+        enablee[7] == true
+            ? Positioned(top: 202.5, left: 45, child: Chair2())
+            : Container(),
+
+
+        Positioned(
+          top: 110,
+          right: 98,
+          child: Container(
+            width: 150,
+            child: LinearProgressIndicator(
+              value: controller.value,
+              semanticsLabel: 'Linear progress indicator',
+              color: globals.blue1,
+              backgroundColor: globals.blue2,
             ),
           ),
-          Positioned(
-              top: 65,
-              left: 105,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 1),
-                angle: 0.0,
-              )),
-          Positioned(
-              top: 65,
-              left: 180,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 2),
-                angle: 0.0,
-              )),
-          Positioned(
-              top: 140,
-              left: 259,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 3),
-                angle: -270 * 3.14159265359 / 180,
-              )),
-          Positioned(
-              top: 215,
-              left: 259,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 4),
-                angle: -270 * 3.14159265359 / 180,
-              )),
-          Positioned(
-              top: 291,
-              left: 180,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 5),
-                angle: -180 * 3.14159265359 / 180,
-              )),
-          Positioned(
-              top: 291,
-              left: 105,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 6),
-                angle: -180 * 3.14159265359 / 180,
-              )),
-          Positioned(
-              top: 140,
-              left: 34,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 7),
-                angle: -90 * 3.14159265359 / 180,
-              )),
-          Positioned(
-              top: 215,
-              left: 34,
-              child: Chair(
-                onTap: () => _sitOnChair(widget.roomName, 8),
-                angle: -90 * 3.14159265359 / 180,
-              )),
-          enablee[0] == true
-              ? Positioned(top: 66, left: 105, child: Chair2())
-              : Container(),
-          enablee[1] == true
-              ? Positioned(top: 66, left: 180, child: Chair2())
-              : Container(),
-          enablee[2] == true
-              ? Positioned(top: 127, left: 248, child: Chair2())
-              : Container(),
-          enablee[3] == true
-              ? Positioned(top: 202.5, left: 248, child: Chair2())
-              : Container(),
-          enablee[4] == true
-              ? Positioned(top: 266, left: 180, child: Chair2())
-              : Container(),
-          enablee[5] == true
-              ? Positioned(top: 266, left: 105, child: Chair2())
-              : Container(),
-          enablee[6] == true
-              ? Positioned(top: 127, left: 45, child: Chair2())
-              : Container(),
-          enablee[7] == true
-              ? Positioned(top: 202.5, left: 45, child: Chair2())
-              : Container(),
-        ],
-      ),
+        ),
+
+       hiddenFunction(),
+
+        Positioned(
+          top: 17,
+          right: 10,
+          child:  AnimatedContainer(
+            height:25,
+            width: 60,
+            duration: Duration(milliseconds: 1000),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: toggleValue
+                    ? Colors.blue.shade900
+                    : Colors.blue.shade100),
+            child: Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: 1000),
+                  curve: Curves.easeIn,
+                  top: 2.4,
+                  left: toggleValue ? 35.0 : 0.0,
+                  right: toggleValue ? 0.0 : 35.0,
+                  child: InkWell(
+                    onTap: toggleButton,
+                    child: AnimatedSwitcher(duration: Duration(milliseconds: 1000),
+                      transitionBuilder: (Widget child, Animation<double> animation) {
+                        return RotationTransition(child: child,
+                          turns: animation,);
+                      },
+                      child: toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 20, key: UniqueKey(),):
+                      Icon(Icons.lightbulb_outline_sharp, color: Colors.white, size: 20, key: UniqueKey(),),
+                    ),
+                  ),)
+              ],
+            ),),
+        ),
+      ],
     );
+
   }
+
+  toggleButton() async {
+    setState(() {
+      toggleValue = !toggleValue;
+
+    });
+    if(toggleValue == true){
+      hiddenBool = false;
+      controller.repeat(reverse: false);
+      await Future.delayed(const Duration(seconds: 10), (){
+        setState(() {
+          toggleValue = false;
+          hiddenBool = true;
+        });
+        controller.reset();
+      });
+    }else{
+      setState(() {
+        hiddenBool = true;
+      });
+      controller.reset();
+    }
+  }
+
+  startToggleButton() async {
+    setState(() {
+      toggleValue = !toggleValue;
+
+    });
+
+    hiddenBool = false;
+    controller.repeat(reverse: false);
+    await Future.delayed(const Duration(seconds: 10), (){
+      setState(() {
+        toggleValue = false;
+        hiddenBool = true;
+      });
+      controller.reset();
+    });
+
+  }
+
 
   Future<void> _sitOnChair(String roomName, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -329,6 +444,17 @@ class _CustomContainerState extends State<CustomTable> {
               ],
             ),
       );
+    }
+  }
+
+  hiddenFunction() {
+    if(hiddenBool == true){
+      return Container(
+        height: 360,
+        width: 340,
+        color: Colors.black.withOpacity(0.5),);
+    }else{
+      return Container();
     }
   }
 

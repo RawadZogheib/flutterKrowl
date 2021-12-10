@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class Test extends StatefulWidget {
   State<Test> createState() => _TestState();
 }
 
-class _TestState extends State<Test> with SingleTickerProviderStateMixin {
+class _TestState extends State<Test> with TickerProviderStateMixin {
   late TabController tabController;
   List<ContentView> contentViews = [
     ContentView(
@@ -54,127 +56,90 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
         )),
   ];
 
-  List<TopContributors> Users = [];
+  bool toggleValue = false;
+  late AnimationController controller;
 
-  @override
   void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    )..addListener(() {
+      setState(() {});
+    });
+    controller.stop(canceled: true);
     super.initState();
-    tabController = TabController(length: contentViews.length, vsync: this);
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    toggleButton() async {
+      setState(() {
+        toggleValue = !toggleValue;
+
+      });
+      if(toggleValue == true){
+        controller.repeat(reverse: false);
+        await Future.delayed(const Duration(seconds: 10), (){
+          controller.stop();
+        });
+      }else{
+        controller.reset();
+      }
+    }
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: globals.white,
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 100),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  child: Image.asset(
-                    'Assets/krowl_logo.png',
-                    scale: 2.0,
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/Library',
-                    );
-                  },
-                ),
-                SizedBox(
-                  width: 460,
-                ),
-                CustomTabBar(
-                  controller: tabController,
-                  tabs: contentViews.map((e) => e.tab).toList(),
+          AnimatedContainer(
+            height:30,
+            width: 80,
+            duration: Duration(milliseconds: 1000),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: toggleValue
+                    ? Colors.blue.shade900
+                    : Colors.blue.shade100),
+            child: Stack(
+                children: [
+            AnimatedPositioned(
+            duration: Duration(milliseconds: 1000),
+            curve: Curves.easeIn,
+            top: 3.0,
+            left: toggleValue ? 50.0 : 0.0,
+            right: toggleValue ? 5.0 : 60.0,
+            child: InkWell(
+              onTap: toggleButton,
+              child: AnimatedSwitcher(duration: Duration(milliseconds: 1000),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                return RotationTransition(child: child,
+                turns: animation,);
+                },
+                child: toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 25, key: UniqueKey(),):
+                Icon(Icons.lightbulb_outline_sharp, color: Colors.white, size: 25, key: UniqueKey(),),
+              ),
+            ),)
+            ],
+          ),),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: <Widget>[
+                LinearProgressIndicator(
+                  value: controller.value,
+                  semanticsLabel: 'Linear progress indicator',
+                  color: globals.blue1,
+                  backgroundColor: globals.blue2,
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 130,
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BouncingWidget(
-                        duration: Duration(milliseconds: 100),
-                        scaleFactor: 1.5,
-                        onPressed: () {
-                          print("onPressed");
-                        },
-                        child: Text(
-                          "Forum",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Rubik',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                          ),
-                        ),
-                      ),
-                      /* Text('Forum',
-                          style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Rubik',
-                              color: Colors.black)),*/
-                      SizedBox(
-                        width: 430,
-                      ),
-                      AskQuestionButton(),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SearchBar(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Question(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Question(),
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  TopContributors(),
-                ],
-              ),
-            ],
           ),
         ],
       ),
     );
   }
-}
-
-class Users {
-  String text;
-  var icon;
-
-  Users({required this.text, this.icon});
 }

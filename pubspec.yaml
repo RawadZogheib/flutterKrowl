@@ -46,6 +46,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   url_launcher: ^6.0.17
   hovering: ^1.0.4
+  animations: ^2.0.2
 
 
 dev_dependencies:
