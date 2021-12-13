@@ -76,11 +76,26 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CreateRoom(),
-                  SizedBox(
-                    height: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Wrap(
+                                children: [
+                                  Column(children: globals.children,)],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ),
+                    ],
                   ),
-                  Column(children: globals.children),
                 ],
               ),
             ),
@@ -92,11 +107,26 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CreateRoom(),
-                  SizedBox(
-                    height: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Wrap(
+                                children: [
+                                  Column(children: globals.children,)],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ),
+                    ],
                   ),
-                  Column(children: globals.children),
                 ],
               ),
             ),
