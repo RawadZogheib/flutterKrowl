@@ -138,11 +138,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                           ),
                           Wrap(
                             children: [
-                              Row(
-                                children: [
-                                  Column(children: globals.children,),
-                                ],
-                              )],
+                              Column(children: globals.children,)],
                           ),
                           SizedBox(width: 20),
                         ]),
