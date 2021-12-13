@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
@@ -8,15 +8,10 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateRoom.dart';
+import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
-import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-var children = <Widget>[];
-var children1 = <Widget>[];
-var children2 = <Widget>[];
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -69,9 +64,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    Size _size = MediaQuery
-        .of(context)
-        .size;
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: globals.white,
@@ -84,8 +77,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CreateRoom(),
-                  SizedBox(height: 20,),
-                  Column(children: children),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(children: globals.children),
                 ],
               ),
             ),
@@ -98,8 +93,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CreateRoom(),
-                  SizedBox(height: 20,),
-                  Column(children: children),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(children: globals.children),
                 ],
               ),
             ),
@@ -111,7 +108,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('Assets/krowl_logo.png', scale: 2.0,),
+                  Image.asset(
+                    'Assets/krowl_logo.png',
+                    scale: 2.0,
+                  ),
                   SizedBox(
                     width: 200,
                   ),
@@ -121,7 +121,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   ),
                 ],
               ),
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -131,20 +133,20 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CreateRoom(),
-                          SizedBox(width: 20,),
+                          SizedBox(
+                            width: 20,
+                          ),
                           Wrap(
                             children: [
-                              Column(
-                                children: children1,
-                              ),
-                              Column(
-                                children: children2,
-                              )
-                            ],
+                              Row(
+                                children: [
+                                  Column(children: globals.children,),
+                                ],
+                              )],
                           ),
                           SizedBox(width: 20),
-                        ]),),
-
+                        ]),
+                  ),
                 ],
               ),
             ]),
@@ -156,117 +158,127 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
 
-    var data = {
-      'version': globals.version,
-      'user_id': user_id
-    };
+    var data = {'version': globals.version, 'user_id': user_id};
 
-    var res = await CallApi().postData(
-        data, '(Control)loadTables.php');
+    var res = await CallApi().postData(data, '(Control)loadTables.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     try {
       localStorage.setString('token', body[1]);
-    }catch(e){
+    } catch (e) {
       print('no token found');
     }
 
     if (body[0] == "success") {
       for (var i = 0; i < body[2].length; i++) {
         //localStorage.setString('contrat_Id', value)
-        children.add(
-          CustomTable(roomName: body[2][i][0],
+        globals.children.add(
+          CustomTable(
+              id: i,
+              roomName: body[2][i][0],
               roomType: "Quiet",
               color: Colors.green,
               seats: body[2][i][1]),
         );
-        if (i % 2 == 0) {
-          children1.add(
-            CustomTable(roomName: body[2][i][0],
-                roomType: "Quiet",
-                color: Colors.green,
-                seats: body[2][i][1]),
-          );
-        } else {
-          children2.add(
-            CustomTable(roomName: body[2][i][0],
-                roomType: "Quiet",
-                color: Colors.green,
-                seats: body[2][i][1]),
-          );
-        }
       }
       setState(() {
-        children;
-        children1;
-        children2;
+        globals.children;
       });
-    }
-    else if (body[0] == "errorVersion") {
+    } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " + globals.version + "\n" +
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error7") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
-    }
-    else if (body[0] == "error11") {
+    } else if (body[0] == "error11") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error11),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error11),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
+    }
+  }
+
+  _columnChecker(int val, int nb) {
+    if (val == 0) {
+      for (var i = nb; i <= 0; i--) {
+        print(i);
+        if (i % 2 == 0) {
+          _columnChecker(val, i);
+          return CustomTable(
+            id: globals.children[i].id,
+            roomName: globals.children[i].roomName,
+            roomType: globals.children[i].roomType,
+            color: globals.children[i].color,
+            seats: globals.children[i].seats,
+          );
+        }else{
+          _columnChecker(val, i);
+        }
+      }
+    } else if (val == 1) {
+      for (var i = nb; i <= 0; i--) {
+        if (i % 2 != 0) {
+          _columnChecker(val, i);
+          return CustomTable(
+            id: globals.children[i].id,
+            roomName: globals.children[i].roomName,
+            roomType: globals.children[i].roomType,
+            color: globals.children[i].color,
+            seats: globals.children[i].seats,
+          );
+        }else{
+          _columnChecker(val, i);
+        }
+      }
+    } else {
+      print("val =/= 0 and 1");
+      exit;
     }
   }
 }

@@ -19,15 +19,22 @@ class CustomTable extends StatefulWidget {
   var color ;
   var icon;
   var seats;
+  var id;
+  bool toggleValue = false;
+  bool hiddenBool = true;
+  late AnimationController controller;
 
   CustomTable({this.children,
     required this.roomName,
     required this.roomType,
     required this.color,
+    this.id,
     this.icon,
     this.height,
     this.width,
     this.seats});
+
+
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
@@ -36,27 +43,23 @@ class CustomTable extends StatefulWidget {
 class _CustomContainerState extends State<CustomTable> with TickerProviderStateMixin{
   List<bool> enablee = [false, false, false, false, false, false, false, false];
 
-  bool toggleValue = false;
-  late AnimationController controller;
 
-  var hiddenBool = false;
 
   void initState() {
-    controller = AnimationController(
+    widget.controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 10),
+      duration: Duration(minutes: 5),
     )..addListener(() {
       setState(() {});
     });
-    startToggleButton();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   widget.controller.dispose();
+  //   super.dispose();
+  // }
 
 
   @override
@@ -239,7 +242,7 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
           child: Container(
             width: 150,
             child: LinearProgressIndicator(
-              value: controller.value,
+              value: widget.controller.value,
               semanticsLabel: 'Linear progress indicator',
               color: globals.blue1,
               backgroundColor: globals.blue2,
@@ -258,7 +261,7 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
             duration: Duration(milliseconds: 1000),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: toggleValue
+                color: widget.toggleValue
                     ? Colors.blue.shade900
                     : Colors.blue.shade100),
             child: Stack(
@@ -267,8 +270,8 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
                   duration: Duration(milliseconds: 1000),
                   curve: Curves.easeIn,
                   top: 2.4,
-                  left: toggleValue ? 35.0 : 0.0,
-                  right: toggleValue ? 0.0 : 35.0,
+                  left: widget.toggleValue ? 35.0 : 0.0,
+                  right: widget.toggleValue ? 0.0 : 35.0,
                   child: InkWell(
                     onTap: toggleButton,
                     child: AnimatedSwitcher(duration: Duration(milliseconds: 1000),
@@ -276,7 +279,7 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
                         return RotationTransition(child: child,
                           turns: animation,);
                       },
-                      child: toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 20, key: UniqueKey(),):
+                      child: widget.toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 20, key: UniqueKey(),):
                       Icon(Icons.lightbulb_outline_sharp, color: Colors.white, size: 20, key: UniqueKey(),),
                     ),
                   ),)
@@ -290,41 +293,57 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
 
   toggleButton() async {
     setState(() {
-      toggleValue = !toggleValue;
+      widget.toggleValue = !widget.toggleValue;
 
     });
-    if(toggleValue == true){
-      hiddenBool = false;
-      controller.repeat(reverse: false);
-      await Future.delayed(const Duration(seconds: 10), (){
+    if(widget.toggleValue == true){
+      widget.hiddenBool = false;
+      widget.controller.repeat(reverse: false);
+      setState(() {
+        if (globals.tmpid != null ) {
+          print(globals.children[globals.tmpid].toggleValue.toString());
+          globals.children[globals.tmpid].toggleValue = false;
+          globals.children[globals.tmpid].hiddenBool = true;
+          globals.children[globals.tmpid].controller.reset();
+          print(globals.children[globals.tmpid].toggleValue.toString());
+          globals.tmpid = widget.id;
+          print("if: " + globals.tmpid.toString());
+        }else{
+          globals.tmpid = widget.id;
+          print("else: " + globals.tmpid.toString());
+        }
+      });
+      await Future.delayed(const Duration(minutes: 5), (){
         setState(() {
-          toggleValue = false;
-          hiddenBool = true;
+          widget.toggleValue = false;
+          widget.hiddenBool = true;
         });
-        controller.reset();
+        widget.controller.reset();
       });
     }else{
       setState(() {
-        hiddenBool = true;
+        globals.tmpid = null;
+        widget.hiddenBool = true;
       });
-      controller.reset();
+      widget.controller.reset();
     }
+
   }
 
   startToggleButton() async {
     setState(() {
-      toggleValue = !toggleValue;
+      widget.toggleValue = !widget.toggleValue;
 
     });
 
-    hiddenBool = false;
-    controller.repeat(reverse: false);
-    await Future.delayed(const Duration(seconds: 10), (){
+    widget.hiddenBool = false;
+    widget.controller.repeat(reverse: false);
+    await Future.delayed( Duration(minutes: 5), (){
       setState(() {
-        toggleValue = false;
-        hiddenBool = true;
+        widget.toggleValue = false;
+        widget.hiddenBool = true;
       });
-      controller.reset();
+      widget.controller.reset();
     });
 
   }
@@ -448,11 +467,11 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
   }
 
   hiddenFunction() {
-    if(hiddenBool == true){
+    if(widget.hiddenBool == true){
       return Container(
         height: 360,
         width: 340,
-        color: Colors.black.withOpacity(0.5),);
+        color: Colors.black.withOpacity(0.3),);
     }else{
       return Container();
     }

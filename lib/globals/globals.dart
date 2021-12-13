@@ -1,6 +1,7 @@
 library flutterKrowl.globals;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 
 const String version = "v1.0";
 
@@ -74,3 +75,7 @@ String? code6 = null;
 //login  (page[/login.dart /login2.dart])
 String? emailLogin ="";
 String? passwordLogin = "";
+
+//Library
+var tmpid = null;
+var children = <CustomTable>[];

@@ -123,9 +123,7 @@ class _NextButtonState extends State<CreateRoom> {
 
 
                   setState(() {
-                    children.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
-                    children1.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
-                    children2.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
+                    globals.children.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
                   });
 
                 },
