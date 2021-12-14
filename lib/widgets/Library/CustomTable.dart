@@ -229,7 +229,7 @@ class _CustomContainerState extends State<CustomTable>
             width: 60,
             height: 27,
             valueFontSize: 25.0,
-            toggleSize: 35.0,
+            toggleSize: 25.0,
             value: status,
             borderRadius: 30.0,
             padding: 0.0,
