@@ -7,7 +7,7 @@ const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
 const String myIP = "http://10.10.4.68";
-const String jaasUrl ="https://edubee.org/jit/?room=";
+const String jaasUrl ="https://edubee.org/jit/?table=";
 
 //Colors
 Color white = Colors.white;
@@ -28,10 +28,10 @@ const String error4 = "Cannot connect to the dataBase.";
 const String error5 = "UserName already exist.";
 const String error6 = "Email already exist.";
 const String error7 = "Field cannot be empty.";
-const String error8 = "Full Room";
+const String error8 = "Full Table";
 const String error9 = "Position Taken";
-const String error10 = "Oops! Can't create the Room";
-const String error11 = "Oops! Can't load Rooms";
+const String error10 = "Oops! Can't create the Table";
+const String error11 = "Oops! Can't load Tables";
 const String errorToken = "Token Error.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
