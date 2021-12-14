@@ -144,10 +144,11 @@ class _Registration2State extends State<Registration2> {
     print("sdfsdfsdf");
     //print(body[0][0]);
 
-    if (body[0] == "[\"success\"]") {
+    if (body[0] == "success") {
+      print("sdfsdfsdf555555555555555");
       //setState(() {
       //globals.univercitiesName = body[1];
-      //print(globals.univercitiesName[1]);
+      //print(globals.univercitiesName[1]); correct writing => print(globals.univercitiesName);
       for (int i = 0; i < body[1].length; i++) {
         globals.univercitiesName
             .add(body[1][i].toString().replaceAll("[", "").replaceAll("]", ""));
