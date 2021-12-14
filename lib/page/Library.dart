@@ -76,6 +76,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CreateRoom(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -7,7 +7,6 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
@@ -16,7 +15,8 @@ class CustomTable extends StatefulWidget {
   var roomType;
   var height;
   var width;
-  var color ;
+  var color;
+
   var icon;
   var seats;
   var id;
@@ -24,34 +24,32 @@ class CustomTable extends StatefulWidget {
   bool hiddenBool = true;
   late AnimationController controller;
 
-  CustomTable({this.children,
-    required this.roomName,
-    required this.roomType,
-    required this.color,
-    this.id,
-    this.icon,
-    this.height,
-    this.width,
-    this.seats});
-
-
+  CustomTable(
+      {this.children,
+      required this.roomName,
+      required this.roomType,
+      required this.color,
+      this.id,
+      this.icon,
+      this.height,
+      this.width,
+      this.seats});
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
 }
 
-class _CustomContainerState extends State<CustomTable> with TickerProviderStateMixin{
+class _CustomContainerState extends State<CustomTable>
+    with TickerProviderStateMixin {
   List<bool> enablee = [false, false, false, false, false, false, false, false];
-
-
 
   void initState() {
     widget.controller = AnimationController(
       vsync: this,
       duration: Duration(minutes: 5),
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
     super.initState();
   }
 
@@ -60,7 +58,6 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
   //   widget.controller.dispose();
   //   super.dispose();
   // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +104,7 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
                 borderRadius: BorderRadius.all(Radius.circular(14)),
                 border: Border.all(color: globals.blue1, width: 4)),
             child:
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(widget.roomType + " Room",
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
@@ -234,8 +231,6 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
         enablee[7] == true
             ? Positioned(top: 202.5, left: 45, child: Chair2())
             : Container(),
-
-
         Positioned(
           top: 110,
           right: 98,
@@ -249,14 +244,12 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
             ),
           ),
         ),
-
-       hiddenFunction(),
-
+        hiddenFunction(),
         Positioned(
           top: 17,
           right: 10,
-          child:  AnimatedContainer(
-            height:25,
+          child: AnimatedContainer(
+            height: 25,
             width: 60,
             duration: Duration(milliseconds: 1000),
             decoration: BoxDecoration(
@@ -274,33 +267,48 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
                   right: widget.toggleValue ? 0.0 : 35.0,
                   child: InkWell(
                     onTap: toggleButton,
-                    child: AnimatedSwitcher(duration: Duration(milliseconds: 1000),
-                      transitionBuilder: (Widget child, Animation<double> animation) {
-                        return RotationTransition(child: child,
-                          turns: animation,);
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 1000),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return RotationTransition(
+                          child: child,
+                          turns: animation,
+                        );
                       },
-                      child: widget.toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 20, key: UniqueKey(),):
-                      Icon(Icons.lightbulb_outline_sharp, color: Colors.white, size: 20, key: UniqueKey(),),
+                      child: widget.toggleValue
+                          ? Icon(
+                              Icons.lightbulb,
+                              color: Colors.yellow,
+                              size: 20,
+                              key: UniqueKey(),
+                            )
+                          : Icon(
+                              Icons.lightbulb_outline_sharp,
+                              color: Colors.white,
+                              size: 20,
+                              key: UniqueKey(),
+                            ),
                     ),
-                  ),)
+                  ),
+                )
               ],
-            ),),
+            ),
+          ),
         ),
       ],
     );
-
   }
 
   toggleButton() async {
     setState(() {
       widget.toggleValue = !widget.toggleValue;
-
     });
-    if(widget.toggleValue == true){
+    if (widget.toggleValue == true) {
       widget.hiddenBool = false;
       widget.controller.repeat(reverse: false);
       setState(() {
-        if (globals.tmpid != null ) {
+        if (globals.tmpid != null) {
           print(globals.children[globals.tmpid].toggleValue.toString());
           globals.children[globals.tmpid].toggleValue = false;
           globals.children[globals.tmpid].hiddenBool = true;
@@ -308,46 +316,42 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
           print(globals.children[globals.tmpid].toggleValue.toString());
           globals.tmpid = widget.id;
           print("if: " + globals.tmpid.toString());
-        }else{
+        } else {
           globals.tmpid = widget.id;
           print("else: " + globals.tmpid.toString());
         }
       });
-      await Future.delayed(const Duration(minutes: 5), (){
+      await Future.delayed(const Duration(minutes: 5), () {
         setState(() {
           widget.toggleValue = false;
           widget.hiddenBool = true;
         });
         widget.controller.reset();
       });
-    }else{
+    } else {
       setState(() {
         globals.tmpid = null;
         widget.hiddenBool = true;
       });
       widget.controller.reset();
     }
-
   }
 
   startToggleButton() async {
     setState(() {
       widget.toggleValue = !widget.toggleValue;
-
     });
 
     widget.hiddenBool = false;
     widget.controller.repeat(reverse: false);
-    await Future.delayed( Duration(minutes: 5), (){
+    await Future.delayed(Duration(minutes: 5), () {
       setState(() {
         widget.toggleValue = false;
         widget.hiddenBool = true;
       });
       widget.controller.reset();
     });
-
   }
-
 
   Future<void> _sitOnChair(String roomName, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -366,10 +370,9 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
 
     try {
       localStorage.setString('token', body[1]);
-    }catch(e){
+    } catch (e) {
       print('no token found');
     }
-
 
     if (body[0] == "success") {
       if (!await launch(
@@ -383,98 +386,89 @@ class _CustomContainerState extends State<CustomTable> with TickerProviderStateM
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " + globals.version + "\n" +
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error7") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error8") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error8),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error8),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
-    }
-    else if (body[0] == "error9") {
+    } else if (body[0] == "error9") {
       setState(() {
         enablee[position - 1] = false;
       });
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error9),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error9),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     }
   }
 
   hiddenFunction() {
-    if(widget.hiddenBool == true){
+    if (widget.hiddenBool == true) {
       return Container(
         height: 360,
         width: 340,
-        color: Colors.black.withOpacity(0.3),);
-    }else{
+        color: Colors.black.withOpacity(0.3),
+      );
+    } else {
       return Container();
     }
   }
-
 }
