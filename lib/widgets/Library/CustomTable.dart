@@ -6,6 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,6 +23,8 @@ class CustomTable extends StatefulWidget {
   var id;
   bool toggleValue = false;
   bool hiddenBool = true;
+  bool status = false;
+
 
   CustomTable(
       {this.children,
@@ -41,6 +44,8 @@ class CustomTable extends StatefulWidget {
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   List<bool> enablee = [false, false, false, false, false, false, false, false];
+  bool status = false;
+
 
 
 
@@ -218,106 +223,39 @@ class _CustomContainerState extends State<CustomTable>
             : Container(),
         hiddenFunction(),
         Positioned(
-          top: 17,
-          right: 10,
-          child: AnimatedContainer(
-            height: 25,
+          top: 15,
+          right: 20,
+          child: FlutterSwitch(
             width: 60,
-            duration: Duration(milliseconds: 1000),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: widget.toggleValue
-                    ? Colors.blue.shade900
-                    : Colors.blue.shade100),
-            child: Stack(
-              children: [
-                AnimatedPositioned(
-                  duration: Duration(milliseconds: 1000),
-                  curve: Curves.easeIn,
-                  top: 2.4,
-                  left: widget.toggleValue ? 35.0 : 0.0,
-                  right: widget.toggleValue ? 0.0 : 35.0,
-                  child: InkWell(
-                    onTap: toggleButton,
-                    child: AnimatedSwitcher(
-                      duration: Duration(milliseconds: 1000),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return RotationTransition(
-                          child: child,
-                          turns: animation,
-                        );
-                      },
-                      child: widget.toggleValue
-                          ? Icon(
-                              Icons.lightbulb,
-                              color: Colors.yellow,
-                              size: 20,
-                              key: UniqueKey(),
-                            )
-                          : Icon(
-                              Icons.lightbulb_outline_sharp,
-                              color: Colors.white,
-                              size: 20,
-                              key: UniqueKey(),
-                            ),
-                    ),
-                  ),
-                )
-              ],
+            height: 27,
+            valueFontSize: 25.0,
+            toggleSize: 35.0,
+            value: status,
+            borderRadius: 30.0,
+            padding: 0.0,
+            activeColor: globals.blue1,
+            inactiveColor: globals.blue2,
+            activeToggleColor: globals.blue1,
+            inactiveToggleColor: globals.blue2,
+            activeIcon: Icon(
+              Icons.lightbulb,
+              color: Colors.yellow,
             ),
+            inactiveIcon: Icon(
+              Icons.lightbulb_outline_sharp,
+              color: Colors.white,
+            ),
+            onToggle: (val) {
+              setState(() {
+                status = val;
+              });
+            },
           ),
         ),
       ],
     );
   }
 
-  toggleButton() async {
-    setState(() {
-      widget.toggleValue = !widget.toggleValue;
-    });
-    if (widget.toggleValue == true) {
-      widget.hiddenBool = false;
-      setState(() {
-        if (globals.tmpid != null) {
-          print(globals.children[globals.tmpid].toggleValue.toString());
-          globals.children[globals.tmpid].toggleValue = false;
-          globals.children[globals.tmpid].hiddenBool = true;
-          print(globals.children[globals.tmpid].toggleValue.toString());
-          globals.tmpid = widget.id;
-          print("if: " + globals.tmpid.toString());
-        } else {
-          globals.tmpid = widget.id;
-          print("else: " + globals.tmpid.toString());
-        }
-      });
-      await Future.delayed(const Duration(minutes: 5), () {
-        setState(() {
-          widget.toggleValue = false;
-          widget.hiddenBool = true;
-        });
-      });
-    } else {
-      setState(() {
-        globals.tmpid = null;
-        widget.hiddenBool = true;
-      });
-    }
-  }
-
-  startToggleButton() async {
-    setState(() {
-      widget.toggleValue = !widget.toggleValue;
-    });
-
-    widget.hiddenBool = false;
-    await Future.delayed(Duration(minutes: 5), () {
-      setState(() {
-        widget.toggleValue = false;
-        widget.hiddenBool = true;
-      });
-    });
-  }
 
   Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();

@@ -97,7 +97,7 @@ class _Login2State extends State<Login2> {
                 children: [
                   Container(
                     child: InkWell(
-                      child: PreviousButton(text: "previous",color: blue1, icon: Icons.arrow_back,  onTap: () {
+                      child: PreviousButton(text: "previous",color: globals.blue1, icon: Icons.arrow_back,  onTap: () {
                         Navigator.pop(context, '/login');
                       }, )
                     ),
@@ -108,7 +108,7 @@ class _Login2State extends State<Login2> {
                         width: 70,
                         margin: EdgeInsets.only(left: 100.sp),
                         child: InkWell(
-                          child:NextButton(text: "login",color: blue1, icon: Icons.arrow_forward, onTap: () {
+                          child:NextButton(text: "login",color: globals.blue1, icon: Icons.arrow_forward, onTap: () {
                             if (globals.passwordLogin != null ) {
                               if (globals.passwordLogin!.isNotEmpty)
                                 try {
