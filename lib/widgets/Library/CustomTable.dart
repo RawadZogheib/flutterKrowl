@@ -231,19 +231,6 @@ class _CustomContainerState extends State<CustomTable>
         enablee[7] == true
             ? Positioned(top: 202.5, left: 45, child: Chair2())
             : Container(),
-        Positioned(
-          top: 110,
-          right: 98,
-          child: Container(
-            width: 150,
-            child: LinearProgressIndicator(
-              value: widget.controller.value,
-              semanticsLabel: 'Linear progress indicator',
-              color: globals.blue1,
-              backgroundColor: globals.blue2,
-            ),
-          ),
-        ),
         hiddenFunction(),
         Positioned(
           top: 17,
