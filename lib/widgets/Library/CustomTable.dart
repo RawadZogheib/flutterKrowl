@@ -11,8 +11,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
-  var roomName;
-  var roomType;
+  var table_name;
+  var table_type;
   var height;
   var width;
   var color;
@@ -22,12 +22,11 @@ class CustomTable extends StatefulWidget {
   var id;
   bool toggleValue = false;
   bool hiddenBool = true;
-  late AnimationController controller;
 
   CustomTable(
       {this.children,
-      required this.roomName,
-      required this.roomType,
+      required this.table_name,
+      required this.table_type,
       required this.color,
       this.id,
       this.icon,
@@ -43,21 +42,7 @@ class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   List<bool> enablee = [false, false, false, false, false, false, false, false];
 
-  void initState() {
-    widget.controller = AnimationController(
-      vsync: this,
-      duration: Duration(minutes: 5),
-    )..addListener(() {
-        setState(() {});
-      });
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +56,7 @@ class _CustomContainerState extends State<CustomTable>
           child: Row(
             children: [
               Text(
-                widget.roomName,
+                widget.table_name,
                 style: TextStyle(
                     color: globals.blue1,
                     fontSize: 15,
@@ -105,7 +90,7 @@ class _CustomContainerState extends State<CustomTable>
                 border: Border.all(color: globals.blue1, width: 4)),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(widget.roomType + " Room",
+              Text(widget.table_type + " Table",
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
               Text(
@@ -155,56 +140,56 @@ class _CustomContainerState extends State<CustomTable>
             top: 65,
             left: 105,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 1),
+              onTap: () => _sitOnChair(widget.table_name, 1),
               angle: 0.0,
             )),
         Positioned(
             top: 65,
             left: 180,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 2),
+              onTap: () => _sitOnChair(widget.table_name, 2),
               angle: 0.0,
             )),
         Positioned(
             top: 140,
             left: 259,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 3),
+              onTap: () => _sitOnChair(widget.table_name, 3),
               angle: -270 * 3.14159265359 / 180,
             )),
         Positioned(
             top: 215,
             left: 259,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 4),
+              onTap: () => _sitOnChair(widget.table_name, 4),
               angle: -270 * 3.14159265359 / 180,
             )),
         Positioned(
             top: 291,
             left: 180,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 5),
+              onTap: () => _sitOnChair(widget.table_name, 5),
               angle: -180 * 3.14159265359 / 180,
             )),
         Positioned(
             top: 291,
             left: 105,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 6),
+              onTap: () => _sitOnChair(widget.table_name, 6),
               angle: -180 * 3.14159265359 / 180,
             )),
         Positioned(
             top: 140,
             left: 34,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 7),
+              onTap: () => _sitOnChair(widget.table_name, 7),
               angle: -90 * 3.14159265359 / 180,
             )),
         Positioned(
             top: 215,
             left: 34,
             child: Chair(
-              onTap: () => _sitOnChair(widget.roomName, 8),
+              onTap: () => _sitOnChair(widget.table_name, 8),
               angle: -90 * 3.14159265359 / 180,
             )),
         enablee[0] == true
@@ -293,13 +278,11 @@ class _CustomContainerState extends State<CustomTable>
     });
     if (widget.toggleValue == true) {
       widget.hiddenBool = false;
-      widget.controller.repeat(reverse: false);
       setState(() {
         if (globals.tmpid != null) {
           print(globals.children[globals.tmpid].toggleValue.toString());
           globals.children[globals.tmpid].toggleValue = false;
           globals.children[globals.tmpid].hiddenBool = true;
-          globals.children[globals.tmpid].controller.reset();
           print(globals.children[globals.tmpid].toggleValue.toString());
           globals.tmpid = widget.id;
           print("if: " + globals.tmpid.toString());
@@ -313,14 +296,12 @@ class _CustomContainerState extends State<CustomTable>
           widget.toggleValue = false;
           widget.hiddenBool = true;
         });
-        widget.controller.reset();
       });
     } else {
       setState(() {
         globals.tmpid = null;
         widget.hiddenBool = true;
       });
-      widget.controller.reset();
     }
   }
 
@@ -330,24 +311,22 @@ class _CustomContainerState extends State<CustomTable>
     });
 
     widget.hiddenBool = false;
-    widget.controller.repeat(reverse: false);
     await Future.delayed(Duration(minutes: 5), () {
       setState(() {
         widget.toggleValue = false;
         widget.hiddenBool = true;
       });
-      widget.controller.reset();
     });
   }
 
-  Future<void> _sitOnChair(String roomName, int position) async {
+  Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
 
     var data = {
       'version': globals.version,
       'user_id': user_id,
-      'roomName': roomName,
+      'table_name': table_name,
       'position': position
     };
 
@@ -363,12 +342,12 @@ class _CustomContainerState extends State<CustomTable>
 
     if (body[0] == "success") {
       if (!await launch(
-        globals.jaasUrl + roomName,
+        globals.jaasUrl + table_name,
         forceSafariVC: false,
         forceWebView: true,
         headers: <String, String>{'my_header_key': 'my_header_value'},
       )) {
-        throw 'Could not launch ${globals.jaasUrl + roomName}';
+        throw 'Could not launch ${globals.jaasUrl + table_name}';
       }
     } else if (body[0] == "errorVersion") {
       showDialog<String>(

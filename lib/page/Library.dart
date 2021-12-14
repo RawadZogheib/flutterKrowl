@@ -7,7 +7,7 @@ import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
-import 'package:flutter_app_backend/widgets/Library/CreateRoom.dart';
+import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
@@ -76,7 +76,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CreateRoom(),
+                  CreateTable(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -163,7 +163,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CreateRoom(),
+                          CreateTable(),
                           SizedBox(
                             width: 20,
                           ),
@@ -202,8 +202,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         globals.children.add(
           CustomTable(
               id: i,
-              roomName: body[2][i][0],
-              roomType: "Quiet",
+              table_name: body[2][i][0],
+              table_type: "1",
               color: Colors.green,
               seats: body[2][i][1]),
         );
@@ -279,8 +279,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           _columnChecker(val, i);
           return CustomTable(
             id: globals.children[i].id,
-            roomName: globals.children[i].roomName,
-            roomType: globals.children[i].roomType,
+            table_name: globals.children[i].table_name,
+            table_type: globals.children[i].table_type,
             color: globals.children[i].color,
             seats: globals.children[i].seats,
           );
@@ -294,8 +294,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           _columnChecker(val, i);
           return CustomTable(
             id: globals.children[i].id,
-            roomName: globals.children[i].roomName,
-            roomType: globals.children[i].roomType,
+            table_name: globals.children[i].table_name,
+            table_type: globals.children[i].table_type,
             color: globals.children[i].color,
             seats: globals.children[i].seats,
           );

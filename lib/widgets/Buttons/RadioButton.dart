@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
 
-class RoomButton extends StatelessWidget {
+class TableButton extends StatelessWidget {
   String text;
   final onTap;
 
-  RoomButton({ required this.text, this.color, this.onTap, required this.index,  this.onPressed});
+  TableButton({ required this.text, this.color, this.onTap, required this.index,  this.onPressed});
   int index;
   var setState;
   var color;

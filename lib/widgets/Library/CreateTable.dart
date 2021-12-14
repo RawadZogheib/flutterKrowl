@@ -13,19 +13,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
-class CreateRoom extends StatefulWidget {
+class CreateTable extends StatefulWidget {
   var children;
   var onTap;
 
- CreateRoom ({ this.children,this.onTap });
+ CreateTable ({ this.children,this.onTap });
 
 
   @override
-  State<CreateRoom> createState() => _NextButtonState();
+  State<CreateTable> createState() => _NextButtonState();
 
 }
 
-class _NextButtonState extends State<CreateRoom> {
+class _NextButtonState extends State<CreateTable> {
 
   String? dropdownValue;
   List gender = [
@@ -66,7 +66,7 @@ class _NextButtonState extends State<CreateRoom> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: 65,),
-                  Text("Create a Room",
+                  Text("Create a Table",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Rubik', color:Colors.black),),
                 ],
@@ -75,7 +75,7 @@ class _NextButtonState extends State<CreateRoom> {
               Row(
                 children: [
                   SizedBox(width: 20,),
-                  Text("Room Name *",
+                  Text("Table Name *",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color:Colors.black),),
                 ],
@@ -100,18 +100,18 @@ class _NextButtonState extends State<CreateRoom> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width:88,child: RoomButton(text: "Quiet", index: 1)),
+                  Container(width:88,child: TableButton(text: "Quiet", index: 1)),
                   SizedBox(width: 35,),
-                  Container(width:95,child: RoomButton(text: "Silent", index: 2))
+                  Container(width:95,child: TableButton(text: "Silent", index: 2))
                 ],
               ),
               SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RoomButton(text: "Public", index: 3),
+                  TableButton(text: "Public", index: 3),
                   SizedBox(width: 35,),
-                  RoomButton(text: "Private", index: 4)
+                  TableButton(text: "Private", index: 4)
                 ],
               ),
               SizedBox(height: 15,),
@@ -119,11 +119,11 @@ class _NextButtonState extends State<CreateRoom> {
                 width: 220,
                 height: 40,
                 child: ElevatedButton(onPressed: (){
-                  //_createRoom();
+                  //_createTable();
 
 
                   setState(() {
-                    globals.children.add(CustomTable(roomName: 'TextInput122', roomType: 'Quiet', color: Colors.red));
+                    globals.children.add(CustomTable(table_name: 'TextInput122', table_type: '1', color: Colors.red));
                   });
 
                 },
@@ -138,7 +138,7 @@ class _NextButtonState extends State<CreateRoom> {
                           )
                       )
                   ),
-                  child: Text ('Create room',
+                  child: Text ('Create Table',
                     style: TextStyle(fontSize: 17, fontFamily: 'Rubik', color: globals.white),
 
                   ),),
@@ -153,19 +153,19 @@ class _NextButtonState extends State<CreateRoom> {
 
 
 
-  Future<void> _createRoom() async {
+  Future<void> _createTable() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
     print(TextInput1().toString());
     var data = {
       'version': globals.version,
       'user_id': user_id,
-      'roomName': 'dan1a',
+      'table_name': 'dan1a',
       'seats': '8',
-      'private': '1'
+      'table_type': '1'
     };
 
-    var res = await CallApi().postData(data, '(Control)createRoom.php');
+    var res = await CallApi().postData(data, '(Control)createTable.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
