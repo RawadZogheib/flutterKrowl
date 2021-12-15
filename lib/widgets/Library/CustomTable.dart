@@ -24,6 +24,7 @@ class CustomTable extends StatefulWidget {
   bool hiddenBool = true;
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
+  List<String> imgs = ['', '', '', '', '', '', '', ''];
 
 
   CustomTable(
@@ -198,28 +199,28 @@ class _CustomContainerState extends State<CustomTable>
               angle: -90 * 3.14159265359 / 180,
             )),
         widget.enablee[0] == true
-            ? Positioned(top: 66, left: 105, child: Chair2())
+            ? Positioned(top: 66, left: 105, child: Chair2(img: widget.imgs[0].toString()))
             : Container(),
         widget.enablee[1] == true
-            ? Positioned(top: 66, left: 180, child: Chair2())
+            ? Positioned(top: 66, left: 180, child: Chair2(img: widget.imgs[1].toString()))
             : Container(),
         widget.enablee[2] == true
-            ? Positioned(top: 127, left: 248, child: Chair2())
+            ? Positioned(top: 127, left: 248, child: Chair2(img: widget.imgs[2].toString()))
             : Container(),
         widget.enablee[3] == true
-            ? Positioned(top: 202.5, left: 248, child: Chair2())
+            ? Positioned(top: 202.5, left: 248, child: Chair2(img: widget.imgs[3].toString()))
             : Container(),
         widget.enablee[4] == true
-            ? Positioned(top: 266, left: 180, child: Chair2())
+            ? Positioned(top: 266, left: 180, child: Chair2(img: widget.imgs[4].toString()))
             : Container(),
         widget.enablee[5] == true
-            ? Positioned(top: 266, left: 105, child: Chair2())
+            ? Positioned(top: 266, left: 105, child: Chair2(img: widget.imgs[5].toString()))
             : Container(),
         widget.enablee[6] == true
-            ? Positioned(top: 127, left: 45, child: Chair2())
+            ? Positioned(top: 202.5, left: 45, child: Chair2(img: widget.imgs[7].toString()))
             : Container(),
         widget.enablee[7] == true
-            ? Positioned(top: 202.5, left: 45, child: Chair2())
+            ? Positioned(top: 127, left: 45, child: Chair2(img: widget.imgs[6].toString()))
             : Container(),
         hiddenFunction(),
         Positioned(
@@ -248,7 +249,6 @@ class _CustomContainerState extends State<CustomTable>
             onToggle: (val) {
 
               toggleButton(val);
-              loadOccupants(val);
             },
           ),
         ),
@@ -279,6 +279,9 @@ class _CustomContainerState extends State<CustomTable>
     }
 
     if (body[0] == "success") {
+      setState(() {
+        widget.enablee[position - 1] = true;
+      });
       if (!await launch(
         globals.jaasUrl + table_name,
         forceSafariVC: false,
@@ -346,7 +349,7 @@ class _CustomContainerState extends State<CustomTable>
       );
     } else if (body[0] == "error9") {
       setState(() {
-        widget.enablee[position - 1] = false;
+        widget.enablee[position - 1] = true;
       });
       showDialog<String>(
         context: context,
@@ -383,6 +386,7 @@ toggleButton(bool val) async {
     if (widget.status == true) {
       widget.hiddenBool = false;
       setState(() {
+        loadOccupants();
         if (globals.tmpid != null) {
            print(globals.children[globals.tmpid].status.toString());
           globals.children[globals.tmpid].status = false;
@@ -399,27 +403,107 @@ toggleButton(bool val) async {
         setState(() {
           widget.status = false;
           widget.hiddenBool = true;
+
+          globals.tmpid = null;
+          widget.enablee = [false, false, false, false, false, false, false, false];
+
         });
       });
     } else {
       setState(() {
         globals.tmpid = null;
         widget.hiddenBool = true;
+        widget.enablee = [false, false, false, false, false, false, false, false];
       });
     }
   }
 
-  loadOccupants(bool val) {
+  loadOccupants() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
 
-    if(val == true){
-      setState(() {
-        //widget.visibility = true;
-      });
-    }else{
-      setState(() {
-       // widget.visibility = false;
-      });
-    }
+      var data = {
+        'version': globals.version,
+        'table_name': widget.table_name,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadOccupants.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+      // try {
+      //   localStorage.setString('token', body[1]);
+      // } catch (e) {
+      //   print('no token found');
+      // }
+
+      if (body[0] == "success") {
+        for (var i = 0; i < body[2].length; i++) {
+          await Future.delayed(const Duration(milliseconds: 100), () {
+            setState(() {
+              widget.imgs[int.parse(body[2][i][2].toString()) - 1] = '';
+              widget.enablee[int.parse(body[2][i][2].toString()) - 1] = true;
+            });
+          });
+
+        }
+      } else if (body[0] == "errorVersion") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(
+                "Your version: " + globals.version + "\n" + globals.errorVersion),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (body[0] == "errorToken") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorToken),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (body[0] == "error4") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.error7),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorElse),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+
 
   }
 

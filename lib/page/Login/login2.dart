@@ -190,7 +190,7 @@ class _Login2State extends State<Login2> {
           localStorage.setString('user_id', body[2]);
           localStorage.setString('username', body[3]);
           localStorage.setString('user_uni', body[4]);
-          localStorage.setString('imgUrl', body[5]);
+          localStorage.setString('photo', body[5]);
 
           showDialog<String>(
             context: context,
