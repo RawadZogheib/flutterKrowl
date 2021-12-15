@@ -317,9 +317,9 @@ _testpass() {
           'crop_y': globals.cropY,
           'crop_width': globals.cropWidth,
           'crop_height': globals.cropHeight,
-          'university_ids': (globals.univercitiesName.indexOf(globals.uniId) + 1).toString(),
-          'major_degree_ids': (globals.degrees.indexOf(globals.majorId) + 1).toString(),
-          'minor_degree_ids': (globals.degrees.indexOf(globals.minorId) + 1).toString(),
+          'university_ids': (int.parse(globals.univercitiesName.indexOf(globals.uniId).toString()) + 1).toString(),
+          'major_degree_ids': (int.parse(globals.degrees.indexOf(globals.majorId).toString()) + 1).toString(),
+          'minor_degree_ids': (int.parse(globals.degrees.indexOf(globals.minorId).toString()) + 1).toString(),
         };
         var res = await CallApi().postData(
             data, '(Control)registration3.php');
