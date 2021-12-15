@@ -21,7 +21,6 @@ class CustomTable extends StatefulWidget {
   var icon;
   var seats;
   var id;
-  bool toggleValue = false;
   bool hiddenBool = true;
   bool status = false;
 
@@ -39,12 +38,12 @@ class CustomTable extends StatefulWidget {
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
+
 }
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   List<bool> enablee = [false, false, false, false, false, false, false, false];
-  bool status = false;
 
 
 
@@ -230,7 +229,7 @@ class _CustomContainerState extends State<CustomTable>
             height: 27,
             valueFontSize: 25.0,
             toggleSize: 25.0,
-            value: status,
+            value: widget.status,
             borderRadius: 30.0,
             padding: 0.0,
             activeColor: globals.blue1,
@@ -246,9 +245,8 @@ class _CustomContainerState extends State<CustomTable>
               color: Colors.white,
             ),
             onToggle: (val) {
-              setState(() {
-                status = val;
-              });
+
+              toggleButton(val);
             },
           ),
         ),
@@ -375,4 +373,38 @@ class _CustomContainerState extends State<CustomTable>
       return Container();
     }
   }
+
+toggleButton(val) async {
+    setState(() {
+      widget.status = val;
+    });
+    if (widget.status == true) {
+      widget.hiddenBool = false;
+      setState(() {
+        if (globals.tmpid != null) {
+           print(globals.children[globals.tmpid].status.toString());
+          globals.children[globals.tmpid].status = false;
+           print(globals.children[globals.tmpid].status.toString());
+          globals.children[globals.tmpid].hiddenBool = true;
+          globals.tmpid = widget.id;
+          print("if: " + globals.tmpid.toString());
+        } else {
+          globals.tmpid = widget.id;
+          print("else: " + globals.tmpid.toString());
+        }
+      });
+      await Future.delayed(const Duration(minutes: 2), () {
+        setState(() {
+          widget.status = false;
+          widget.hiddenBool = true;
+        });
+      });
+    } else {
+      setState(() {
+        globals.tmpid = null;
+        widget.hiddenBool = true;
+      });
+    }
+  }
+  
 }
