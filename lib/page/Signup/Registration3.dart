@@ -322,23 +322,23 @@ _testpass() {
           'minor_degree_ids': (globals.degrees.indexOf(globals.minorId) + 1).toString(),
         };
 
-        print('version: '+ globals.version);
-        print('email: '+ globals.email.toString());
-        print('first_name: '+ globals.fName.toString());
-        print('last_name: '+ globals.lName.toString());
-        print('username: '+ globals.userName.toString());
-        print('password: '+ globals.password.toString());
-        print('repassword: '+ globals.repassword.toString());
-        print('date_of_birth: '+ globals.dateOfBirth.toString());
-        print('photo: '+ globals.photo.toString());
-        print('terms_of_service: '+ globals.terms.toString());
-        print('crop_x: '+ globals.cropX.toString()) ;
-        print('crop_y: '+ globals.cropY.toString());
-        print('crop_width: '+ globals.cropWidth.toString());
-        print('crop_height: '+ globals.cropHeight.toString());
-        print('university_ids: '+ globals.univercitiesName.indexOf(globals.uniId).toString());
-        print('major_degree_ids: '+ globals.degrees.indexOf(globals.majorId).toString());
-        print('minor_degree_ids: '+ globals.degrees.indexOf(globals.minorId).toString());
+        // print('version: '+ globals.version);
+        // print('email: '+ globals.email.toString());
+        // print('first_name: '+ globals.fName.toString());
+        // print('last_name: '+ globals.lName.toString());
+        // print('username: '+ globals.userName.toString());
+        // print('password: '+ globals.password.toString());
+        // print('repassword: '+ globals.repassword.toString());
+        // print('date_of_birth: '+ globals.dateOfBirth.toString());
+        // print('photo: '+ globals.photo.toString());
+        // print('terms_of_service: '+ globals.terms.toString());
+        // print('crop_x: '+ globals.cropX.toString()) ;
+        // print('crop_y: '+ globals.cropY.toString());
+        // print('crop_width: '+ globals.cropWidth.toString());
+        // print('crop_height: '+ globals.cropHeight.toString());
+        // print('university_ids: '+ globals.univercitiesName.indexOf(globals.uniId).toString());
+        // print('major_degree_ids: '+ globals.degrees.indexOf(globals.majorId).toString());
+        // print('minor_degree_ids: '+ globals.degrees.indexOf(globals.minorId).toString());
         
         var res = await CallApi().postData(
             data, '(Control)registration3.php');
