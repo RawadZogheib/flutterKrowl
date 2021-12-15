@@ -385,8 +385,13 @@ toggleButton(bool val) async {
     });
     if (widget.status == true) {
       widget.hiddenBool = false;
-      setState(() {
-        loadOccupants();
+
+      loadOccupants();
+      for(int i = 0; i < 4; i++) {
+        await Future.delayed(const Duration(seconds: 20), () {
+          loadOccupants();
+        });
+      }
         if (globals.tmpid != null) {
            print(globals.children[globals.tmpid].status.toString());
           globals.children[globals.tmpid].status = false;
@@ -398,7 +403,6 @@ toggleButton(bool val) async {
           globals.tmpid = widget.id;
           print("else: " + globals.tmpid.toString());
         }
-      });
       await Future.delayed(const Duration(minutes: 2), () {
         setState(() {
           widget.status = false;
