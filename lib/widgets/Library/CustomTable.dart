@@ -413,11 +413,11 @@ toggleButton(bool val) async {
 
     if(val == true){
       setState(() {
-        widget.visibility = true;
+        //widget.visibility = true;
       });
     }else{
       setState(() {
-        widget.visibility = false;
+       // widget.visibility = false;
       });
     }
 

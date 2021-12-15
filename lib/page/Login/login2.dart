@@ -184,6 +184,8 @@ class _Login2State extends State<Login2> {
           print("fffffffffffffff: ${body[1]}");
           print("fffffffffffffff: ${body[2]}");
           print("fffffffffffffff: ${body[3]}");
+          print("fffffffffffffff: ${body[4]}");
+          print("fffffffffffffff: ${body[5]}");
           localStorage.setString('token', body[1]);
           localStorage.setString('user_id', body[2]);
           localStorage.setString('username', body[3]);

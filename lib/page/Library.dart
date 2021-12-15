@@ -184,8 +184,15 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   Future<void> _loadTables() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
+    var user_uni = localStorage.getString("user_uni");
+    var imgUrl= localStorage.getString("imgUrl");
 
-    var data = {'version': globals.version, 'user_id': user_id};
+    var data = {
+      'version': globals.version,
+      'user_id': user_id,
+      'user_uni': user_uni,
+      'imgUrl':imgUrl
+    };
 
     var res = await CallApi().postData(data, '(Control)loadTables.php');
     print(res.body);
