@@ -23,6 +23,7 @@ class CustomTable extends StatefulWidget {
   var id;
   bool hiddenBool = true;
   bool status = false;
+  List<bool> enablee = [false, false, false, false, false, false, false, false];
 
 
   CustomTable(
@@ -43,7 +44,7 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
-  List<bool> enablee = [false, false, false, false, false, false, false, false];
+
 
 
 
@@ -196,28 +197,28 @@ class _CustomContainerState extends State<CustomTable>
               onTap: () => _sitOnChair(widget.table_name, 8),
               angle: -90 * 3.14159265359 / 180,
             )),
-        enablee[0] == true
+        widget.enablee[0] == true
             ? Positioned(top: 66, left: 105, child: Chair2())
             : Container(),
-        enablee[1] == true
+        widget.enablee[1] == true
             ? Positioned(top: 66, left: 180, child: Chair2())
             : Container(),
-        enablee[2] == true
+        widget.enablee[2] == true
             ? Positioned(top: 127, left: 248, child: Chair2())
             : Container(),
-        enablee[3] == true
+        widget.enablee[3] == true
             ? Positioned(top: 202.5, left: 248, child: Chair2())
             : Container(),
-        enablee[4] == true
+        widget.enablee[4] == true
             ? Positioned(top: 266, left: 180, child: Chair2())
             : Container(),
-        enablee[5] == true
+        widget.enablee[5] == true
             ? Positioned(top: 266, left: 105, child: Chair2())
             : Container(),
-        enablee[6] == true
+        widget.enablee[6] == true
             ? Positioned(top: 127, left: 45, child: Chair2())
             : Container(),
-        enablee[7] == true
+        widget.enablee[7] == true
             ? Positioned(top: 202.5, left: 45, child: Chair2())
             : Container(),
         hiddenFunction(),
@@ -247,6 +248,7 @@ class _CustomContainerState extends State<CustomTable>
             onToggle: (val) {
 
               toggleButton(val);
+              loadOccupants(val);
             },
           ),
         ),
@@ -344,7 +346,7 @@ class _CustomContainerState extends State<CustomTable>
       );
     } else if (body[0] == "error9") {
       setState(() {
-        enablee[position - 1] = false;
+        widget.enablee[position - 1] = false;
       });
       showDialog<String>(
         context: context,
@@ -374,7 +376,7 @@ class _CustomContainerState extends State<CustomTable>
     }
   }
 
-toggleButton(val) async {
+toggleButton(bool val) async {
     setState(() {
       widget.status = val;
     });
@@ -406,5 +408,19 @@ toggleButton(val) async {
       });
     }
   }
-  
+
+  loadOccupants(bool val) {
+
+    if(val == true){
+      setState(() {
+        widget.visibility = true;
+      });
+    }else{
+      setState(() {
+        widget.visibility = false;
+      });
+    }
+
+  }
+
 }
