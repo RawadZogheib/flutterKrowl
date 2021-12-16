@@ -15,7 +15,7 @@ class AskQuestionButton extends StatelessWidget {
       width: 170,
       height: 40,
       child: ElevatedButton(onPressed: (){
-        Navigator.pushNamed(context, '/Code');
+        Navigator.pushNamed(context, '/Test');
       },
         style:
         ButtonStyle(

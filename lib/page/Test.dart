@@ -1,17 +1,18 @@
-import 'dart:io';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Forum/AskQuestion.dart';
 import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
-import 'package:flutter_app_backend/widgets/Forum/TopContributors.dart';
+import 'package:flutter_app_backend/widgets/Forum/Contributors.dart';
+import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+
+import 'Responsive.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Test()));
@@ -22,7 +23,7 @@ class Test extends StatefulWidget {
   State<Test> createState() => _TestState();
 }
 
-class _TestState extends State<Test> with TickerProviderStateMixin {
+class _TestState extends State<Test> with SingleTickerProviderStateMixin {
   late TabController tabController;
   List<ContentView> contentViews = [
     ContentView(
@@ -56,90 +57,197 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
         )),
   ];
 
-  bool toggleValue = false;
-  late AnimationController controller;
-
+  @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 10),
-    )..addListener(() {
-      setState(() {});
-    });
-    controller.stop(canceled: true);
     super.initState();
+    tabController = TabController(length: contentViews.length, vsync: this);
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    toggleButton() async {
-      setState(() {
-        toggleValue = !toggleValue;
-
-      });
-      if(toggleValue == true){
-        controller.repeat(reverse: false);
-        await Future.delayed(const Duration(seconds: 10), (){
-          controller.stop();
-        });
-      }else{
-        controller.reset();
-      }
-    }
+    Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          AnimatedContainer(
-            height:30,
-            width: 80,
-            duration: Duration(milliseconds: 1000),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: toggleValue
-                    ? Colors.blue.shade900
-                    : Colors.blue.shade100),
-            child: Stack(
+        backgroundColor: globals.white,
+        body: Responsive(
+          mobile: SingleChildScrollView(
+            reverse: true,
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-            AnimatedPositioned(
-            duration: Duration(milliseconds: 1000),
-            curve: Curves.easeIn,
-            top: 3.0,
-            left: toggleValue ? 50.0 : 0.0,
-            right: toggleValue ? 5.0 : 60.0,
-            child: InkWell(
-              onTap: toggleButton,
-              child: AnimatedSwitcher(duration: Duration(milliseconds: 1000),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                return RotationTransition(child: child,
-                turns: animation,);
-                },
-                child: toggleValue? Icon(Icons.lightbulb, color: Colors.yellow, size: 25, key: UniqueKey(),):
-                Icon(Icons.lightbulb_outline_sharp, color: Colors.white, size: 25, key: UniqueKey(),),
+                  CreateTable(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Wrap(
+                                children: [
+                                  Column(children: globals.children,)],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ),)
-            ],
-          ),),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: <Widget>[
-                LinearProgressIndicator(
-                  value: controller.value,
-                  semanticsLabel: 'Linear progress indicator',
-                  color: globals.blue1,
-                  backgroundColor: globals.blue2,
-                ),
-              ],
             ),
           ),
-        ],
-      ),
-    );
+          tablet: SingleChildScrollView(
+            reverse: true,
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Wrap(
+                                children: [
+                                  Column(children: globals.children,)],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          desktop: SingleChildScrollView(
+            reverse: true,
+            child: Column(children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'Assets/krowl_logo.png',
+                    scale: 2.0,
+                  ),
+                  SizedBox(
+                    width: 350,
+                  ),
+                  CustomTabBar(
+                    controller: tabController,
+                    tabs: contentViews.map((e) => e.tab).toList(),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+            SizedBox(
+              width: 250.0,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 30.0,
+                  fontFamily: 'Rubik',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                child: AnimatedTextKit(
+                  totalRepeatCount: 5,
+                  animatedTexts: [
+                    WavyAnimatedText('Ask a question ?'),
+                  ],
+                  isRepeatingAnimation: true,
+                  onTap: () {
+                    print("Tap Event");
+                  },
+                ),
+              ),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 130,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BouncingWidget(
+                            duration: Duration(milliseconds: 100),
+                            scaleFactor: 1.5,
+                            onPressed: () {
+                              print("onPressed");
+                            },
+                            child: Text(
+                              "Forum",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 430,
+                          ),
+                          AskQuestionButton(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SearchBar(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Question(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Question(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Question(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Question(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Contributors(),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ));
   }
 }
+
+
+
