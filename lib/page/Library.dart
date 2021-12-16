@@ -66,7 +66,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: globals.white,
         body: Responsive(
           mobile: SingleChildScrollView(

@@ -48,6 +48,8 @@ dependencies:
   hovering: ^1.0.4
   animations: ^2.0.2
   flutter_switch: ^0.3.2
+  toggle_switch: ^1.3.0
+  flutter_device_type: ^0.4.0
 
 
 dev_dependencies:

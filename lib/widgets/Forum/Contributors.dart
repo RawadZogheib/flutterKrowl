@@ -3,7 +3,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
 
 
-class TopContributors extends StatefulWidget {
+class Contributors extends StatefulWidget {
   var height;
   var width;
   var text;
@@ -12,13 +12,13 @@ class TopContributors extends StatefulWidget {
   var color2 = Colors.grey.shade600;
   var onTap;
 
-  TopContributors({this.height, this.width, this.text, this.text2, this.onTap});
+  Contributors({this.height, this.width, this.text, this.text2, this.onTap});
 
   @override
-  State<TopContributors> createState() => _TopContributors();
+  State<Contributors> createState() => _Contributors();
 }
 
-class _TopContributors extends State<TopContributors> {
+class _Contributors extends State<Contributors> {
   int _like = 0;
   int _dislike = 0;
   @override
