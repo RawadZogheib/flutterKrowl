@@ -179,14 +179,14 @@ class _CustomContainerState extends State<CustomTable>
               angle: -180 * 3.14159265359 / 180,
             )),
         Positioned(
-            top: 140,
+            top: 215,
             left: 34,
             child: Chair(
               onTap: () => _sitOnChair(widget.table_name, 7),
               angle: -90 * 3.14159265359 / 180,
             )),
         Positioned(
-            top: 215,
+            top: 140,
             left: 34,
             child: Chair(
               onTap: () => _sitOnChair(widget.table_name, 8),
@@ -232,13 +232,13 @@ class _CustomContainerState extends State<CustomTable>
             ? Positioned(
                 top: 202.5,
                 left: 45,
-                child: Chair2(img: widget.imgs[7].toString()))
+                child: Chair2(img: widget.imgs[6].toString()))
             : Container(),
         widget.enablee[7] == true
             ? Positioned(
                 top: 127,
                 left: 45,
-                child: Chair2(img: widget.imgs[6].toString()))
+                child: Chair2(img: widget.imgs[7].toString()))
             : Container(),
         hiddenFunction(),
         Positioned(
