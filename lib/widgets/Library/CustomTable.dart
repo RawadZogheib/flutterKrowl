@@ -21,11 +21,11 @@ class CustomTable extends StatefulWidget {
   var icon;
   var seats;
   var id;
+  var nb = '0';
   bool hiddenBool = true;
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<String> imgs = ['', '', '', '', '', '', '', ''];
-
 
   CustomTable(
       {this.children,
@@ -40,16 +40,10 @@ class CustomTable extends StatefulWidget {
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
-
 }
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -100,7 +94,7 @@ class _CustomContainerState extends State<CustomTable>
                   style: TextStyle(
                       color: Colors.grey.shade600, fontFamily: 'Rubik')),
               Text(
-                "0/8",
+                "${widget.nb}/8",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey.shade700,
@@ -199,28 +193,52 @@ class _CustomContainerState extends State<CustomTable>
               angle: -90 * 3.14159265359 / 180,
             )),
         widget.enablee[0] == true
-            ? Positioned(top: 66, left: 105, child: Chair2(img: widget.imgs[0].toString()))
+            ? Positioned(
+                top: 66,
+                left: 105,
+                child: Chair2(img: widget.imgs[0].toString()))
             : Container(),
         widget.enablee[1] == true
-            ? Positioned(top: 66, left: 180, child: Chair2(img: widget.imgs[1].toString()))
+            ? Positioned(
+                top: 66,
+                left: 180,
+                child: Chair2(img: widget.imgs[1].toString()))
             : Container(),
         widget.enablee[2] == true
-            ? Positioned(top: 127, left: 248, child: Chair2(img: widget.imgs[2].toString()))
+            ? Positioned(
+                top: 127,
+                left: 248,
+                child: Chair2(img: widget.imgs[2].toString()))
             : Container(),
         widget.enablee[3] == true
-            ? Positioned(top: 202.5, left: 248, child: Chair2(img: widget.imgs[3].toString()))
+            ? Positioned(
+                top: 202.5,
+                left: 248,
+                child: Chair2(img: widget.imgs[3].toString()))
             : Container(),
         widget.enablee[4] == true
-            ? Positioned(top: 266, left: 180, child: Chair2(img: widget.imgs[4].toString()))
+            ? Positioned(
+                top: 266,
+                left: 180,
+                child: Chair2(img: widget.imgs[4].toString()))
             : Container(),
         widget.enablee[5] == true
-            ? Positioned(top: 266, left: 105, child: Chair2(img: widget.imgs[5].toString()))
+            ? Positioned(
+                top: 266,
+                left: 105,
+                child: Chair2(img: widget.imgs[5].toString()))
             : Container(),
         widget.enablee[6] == true
-            ? Positioned(top: 202.5, left: 45, child: Chair2(img: widget.imgs[7].toString()))
+            ? Positioned(
+                top: 202.5,
+                left: 45,
+                child: Chair2(img: widget.imgs[7].toString()))
             : Container(),
         widget.enablee[7] == true
-            ? Positioned(top: 127, left: 45, child: Chair2(img: widget.imgs[6].toString()))
+            ? Positioned(
+                top: 127,
+                left: 45,
+                child: Chair2(img: widget.imgs[6].toString()))
             : Container(),
         hiddenFunction(),
         Positioned(
@@ -247,7 +265,6 @@ class _CustomContainerState extends State<CustomTable>
               color: Colors.white,
             ),
             onToggle: (val) {
-
               toggleButton(val);
             },
           ),
@@ -255,7 +272,6 @@ class _CustomContainerState extends State<CustomTable>
       ],
     );
   }
-
 
   Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -379,136 +395,202 @@ class _CustomContainerState extends State<CustomTable>
     }
   }
 
-toggleButton(bool val) async {
+  toggleButton(bool val) async {
     setState(() {
-      widget.status = val;
+      widget.status = true;
     });
     if (widget.status == true) {
       widget.hiddenBool = false;
 
+      // if (globals.tmpid != null) {
+      //   print(globals.children[globals.tmpid].status.toString());
+      //   globals.children[globals.tmpid].status = false;
+      //   print(globals.children[globals.tmpid].status.toString());
+      //   globals.children[globals.tmpid].hiddenBool = true;
+      //   globals.tmpid = widget.id;
+      //   print("if: " + globals.tmpid.toString());
+      // } else {
+      //   globals.tmpid = widget.id;
+      //   print("else: " + globals.tmpid.toString());
+      // }
+      print('time!!!!!!!!!!!!!: '+ (0).toString());
       loadOccupants();
-      for(int i = 0; i < 4; i++) {
-        await Future.delayed(const Duration(seconds: 20), () {
-          loadOccupants();
-        });
-      }
-        if (globals.tmpid != null) {
-           print(globals.children[globals.tmpid].status.toString());
-          globals.children[globals.tmpid].status = false;
-           print(globals.children[globals.tmpid].status.toString());
-          globals.children[globals.tmpid].hiddenBool = true;
-          globals.tmpid = widget.id;
-          print("if: " + globals.tmpid.toString());
-        } else {
-          globals.tmpid = widget.id;
-          print("else: " + globals.tmpid.toString());
+      for (int i = 1; i < 7; i++) {
+        if(i != 6){
+          await Future.delayed(const Duration(seconds: 20), () {
+            print('time!!!!!!!!!!!!!: '+ (i).toString());
+            loadOccupants();
+          });
+        }else{
+          await Future.delayed(const Duration(seconds: 20), () {
+            print('time!!!!!!!!!!!!!: '+ (i).toString());
+            setState(() {
+              widget.status = false;
+              globals.tmpid = null;
+              widget.hiddenBool = true;
+              widget.enablee = [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ];
+              widget.nb = '0';
+            });
+          });
         }
-      await Future.delayed(const Duration(minutes: 2), () {
-        setState(() {
-          widget.status = false;
-          widget.hiddenBool = true;
 
-          globals.tmpid = null;
-          widget.enablee = [false, false, false, false, false, false, false, false];
+      }
 
-        });
-      });
+
     } else {
-      setState(() {
-        globals.tmpid = null;
-        widget.hiddenBool = true;
-        widget.enablee = [false, false, false, false, false, false, false, false];
-      });
+      // setState(() {
+      //   globals.tmpid = null;
+      //   widget.hiddenBool = true;
+      //   widget.enablee = [
+      //     false,
+      //     false,
+      //     false,
+      //     false,
+      //     false,
+      //     false,
+      //     false,
+      //     false
+      //   ];
+      //   widget.nb = '0';
+      // });
     }
   }
 
   loadOccupants() async {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
+    //deload all
+    for (int i = 7; i >= 0; i--) {
+      if (widget.enablee[i] == false) continue;
+      await Future.delayed(const Duration(milliseconds: 100), () {
+        setState(() {
+          widget.enablee[i] = false;
+        });
+      });
+    }
 
-      var data = {
-        'version': globals.version,
-        'table_name': widget.table_name,
-      };
+    //load all
+    for (int i = 0; i < 8; i++) {
+      await Future.delayed(const Duration(milliseconds: 100), () {
+        setState(() {
+          widget.enablee[i] = true;
+        });
+      });
+    }
 
-      var res = await CallApi().postData(data, '(Control)loadOccupants.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
-      // try {
-      //   localStorage.setString('token', body[1]);
-      // } catch (e) {
-      //   print('no token found');
+    var data = {
+      'version': globals.version,
+      'table_name': widget.table_name,
+    };
+
+    var res = await CallApi().postData(data, '(Control)loadOccupants.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    // try {
+    //   localStorage.setString('token', body[1]);
+    // } catch (e) {
+    //   print('no token found');
+    // }
+
+    if (body[0] == "success") {
+      setState(() {
+        widget.nb = body[2].length.toString();
+      });
+      // for (int i = 0; i < body[2].length; i++) {
+      //   await Future.delayed(const Duration(milliseconds: 100), () {
+      //     setState(() {
+      //       widget.imgs[int.parse(body[2][i][2].toString()) - 1] = '';
+      //       widget.enablee[int.parse(body[2][i][2].toString()) - 1] = true;
+      //     });
+      //   });
+      //
       // }
 
-      if (body[0] == "success") {
-        for (var i = 0; i < body[2].length; i++) {
-          await Future.delayed(const Duration(milliseconds: 100), () {
+      //deload
+      int j = body[2].length - 1;
+      for (int i = 7; i >= 0; i--) {
+        print('i: ' + i.toString());
+        print('j: ' + j.toString());
+        print('nb: ' + body[2].length.toString());
+        await Future.delayed(const Duration(milliseconds: 100), () {
+          if (i == (int.parse(body[2][j][2]) - 1)) {
             setState(() {
-              widget.imgs[int.parse(body[2][i][2].toString()) - 1] = '';
-              widget.enablee[int.parse(body[2][i][2].toString()) - 1] = true;
+              widget.imgs[int.parse(body[2][j][2]) - 1] = '';
             });
-          });
-
-        }
-      } else if (body[0] == "errorVersion") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(
-                "Your version: " + globals.version + "\n" + globals.errorVersion),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "errorToken") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorToken),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "error4") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error7),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }else {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorElse),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+            if (j > 0) {
+              j--;
+            }
+          } else {
+            setState(() {
+              widget.enablee[i] = false;
+            });
+          }
+        });
       }
-
-
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "error4") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorElse),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
-
 }
