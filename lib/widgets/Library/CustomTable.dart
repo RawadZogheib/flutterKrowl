@@ -411,6 +411,21 @@ class _CustomContainerState extends State<CustomTable>
         }
         if (globals.occupenTable[i] == '2') {
           globals.occupenTable[i] = '3';
+          // setState(() {
+          //   globals.children[i].status = false;
+          //   globals.children[i].hiddenBool = true;
+          //   globals.children[i].enablee = [
+          //     false,
+          //     false,
+          //     false,
+          //     false,
+          //     false,
+          //     false,
+          //     false,
+          //     false
+          //   ];
+          //   globals.children[i].nb = '0';
+          // });
           break;
         }
       }else{
@@ -428,7 +443,7 @@ class _CustomContainerState extends State<CustomTable>
         });
         widget.hiddenBool = false;
 
-        // if (globals.tmpid != null) {
+        //if (globals.tmpid != null) {
         //   print(globals.children[globals.tmpid].status.toString());
         //   globals.children[globals.tmpid].status = false;
         //   print(globals.children[globals.tmpid].status.toString());
@@ -455,7 +470,7 @@ class _CustomContainerState extends State<CustomTable>
                   print('time!!!!!!!!!!!!!: ' + (i).toString());
                   setState(() {
                     widget.status = false;
-                    globals.tmpid = null;
+                    //globals.tmpid = null;
                     widget.hiddenBool = true;
                     widget.enablee = [
                       false,
@@ -476,7 +491,7 @@ class _CustomContainerState extends State<CustomTable>
                 print('time!!!!!!!!!!!!!: ' + (i).toString());
                 setState(() {
                   widget.status = false;
-                  globals.tmpid = null;
+                  // globals.tmpid = null;
                   widget.hiddenBool = true;
                   widget.enablee = [
                     false,
@@ -513,7 +528,7 @@ class _CustomContainerState extends State<CustomTable>
         // });
       }
     } else {
-      
+
     }
   }
 

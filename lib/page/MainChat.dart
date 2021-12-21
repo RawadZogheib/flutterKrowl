@@ -16,11 +16,11 @@ class MainChat extends StatelessWidget{
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
-            title: Text("Chats"),
+            label: "Chats",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text("Friends"),
+            label: "Friends",
           ),
         ],
       ),
