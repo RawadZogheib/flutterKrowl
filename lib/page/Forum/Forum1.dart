@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,18 +12,19 @@ import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 
-import 'Responsive.dart';
+import '../Responsive.dart';
+
 
 void main() =>
-    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Forum()));
+    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Forum1()));
 
-class Forum extends StatefulWidget {
+class Forum1 extends StatefulWidget {
   // This widget is the root of your application.
   @override
-  State<Forum> createState() => _ForumState();
+  State<Forum1> createState() => _Forum1State();
 }
 
-class _ForumState extends State<Forum> with SingleTickerProviderStateMixin {
+class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   late TabController tabController;
   List<ContentView> contentViews = [
     ContentView(
@@ -153,6 +155,26 @@ class _ForumState extends State<Forum> with SingleTickerProviderStateMixin {
               SizedBox(
                 height: 50,
               ),
+              SizedBox(
+                width: 250.0,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 30.0,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  child: AnimatedTextKit(
+                    totalRepeatCount: 5,
+                    animatedTexts: [
+                      WavyAnimatedText('Ask a question ?'),
+                    ],
+                    isRepeatingAnimation: true,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

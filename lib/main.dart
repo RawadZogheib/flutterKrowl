@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/Forum.dart';
+import 'package:flutter_app_backend/page/Forum/Forum1.dart';
 import 'package:flutter_app_backend/page/Library.dart';
 import 'package:flutter_app_backend/page/Signup/Registration.dart';
 import 'package:flutter_app_backend/page/Signup/Registration2.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
          //home: Intro(),
-          initialRoute: '/intro_page',
+          initialRoute: '/Forum1',
           routes: {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
             '/VideoConference': (context) => VideoConference(),
             '/MainChat': (context) => MainChat(),
             '/VideoConference2': (context) => VideoConference2(),
-            '/Forum': (context) => Forum(),
+            '/Forum1': (context) => Forum1(),
           });
     });
   }

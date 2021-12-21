@@ -154,95 +154,37 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
               SizedBox(
                 height: 50,
               ),
-            SizedBox(
-              width: 250.0,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: 'Rubik',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                child: AnimatedTextKit(
-                  totalRepeatCount: 5,
-                  animatedTexts: [
-                    WavyAnimatedText('Ask a question ?'),
-                  ],
-                  isRepeatingAnimation: true,
-                  onTap: () {
-                    print("Tap Event");
-                  },
-                ),
-              ),),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 130,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BouncingWidget(
-                            duration: Duration(milliseconds: 100),
-                            scaleFactor: 1.5,
-                            onPressed: () {
-                              print("onPressed");
-                            },
-                            child: Text(
-                              "Forum",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 430,
-                          ),
-                          AskQuestionButton(),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SearchBar(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Question(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Question(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Question(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Question(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Contributors(),
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 250.0,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 30.0,
+                      fontFamily: 'Rubik',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    child: AnimatedTextKit(
+                      totalRepeatCount: 5,
+                      animatedTexts: [
+                        WavyAnimatedText('Ask a question ?'),
+                      ],
+                      isRepeatingAnimation: true,
+                      onTap: () {
+                        print("Tap Event");
+                      },
+                    ),
+                  ),),
+                Container(
+                  width: 600,
+                  height: 600,
+                  color: globals.blue2,
+                )
+              ],
+            ),
+
             ]),
           ),
         ));
