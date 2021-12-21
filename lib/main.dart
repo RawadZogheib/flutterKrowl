@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
          //home: Intro(),
-          initialRoute: '/Forum1',
+          initialRoute: '/intro_page',
           routes: {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),

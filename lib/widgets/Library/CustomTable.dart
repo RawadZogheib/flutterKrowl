@@ -46,8 +46,9 @@ class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 350,
+      margin: EdgeInsets.only(bottom: 5),
       child: Stack(
         children: [
           Positioned(
@@ -399,10 +400,11 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   toggleButton(bool val) async {
-    setState(() {
-      widget.status = true;
-    });
-    if (widget.status == true) {
+
+    if (widget.status == false) {
+      setState(() {
+        widget.status = true;
+      });
       widget.hiddenBool = false;
 
       // if (globals.tmpid != null) {

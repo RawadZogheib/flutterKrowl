@@ -281,41 +281,41 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
   }
 
-  _columnChecker(int val, int nb) {
-    if (val == 0) {
-      for (var i = nb; i <= 0; i--) {
-        print(i);
-        if (i % 2 == 0) {
-          _columnChecker(val, i);
-          return CustomTable(
-            id: globals.children[i].id,
-            table_name: globals.children[i].table_name,
-            table_type: globals.children[i].table_type,
-            color: globals.children[i].color,
-            seats: globals.children[i].seats,
-          );
-        } else {
-          _columnChecker(val, i);
-        }
-      }
-    } else if (val == 1) {
-      for (var i = nb; i <= 0; i--) {
-        if (i % 2 != 0) {
-          _columnChecker(val, i);
-          return CustomTable(
-            id: globals.children[i].id,
-            table_name: globals.children[i].table_name,
-            table_type: globals.children[i].table_type,
-            color: globals.children[i].color,
-            seats: globals.children[i].seats,
-          );
-        } else {
-          _columnChecker(val, i);
-        }
-      }
-    } else {
-      print("val =/= 0 and 1");
-      exit;
-    }
-  }
+  // _columnChecker(int val, int nb) {
+  //   if (val == 0) {
+  //     for (var i = nb; i <= 0; i--) {
+  //       print(i);
+  //       if (i % 2 == 0) {
+  //         _columnChecker(val, i);
+  //         return CustomTable(
+  //           id: globals.children[i].id,
+  //           table_name: globals.children[i].table_name,
+  //           table_type: globals.children[i].table_type,
+  //           color: globals.children[i].color,
+  //           seats: globals.children[i].seats,
+  //         );
+  //       } else {
+  //         _columnChecker(val, i);
+  //       }
+  //     }
+  //   } else if (val == 1) {
+  //     for (var i = nb; i <= 0; i--) {
+  //       if (i % 2 != 0) {
+  //         _columnChecker(val, i);
+  //         return CustomTable(
+  //           id: globals.children[i].id,
+  //           table_name: globals.children[i].table_name,
+  //           table_type: globals.children[i].table_type,
+  //           color: globals.children[i].color,
+  //           seats: globals.children[i].seats,
+  //         );
+  //       } else {
+  //         _columnChecker(val, i);
+  //       }
+  //     }
+  //   } else {
+  //     print("val =/= 0 and 1");
+  //     exit;
+  //   }
+  // }
 }
