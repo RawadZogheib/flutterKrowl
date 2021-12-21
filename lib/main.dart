@@ -15,7 +15,6 @@ import 'package:flutter_app_backend/page/Test.dart';
 import 'package:flutter_app_backend/page/videoConference.dart';
 import 'package:flutter_app_backend/page/MainChat.dart';
 import 'package:flutter_app_backend/page/videoConference2.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -33,7 +32,6 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          builder: EasyLoading.init(),
          //home: Intro(),
           initialRoute: '/intro_page',
           routes: {
