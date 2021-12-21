@@ -44,6 +44,7 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -488,6 +489,7 @@ class _CustomContainerState extends State<CustomTable>
               });
             } else {
               await Future.delayed(const Duration(seconds: 20), () {
+                globals.occupenTable[widget.id] = '0';
                 print('time!!!!!!!!!!!!!: ' + (i).toString());
                 setState(() {
                   widget.status = false;
