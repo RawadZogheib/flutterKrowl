@@ -46,230 +46,233 @@ class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: 5,
-          left: 25,
-          height: 50,
-          width: 250,
-          child: Row(
-            children: [
-              Text(
-                widget.table_name,
-                style: TextStyle(
-                    color: globals.blue1,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                " - Choose a seat to join",
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 90, bottom: 70, right: 70, left: 70),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey.shade400,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(2),
-          ),
-          child: Container(
-            height: 200,
-            width: 200,
-            padding: EdgeInsets.only(right: 12, left: 1),
-            decoration: BoxDecoration(
-                color: globals.blue2,
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                border: Border.all(color: globals.blue1, width: 4)),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(widget.table_type + " Table",
+    return SizedBox(
+      width: 350,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 5,
+            left: 25,
+            height: 50,
+            width: 250,
+            child: Row(
+              children: [
+                Text(
+                  widget.table_name,
                   style: TextStyle(
-                      color: Colors.grey.shade600, fontFamily: 'Rubik')),
-              Text(
-                "${widget.nb}/8",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
-                  fontFamily: 'Rubik',
-                  fontSize: 30,
+                      color: globals.blue1,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
                 ),
+                Text(
+                  " - Choose a seat to join",
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 90, bottom: 70, right: 70, left: 70),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey.shade400,
+                width: 1,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: Icon(
-                      Icons.videocam,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Text(".",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: Icon(
-                      Icons.mic,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Text(".",
-                      style: TextStyle(
-                        color: widget.color,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ))
-                ],
-              )
-            ]),
-          ),
-        ),
-        Positioned(
-            top: 65,
-            left: 105,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 1),
-              angle: 0.0,
-            )),
-        Positioned(
-            top: 65,
-            left: 180,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 2),
-              angle: 0.0,
-            )),
-        Positioned(
-            top: 140,
-            left: 259,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 3),
-              angle: -270 * 3.14159265359 / 180,
-            )),
-        Positioned(
-            top: 215,
-            left: 259,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 4),
-              angle: -270 * 3.14159265359 / 180,
-            )),
-        Positioned(
-            top: 291,
-            left: 180,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 5),
-              angle: -180 * 3.14159265359 / 180,
-            )),
-        Positioned(
-            top: 291,
-            left: 105,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 6),
-              angle: -180 * 3.14159265359 / 180,
-            )),
-        Positioned(
-            top: 215,
-            left: 34,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 7),
-              angle: -90 * 3.14159265359 / 180,
-            )),
-        Positioned(
-            top: 140,
-            left: 34,
-            child: Chair(
-              onTap: () => _sitOnChair(widget.table_name, 8),
-              angle: -90 * 3.14159265359 / 180,
-            )),
-        widget.enablee[0] == true
-            ? Positioned(
-                top: 66,
-                left: 105,
-                child: Chair2(img: widget.imgs[0].toString()))
-            : Container(),
-        widget.enablee[1] == true
-            ? Positioned(
-                top: 66,
-                left: 180,
-                child: Chair2(img: widget.imgs[1].toString()))
-            : Container(),
-        widget.enablee[2] == true
-            ? Positioned(
-                top: 127,
-                left: 248,
-                child: Chair2(img: widget.imgs[2].toString()))
-            : Container(),
-        widget.enablee[3] == true
-            ? Positioned(
-                top: 202.5,
-                left: 248,
-                child: Chair2(img: widget.imgs[3].toString()))
-            : Container(),
-        widget.enablee[4] == true
-            ? Positioned(
-                top: 266,
-                left: 180,
-                child: Chair2(img: widget.imgs[4].toString()))
-            : Container(),
-        widget.enablee[5] == true
-            ? Positioned(
-                top: 266,
-                left: 105,
-                child: Chair2(img: widget.imgs[5].toString()))
-            : Container(),
-        widget.enablee[6] == true
-            ? Positioned(
-                top: 202.5,
-                left: 45,
-                child: Chair2(img: widget.imgs[6].toString()))
-            : Container(),
-        widget.enablee[7] == true
-            ? Positioned(
-                top: 127,
-                left: 45,
-                child: Chair2(img: widget.imgs[7].toString()))
-            : Container(),
-        hiddenFunction(),
-        Positioned(
-          top: 15,
-          right: 20,
-          child: FlutterSwitch(
-            width: 60,
-            height: 27,
-            valueFontSize: 25.0,
-            toggleSize: 25.0,
-            value: widget.status,
-            borderRadius: 30.0,
-            padding: 0.0,
-            activeColor: globals.blue1,
-            inactiveColor: globals.blue2,
-            activeToggleColor: globals.blue1,
-            inactiveToggleColor: globals.blue2,
-            activeIcon: Icon(
-              Icons.lightbulb,
-              color: Colors.yellow,
+              borderRadius: BorderRadius.circular(2),
             ),
-            inactiveIcon: Icon(
-              Icons.lightbulb_outline_sharp,
-              color: Colors.white,
+            child: Container(
+              height: 200,
+              width: 200,
+              padding: EdgeInsets.only(right: 12, left: 1),
+              decoration: BoxDecoration(
+                  color: globals.blue2,
+                  borderRadius: BorderRadius.all(Radius.circular(14)),
+                  border: Border.all(color: globals.blue1, width: 4)),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text(widget.table_type + " Table",
+                    style: TextStyle(
+                        color: Colors.grey.shade600, fontFamily: 'Rubik')),
+                Text(
+                  "${widget.nb}/8",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade700,
+                    fontFamily: 'Rubik',
+                    fontSize: 30,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Icon(
+                        Icons.videocam,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(".",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Icon(
+                        Icons.mic,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(".",
+                        style: TextStyle(
+                          color: widget.color,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ))
+                  ],
+                )
+              ]),
             ),
-            onToggle: (val) {
-              toggleButton(val);
-            },
           ),
-        ),
-      ],
+          Positioned(
+              top: 65,
+              left: 105,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 1),
+                angle: 0.0,
+              )),
+          Positioned(
+              top: 65,
+              left: 180,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 2),
+                angle: 0.0,
+              )),
+          Positioned(
+              top: 140,
+              left: 259,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 3),
+                angle: -270 * 3.14159265359 / 180,
+              )),
+          Positioned(
+              top: 215,
+              left: 259,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 4),
+                angle: -270 * 3.14159265359 / 180,
+              )),
+          Positioned(
+              top: 291,
+              left: 180,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 5),
+                angle: -180 * 3.14159265359 / 180,
+              )),
+          Positioned(
+              top: 291,
+              left: 105,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 6),
+                angle: -180 * 3.14159265359 / 180,
+              )),
+          Positioned(
+              top: 215,
+              left: 34,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 7),
+                angle: -90 * 3.14159265359 / 180,
+              )),
+          Positioned(
+              top: 140,
+              left: 34,
+              child: Chair(
+                onTap: () => _sitOnChair(widget.table_name, 8),
+                angle: -90 * 3.14159265359 / 180,
+              )),
+          widget.enablee[0] == true
+              ? Positioned(
+                  top: 66,
+                  left: 105,
+                  child: Chair2(img: widget.imgs[0].toString()))
+              : Container(),
+          widget.enablee[1] == true
+              ? Positioned(
+                  top: 66,
+                  left: 180,
+                  child: Chair2(img: widget.imgs[1].toString()))
+              : Container(),
+          widget.enablee[2] == true
+              ? Positioned(
+                  top: 127,
+                  left: 248,
+                  child: Chair2(img: widget.imgs[2].toString()))
+              : Container(),
+          widget.enablee[3] == true
+              ? Positioned(
+                  top: 202.5,
+                  left: 248,
+                  child: Chair2(img: widget.imgs[3].toString()))
+              : Container(),
+          widget.enablee[4] == true
+              ? Positioned(
+                  top: 266,
+                  left: 180,
+                  child: Chair2(img: widget.imgs[4].toString()))
+              : Container(),
+          widget.enablee[5] == true
+              ? Positioned(
+                  top: 266,
+                  left: 105,
+                  child: Chair2(img: widget.imgs[5].toString()))
+              : Container(),
+          widget.enablee[6] == true
+              ? Positioned(
+                  top: 202.5,
+                  left: 45,
+                  child: Chair2(img: widget.imgs[6].toString()))
+              : Container(),
+          widget.enablee[7] == true
+              ? Positioned(
+                  top: 127,
+                  left: 45,
+                  child: Chair2(img: widget.imgs[7].toString()))
+              : Container(),
+          hiddenFunction(),
+          Positioned(
+            top: 15,
+            right: 20,
+            child: FlutterSwitch(
+              width: 60,
+              height: 27,
+              valueFontSize: 25.0,
+              toggleSize: 25.0,
+              value: widget.status,
+              borderRadius: 30.0,
+              padding: 0.0,
+              activeColor: globals.blue1,
+              inactiveColor: globals.blue2,
+              activeToggleColor: globals.blue1,
+              inactiveToggleColor: globals.blue2,
+              activeIcon: Icon(
+                Icons.lightbulb,
+                color: Colors.yellow,
+              ),
+              inactiveIcon: Icon(
+                Icons.lightbulb_outline_sharp,
+                color: Colors.white,
+              ),
+              onToggle: (val) {
+                toggleButton(val);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

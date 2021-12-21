@@ -90,7 +90,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                               Wrap(
                                 children: [
-                                  Column(children: globals.children,)],
+                                  Column(
+                                    children: globals.children,
+                                  )
+                                ],
                               ),
                               SizedBox(width: 20),
                             ]),
@@ -121,7 +124,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                               Wrap(
                                 children: [
-                                  Column(children: globals.children,)],
+                                  Column(
+                                    children: globals.children,
+                                  )
+                                ],
                               ),
                               SizedBox(width: 20),
                             ]),
@@ -167,10 +173,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                           SizedBox(
                             width: 20,
                           ),
-                          Wrap(
-                            children: [
-                              Column(children: globals.children,)],
-                          ),
+                          SizedBox(
+                              width: 700,
+                              child: Wrap(children: globals.children)),
                           SizedBox(width: 20),
                         ]),
                   ),
@@ -289,7 +294,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             color: globals.children[i].color,
             seats: globals.children[i].seats,
           );
-        }else{
+        } else {
           _columnChecker(val, i);
         }
       }
@@ -304,7 +309,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             color: globals.children[i].color,
             seats: globals.children[i].seats,
           );
-        }else{
+        } else {
           _columnChecker(val, i);
         }
       }
