@@ -209,6 +209,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     if (body[0] == "success") {
       for (var i = 0; i < body[2].length; i++) {
         //localStorage.setString('contrat_Id', value)
+        globals.occupenTable.add('0');
         globals.children.add(
           CustomTable(
               id: i,

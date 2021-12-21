@@ -91,52 +91,53 @@ class _CustomContainerState extends State<CustomTable>
                   color: globals.blue2,
                   borderRadius: BorderRadius.all(Radius.circular(14)),
                   border: Border.all(color: globals.blue1, width: 4)),
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(widget.table_type + " Table",
-                    style: TextStyle(
-                        color: Colors.grey.shade600, fontFamily: 'Rubik')),
-                Text(
-                  "${widget.nb}/8",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade700,
-                    fontFamily: 'Rubik',
-                    fontSize: 30,
-                  ),
-                ),
-                Row(
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Icon(
-                        Icons.videocam,
-                        color: Colors.grey,
+                    Text(widget.table_type + " Table",
+                        style: TextStyle(
+                            color: Colors.grey.shade600, fontFamily: 'Rubik')),
+                    Text(
+                      "${widget.nb}/8",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade700,
+                        fontFamily: 'Rubik',
+                        fontSize: 30,
                       ),
                     ),
-                    Text(".",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Icon(
-                        Icons.mic,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(".",
-                        style: TextStyle(
-                          color: widget.color,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ))
-                  ],
-                )
-              ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Icon(
+                            Icons.videocam,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(".",
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Icon(
+                            Icons.mic,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(".",
+                            style: TextStyle(
+                              color: widget.color,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ))
+                      ],
+                    )
+                  ]),
             ),
           ),
           Positioned(
@@ -400,77 +401,124 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   toggleButton(bool val) async {
+    bool test = false;
+    for (int i = 0; i < globals.occupenTable.length; i++) {
 
-    if (widget.status == false) {
-      setState(() {
-        widget.status = true;
-      });
-      widget.hiddenBool = false;
-
-      // if (globals.tmpid != null) {
-      //   print(globals.children[globals.tmpid].status.toString());
-      //   globals.children[globals.tmpid].status = false;
-      //   print(globals.children[globals.tmpid].status.toString());
-      //   globals.children[globals.tmpid].hiddenBool = true;
-      //   globals.tmpid = widget.id;
-      //   print("if: " + globals.tmpid.toString());
-      // } else {
-      //   globals.tmpid = widget.id;
-      //   print("else: " + globals.tmpid.toString());
-      // }
-      print('time!!!!!!!!!!!!!: '+ (0).toString());
-      loadOccupants();
-      for (int i = 1; i < 7; i++) {
-        if(i != 6){
-          await Future.delayed(const Duration(seconds: 20), () {
-            print('time!!!!!!!!!!!!!: '+ (i).toString());
-            loadOccupants();
-          });
-        }else{
-          await Future.delayed(const Duration(seconds: 20), () {
-            print('time!!!!!!!!!!!!!: '+ (i).toString());
-            setState(() {
-              widget.status = false;
-              globals.tmpid = null;
-              widget.hiddenBool = true;
-              widget.enablee = [
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-              ];
-              widget.nb = '0';
-            });
-          });
+      if(globals.occupenTable[widget.id] == '0'){
+        if (globals.occupenTable[i] == '1') {
+          test = true;
+          break;
         }
-
+        if (globals.occupenTable[i] == '2') {
+          globals.occupenTable[i] = '3';
+          break;
+        }
+      }else{
+        test = true;
       }
 
-
-    } else {
-      // setState(() {
-      //   globals.tmpid = null;
-      //   widget.hiddenBool = true;
-      //   widget.enablee = [
-      //     false,
-      //     false,
-      //     false,
-      //     false,
-      //     false,
-      //     false,
-      //     false,
-      //     false
-      //   ];
-      //   widget.nb = '0';
-      // });
     }
+    if (test == false) {
+      globals.occupenTable[widget.id] = '1';
+      print("stts: 1");
+
+      if (widget.status == false) {
+        setState(() {
+          widget.status = true;
+        });
+        widget.hiddenBool = false;
+
+        // if (globals.tmpid != null) {
+        //   print(globals.children[globals.tmpid].status.toString());
+        //   globals.children[globals.tmpid].status = false;
+        //   print(globals.children[globals.tmpid].status.toString());
+        //   globals.children[globals.tmpid].hiddenBool = true;
+        //   globals.tmpid = widget.id;
+        //   print("if: " + globals.tmpid.toString());
+        // } else {
+        //   globals.tmpid = widget.id;
+        //   print("else: " + globals.tmpid.toString());
+        // }
+        print('time!!!!!!!!!!!!!: ' + (0).toString());
+        loadOccupants();
+        for (int i = 1; i < 7; i++) {
+
+            globals.occupenTable[widget.id] = '1';
+            if (i != 6) {
+              await Future.delayed(const Duration(seconds: 20), () {
+                if (globals.occupenTable[widget.id] == '2') {
+                  print('time!!!!!!!!!!!!!: ' + (i).toString());
+                  loadOccupants();
+                }else{
+                  globals.occupenTable[widget.id] = '0';
+                  i=7;
+                  print('time!!!!!!!!!!!!!: ' + (i).toString());
+                  setState(() {
+                    widget.status = false;
+                    globals.tmpid = null;
+                    widget.hiddenBool = true;
+                    widget.enablee = [
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false,
+                      false
+                    ];
+                    widget.nb = '0';
+                  });
+                }
+              });
+            } else {
+              await Future.delayed(const Duration(seconds: 20), () {
+                print('time!!!!!!!!!!!!!: ' + (i).toString());
+                setState(() {
+                  widget.status = false;
+                  globals.tmpid = null;
+                  widget.hiddenBool = true;
+                  widget.enablee = [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false
+                  ];
+                  widget.nb = '0';
+                });
+              });
+            }
+
+
+        }
+      } else {
+        // setState(() {
+        //   globals.tmpid = null;
+        //   widget.hiddenBool = true;
+        //   widget.enablee = [
+        //     false,
+        //     false,
+        //     false,
+        //     false,
+        //     false,
+        //     false,
+        //     false,
+        //     false
+        //   ];
+        //   widget.nb = '0';
+        // });
+      }
+    } else {}
   }
 
   loadOccupants() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    String id = localStorage.getString('user_id').toString();
+    print('fdsfdsfsdf id: ' + id);
     //deload all
     for (int i = 7; i >= 0; i--) {
       if (widget.enablee[i] == false) continue;
@@ -492,17 +540,20 @@ class _CustomContainerState extends State<CustomTable>
 
     var data = {
       'version': globals.version,
+      'user_id': id,
       'table_name': widget.table_name,
     };
 
     var res = await CallApi().postData(data, '(Control)loadOccupants.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    // try {
-    //   localStorage.setString('token', body[1]);
-    // } catch (e) {
-    //   print('no token found');
-    // }
+    try {
+      localStorage.setString('token', body[1]);
+      globals.occupenTable[widget.id] = '2';
+      print("stts: 2");
+    } catch (e) {
+      print('no token found');
+    }
 
     if (body[0] == "success") {
       setState(() {
