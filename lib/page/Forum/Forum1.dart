@@ -155,26 +155,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               SizedBox(
                 height: 50,
               ),
-              SizedBox(
-                width: 250.0,
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 30.0,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  child: AnimatedTextKit(
-                    totalRepeatCount: 5,
-                    animatedTexts: [
-                      WavyAnimatedText('Ask a question ?'),
-                    ],
-                    isRepeatingAnimation: true,
-                    onTap: () {
-                      print("Tap Event");
-                    },
-                  ),
-                ),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
