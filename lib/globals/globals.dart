@@ -7,7 +7,7 @@ const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
 const String myIP = "http://10.10.4.68";
-const String jaasUrl ="https://edubee.org/jit/?table=";
+const String jaasUrl ="https://edubee.org/krowl/jit/?table=";
 
 //Colors
 Color white = Colors.white;
