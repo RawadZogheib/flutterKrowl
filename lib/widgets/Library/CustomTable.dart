@@ -282,6 +282,7 @@ class _CustomContainerState extends State<CustomTable>
   Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
+    var username=localStorage.getString("username");
 
     var data = {
       'version': globals.version,
@@ -305,12 +306,12 @@ class _CustomContainerState extends State<CustomTable>
         widget.enablee[position - 1] = true;
       });
       if (!await launch(
-        globals.jaasUrl + table_name,
+        globals.jaasUrl + table_name + '&user=' + username.toString(),
         forceSafariVC: false,
         forceWebView: true,
         headers: <String, String>{'my_header_key': 'my_header_value'},
       )) {
-        throw 'Could not launch ${globals.jaasUrl + table_name}';
+        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
       }
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
