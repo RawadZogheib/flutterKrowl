@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -17,7 +18,6 @@ class CustomTable extends StatefulWidget {
   var height;
   var width;
   var color;
-
   var icon;
   var seats;
   var id;
@@ -44,6 +44,7 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
+  Timer t = Timer(Duration(seconds: 30), () => {print("first timer")});
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +283,7 @@ class _CustomContainerState extends State<CustomTable>
   Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
-    var username=localStorage.getString("username");
+    var username = localStorage.getString("username");
 
     var data = {
       'version': globals.version,
@@ -402,136 +403,55 @@ class _CustomContainerState extends State<CustomTable>
     }
   }
 
-  toggleButton(bool val) async {
+  toggleButton(bool val) {
     bool test = false;
+
     for (int i = 0; i < globals.occupenTable.length; i++) {
-
-      if(globals.occupenTable[widget.id] == '0'){
-        if (globals.occupenTable[i] == '1') {
-          test = true;
-          break;
-        }
-        if (globals.occupenTable[i] == '2') {
-          globals.occupenTable[i] = '3';
-          // setState(() {
-          //   globals.children[i].status = false;
-          //   globals.children[i].hiddenBool = true;
-          //   globals.children[i].enablee = [
-          //     false,
-          //     false,
-          //     false,
-          //     false,
-          //     false,
-          //     false,
-          //     false,
-          //     false
-          //   ];
-          //   globals.children[i].nb = '0';
-          // });
-          break;
-        }
-      }else{
-        test = true;
+      // Check all table
+      if (globals.occupenTable[i] == '1') {
+        // Table getting token
+        test = true; // There is table getting token
+        break;
       }
-
     }
     if (test == false) {
-      globals.occupenTable[widget.id] = '1';
-      print("stts: 1");
-
+      // There is no  table getting token
       if (widget.status == false) {
         setState(() {
-          widget.status = true;
+          widget.status = !widget.status;
         });
+
+        globals.occupenTable[widget.id] = '1'; // Table getting token
+        print("stts: 1");
+        // Toggle  On
         widget.hiddenBool = false;
-
-        //if (globals.tmpid != null) {
-        //   print(globals.children[globals.tmpid].status.toString());
-        //   globals.children[globals.tmpid].status = false;
-        //   print(globals.children[globals.tmpid].status.toString());
-        //   globals.children[globals.tmpid].hiddenBool = true;
-        //   globals.tmpid = widget.id;
-        //   print("if: " + globals.tmpid.toString());
-        // } else {
-        //   globals.tmpid = widget.id;
-        //   print("else: " + globals.tmpid.toString());
-        // }
-        print('time!!!!!!!!!!!!!: ' + (0).toString());
         loadOccupants();
-        for (int i = 1; i < 7; i++) {
-
-            globals.occupenTable[widget.id] = '1';
-            if (i != 6) {
-              await Future.delayed(const Duration(seconds: 20), () {
-                if (globals.occupenTable[widget.id] == '2') {
-                  print('time!!!!!!!!!!!!!: ' + (i).toString());
-                  loadOccupants();
-                }else{
-                  globals.occupenTable[widget.id] = '0';
-                  i=7;
-                  print('time!!!!!!!!!!!!!: ' + (i).toString());
-                  setState(() {
-                    widget.status = false;
-                    //globals.tmpid = null;
-                    widget.hiddenBool = true;
-                    widget.enablee = [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false
-                    ];
-                    widget.nb = '0';
-                  });
-                }
-              });
-            } else {
-              await Future.delayed(const Duration(seconds: 20), () {
-                globals.occupenTable[widget.id] = '0';
-                print('time!!!!!!!!!!!!!: ' + (i).toString());
-                setState(() {
-                  widget.status = false;
-                  // globals.tmpid = null;
-                  widget.hiddenBool = true;
-                  widget.enablee = [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false
-                  ];
-                  widget.nb = '0';
-                });
-              });
-            }
-
-
-        }
+        _startTimer();
       } else {
-        // setState(() {
-        //   globals.tmpid = null;
-        //   widget.hiddenBool = true;
-        //   widget.enablee = [
-        //     false,
-        //     false,
-        //     false,
-        //     false,
-        //     false,
-        //     false,
-        //     false,
-        //     false
-        //   ];
-        //   widget.nb = '0';
-        // });
+        // Toggle Off
+        setState(() {
+          widget.status = !widget.status;
+        });
+        //globals.occupenTable[widget.id] = '0';
+        setState(() {
+          //widget.status = false;
+          globals.tmpid = null;
+          widget.hiddenBool = true;
+          widget.enablee = [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ];
+          widget.nb = '0';
+        });
       }
     } else {
-
+      // There is table getting token
     }
   }
 
@@ -569,8 +489,8 @@ class _CustomContainerState extends State<CustomTable>
     List<dynamic> body = json.decode(res.body);
     try {
       localStorage.setString('token', body[1]);
-      globals.occupenTable[widget.id] = '2';
-      print("stts: 2");
+      globals.occupenTable[widget.id] = '0'; // Table is On
+      print("stts: 0");
     } catch (e) {
       print('no token found');
     }
@@ -579,22 +499,13 @@ class _CustomContainerState extends State<CustomTable>
       setState(() {
         widget.nb = body[2].length.toString();
       });
-      // for (int i = 0; i < body[2].length; i++) {
-      //   await Future.delayed(const Duration(milliseconds: 100), () {
-      //     setState(() {
-      //       widget.imgs[int.parse(body[2][i][2].toString()) - 1] = '';
-      //       widget.enablee[int.parse(body[2][i][2].toString()) - 1] = true;
-      //     });
-      //   });
-      //
-      // }
 
       //deload
       int j = body[2].length - 1;
       for (int i = 7; i >= 0; i--) {
-        print('i: ' + i.toString());
-        print('j: ' + j.toString());
-        print('nb: ' + body[2].length.toString());
+        // print('i: ' + i.toString());
+        // print('j: ' + j.toString());
+        // print('nb: ' + body[2].length.toString());
         await Future.delayed(const Duration(milliseconds: 100), () {
           if (i == (int.parse(body[2][j][2]) - 1)) {
             setState(() {
@@ -669,4 +580,32 @@ class _CustomContainerState extends State<CustomTable>
       );
     }
   }
-}
+
+  _startTimer() async {
+    if(t.isActive) {
+      t.cancel();
+    }
+    t = Timer(Duration(seconds: 30), () {
+        print('time!!!!!!!!!!!!!: ' + '1');
+        //print('time!!!!!!!!!!!!!: ' + (i).toString());
+        //globals.occupenTable[widget.id] = '0';
+        setState(() {
+          widget.status = false;
+          globals.tmpid = null;
+          widget.hiddenBool = true;
+          widget.enablee = [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ];
+          widget.nb = '0';
+        });
+      });
+    }
+  }
+
