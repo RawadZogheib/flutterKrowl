@@ -459,127 +459,136 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   loadOccupants() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    String id = localStorage.getString('user_id').toString();
-    print('fdsfdsfsdf id: ' + id);
-    //deload all
-    for (int i = 7; i >= 0; i--) {
-      if (widget.enablee[i] == false) continue;
-      await Future.delayed(const Duration(milliseconds: 100), () {
-        setState(() {
-          widget.enablee[i] = false;
-        });
-      });
-    }
-
-    //load all
-    for (int i = 0; i < 8; i++) {
-      await Future.delayed(const Duration(milliseconds: 100), () {
-        setState(() {
-          widget.enablee[i] = true;
-        });
-      });
-    }
-
-    var data = {
-      'version': globals.version,
-      'user_id': id,
-      'table_name': widget.table_name,
-    };
-
-    var res = await CallApi().postData(data, '(Control)loadOccupants.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
     try {
-      localStorage.setString('token', body[1]);
-      print("stts: 0");
-    } catch (e) {
-      print('no token found');
-    }
-
-    if (body[0] == "success") {
-      setState(() {
-        widget.nb = body[2].length.toString();
-      });
-
-      //deload
-      int j = body[2].length - 1;
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      String id = localStorage.getString('user_id').toString();
+      print('fdsfdsfsdf id: ' + id);
+      //deload all
       for (int i = 7; i >= 0; i--) {
-        // print('i: ' + i.toString());
-        // print('j: ' + j.toString());
-        // print('nb: ' + body[2].length.toString());
+        if (widget.enablee[i] == false) continue;
         await Future.delayed(const Duration(milliseconds: 100), () {
-          if (i == (int.parse(body[2][j][2]) - 1)) {
-            setState(() {
-              widget.imgs[int.parse(body[2][j][2]) - 1] = '';
-            });
-            if (j > 0) {
-              j--;
-            }
-          } else {
-            setState(() {
-              widget.enablee[i] = false;
-            });
-          }
+          setState(() {
+            widget.enablee[i] = false;
+          });
         });
       }
-    } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "error4") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorElse),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+
+      //load all
+      for (int i = 0; i < 8; i++) {
+        await Future.delayed(const Duration(milliseconds: 100), () {
+          setState(() {
+            widget.enablee[i] = true;
+          });
+        });
+      }
+
+      var data = {
+        'version': globals.version,
+        'user_id': id,
+        'table_name': widget.table_name,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadOccupants.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+      try {
+        localStorage.setString('token', body[1]);
+        print("stts: 0");
+      } catch (e) {
+        print('no token found');
+      }
+
+      if (body[0] == "success") {
+        setState(() {
+          widget.nb = body[2].length.toString();
+        });
+
+        //deload
+        int j = body[2].length - 1;
+        for (int i = 7; i >= 0; i--) {
+          // print('i: ' + i.toString());
+          // print('j: ' + j.toString());
+          // print('nb: ' + body[2].length.toString());
+          await Future.delayed(const Duration(milliseconds: 100), () {
+            if (i == (int.parse(body[2][j][2]) - 1)) {
+              setState(() {
+                widget.imgs[int.parse(body[2][j][2]) - 1] = '';
+              });
+              if (j > 0) {
+                j--;
+              }
+            } else {
+              setState(() {
+                widget.enablee[i] = false;
+              });
+            }
+          });
+        }
+      } else if (body[0] == "errorVersion") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(
+                    "Your version: " + globals.version + "\n" +
+                        globals.errorVersion),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "errorToken") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(globals.errorToken),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else if (body[0] == "error4") {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(globals.error7),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                title: const Text('Error'),
+                content: const Text(globals.errorElse),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+        );
+      }
+    }catch(e){
+      print("Exeption: " + e.toString());
     }
     globals.occupenTable[widget.id] = '0'; // Table is On
   }
