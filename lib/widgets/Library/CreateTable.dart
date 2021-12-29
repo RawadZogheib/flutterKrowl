@@ -3,38 +3,28 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/page/Library.dart';
-import 'package:flutter_app_backend/widgets/Dropdown.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
+import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 
 class CreateTable extends StatefulWidget {
   var children;
   var onTap;
+  var tableName;
 
- CreateTable ({ this.children,this.onTap });
-
+  CreateTable({this.children, this.onTap});
 
   @override
   State<CreateTable> createState() => _NextButtonState();
-
 }
 
 class _NextButtonState extends State<CreateTable> {
-
   String? dropdownValue;
-  List gender = [
-    '4',
-    '5',
-    '6',
-    '7',
-    '8'
-  ];
+  List gender = ['4', '5', '6', '7', '8'];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,93 +55,134 @@ class _NextButtonState extends State<CreateTable> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: 65,),
-                  Text("Create a Table",
+                  SizedBox(
+                    width: 65,
+                  ),
+                  Text(
+                    "Create a Table",
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Rubik', color:Colors.black),),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Rubik',
+                        color: Colors.black),
+                  ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
-                  SizedBox(width: 20,),
-                  Text("Table Name *",
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Table Name *",
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color:Colors.black),),
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: 'Rubik', color: Colors.black),
+                  ),
                 ],
               ),
-              SizedBox(height: 10,),
-              Container(
-                  width: 220,
-                  height:40,
-                  child: TextInput1()),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 10,
+              ),
+              Container(width: 220, height: 40, child: TextInput1(
+                onChanged: (val){
+                  widget.tableName = val;
+                  print(widget.tableName.toString());
+                },
+              )),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
-                  SizedBox(width: 20,),
-                  Text("Number of Seats *",
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Number of Seats *",
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 20, fontFamily: 'Rubik', color:Colors.black),),
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: 'Rubik', color: Colors.black),
+                  ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Dropdown1(),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width:88,child: TableButton(text: "Quiet", index: 1)),
-                  SizedBox(width: 35,),
-                  Container(width:95,child: TableButton(text: "Silent", index: 2))
+                  Container(
+                      width: 88, child: TableButton(text: "Quiet", index: 1)),
+                  SizedBox(
+                    width: 35,
+                  ),
+                  Container(
+                      width: 95, child: TableButton(text: "Silent", index: 2))
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TableButton(text: "Public", index: 3),
-                  SizedBox(width: 35,),
+                  SizedBox(
+                    width: 35,
+                  ),
                   TableButton(text: "Private", index: 4)
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Container(
                 width: 220,
                 height: 40,
-                child: ElevatedButton(onPressed: (){
-                  //_createTable();
+                child: ElevatedButton(
+                  onPressed: () {
+                    _createTable();
 
-
-                  setState(() {
-                    globals.children.add(CustomTable(table_name: 'TextInput122', table_type: '1', color: Colors.red));
-                  });
-
-                },
-                  style:
-                  ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(globals.blue1),
-                      shadowColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    setState(() {
+                      globals.children.add(CustomTable(
+                          table_name: widget.tableName.toString(),
+                          table_type: '1',
+                          color: Colors.red));
+                    });
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(globals.blue1),
+                      shadowColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
-                              side: BorderSide(color: globals.blue1)
-                          )
-                      )
+                              side: BorderSide(color: globals.blue1)))),
+                  child: Text(
+                    'Create Table',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: 'Rubik',
+                        color: globals.white),
                   ),
-                  child: Text ('Create Table',
-                    style: TextStyle(fontSize: 17, fontFamily: 'Rubik', color: globals.white),
-
-                  ),),
+                ),
               ),
             ],
           ),
         ),
       ],
     );
-
   }
-
-
 
   Future<void> _createTable() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -160,7 +191,7 @@ class _NextButtonState extends State<CreateTable> {
     var data = {
       'version': globals.version,
       'user_id': user_id,
-      'table_name': 'dan1a',
+      'table_name': widget.tableName.toString(),
       'seats': '8',
       'table_type': '1'
     };
@@ -171,78 +202,68 @@ class _NextButtonState extends State<CreateTable> {
 
     try {
       localStorage.setString('token', body[1]);
-    }catch(e){
+    } catch (e) {
       print('no token found');
     }
 
     if (body[0] == "success") {
-
       widget.onTap();
-
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " + globals.version + "\n" +
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error7") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
-    }
-    else if (body[0] == "error10") {
+    } else if (body[0] == "error10") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error10),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error10),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     }
   }

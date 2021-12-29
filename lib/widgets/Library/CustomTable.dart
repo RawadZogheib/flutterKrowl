@@ -44,7 +44,7 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
-  Timer t = Timer(Duration(seconds: 30), () => {print("first timer")});
+  late Timer timer;
 
   @override
   Widget build(BuildContext context) {
@@ -432,6 +432,9 @@ class _CustomContainerState extends State<CustomTable>
         setState(() {
           widget.status = !widget.status;
         });
+        if(timer.isActive) {
+          timer.cancel();
+        }
         //globals.occupenTable[widget.id] = '0';
         setState(() {
           //widget.status = false;
@@ -489,7 +492,6 @@ class _CustomContainerState extends State<CustomTable>
     List<dynamic> body = json.decode(res.body);
     try {
       localStorage.setString('token', body[1]);
-      globals.occupenTable[widget.id] = '0'; // Table is On
       print("stts: 0");
     } catch (e) {
       print('no token found');
@@ -579,14 +581,15 @@ class _CustomContainerState extends State<CustomTable>
         ),
       );
     }
+    globals.occupenTable[widget.id] = '0'; // Table is On
   }
 
   _startTimer() async {
-    if(t.isActive) {
-      t.cancel();
-    }
-    t = Timer(Duration(seconds: 30), () {
-        print('time!!!!!!!!!!!!!: ' + '1');
+    // if(timer.isActive) {
+    //   timer.cancel();
+    // }
+    timer = await Timer(const Duration(seconds: 30), () {
+        print('Time Out!!!!!!!!!!!!!');
         //print('time!!!!!!!!!!!!!: ' + (i).toString());
         //globals.occupenTable[widget.id] = '0';
         setState(() {
