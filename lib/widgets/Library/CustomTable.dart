@@ -307,12 +307,12 @@ class _CustomContainerState extends State<CustomTable>
         widget.enablee[position - 1] = true;
       });
       if (!await launch(
-        globals.jaasUrl + table_name + '&user=' + username.toString(),
+        globals.jaasUrl + table_name + '&user=' + username.toString() + '&pos=' + position.toString(),
         forceSafariVC: false,
         forceWebView: true,
         headers: <String, String>{'my_header_key': 'my_header_value'},
       )) {
-        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
+        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString() + '&pos=' + position.toString()}';
       }
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
