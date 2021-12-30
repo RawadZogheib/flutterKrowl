@@ -13,11 +13,10 @@ class TableButton extends StatelessWidget {
       required this.index,
       this.onPressed});
 
-  int index;
+  var index;
   var setState;
   var color;
   var onPressed;
-  int selected = 0;
 
   @override
   Widget build(BuildContext context) {

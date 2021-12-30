@@ -83,4 +83,5 @@ var children = <CustomTable>[];
 List<String> occupenTable = [];
 
 //Createtable
-int selectedPublicPrivet = 1;
+var tableName;
+var selectedPublicPrivet = '1';

@@ -76,7 +76,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CreateTable(),
+                  CreateTable(
+                    onTap: (){
+                      setState(() {
+                        globals.children.add(CustomTable(
+                            table_name: globals.tableName,
+                            table_type: globals.selectedPublicPrivet,
+                            color: Colors.red));
+                      });
+                    },
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -169,7 +178,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CreateTable(),
+                          CreateTable(
+                            onTap: (){
+                              setState(() {
+                                globals.children.add(CustomTable(
+                                    table_name: globals.tableName,
+                                    table_type: globals.selectedPublicPrivet,
+                                    color: Colors.red));
+                              });
+                            },
+                          ),
                           SizedBox(
                             width: 20,
                           ),

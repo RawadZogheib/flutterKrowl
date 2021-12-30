@@ -13,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CreateTable extends StatefulWidget {
   var children;
   var onTap;
-  var tableName;
 
   CreateTable({this.children, this.onTap});
 
@@ -27,7 +26,6 @@ class _NextButtonState extends State<CreateTable> {
 
   @override
   Widget build(BuildContext context) {
-    int val = 0;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -94,8 +92,8 @@ class _NextButtonState extends State<CreateTable> {
                   height: 40,
                   child: TextInput1(
                     onChanged: (val) {
-                      widget.tableName = val;
-                      print(widget.tableName.toString());
+                      globals.tableName = val;
+                      print(globals.tableName.toString());
                     },
                   )),
               SizedBox(
@@ -125,9 +123,9 @@ class _NextButtonState extends State<CreateTable> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                      width: 88, child: TableButton(text: "Quiet", index: 3)),
+                      width: 88, child: TableButton(text: "Quiet", index: '3')),
                   Container(
-                      width: 95, child: TableButton(text: "Silent", index: 3))
+                      width: 95, child: TableButton(text: "Silent", index: '3'))
                 ],
               ),
               SizedBox(
@@ -150,10 +148,10 @@ class _NextButtonState extends State<CreateTable> {
                     width: 95,
                     child: TableButton(
                       text: "Public",
-                      index: 1,
+                      index: '1',
                       onPressed: () {
                         setState(() {
-                          globals.selectedPublicPrivet = 1;
+                          globals.selectedPublicPrivet = '1';
                         });
                       },
                     ),
@@ -162,10 +160,10 @@ class _NextButtonState extends State<CreateTable> {
                     width: 95,
                     child: TableButton(
                       text: "Privet",
-                      index: 2,
+                      index: '2',
                       onPressed: () {
                         setState(() {
-                          globals.selectedPublicPrivet = 2;
+                          globals.selectedPublicPrivet = '2';
                         });
                       },
                     ),
@@ -181,13 +179,6 @@ class _NextButtonState extends State<CreateTable> {
                 child: ElevatedButton(
                   onPressed: () {
                     _createTable();
-
-                    setState(() {
-                      globals.children.add(CustomTable(
-                          table_name: widget.tableName.toString(),
-                          table_type: '1',
-                          color: Colors.red));
-                    });
                   },
                   style: ButtonStyle(
                       backgroundColor:
@@ -221,9 +212,9 @@ class _NextButtonState extends State<CreateTable> {
     print(TextInput1().toString());
 
     String table_type;
-    (globals.selectedPublicPrivet == 1)
+    (globals.selectedPublicPrivet == '1')
         ? table_type = '1'
-        : ((globals.selectedPublicPrivet == 2) ? table_type = '2' : table_type =
+        : ((globals.selectedPublicPrivet == '2') ? table_type = '2' : table_type =
     '');
     print(table_type);
 
@@ -231,7 +222,7 @@ class _NextButtonState extends State<CreateTable> {
       'version': globals.version,
       'user_id': user_id,
       'table_uni':user_uni,
-      'table_name': widget.tableName.toString(),
+      'table_name': globals.tableName.toString(),
       'seats': '8',
       'table_type': table_type,
     };
