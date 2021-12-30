@@ -82,7 +82,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         globals.children.add(CustomTable(
                             table_name: globals.tableName,
                             table_type: globals.selectedPublicPrivet,
-                            color: Colors.red));
+                            color: Colors.green,));
                       });
                     },
                   ),
@@ -184,7 +184,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 globals.children.add(CustomTable(
                                     table_name: globals.tableName,
                                     table_type: globals.selectedPublicPrivet,
-                                    color: Colors.red));
+                                    color: Colors.green,));
                               });
                             },
                           ),
