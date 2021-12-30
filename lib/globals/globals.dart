@@ -81,3 +81,6 @@ String? passwordLogin = "";
 var tmpid = null;
 var children = <CustomTable>[];
 List<String> occupenTable = [];
+
+//Createtable
+int selectedPublicPrivet = 1;

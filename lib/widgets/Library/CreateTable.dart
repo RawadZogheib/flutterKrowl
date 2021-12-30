@@ -27,6 +27,7 @@ class _NextButtonState extends State<CreateTable> {
 
   @override
   Widget build(BuildContext context) {
+    int val = 0;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -88,12 +89,15 @@ class _NextButtonState extends State<CreateTable> {
               SizedBox(
                 height: 10,
               ),
-              Container(width: 220, height: 40, child: TextInput1(
-                onChanged: (val){
-                  widget.tableName = val;
-                  print(widget.tableName.toString());
-                },
-              )),
+              Container(
+                  width: 220,
+                  height: 40,
+                  child: TextInput1(
+                    onChanged: (val) {
+                      widget.tableName = val;
+                      print(widget.tableName.toString());
+                    },
+                  )),
               SizedBox(
                 height: 20,
               ),
@@ -118,28 +122,54 @@ class _NextButtonState extends State<CreateTable> {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                      width: 88, child: TableButton(text: "Quiet", index: 1)),
-                  SizedBox(
-                    width: 35,
-                  ),
+                      width: 88, child: TableButton(text: "Quiet", index: 3)),
                   Container(
-                      width: 95, child: TableButton(text: "Silent", index: 2))
+                      width: 95, child: TableButton(text: "Silent", index: 3))
                 ],
               ),
               SizedBox(
                 height: 20,
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     TableButton(text: "Public", index: 3),
+              //     SizedBox(
+              //       width: 35,
+              //     ),
+              //     TableButton(text: "Private", index: 4)
+              //   ],
+              // ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TableButton(text: "Public", index: 3),
                   SizedBox(
-                    width: 35,
+                    width: 95,
+                    child: TableButton(
+                      text: "Public",
+                      index: 1,
+                      onPressed: () {
+                        setState(() {
+                          globals.selectedPublicPrivet = 1;
+                        });
+                      },
+                    ),
                   ),
-                  TableButton(text: "Private", index: 4)
+                  SizedBox(
+                    width: 95,
+                    child: TableButton(
+                      text: "Privet",
+                      index: 2,
+                      onPressed: () {
+                        setState(() {
+                          globals.selectedPublicPrivet = 2;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -161,9 +191,9 @@ class _NextButtonState extends State<CreateTable> {
                   },
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(globals.blue1),
+                      MaterialStateProperty.all<Color>(globals.blue1),
                       shadowColor:
-                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                      MaterialStateProperty.all<Color>(Colors.blueGrey),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
@@ -188,12 +218,20 @@ class _NextButtonState extends State<CreateTable> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
     print(TextInput1().toString());
+
+    String table_type;
+    (globals.selectedPublicPrivet == 1)
+        ? table_type = '1'
+        : ((globals.selectedPublicPrivet == 2) ? table_type = '2' : table_type =
+    '');
+    print(table_type);
+
     var data = {
       'version': globals.version,
       'user_id': user_id,
       'table_name': widget.tableName.toString(),
       'seats': '8',
-      'table_type': '1'
+      'table_type': table_type,
     };
 
     var res = await CallApi().postData(data, '(Control)createTable.php');
@@ -211,59 +249,64 @@ class _NextButtonState extends State<CreateTable> {
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  "Your version: " + globals.version + "\n" +
+                      globals.errorVersion),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
             ),
-          ],
-        ),
       );
     } else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.errorToken),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
             ),
-          ],
-        ),
       );
     } else if (body[0] == "error7") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error7),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
             ),
-          ],
-        ),
       );
     } else if (body[0] == "error10") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error10),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error10),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
             ),
-          ],
-        ),
       );
     }
   }
