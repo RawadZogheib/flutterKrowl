@@ -217,6 +217,7 @@ class _NextButtonState extends State<CreateTable> {
   Future<void> _createTable() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
+    var user_uni = localStorage.getString("user_uni");
     print(TextInput1().toString());
 
     String table_type;
@@ -229,6 +230,7 @@ class _NextButtonState extends State<CreateTable> {
     var data = {
       'version': globals.version,
       'user_id': user_id,
+      'table_uni':user_uni,
       'table_name': widget.tableName.toString(),
       'seats': '8',
       'table_type': table_type,
