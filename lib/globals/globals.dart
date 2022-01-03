@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
-const String myIP = "http://10.10.4.68.net";
+const String myIP = "https://kwikcode.net";
 //const String myIP = "http://127.0.0.1";
 const String jaasUrl ="https://KwikCode.net/krowl/jit/?table=";
 
