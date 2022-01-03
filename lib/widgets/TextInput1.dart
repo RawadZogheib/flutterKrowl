@@ -6,10 +6,10 @@ import 'package:flutter/services.dart';
 
 class TextInput1 extends StatelessWidget {
 
-  TextInput1 ({ this.onChanged });
+  TextInput1 ({ this.onChanged, this.fillColor,  });
 
   var onChanged;
-
+  var fillColor;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -18,7 +18,8 @@ class TextInput1 extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade400),
             borderRadius: BorderRadius.circular(5)),
-
+        fillColor: fillColor,
+        filled: true,
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),

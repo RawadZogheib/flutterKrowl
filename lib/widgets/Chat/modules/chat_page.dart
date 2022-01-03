@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Chat/components/chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -61,6 +62,7 @@ class _ChatPageState extends State<ChatPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            CustomTabBar(),
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, top: 10),

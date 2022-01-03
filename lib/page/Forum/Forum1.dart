@@ -147,14 +147,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     width: 350,
                   ),
                   CustomTabBar(
-                    controller: tabController,
-                    tabs: contentViews.map((e) => e.tab).toList(),
                   ),
                 ],
               ),
               SizedBox(
                 height: 50,
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

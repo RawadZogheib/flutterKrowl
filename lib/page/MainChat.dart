@@ -24,7 +24,8 @@ class MainChat extends StatelessWidget{
           ),
         ],
       ),
-      body: ChatPage(),
+      body: ChatPage(
+      ),
     );
   }
 }

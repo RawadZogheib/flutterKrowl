@@ -162,8 +162,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     width: 200,
                   ),
                   CustomTabBar(
-                    controller: tabController,
-                    tabs: contentViews.map((e) => e.tab).toList(),
                   ),
                 ],
               ),
