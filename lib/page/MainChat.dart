@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/page/Chat.dart';
 import 'package:stream_chat/stream_chat.dart';
-
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import '../widgets/Chat/modules/chat_page.dart';
 
 class MainChat extends StatelessWidget {
@@ -50,15 +53,32 @@ class MainChat extends StatelessWidget {
   }
 
   initChat() async {
+    var userTokenChat;
+    var usernameChat;
+    var data = {
+      'version': globals.version,
+      'user_id': 1
+    };
+
+    var res = await CallApi().postData(
+        data, '(Control)generateTokenChat.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      userTokenChat=body[2];
+      usernameChat=body[3];
+    }
     const apiKey = "z5j34vkctqrq";
-    const userToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
+    //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
+    var userToken =userTokenChat;
+        //should be sent by the server
+    print("ddddddddddddddddddddddddd"+userToken);
 
     client = StreamChatClient(apiKey, logLevel: Level.INFO);
 
     await client.connectUser(
       User(
-        id: 'Rawad',
+        id: usernameChat,
         //name: 'Cool Shadow',
         // image:
         // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
