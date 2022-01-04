@@ -129,16 +129,16 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
             ListView.builder(
-              itemCount: chatUsers.length,
+              itemCount: globals.children2.length,
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 16),
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return ChatUsersList(
-                  text: chatUsers[index].text,
-                  secondaryText: chatUsers[index].secondaryText,
-                  image: chatUsers[index].image,
-                  time: chatUsers[index].time,
+                  text: globals.children2[index].text,
+                  secondaryText: globals.children2[index].secondaryText,
+                  image: globals.children2[index].image,
+                  time: globals.children2[index].time,
                   isMessageRead: (index == 0 || index == 3) ? true : false,
                 );
               },
@@ -168,18 +168,17 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     if (body[0] == "success") {
-        globals.children.add(
-          List<ChatUsers> chatUsers = [
         for (var i = 0; i < body[2].length; i++){
+          globals.children2.add(
           ChatUsers(
               text: body[2][i][0],
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar"
-        );
-      };];
+        ),);
+      };
       setState(() {
-        globals.children;
+        globals.children2;
       });
     } else if (body[0] == "errorVersion") {
       showDialog<String>(

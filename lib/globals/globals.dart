@@ -1,6 +1,7 @@
 library flutterKrowl.globals;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 
 const String version = "v1.0";
@@ -85,3 +86,6 @@ List<String> occupenTable = [];
 //Createtable
 var tableName;
 var selectedPublicPrivet = '1';
+
+//Chat
+var children2 = <ChatUsers>[];

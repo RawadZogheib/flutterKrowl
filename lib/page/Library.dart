@@ -154,13 +154,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'Assets/krowl_logo.png',
-                    scale: 2.0,
-                  ),
-                  SizedBox(
-                    width: 200,
-                  ),
                   CustomTabBar(
                   ),
                 ],

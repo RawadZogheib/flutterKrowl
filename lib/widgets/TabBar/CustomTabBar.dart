@@ -14,8 +14,15 @@ class CustomTabBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Image.asset(
+          'Assets/krowl_logo.png',
+          scale: 2.0,
+        ),
+        SizedBox(
+          width: 350,
+        ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(20.0),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -32,7 +39,7 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(20.0),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -49,7 +56,7 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(20.0),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -66,7 +73,7 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(20.0),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //home: Intro(),
-          initialRoute: '/intro_page',
+          initialRoute: '/MainChat',
           routes: {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),

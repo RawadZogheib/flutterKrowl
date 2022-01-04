@@ -139,13 +139,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'Assets/krowl_logo.png',
-                    scale: 2.0,
-                  ),
-                  SizedBox(
-                    width: 350,
-                  ),
                   CustomTabBar(
                   ),
                 ],
