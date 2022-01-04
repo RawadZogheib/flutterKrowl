@@ -64,7 +64,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     _loadContacts();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
