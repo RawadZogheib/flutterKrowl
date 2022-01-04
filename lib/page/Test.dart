@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
 import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/CreatePostContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
@@ -139,9 +138,7 @@ class _TestState extends State<Test> with SingleTickerProviderStateMixin {
                     width: 600,
                     height: 600,
                     color: globals.blue2,
-                  ),
-                  List<
-                  ChatUsers(text: 'eeewg', secondaryText: 'fdsfk', image: "Assets/userImage6.jpeg", time: "17 Mar")
+                  )
                 ],
               ),
 
