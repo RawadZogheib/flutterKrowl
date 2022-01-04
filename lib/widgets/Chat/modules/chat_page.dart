@@ -59,6 +59,13 @@ class _ChatPageState extends State<ChatPage> {
   // ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadContacts();
+  }
+  
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
