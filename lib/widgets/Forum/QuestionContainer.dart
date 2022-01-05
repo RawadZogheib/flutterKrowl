@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
@@ -5,20 +7,32 @@ import 'package:google_fonts/google_fonts.dart';
 class Question extends StatefulWidget {
   var height;
   var width;
-  var text;
+  String id;
+  String username;
+  String text;
+  int val;
+  DateTime date;
   var color = Colors.grey.shade600;
   var color2 = Colors.grey.shade600;
   var onTap;
 
-  Question({this.height, this.width, this.text, this.onTap});
+  Question({this.height,
+    this.width,
+    required this.id,
+    required this.username,
+    required this.text,
+    required this.val,
+    required this.date,
+    this.onTap});
 
   @override
   State<Question> createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
-  int _like = 0;
-  int _dislike = 0;
+  bool _like = false;
+  bool _dislike = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,8 +76,7 @@ class _QuestionState extends State<Question> {
                   Container(
                     width: 500,
                     alignment: Alignment.topLeft,
-                    child: Text(
-                        'Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?',
+                    child: Text(widget.text,
                         style: GoogleFonts.nunito(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
@@ -83,7 +96,7 @@ class _QuestionState extends State<Question> {
                         width: 10,
                       ),
                       Text(
-                        "Jane Russel",
+                        widget.username,
                         style: TextStyle(color: globals.blue1, fontSize: 15),
                       )
                     ],
@@ -99,32 +112,30 @@ class _QuestionState extends State<Question> {
                     splashColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        _like += 1;
-                        widget.color = globals.blue1;
-                        widget.color2 = Colors.grey.shade600;
-                      });
+                      _onLike();
                     },
-                    child: Icon(Icons.thumb_up,
+                    child: Icon(
+                      Icons.thumb_up,
                       color: widget.color,
                       size: 20,
                     ),
                   ),
-                  SizedBox(height: 8,),
-                  Text('$_like'),
-                  SizedBox(height: 8,),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text('${widget.val.toString()}'),
+                  SizedBox(
+                    height: 8,
+                  ),
                   InkWell(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        _like -=1;
-                        widget.color2 = globals.blue1;
-                        widget.color = Colors.grey.shade600;
-                      });
+                      _onDislike();
                     },
-                    child: Icon(Icons.thumb_down,
+                    child: Icon(
+                      Icons.thumb_down,
                       color: widget.color2,
                       size: 20,
                     ),
@@ -136,5 +147,61 @@ class _QuestionState extends State<Question> {
         ),
       ],
     );
+  }
+
+  _onLike() {
+    if (_like == false) {
+      if (_dislike == false) {
+        setState(() {
+          widget.val += 1;
+          _like = true;
+          widget.color = globals.blue1;
+          widget.color2 = Colors.grey.shade600;
+        });
+      } else {
+        setState(() {
+          widget.val += 2;
+          _like = true;
+          _dislike = false;
+          widget.color = globals.blue1;
+          widget.color2 = Colors.grey.shade600;
+        });
+      }
+    } else {
+      setState(() {
+        widget.val -= 1;
+        _like = false;
+        widget.color = Colors.grey.shade600;
+        widget.color2 = Colors.grey.shade600;
+      });
+    }
+  }
+
+  _onDislike() {
+    if (_dislike == false) {
+      if (_like == false) {
+        setState(() {
+          widget.val -= 1;
+          _dislike = true;
+          widget.color = Colors.grey.shade600;
+          widget.color2 = globals.blue1;
+        });
+      } else {
+        setState(() {
+          widget.val -= 2;
+          _dislike = true;
+          _like = false;
+          widget.color = Colors.grey.shade600;
+          widget.color2 = globals.blue1;
+        });
+      }
+    } else {
+      setState(() {
+        widget.val += 1;
+        _dislike = false;
+        widget.color = Colors.grey.shade600;
+        widget.color2 = Colors.grey.shade600;
+      });
+    }
   }
 }
