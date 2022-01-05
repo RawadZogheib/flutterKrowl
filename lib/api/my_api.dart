@@ -5,7 +5,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 
 class CallApi{
-  final String _url = '${globals.myIP}/krowl/';
+  final String _url = '${globals.myIP}/krowlphp/';
   final String _imgUrl='http://mark.dbestech.com/uploads/';
   getImage(){
     return _imgUrl;
