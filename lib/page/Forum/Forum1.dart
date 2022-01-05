@@ -14,18 +14,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Responsive.dart';
 
+
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Forum1()));
 
 class Forum1 extends StatefulWidget {
   // This widget is the root of your application.
-  var children = <Widget>[]; // Posts
-
   @override
   State<Forum1> createState() => _Forum1State();
 }
 
 class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
+  var children = <Widget>[]; // Posts
+
   @override
   void initState() {
     super.initState();
@@ -93,7 +94,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       ),
                       Wrap(
                         direction: Axis.vertical,
-                        children: widget.children, // My Children
+                        children: children, // My Children
                       ),
                     ],
                   ),
@@ -165,7 +166,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       ),
                       Wrap(
                         direction: Axis.vertical,
-                        children: widget.children, // My Children
+                        children: children, // My Children
                       ),
                     ],
                   ),
@@ -237,7 +238,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       ),
                       Wrap(
                         direction: Axis.vertical,
-                        children: widget.children, // My Children
+                        children: children, // My Children
                       ),
                     ],
                   ),
@@ -278,7 +279,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
     if (body[0] == "success") {
       for (var i = 0; i < body[2].length; i++) {
-        widget.children.addAll(
+        children.addAll(
           [
             Question(
               id: body[2][i][0],
@@ -301,7 +302,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         );
       }
       setState(() {
-        widget.children;
+        children;
       });
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
