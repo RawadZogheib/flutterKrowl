@@ -9,7 +9,7 @@ const String version = "v1.0";
 //Server Ip  (page[/my_api.dart])
 const String myIP = "https://kwikcode.net";
 //const String myIP = "http://127.0.0.1";
-const String jaasUrl ="https://KwikCode.net/krowl/jit/?table=";
+const String jaasUrl ="https://KwikCode.net/krowlphp/jit/?table=";
 
 //Colors
 Color white = Colors.white;
