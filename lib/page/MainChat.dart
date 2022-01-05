@@ -10,8 +10,14 @@ import 'package:stream_chat/stream_chat.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import '../widgets/Chat/modules/chat_page.dart';
 
-class MainChat extends StatelessWidget {
+class MainChat extends StatefulWidget {
+  @override
+  State<MainChat> createState() => _MainChatState();
+}
+
+class _MainChatState extends State<MainChat> {
   var client;
+
   var channel;
 
   @override
@@ -53,7 +59,6 @@ class MainChat extends StatelessWidget {
       body: ChatPage(),
     );
   }
-
   initChat() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var userTokenChat;
@@ -76,27 +81,27 @@ class MainChat extends StatelessWidget {
       userTokenChat=body[2];
       usernameChat=body[3];
 
-    const apiKey = "z5j34vkctqrq";
-    //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
-    var userToken =userTokenChat;
-        //should be sent by the server
-    print("ddddddddddddddddddddddddd"+userToken);
+      const apiKey = "z5j34vkctqrq";
+      //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
+      var userToken =userTokenChat;
+      //should be sent by the server
+      print("ddddddddddddddddddddddddd"+userToken);
 
-    client = StreamChatClient(apiKey, logLevel: Level.INFO);
+      client = StreamChatClient(apiKey, logLevel: Level.INFO);
 
-    await client.connectUser(
-      User(
-        id: usernameChat,
-        //name: 'Cool Shadow',
-        // image:
-        // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-      ),
-      userToken,
-    );
+      await client.connectUser(
+        User(
+          id: usernameChat,
+          //name: 'Cool Shadow',
+          // image:
+          // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+        ),
+        userToken,
+      );
 
-    channel = client.channel('messaging', id: 'godevs');
+      channel = client.channel('messaging', id: 'godevs');
 
-    await channel.watch();
+      await channel.watch();
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
