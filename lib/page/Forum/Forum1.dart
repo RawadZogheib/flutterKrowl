@@ -39,17 +39,147 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         body: Responsive(
           mobile: SingleChildScrollView(
             reverse: true,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(),
-            ),
+            child: Column(children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTabBar(),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 130,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BouncingWidget(
+                            duration: Duration(milliseconds: 100),
+                            scaleFactor: 1.5,
+                            onPressed: () {
+                              print("onPressed");
+                            },
+                            child: Text(
+                              "Forum",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 430,
+                          ),
+                          AskQuestionButton(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SearchBar(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Wrap(
+                        direction: Axis.vertical,
+                        children: widget.children, // My Children
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Contributors(),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
           ),
           tablet: SingleChildScrollView(
             reverse: true,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(),
-            ),
+            child: Column(children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTabBar(),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 130,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BouncingWidget(
+                            duration: Duration(milliseconds: 100),
+                            scaleFactor: 1.5,
+                            onPressed: () {
+                              print("onPressed");
+                            },
+                            child: Text(
+                              "Forum",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 430,
+                          ),
+                          AskQuestionButton(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SearchBar(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Wrap(
+                        direction: Axis.vertical,
+                        children: widget.children, // My Children
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Contributors(),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
           ),
           desktop: SingleChildScrollView(
             reverse: true,
@@ -108,40 +238,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       Wrap(
                         direction: Axis.vertical,
                         children: widget.children, // My Children
-                        // children: [
-                        //   Question(
-                        //     text:
-                        //     'Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?',
-                        //     val: -32,
-                        //   ),
-                        //   SizedBox(
-                        //     height: 20,
-                        //   ),
-                        //   Question(
-                        //     text:
-                        //     'Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?',
-                        //     val: 6,
-                        //   ),
-                        //   SizedBox(
-                        //     height: 20,
-                        //   ),
-                        //   Question(
-                        //     text:
-                        //     'Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?',
-                        //     val: 33,
-                        //   ),
-                        //   SizedBox(
-                        //     height: 20,
-                        //   ),
-                        //   Question(
-                        //     text:
-                        //     'Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?',
-                        //     val: 22,
-                        //   ),
-                        //   SizedBox(
-                        //     height: 20,
-                        //   ),
-                        // ],
                       ),
                     ],
                   ),
@@ -189,11 +285,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               // post_id
               username: body[2][i][1],
               // username
-              text: body[2][i][2],
+              tag: body[2][i][2],
+              // tag
+              text: body[2][i][3],
               // post_data
-              val: int.parse(body[2][0][3]),
+              val: int.parse(body[2][0][4]),
               // post_val
-              date: DateTime.parse(body[2][0][4]),
+              date: DateTime.parse(body[2][0][5]),
               // post_date
             ),
             SizedBox(

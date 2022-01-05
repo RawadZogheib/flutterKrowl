@@ -9,6 +9,7 @@ class Question extends StatefulWidget {
   var width;
   String id;
   String username;
+  String tag;
   String text;
   int val;
   DateTime date;
@@ -20,6 +21,7 @@ class Question extends StatefulWidget {
     this.width,
     required this.id,
     required this.username,
+    required this.tag,
     required this.text,
     required this.val,
     required this.date,
@@ -63,7 +65,7 @@ class _QuestionState extends State<Question> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    child: Text('#science',
+                    child: Text('#${widget.tag}',
                         style: TextStyle(
                             fontSize: 15,
                             fontStyle: FontStyle.italic,
