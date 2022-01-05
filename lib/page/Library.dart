@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/Data/ContentView.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
-import 'package:flutter_app_backend/widgets/TabBar/CustomTab.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,43 +21,11 @@ class Library extends StatefulWidget {
 }
 
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  List<ContentView> contentViews = [
-    ContentView(
-        tab: CustomTab(title: 'Library'),
-        content: Center(
-          child: Container(
-            color: Colors.black,
-            width: 90,
-            height: 100,
-          ),
-        )),
-    ContentView(
-        tab: CustomTab(title: 'Chats'),
-        content: Center(
-          child: Container(),
-        )),
-    ContentView(
-        tab: CustomTab(title: 'Forum'),
-        content: Center(
-          child: Container(),
-        )),
-    ContentView(
-        tab: CustomTab(title: 'Students'),
-        content: Center(
-          child: Container(),
-        )),
-    ContentView(
-        tab: CustomTab(title: 'Reminders'),
-        content: Center(
-          child: Container(),
-        )),
-  ];
+
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: contentViews.length, vsync: this);
     _loadTables();
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/page/Chat.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/Forum/Forum1.dart';
+import 'package:flutter_app_backend/page/Forum/Forum2.dart';
 import 'package:flutter_app_backend/page/Library.dart';
 import 'package:flutter_app_backend/page/Login/login.dart';
 import 'package:flutter_app_backend/page/Login/login2.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //home: Intro(),
-          initialRoute: '/intro_page',
+          initialRoute: '/Forum2',
           routes: {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
             '/MainChat': (context) => MainChat(),
             '/VideoConference2': (context) => VideoConference2(),
             '/Forum1': (context) => Forum1(),
+            '/Forum2': (context) => Forum2(),
           });
     });
   }
