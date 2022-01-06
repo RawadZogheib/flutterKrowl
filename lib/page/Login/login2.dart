@@ -207,7 +207,7 @@ class _Login2State extends State<Login2> {
             print('no token found');
           }
           if (body1[0] == "success") {
-            globals.userTokenChat=body1[2];
+            localStorage.setString('userTokenChat', body1[2]);
           }
             showDialog<String>(
               context: context,
