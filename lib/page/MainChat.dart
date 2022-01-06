@@ -23,7 +23,7 @@ class _MainChatState extends State<MainChat> {
 
   static List<Widget> _widgetOptions = <Widget>[
     ChatPage(),
-    //Forum1(),
+    ChatPage2(),
   ];
 
   @override
