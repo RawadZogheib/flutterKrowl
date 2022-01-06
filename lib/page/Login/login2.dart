@@ -192,24 +192,41 @@ class _Login2State extends State<Login2> {
           localStorage.setString('user_uni', body[4]);
           localStorage.setString('photo', body[5]);
 
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Remember Me'),
-                  content: const Text(globals.errorRememberMe),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>_yesRemember(),
-                      child: const Text('Yes'),
-                    ),
-                    TextButton(
-                      onPressed: () => _noRemember(),
-                      child: const Text('No'),
-                    ),
-                  ],
-                ),
-          );
+
+          var user_id =body[2];
+          var data = {'version': globals.version,
+            'user_id': user_id
+          };
+
+          var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
+          print(res.body);
+          List<dynamic> body1 = json.decode(res.body);
+          try {
+            localStorage.setString('token', body1[1]);
+          } catch (e) {
+            print('no token found');
+          }
+          if (body1[0] == "success") {
+            globals.userTokenChat=body1[2];
+          }
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Remember Me'),
+                    content: const Text(globals.errorRememberMe),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => _yesRemember(),
+                        child: const Text('Yes'),
+                      ),
+                      TextButton(
+                        onPressed: () => _noRemember(),
+                        child: const Text('No'),
+                      ),
+                    ],
+                  ),
+            );
 
 
         }else if (body[0] == "errorToken") {

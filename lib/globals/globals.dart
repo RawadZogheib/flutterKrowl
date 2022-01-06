@@ -89,3 +89,4 @@ var selectedPublicPrivet = '1';
 
 //Chat
 var children2 = <ChatUsers>[];
+String? userTokenChat=null;

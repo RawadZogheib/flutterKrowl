@@ -125,34 +125,38 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   initChat(var channelName) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var userTokenChat;
-    var usernameChat;
-    var data = {'version': globals.version, 'user_id': 1};
 
-    var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
-    if (body[0] == "success") {
-      userTokenChat = body[2];
-      usernameChat = body[3];
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var usernameChat=localStorage.getString("username");
+    //var user_id = localStorage.getString("user_id");
+    var userToken;
+
+    // var data = {'version': globals.version,
+    //             'user_id': user_id
+    //             };
+
+    // var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
+    // print(res.body);
+    // List<dynamic> body = json.decode(res.body);
+    // try {
+    //   localStorage.setString('token', body[1]);
+    // } catch (e) {
+    //   print('no token found');
+    // }
+    //if (body[0] == "success") {
+      //userTokenChat = body[2];
+      // usernameChat = body[3];
 
       const apiKey = "z5j34vkctqrq";
-      //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
-      var userToken = userTokenChat;
-      //should be sent by the server
-      print("ddddddddddddddddddddddddd" + userToken);
+      userToken = globals.userTokenChat; //should be sent by the server
+
+      print("ddddddddddddddddddddddddd" + userToken!);
 
       client = StreamChatClient(apiKey, logLevel: Level.INFO);
 
       await client.connectUser(
         User(
-          id: usernameChat,
+          id: usernameChat!,
           //name: 'Cool Shadow',
           // image:
           // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
@@ -163,52 +167,52 @@ class _ChatPageState extends State<ChatPage> {
       channel = client.channel('messaging', id: channelName);
 
       await channel.watch();
-    } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      //   } else if (body[0] == "errorVersion") {
+      //     showDialog<String>(
+      //       context: context,
+      //       builder: (BuildContext context) => AlertDialog(
+      //         title: const Text('Error'),
+      //         content: const Text(
+      //             "Your version: " + globals.version + "\n" + globals.errorVersion),
+      //         actions: <Widget>[
+      //           TextButton(
+      //             onPressed: () => Navigator.pop(context, 'OK'),
+      //             child: const Text('OK'),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   } else if (body[0] == "errorToken") {
+      //     showDialog<String>(
+      //       context: context,
+      //       builder: (BuildContext context) => AlertDialog(
+      //         title: const Text('Error'),
+      //         content: const Text(globals.errorToken),
+      //         actions: <Widget>[
+      //           TextButton(
+      //             onPressed: () => Navigator.pop(context, 'OK'),
+      //             child: const Text('OK'),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   } else if (body[0] == "error7") {
+      //     showDialog<String>(
+      //       context: context,
+      //       builder: (BuildContext context) => AlertDialog(
+      //         title: const Text('Error'),
+      //         content: const Text(globals.error7),
+      //         actions: <Widget>[
+      //           TextButton(
+      //             onPressed: () => Navigator.pop(context, 'OK'),
+      //             child: const Text('OK'),
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //   }
+      // }
     }
-  }
-
   _loadContacts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
@@ -543,7 +547,8 @@ class _ChatPage2State extends State<ChatPage2> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var userTokenChat;
     var usernameChat;
-    var data = {'version': globals.version, 'user_id': 1};
+    var user_id = localStorage.getString("user_id");
+    var data = {'version': globals.version, 'user_id': user_id};
 
     var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
     print(res.body);
