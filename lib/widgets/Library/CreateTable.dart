@@ -159,7 +159,7 @@ class _NextButtonState extends State<CreateTable> {
                   SizedBox(
                     width: 95,
                     child: TableButton(
-                      text: "Privet",
+                      text: "Private",
                       index: '2',
                       onPressed: () {
                         setState(() {
