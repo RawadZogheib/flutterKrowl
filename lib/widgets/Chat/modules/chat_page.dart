@@ -128,24 +128,8 @@ class _ChatPageState extends State<ChatPage> {
 
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var usernameChat=localStorage.getString("username");
-    //var user_id = localStorage.getString("user_id");
     var userToken;
 
-    // var data = {'version': globals.version,
-    //             'user_id': user_id
-    //             };
-
-    // var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
-    // print(res.body);
-    // List<dynamic> body = json.decode(res.body);
-    // try {
-    //   localStorage.setString('token', body[1]);
-    // } catch (e) {
-    //   print('no token found');
-    // }
-    //if (body[0] == "success") {
-      //userTokenChat = body[2];
-      // usernameChat = body[3];
 
       const apiKey = "z5j34vkctqrq";
       userToken = globals.userTokenChat; //should be sent by the server
@@ -167,52 +151,9 @@ class _ChatPageState extends State<ChatPage> {
       channel = client.channel('messaging', id: channelName);
 
       await channel.watch();
-      //   } else if (body[0] == "errorVersion") {
-      //     showDialog<String>(
-      //       context: context,
-      //       builder: (BuildContext context) => AlertDialog(
-      //         title: const Text('Error'),
-      //         content: const Text(
-      //             "Your version: " + globals.version + "\n" + globals.errorVersion),
-      //         actions: <Widget>[
-      //           TextButton(
-      //             onPressed: () => Navigator.pop(context, 'OK'),
-      //             child: const Text('OK'),
-      //           ),
-      //         ],
-      //       ),
-      //     );
-      //   } else if (body[0] == "errorToken") {
-      //     showDialog<String>(
-      //       context: context,
-      //       builder: (BuildContext context) => AlertDialog(
-      //         title: const Text('Error'),
-      //         content: const Text(globals.errorToken),
-      //         actions: <Widget>[
-      //           TextButton(
-      //             onPressed: () => Navigator.pop(context, 'OK'),
-      //             child: const Text('OK'),
-      //           ),
-      //         ],
-      //       ),
-      //     );
-      //   } else if (body[0] == "error7") {
-      //     showDialog<String>(
-      //       context: context,
-      //       builder: (BuildContext context) => AlertDialog(
-      //         title: const Text('Error'),
-      //         content: const Text(globals.error7),
-      //         actions: <Widget>[
-      //           TextButton(
-      //             onPressed: () => Navigator.pop(context, 'OK'),
-      //             child: const Text('OK'),
-      //           ),
-      //         ],
-      //       ),
-      //     );
-      //   }
-      // }
     }
+    
+
   _loadContacts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
