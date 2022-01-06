@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_app_backend/widgets/Chat/modules/chat_detail_page.dart';
+
+
 
 class ChatUsersList extends StatefulWidget{
   String text;
@@ -55,4 +60,5 @@ class _ChatUsersListState extends State<ChatUsersList> {
       ),
     );
   }
+
 }
