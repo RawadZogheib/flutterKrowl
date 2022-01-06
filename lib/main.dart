@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/page/Chat.dart';
+import 'package:flutter_app_backend/widgets/Chat/components/streamChat.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/Forum/Forum1.dart';
 import 'package:flutter_app_backend/page/Forum/Forum2.dart';

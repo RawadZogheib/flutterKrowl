@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/page/Chat.dart';
+import 'package:flutter_app_backend/widgets/Chat/components/streamChat.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
