@@ -162,6 +162,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   Future<void> _loadTables() async {
+    globals.children.clear();
+    globals.occupenTable.clear();
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user_id = localStorage.getString("user_id");
     var user_uni = localStorage.getString("user_uni");
