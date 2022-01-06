@@ -7,6 +7,7 @@ import 'package:flutter_app_backend/page/Library.dart';
 import 'package:flutter_app_backend/page/Login/login.dart';
 import 'package:flutter_app_backend/page/Login/login2.dart';
 import 'package:flutter_app_backend/page/MainChat.dart';
+import 'package:flutter_app_backend/page/Forum/ReplyPage.dart';
 import 'package:flutter_app_backend/page/Signup/Registration.dart';
 import 'package:flutter_app_backend/page/Signup/Registration2.dart';
 import 'package:flutter_app_backend/page/Signup/Registration3.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
             '/VideoConference2': (context) => VideoConference2(),
             '/Forum1': (context) => Forum1(),
             '/Forum2': (context) => Forum2(),
+            '/ReplyPage': (context) => ReplyPage(),
           });
     });
   }

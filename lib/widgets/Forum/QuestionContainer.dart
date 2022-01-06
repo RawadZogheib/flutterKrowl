@@ -215,6 +215,6 @@ class _QuestionState extends State<Question> {
 
   _openReply() {
     print('go to reply');
-    //Navigator.pushNamed(context, '/ReplyPage');
+    Navigator.pushNamed(context, '/ReplyPage');
   }
 }

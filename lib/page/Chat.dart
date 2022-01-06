@@ -6,10 +6,13 @@ import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 class StreamExample extends StatelessWidget {
+  String name;
+
   /// To initialize this example, an instance of
   /// [client] and [channel] is required.
-  const StreamExample({
+  StreamExample({
     Key? key,
+    required this.name,
     required this.client,
     required this.channel,
   }) : super(key: key);
@@ -24,16 +27,19 @@ class StreamExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Stream Chat Dart Example',
-    home: HomeScreen(channel: channel),
+    home: HomeScreen(channel: channel, name: name,),
   );
 }
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
 /// containing the channel name and a [MessageView] displaying recent messages.
 class HomeScreen extends StatelessWidget {
+  String name;
+
   /// [HomeScreen] is constructed using the [Channel] we defined earlier.
-  const HomeScreen({
+  HomeScreen({
     Key? key,
+    required this.name,
     required this.channel,
   }) : super(key: key);
 
@@ -45,7 +51,7 @@ class HomeScreen extends StatelessWidget {
     final messages = channel.state!.messagesStream;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Channel: ${channel.id}'),
+        title: Text(name),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add_rounded),

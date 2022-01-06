@@ -17,8 +17,6 @@ class MainChat extends StatefulWidget {
 }
 
 class _MainChatState extends State<MainChat> {
-  var client;
-  var channel;
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
@@ -29,22 +27,22 @@ class _MainChatState extends State<MainChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await initChat();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StreamExample(
-                client: client,
-                channel: channel,
-              ),
-            ),
-          );
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.navigation),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     await initChat();
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => StreamExample(
+      //           client: client,
+      //           channel: channel,
+      //         ),
+      //       ),
+      //     );
+      //   },
+      //   backgroundColor: Colors.green,
+      //   child: const Icon(Icons.navigation),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue.shade900,
         unselectedItemColor: Colors.grey.shade400,
@@ -70,90 +68,6 @@ class _MainChatState extends State<MainChat> {
     );
   }
 
-  initChat() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var userTokenChat;
-    var usernameChat;
-    var data = {'version': globals.version, 'user_id': 1};
-
-    var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
-    if (body[0] == "success") {
-      userTokenChat = body[2];
-      usernameChat = body[3];
-
-      const apiKey = "z5j34vkctqrq";
-      //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
-      var userToken = userTokenChat;
-      //should be sent by the server
-      print("ddddddddddddddddddddddddd" + userToken);
-
-      client = StreamChatClient(apiKey, logLevel: Level.INFO);
-
-      await client.connectUser(
-        User(
-          id: usernameChat,
-          //name: 'Cool Shadow',
-          // image:
-          // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-        ),
-        userToken,
-      );
-
-      channel = client.channel('messaging', id: 'godevs');
-
-      await channel.watch();
-    } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
 
   void _onItemTapped(int index) {
     setState(() {

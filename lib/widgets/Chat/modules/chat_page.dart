@@ -4,18 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/page/Chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stream_chat/stream_chat.dart';
 
 class ChatPage extends StatefulWidget {
-
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
+  var client;
+  var channel;
 
   @override
   void initState() {
@@ -102,11 +105,16 @@ class _ChatPageState extends State<ChatPage> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return ChatUsersList(
+                  id: globals.children2[index].user_id,
                   text: globals.children2[index].text,
                   secondaryText: globals.children2[index].secondaryText,
                   image: globals.children2[index].image,
                   time: globals.children2[index].time,
                   isMessageRead: (index == 0 || index == 3) ? true : false,
+                  ontap: () => _goToChat(
+                    globals.children2[index].friendShipId,
+                    globals.children2[index].text,
+                  ),
                 );
               },
             ),
@@ -114,6 +122,91 @@ class _ChatPageState extends State<ChatPage> {
         ),
       ),
     );
+  }
+
+  initChat(var channelName) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userTokenChat;
+    var usernameChat;
+    var data = {'version': globals.version, 'user_id': 1};
+
+    var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    try {
+      localStorage.setString('token', body[1]);
+    } catch (e) {
+      print('no token found');
+    }
+    if (body[0] == "success") {
+      userTokenChat = body[2];
+      usernameChat = body[3];
+
+      const apiKey = "z5j34vkctqrq";
+      //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
+      var userToken = userTokenChat;
+      //should be sent by the server
+      print("ddddddddddddddddddddddddd" + userToken);
+
+      client = StreamChatClient(apiKey, logLevel: Level.INFO);
+
+      await client.connectUser(
+        User(
+          id: usernameChat,
+          //name: 'Cool Shadow',
+          // image:
+          // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+        ),
+        userToken,
+      );
+
+      channel = client.channel('messaging', id: channelName);
+
+      await channel.watch();
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "error7") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   _loadContacts() async {
@@ -142,7 +235,8 @@ class _ChatPageState extends State<ChatPage> {
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              user_id: body[2][i][0],),
+              user_id: body[2][i][0],
+              friendShipId: body[2][i][2]),
         );
       }
       ;
@@ -208,15 +302,31 @@ class _ChatPageState extends State<ChatPage> {
       );
     }
   }
+
+  _goToChat(var channelName, var name) async {
+    await initChat(channelName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StreamExample(
+          client: client,
+          channel: channel,
+          name: name,
+        ),
+      ),
+    );
+  }
 }
 
 class ChatPage2 extends StatefulWidget {
-
   @override
   _ChatPage2State createState() => _ChatPage2State();
 }
 
 class _ChatPage2State extends State<ChatPage2> {
+  var client;
+  var channel;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -243,11 +353,11 @@ class _ChatPage2State extends State<ChatPage2> {
                     Text(
                       "Chats",
                       style:
-                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     Container(
                       padding:
-                      EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
+                          EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
                       height: 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -302,11 +412,16 @@ class _ChatPage2State extends State<ChatPage2> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return ChatUsersList(
+                  id: globals.children2[index].user_id,
                   text: globals.children2[index].text,
                   secondaryText: globals.children2[index].secondaryText,
                   image: globals.children2[index].image,
                   time: globals.children2[index].time,
                   isMessageRead: (index == 0 || index == 3) ? true : false,
+                  ontap: () => _goToChat(
+                    globals.children2[index].friendShipId,
+                    globals.children2[index].text,
+                  ),
                 );
               },
             ),
@@ -342,7 +457,8 @@ class _ChatPage2State extends State<ChatPage2> {
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              user_id:body[2][i][0]),
+              user_id: body[2][i][0],
+              friendShipId: body[2][i][2]),
         );
       }
       ;
@@ -398,6 +514,105 @@ class _ChatPage2State extends State<ChatPage2> {
         builder: (BuildContext context) => AlertDialog(
           title: const Text('Error'),
           content: const Text(globals.error11),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  _goToChat(var channelName, var name) async {
+    await initChat(channelName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StreamExample(
+          client: client,
+          channel: channel,
+          name: name,
+        ),
+      ),
+    );
+  }
+
+  initChat(var channelName) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var userTokenChat;
+    var usernameChat;
+    var data = {'version': globals.version, 'user_id': 1};
+
+    var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    try {
+      localStorage.setString('token', body[1]);
+    } catch (e) {
+      print('no token found');
+    }
+    if (body[0] == "success") {
+      userTokenChat = body[2];
+      usernameChat = body[3];
+
+      const apiKey = "z5j34vkctqrq";
+      //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
+      var userToken = userTokenChat;
+      //should be sent by the server
+      print("ddddddddddddddddddddddddd" + userToken);
+
+      client = StreamChatClient(apiKey, logLevel: Level.INFO);
+
+      await client.connectUser(
+        User(
+          id: usernameChat,
+          //name: 'Cool Shadow',
+          // image:
+          // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+        ),
+        userToken,
+      );
+
+      channel = client.channel('messaging', id: channelName);
+
+      await channel.watch();
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "error7") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
