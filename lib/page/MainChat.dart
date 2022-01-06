@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Chat.dart';
+import 'package:flutter_app_backend/page/Forum/Forum1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat/stream_chat.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+
 import '../widgets/Chat/modules/chat_page.dart';
 
 class MainChat extends StatefulWidget {
@@ -17,8 +18,13 @@ class MainChat extends StatefulWidget {
 
 class _MainChatState extends State<MainChat> {
   var client;
-
   var channel;
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    ChatPage(),
+    //Forum1(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,8 @@ class _MainChatState extends State<MainChat> {
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
@@ -56,20 +64,19 @@ class _MainChatState extends State<MainChat> {
           ),
         ],
       ),
-      body: ChatPage(),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
     );
   }
+
   initChat() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var userTokenChat;
     var usernameChat;
-    var data = {
-      'version': globals.version,
-      'user_id': 1
-    };
+    var data = {'version': globals.version, 'user_id': 1};
 
-    var res = await CallApi().postData(
-        data, '(Control)generateTokenChat.php');
+    var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     try {
@@ -78,14 +85,14 @@ class _MainChatState extends State<MainChat> {
       print('no token found');
     }
     if (body[0] == "success") {
-      userTokenChat=body[2];
-      usernameChat=body[3];
+      userTokenChat = body[2];
+      usernameChat = body[3];
 
       const apiKey = "z5j34vkctqrq";
       //const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmF3YWQifQ.zY0MNdMd9huVSk_eIqfMvoYVGA0urn-hpwKPbafYrjg"; //should be sent by the server
-      var userToken =userTokenChat;
+      var userToken = userTokenChat;
       //should be sent by the server
-      print("ddddddddddddddddddddddddd"+userToken);
+      print("ddddddddddddddddddddddddd" + userToken);
 
       client = StreamChatClient(apiKey, logLevel: Level.INFO);
 
@@ -146,6 +153,11 @@ class _MainChatState extends State<MainChat> {
         ),
       );
     }
+  }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }
