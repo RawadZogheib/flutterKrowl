@@ -5,5 +5,6 @@ class ChatUsers{
   String secondaryText;
   String image;
   String time;
-  ChatUsers({required this.text,required this.secondaryText,required this.image,required this.time});
+  String user_id;
+  ChatUsers({required this.text,required this.secondaryText,required this.image,required this.time,required this.user_id});
 }

@@ -16,48 +16,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  // List<ChatUsers> chatUsers = [
-  //   ChatUsers(
-  //       text: "Jane Russel",
-  //       secondaryText: "Awesome Setup",
-  //       image: "Assets/userImage1.jpeg",
-  //       time: "Now"),
-  //   ChatUsers(
-  //       text: "Glady's Murphy",
-  //       secondaryText: "That's Great",
-  //       image: "Assets/userImage2.jpeg",
-  //       time: "Yesterday"),
-  //   ChatUsers(
-  //       text: "Jorge Henry",
-  //       secondaryText: "Hey where are you?",
-  //       image: "Assets/userImage3.jpeg",
-  //       time: "31 Mar"),
-  //   ChatUsers(
-  //       text: "Philip Fox",
-  //       secondaryText: "Busy! Call me in 20 mins",
-  //       image: "Assets/userImage4.jpeg",
-  //       time: "28 Mar"),
-  //   ChatUsers(
-  //       text: "Debra Hawkins",
-  //       secondaryText: "Thankyou, It's awesome",
-  //       image: "Assets/userImage5.jpeg",
-  //       time: "23 Mar"),
-  //   ChatUsers(
-  //       text: "Jacob Pena",
-  //       secondaryText: "will update you in evening",
-  //       image: "Assets/userImage6.jpeg",
-  //       time: "17 Mar"),
-  //   ChatUsers(
-  //       text: "Andrey Jones",
-  //       secondaryText: "Can you please share the file?",
-  //       image: "Assets/userImage7.jpeg",
-  //       time: "24 Feb"),
-  //   ChatUsers(
-  //       text: "John Wick",
-  //       secondaryText: "How are you?",
-  //       image: "Assets/userImage8.jpeg",
-  //       time: "18 Feb"),
-  // ];
 
   @override
   void initState() {
@@ -180,10 +138,11 @@ class _ChatPageState extends State<ChatPage> {
       for (var i = 0; i < body[2].length; i++) {
         globals.children2.add(
           ChatUsers(
-              text: body[2][i][0],
+              text: body[2][i][1],
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
-              time: "17 Mar"),
+              time: "17 Mar",
+              user_id: body[2][i][0],),
         );
       }
       ;
@@ -258,49 +217,6 @@ class ChatPage2 extends StatefulWidget {
 }
 
 class _ChatPage2State extends State<ChatPage2> {
-  // List<ChatUsers> chatUsers = [
-  //   ChatUsers(
-  //       text: "Jane Russel",
-  //       secondaryText: "Awesome Setup",
-  //       image: "Assets/userImage1.jpeg",
-  //       time: "Now"),
-  //   ChatUsers(
-  //       text: "Glady's Murphy",
-  //       secondaryText: "That's Great",
-  //       image: "Assets/userImage2.jpeg",
-  //       time: "Yesterday"),
-  //   ChatUsers(
-  //       text: "Jorge Henry",
-  //       secondaryText: "Hey where are you?",
-  //       image: "Assets/userImage3.jpeg",
-  //       time: "31 Mar"),
-  //   ChatUsers(
-  //       text: "Philip Fox",
-  //       secondaryText: "Busy! Call me in 20 mins",
-  //       image: "Assets/userImage4.jpeg",
-  //       time: "28 Mar"),
-  //   ChatUsers(
-  //       text: "Debra Hawkins",
-  //       secondaryText: "Thankyou, It's awesome",
-  //       image: "Assets/userImage5.jpeg",
-  //       time: "23 Mar"),
-  //   ChatUsers(
-  //       text: "Jacob Pena",
-  //       secondaryText: "will update you in evening",
-  //       image: "Assets/userImage6.jpeg",
-  //       time: "17 Mar"),
-  //   ChatUsers(
-  //       text: "Andrey Jones",
-  //       secondaryText: "Can you please share the file?",
-  //       image: "Assets/userImage7.jpeg",
-  //       time: "24 Feb"),
-  //   ChatUsers(
-  //       text: "John Wick",
-  //       secondaryText: "How are you?",
-  //       image: "Assets/userImage8.jpeg",
-  //       time: "18 Feb"),
-  // ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -409,7 +325,7 @@ class _ChatPage2State extends State<ChatPage2> {
       'user_id': user_id,
     };
 
-    var res = await CallApi().postData(data, '(Control)loadContacts.php');
+    var res = await CallApi().postData(data, '(Control)loadFriends.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     try {
@@ -422,10 +338,11 @@ class _ChatPage2State extends State<ChatPage2> {
       for (var i = 0; i < body[2].length; i++) {
         globals.children2.add(
           ChatUsers(
-              text: body[2][i][0],
+              text: body[2][i][1],
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
-              time: "17 Mar"),
+              time: "17 Mar",
+              user_id:body[2][i][0]),
         );
       }
       ;
