@@ -201,13 +201,8 @@ class _Login2State extends State<Login2> {
           var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
           print(res.body);
           List<dynamic> body1 = json.decode(res.body);
-          try {
-            localStorage.setString('token', body1[1]);
-          } catch (e) {
-            print('no token found');
-          }
           if (body1[0] == "success") {
-            localStorage.setString('userTokenChat', body1[2]);
+            localStorage.setString('userTokenChat', body1[1]);
           }
             showDialog<String>(
               context: context,
