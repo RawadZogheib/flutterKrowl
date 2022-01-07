@@ -22,13 +22,13 @@ class CustomTabBar extends StatelessWidget {
           width: 350,
         ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: (){
-              Navigator.pushNamed(context, '/Library');
+              Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
             },
             child: Text("Library",
                 style: TextStyle(
@@ -39,13 +39,13 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: (){
-              Navigator.pushNamed(context, '/MainChat');
+              Navigator.pushNamedAndRemoveUntil(context, '/MainChat', (route) => false);
             },
             child: Text("Chat",
                 style: TextStyle(
@@ -56,13 +56,13 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: (){
-              Navigator.pushNamed(context, '/Forum1');
+              Navigator.pushNamedAndRemoveUntil(context, '/Forum1', (route) => false);
             },
             child: Text("Forum",
                 style: TextStyle(
@@ -73,7 +73,7 @@ class CustomTabBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: InkWell(
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,

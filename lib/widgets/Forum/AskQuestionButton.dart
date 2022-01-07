@@ -7,20 +7,21 @@ class AskQuestionButton extends StatelessWidget {
   var text;
   final onPressed;
 
-  AskQuestionButton({ this.text, this.color, this.onPressed});
+  AskQuestionButton({ required this.text, required this.textcolor, required this.color1,required this.color2, this.color, required this.onPressed});
   var color;
+  var color1;
+  var color2;
+  var textcolor;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 170,
       height: 40,
-      child: ElevatedButton(onPressed: (){
-        Navigator.pushNamed(context, '/Test');
-      },
+      child: ElevatedButton(onPressed: onPressed,
         style:
         ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(globals.blue2),
-            shadowColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+            backgroundColor: MaterialStateProperty.all<Color>(color1),
+            shadowColor: MaterialStateProperty.all<Color>(color2),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -28,8 +29,8 @@ class AskQuestionButton extends StatelessWidget {
                 )
             )
         ),
-        child: Text ('Ask a question',
-        style: TextStyle(fontSize: 17, fontFamily: 'Rubik', color: globals.blue1),
+        child: Text (text,
+        style: TextStyle(fontSize: 17, fontFamily: 'Rubik', color: textcolor),
 
       ),),
     );

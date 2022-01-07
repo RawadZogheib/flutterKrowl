@@ -3,13 +3,18 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/CreatePostContainer.dart';
+import 'package:flutter_app_backend/widgets/Forum/Dropdown2.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/Contributors.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_app_backend/widgets/TextInput.dart';
+import 'package:flutter_app_backend/widgets/TextInput1.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Responsive.dart';
 
@@ -36,30 +41,6 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
             child: Container(
               alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CreateTable(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Wrap(
-                                children: [
-                                  Column(children: globals.children,)],
-                              ),
-                              SizedBox(width: 20),
-                            ]),
-                      ),
-                    ],
-                  ),
-                ],
               ),
             ),
           ),
@@ -68,29 +49,6 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
             child: Container(
               alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Wrap(
-                                children: [
-                                  Column(children: globals.children,)],
-                              ),
-                              SizedBox(width: 20),
-                            ]),
-                      ),
-                    ],
-                  ),
-                ],
               ),
             ),
           ),
@@ -107,35 +65,86 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 250.0,
-                      child: DefaultTextStyle(
-                        style: const TextStyle(
-                          fontSize: 30.0,
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                        child: AnimatedTextKit(
-                          totalRepeatCount: 5,
-                          animatedTexts: [
-                            WavyAnimatedText('Ask a question ?'),
-                          ],
-                          isRepeatingAnimation: true,
-                          onTap: () {
-                            print("Tap Event");
-                          },
-                        ),
-                      ),),
+                      width: 450,
+                      height: 550,
+                      child:
+                              Stack(
+                                children:[ DefaultTextStyle(
+                                  style: const TextStyle(
+                                    fontSize: 30.0,
+                                    fontFamily: 'Rubik',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  child: AnimatedTextKit(
+                                    totalRepeatCount: 5,
+                                    animatedTexts: [
+                                      WavyAnimatedText('Ask a question ?'),
+                                    ],
+                                    isRepeatingAnimation: true,
+                                    onTap: () {
+                                      print("Tap Event");
+                                    },
+                                  ),
+                                ),
+                                  Positioned(
+                                    top: 45,
+                                    child: Text( "If you are stuck on anything here's your chance to ask a\nquestion about many different subjects.\n\nKrowl has a forum section that is accessible by every\nstudents. This is a great way of getting answers from your\npeers and get help.",
+                                      style: TextStyle(fontSize: 16, fontFamily: 'Rubik', color: Colors.white), ),
+                                  )
+                              ]),
+                           ),
                     Container(
                       margin: EdgeInsets.only(left: 20),
+                      padding: EdgeInsets.only(left: 20,top: 45),
                       width: 520,
                       height: 520,
                       decoration: BoxDecoration(
                         color: globals.blue2,
                         borderRadius: BorderRadius.circular(5),
-                   
                       ),
-                    )
+                      child:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Subject *",
+                                  style: GoogleFonts.nunito(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black)),
+                              SizedBox(height: 10,),
+                              Dropdown2(),
+                              SizedBox(height: 20,),
+                              Text("Question *",
+                                  style: GoogleFonts.nunito(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black)),
+                              SizedBox(height: 10,),
+                              Container(
+                                  width: 450,
+                                  height:40,
+                                  child: TextInput1(fillColor: Colors.white, hintText: 'Enter your question here',)),
+                              SizedBox(height: 20,),
+                              Text("Context of question *",
+                                  style: GoogleFonts.nunito(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black)),
+                              SizedBox(height: 10,),
+                              Container( width: 450,child: TextInput1(fillColor: Colors.white, hintText: 'Give some context...',)),
+                              SizedBox(height: 100,),
+                              Container(
+                                width: 170,
+                                height: 50,
+                                child: AskQuestionButton(color1: globals.blue1, color2: Colors.blueGrey,text: 'Create post', onPressed: (){
+                                  print('hii');
+                                }, textcolor: globals.blue2,),
+                              )
+                            ],
+                          ),
+                    ),
+
                   ],
                 ),
               ),

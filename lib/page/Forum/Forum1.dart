@@ -82,7 +82,10 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           SizedBox(
                             width: 430,
                           ),
-                          AskQuestionButton(),
+                          AskQuestionButton(onPressed: (){
+                            Navigator.pushNamed(context, '/Forum2');
+                          }, text: 'Ask a question',
+                            color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
                         ],
                       ),
                       SizedBox(
@@ -154,7 +157,10 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           SizedBox(
                             width: 430,
                           ),
-                          AskQuestionButton(),
+                          AskQuestionButton(onPressed: (){
+                          Navigator.pushNamed(context, '/Forum2');
+                          }, text: 'Ask a question',
+                            color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
                         ],
                       ),
                       SizedBox(
@@ -226,7 +232,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           SizedBox(
                             width: 430,
                           ),
-                          AskQuestionButton(),
+                          AskQuestionButton(onPressed: (){
+                          Navigator.pushNamed(context, '/Forum2');
+                          }, text: 'Ask a question', color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
                         ],
                       ),
                       SizedBox(

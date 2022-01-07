@@ -6,10 +6,11 @@ import 'package:flutter/services.dart';
 
 class TextInput1 extends StatelessWidget {
 
-  TextInput1 ({ this.onChanged, this.fillColor,  });
+  TextInput1 ({ this.onChanged, this.fillColor, this.hintText });
 
   var onChanged;
   var fillColor;
+  var hintText;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -20,6 +21,7 @@ class TextInput1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(5)),
         fillColor: fillColor,
         filled: true,
+        hintText: hintText,
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),

@@ -52,6 +52,13 @@ dependencies:
   flutter_device_type: ^0.4.0
   flutter_easyloading: ^3.0.3
   stream_chat: ^3.3.1
+  text_style_editor: ^1.1.1
+  text_editor: ^0.7.0
+  quill_delta: ^3.0.0-nullsafety.2
+  flutter_keyboard_visibility: ^5.1.0
+  provider: ^6.0.2
+
+
 
 
 dev_dependencies:
