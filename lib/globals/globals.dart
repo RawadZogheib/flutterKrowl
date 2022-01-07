@@ -89,5 +89,9 @@ var selectedPublicPrivet = '1';
 
 //Chat
 var children2 = <ChatUsers>[];
-
 const apiKey = "z5j34vkctqrq";
+
+//Forum2
+String?dropdown2=null;
+String?question=null;
+String?context_question=null;

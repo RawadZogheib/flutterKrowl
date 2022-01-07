@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
 import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
@@ -15,6 +18,7 @@ import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/TextInput.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Responsive.dart';
 
@@ -113,7 +117,10 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black)),
                               SizedBox(height: 10,),
-                              Dropdown2(),
+                              Dropdown2(onChanged: (val) {
+                                globals.dropdown2 = val;
+                                print(globals.dropdown2.toString());
+                              }),
                               SizedBox(height: 20,),
                               Text("Question *",
                                   style: GoogleFonts.nunito(
@@ -124,7 +131,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                               Container(
                                   width: 450,
                                   height:40,
-                                  child: TextInput1(fillColor: Colors.white, hintText: 'Enter your question here',)),
+                                  child: TextInput1(fillColor: Colors.white, hintText: 'Enter your question here',
+                                    onChanged: (val) {
+                                      globals.question = val;
+                                      print(globals.question.toString());
+                                    },)),
                               SizedBox(height: 20,),
                               Text("Context of question *",
                                   style: GoogleFonts.nunito(
@@ -132,13 +143,19 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black)),
                               SizedBox(height: 10,),
-                              Container( width: 450,child: TextInput1(fillColor: Colors.white, hintText: 'Give some context...',)),
+                              Container( width: 450,child: TextInput1(fillColor: Colors.white, hintText: 'Give some context...',
+                                  onChanged: (val) {
+                                    globals.context_question = val;
+                                    print(globals.context_question.toString());
+                                  })
+                              ),
                               SizedBox(height: 100,),
                               Container(
                                 width: 170,
                                 height: 50,
                                 child: AskQuestionButton(color1: globals.blue1, color2: Colors.blueGrey,text: 'Create post', onPressed: (){
                                   print('hii');
+                                  _createPost();
                                 }, textcolor: globals.blue2,),
                               )
                             ],
@@ -153,7 +170,100 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
           ),
         ));
   }
+
+  Future<void> _createPost() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var account_Id = localStorage.getString("account_Id");
+
+
+    var data = {
+      'version': globals.version,
+      'account_Id': account_Id,
+      'post_subject':'math',
+      'post_question': globals.question.toString(),
+      'post_context': globals.context_question.toString(),
+
+    };
+
+    var res = await CallApi().postData(data, '(Control)createPost.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+
+    try {
+      localStorage.setString('token', body[1]);
+    } catch (e) {
+      print('no token found');
+    }
+
+    if (body[0] == "success") {
+      //toast success
+      //show on forum1
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  "Your version: " + globals.version + "\n" +
+                      globals.errorVersion),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.errorToken),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    } else if (body[0] == "error7") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error7),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    } else if (body[0] == "error10") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.error10),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+      );
+    }
+  }
 }
+
 
 
 
