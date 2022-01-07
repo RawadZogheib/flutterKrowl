@@ -162,22 +162,17 @@ class _ChatPageState extends State<ChatPage> {
     var res = await CallApi().postData(data, '(Control)loadContacts.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
 
     if (body[0] == "success") {
-      for (var i = 0; i < body[2].length; i++) {
+      for (var i = 0; i < body[1].length; i++) {
         globals.children2.add(
           ChatUsers(
-              text: body[2][i][1],
+              text: body[1][i][1],
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              account_Id: body[2][i][0],
-              friendShipId: body[2][i][2]),
+              account_Id: body[1][i][0],
+              friendShipId: body[1][i][2]),
         );
       }
       ;
@@ -384,22 +379,17 @@ class _ChatPage2State extends State<ChatPage2> {
     var res = await CallApi().postData(data, '(Control)loadFriends.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
 
     if (body[0] == "success") {
-      for (var i = 0; i < body[2].length; i++) {
+      for (var i = 0; i < body[1].length; i++) {
         globals.children2.add(
           ChatUsers(
-              text: body[2][i][1],
+              text: body[1][i][1],
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              account_Id: body[2][i][0],
-              friendShipId: body[2][i][2]),
+              account_Id: body[1][i][0],
+              friendShipId: body[1][i][2]),
         );
       }
       ;

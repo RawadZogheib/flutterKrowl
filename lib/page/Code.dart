@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:desktop_window/desktop_window.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 late BuildContext cont;
 
@@ -71,21 +71,22 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
                               ),
                               textInputAction: TextInputAction.next,
-                              onChanged: (value){
+                              onChanged: (value) {
                                 globals.code1 = value;
                                 //print("" + globals.code1);
                               },
                             ),
                           ),
-
                           Container(
                             height: 100,
                             width: 50,
@@ -97,20 +98,22 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
-                              ),textInputAction: TextInputAction.next,
-                              onChanged: (value){
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
+                              ),
+                              textInputAction: TextInputAction.next,
+                              onChanged: (value) {
                                 globals.code2 = value;
                                 //print("" + globals.code2);
                               },
                             ),
                           ),
-
                           Container(
                             height: 100,
                             width: 50,
@@ -122,25 +125,25 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
                               ),
                               textInputAction: TextInputAction.next,
-                              onChanged: (value){
+                              onChanged: (value) {
                                 globals.code3 = value;
                                 //print("" + globals.code3);
                               },
                             ),
                           ),
-
-
                           Container(
                             child: Padding(
-                              padding: EdgeInsets.only(left:5, bottom: 65.0),
+                              padding: EdgeInsets.only(left: 5, bottom: 65.0),
                               child: Icon(
                                 Icons.minimize,
                                 size: 40,
@@ -148,8 +151,6 @@ class _CodeState extends State<Code> {
                               ),
                             ),
                           ),
-
-
                           Container(
                             height: 100,
                             width: 50,
@@ -162,21 +163,22 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
                               ),
                               textInputAction: TextInputAction.next,
-                              onChanged: (value){
+                              onChanged: (value) {
                                 globals.code4 = value;
                                 //print("" + globals.code4);
                               },
                             ),
                           ),
-
                           Container(
                             height: 100,
                             width: 50,
@@ -188,21 +190,22 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
                               ),
                               textInputAction: TextInputAction.next,
-                              onChanged: (value){
+                              onChanged: (value) {
                                 globals.code5 = value;
                                 //print("" + globals.code5);
                               },
                             ),
                           ),
-
                           Container(
                             height: 100,
                             width: 50,
@@ -214,42 +217,42 @@ class _CodeState extends State<Code> {
                               decoration: InputDecoration(
                                 counterText: "",
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade900),
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade900),
                                     borderRadius: BorderRadius.circular(14)),
                                 border: InputBorder.none,
-                                focusedBorder:
-                                OutlineInputBorder(borderRadius: BorderRadius.circular(14),
-                                    borderSide: BorderSide(color: Colors.blue.shade900)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                    borderSide: BorderSide(
+                                        color: Colors.blue.shade900)),
                               ),
                               textInputAction: TextInputAction.done,
-                              onChanged: (value){
+                              onChanged: (value) {
                                 globals.code6 = value;
                                 //print("" + globals.code6);
                               },
                             ),
                           ),
-
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
                     ),
                   ],
                 ),
-
                 Container(
-                  width: 70,
-                  margin: EdgeInsets.only(left: 180.sp),
-                  child: NextButton(text: "next", color: blue1, icon: Icons.arrow_forward, onTap: () {
-
-                      _sendCode();
-
-                  },)
-                ),
-
-
-
+                    width: 70,
+                    margin: EdgeInsets.only(left: 180.sp),
+                    child: NextButton(
+                      text: "next",
+                      color: blue1,
+                      icon: Icons.arrow_forward,
+                      onTap: () {
+                        _sendCode();
+                      },
+                    )),
               ],
             ),
           ),
@@ -258,67 +261,66 @@ class _CodeState extends State<Code> {
     );
   }
 
-    _sendCode() async {
-try{
-    String? vCode;
-    vCode = globals.code1! + globals.code2! + globals.code3! +
-        globals.code4! + globals.code5! + globals.code6!;
+  _sendCode() async {
+    try {
+      String? vCode;
+      vCode = globals.code1! +
+          globals.code2! +
+          globals.code3! +
+          globals.code4! +
+          globals.code5! +
+          globals.code6!;
       var data = {
         'version': globals.version,
-        'email'  : globals.email,
-        'vCode'  : vCode
+        'email': globals.email,
+        'vCode': vCode
       };
       var res = await CallApi().postData(data, '(Control)getVCode.php');
       List<dynamic> body = json.decode(res.body);
       print(body[0]);
-      if(body[0] == "success"){
-        Navigator.pushNamedAndRemoveUntil(cont, '/intro_page2', (route) => false);
+      if (body[0] == "success") {
+        Navigator.pushNamedAndRemoveUntil(
+            cont, '/intro_page2', (route) => false);
       } else if (body[0] == "errorVersion") {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text("Your version: " + globals.version + "\n"+
-                    globals.errorVersion),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () =>
-                        Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text("Your version: " +
+                globals.version +
+                "\n" +
+                globals.errorVersion),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
-
-      }else if (body[0] == "errorToken") {
+      } else if (body[0] == "errorToken") {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text(
-                    globals.errorToken),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () =>
-                        Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorToken),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
       } else if (body[0] == "false") {
         showDialog<String>(
           context: cont,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
-            content: const Text(
-                'Wrong Code !'),
+            content: const Text('Wrong Code !'),
             actions: <Widget>[
               TextButton(
-                onPressed: () =>
-                    Navigator.pop(context, 'OK'),
+                onPressed: () => Navigator.pop(context, 'OK'),
                 child: const Text('OK'),
               ),
             ],
@@ -329,36 +331,30 @@ try{
           context: cont,
           builder: (BuildContext context) => AlertDialog(
             title: const Text('Error'),
-            content: const Text(
-                globals.errorElse),
+            content: const Text(globals.errorElse),
             actions: <Widget>[
               TextButton(
-                onPressed: () =>
-                    Navigator.pop(context, 'OK'),
+                onPressed: () => Navigator.pop(context, 'OK'),
                 child: const Text('OK'),
               ),
             ],
           ),
         );
       }
-
-
-}catch(e){
-  showDialog<String>(
-    context: cont,
-    builder: (BuildContext context) => AlertDialog(
-      title: const Text('Error'),
-      content: const Text(
-          globals.errorException),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () =>
-              Navigator.pop(context, 'OK'),
-          child: const Text('OK'),
+    } catch (e) {
+      showDialog<String>(
+        context: cont,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorException),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
-
-}}
+      );
+    }
+  }
 }

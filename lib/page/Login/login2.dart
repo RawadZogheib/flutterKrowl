@@ -181,11 +181,11 @@ class _Login2State extends State<Login2> {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
           SharedPreferences localStorage = await SharedPreferences.getInstance();
-          print("fffffffffffffff: ${body[1]}");
-          print("fffffffffffffff: ${body[2]}");
-          print("fffffffffffffff: ${body[3]}");
-          print("fffffffffffffff: ${body[4]}");
-          print("fffffffffffffff: ${body[5]}");
+          // print("fffffffffffffff: ${body[1]}");
+          // print("fffffffffffffff: ${body[2]}");
+          // print("fffffffffffffff: ${body[3]}");
+          // print("fffffffffffffff: ${body[4]}");
+          // print("fffffffffffffff: ${body[5]}");
           localStorage.setString('token', body[1]);
           localStorage.setString('account_Id', body[2]);
           localStorage.setString('username', body[3]);

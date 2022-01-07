@@ -296,12 +296,6 @@ class _CustomContainerState extends State<CustomTable>
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
-
     if (body[0] == "success") {
       setState(() {
         widget.enablee[position - 1] = true;
@@ -491,16 +485,10 @@ class _CustomContainerState extends State<CustomTable>
       var res = await CallApi().postData(data, '(Control)loadOccupants.php');
       print(res.body);
       List<dynamic> body = json.decode(res.body);
-      try {
-        localStorage.setString('token', body[1]);
-        print("stts: 0");
-      } catch (e) {
-        print('no token found');
-      }
 
       if (body[0] == "success") {
         setState(() {
-          widget.nb = body[2].length.toString();
+          widget.nb = body[1].length.toString();
         });
 
         //deload

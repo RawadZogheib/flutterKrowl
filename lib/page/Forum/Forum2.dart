@@ -189,12 +189,6 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
-
     if (body[0] == "success") {
       //toast success
       //show on forum1

@@ -49,6 +49,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                             table_name: globals.tableName,
                             table_type: globals.selectedPublicPrivet,
                             color: Colors.green,));
+                        //globals.occupenTable.add
                       });
                     },
                   ),
@@ -177,23 +178,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     var res = await CallApi().postData(data, '(Control)loadTables.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
 
     if (body[0] == "success") {
-      for (var i = 0; i < body[2].length; i++) {
+      for (var i = 0; i < body[1].length; i++) {
         //localStorage.setString('contrat_Id', value)
         globals.occupenTable.add('0');// Initiate table (All table are Off)
         globals.children.add(
           CustomTable(
               id: i,
-              table_name: body[2][i][0],
+              table_name: body[1][i][0],
               table_type: "1",
               color: Colors.green,
-              seats: body[2][i][1]),
+              seats: body[1][i][1]),
         );
       }
       setState(() {

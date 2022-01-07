@@ -279,28 +279,23 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     var res = await CallApi().postData(data, '(Control)loadPosts.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
 
     if (body[0] == "success") {
-      for (var i = 0; i < body[2].length; i++) {
+      for (var i = 0; i < body[1].length; i++) {
         children.addAll(
           [
             Question(
-              id: body[2][i][0],
+              id: body[1][i][0],
               // post_id
-              username: body[2][i][1],
+              username: body[1][i][1],
               // username
-              tag: body[2][i][2],
+              tag: body[1][i][2],
               // tag
-              text: body[2][i][3],
+              text: body[1][i][3],
               // post_data
-              val: int.parse(body[2][0][4]),
+              val: int.parse(body[1][0][4]),
               // post_val
-              date: DateTime.parse(body[2][i][5]),
+              date: DateTime.parse(body[1][i][5]),
               // post_date
             ),
             SizedBox(

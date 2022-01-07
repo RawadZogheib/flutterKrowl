@@ -231,12 +231,6 @@ class _NextButtonState extends State<CreateTable> {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    try {
-      localStorage.setString('token', body[1]);
-    } catch (e) {
-      print('no token found');
-    }
-
     if (body[0] == "success") {
       widget.onTap();
     } else if (body[0] == "errorVersion") {
