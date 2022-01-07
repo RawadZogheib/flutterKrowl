@@ -179,6 +179,20 @@ class _ChatPageState extends State<ChatPage> {
       setState(() {
         globals.children2;
       });
+    }else if(body[0] == "empty"){
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorEmptyContacts),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
@@ -396,6 +410,20 @@ class _ChatPage2State extends State<ChatPage2> {
       setState(() {
         globals.children2;
       });
+    }else if(body[0] == "empty"){
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorEmptyFriends),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
