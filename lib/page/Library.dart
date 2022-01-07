@@ -196,6 +196,20 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       setState(() {
         globals.children;
       });
+    }else if(body[0] == "empty"){
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorEmptyLibrary),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
