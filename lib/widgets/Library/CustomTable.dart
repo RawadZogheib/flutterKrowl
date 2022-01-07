@@ -492,15 +492,15 @@ class _CustomContainerState extends State<CustomTable>
         });
 
         //deload
-        int j = body[2].length - 1;
+        int j = body[1].length - 1;
         for (int i = 7; i >= 0; i--) {
           // print('i: ' + i.toString());
           // print('j: ' + j.toString());
           // print('nb: ' + body[2].length.toString());
           await Future.delayed(const Duration(milliseconds: 100), () {
-            if (i == (int.parse(body[2][j][2]) - 1)) {
+            if (i == (int.parse(body[1][j][2]) - 1)) {
               setState(() {
-                widget.imgs[int.parse(body[2][j][2]) - 1] = '';
+                widget.imgs[int.parse(body[1][j][2]) - 1] = '';
               });
               if (j > 0) {
                 j--;
