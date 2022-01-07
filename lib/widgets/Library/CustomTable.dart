@@ -512,6 +512,36 @@ class _CustomContainerState extends State<CustomTable>
             }
           });
         }
+      }else if(body[0] == "empty"){
+        setState(() {
+          widget.nb = '0';
+        });
+
+        //deload
+        int j = body[1].length - 1;
+        for (int i = 7; i >= 0; i--) {
+          // print('i: ' + i.toString());
+          // print('j: ' + j.toString());
+          // print('nb: ' + body[2].length.toString());
+          await Future.delayed(const Duration(milliseconds: 100), () {
+              setState(() {
+                widget.enablee[i] = false;
+              });
+          });
+        }
+        // showDialog<String>(
+        //   context: context,
+        //   builder: (BuildContext context) => AlertDialog(
+        //     title: const Text('Error'),
+        //     content: const Text(globals.errorEmptyTable),
+        //     actions: <Widget>[
+        //       TextButton(
+        //         onPressed: () => Navigator.pop(context, 'OK'),
+        //         child: const Text('OK'),
+        //       ),
+        //     ],
+        //   ),
+        // );
       } else if (body[0] == "errorVersion") {
         showDialog<String>(
           context: context,
