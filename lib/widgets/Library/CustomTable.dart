@@ -398,24 +398,24 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   toggleButton(bool val) {
-    bool test = false;
-
-    for (int i = 0; i < globals.occupenTable.length; i++) {
-      // Check all table
-      if (globals.occupenTable[i] == '1') {
-        // Table getting token
-        test = true; // There is table getting token
-        break;
-      }
-    }
-    if (test == false) {
+    // bool test = false;
+    //
+    // for (int i = 0; i < globals.occupenTable.length; i++) {
+    //   // Check all table
+    //   if (globals.occupenTable[i] == '1') {
+    //     // Table getting token
+    //     test = true; // There is table getting token
+    //     break;
+    //   }
+    // }
+    //if (test == false) {
       // There is no  table getting token
       if (widget.status == false) {
         setState(() {
           widget.status = !widget.status;
         });
 
-        globals.occupenTable[widget.id] = '1'; // Table getting token
+        //globals.occupenTable[widget.id] = '1'; // Table getting token
         print("stts: 1");
         // Toggle  On
         widget.hiddenBool = false;
@@ -447,9 +447,9 @@ class _CustomContainerState extends State<CustomTable>
           widget.nb = '0';
         });
       }
-    } else {
-      // There is table getting token
-    }
+    // } else {
+    //   // There is table getting token
+    // }
   }
 
   loadOccupants() async {
@@ -578,7 +578,7 @@ class _CustomContainerState extends State<CustomTable>
     }catch(e){
       print("Exeption: " + e.toString());
     }
-    globals.occupenTable[widget.id] = '0'; // Table is On
+    //globals.occupenTable[widget.id] = '0'; // Table is On
   }
 
   _startTimer() async {

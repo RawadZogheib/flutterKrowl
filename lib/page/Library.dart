@@ -49,7 +49,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                             table_name: globals.tableName,
                             table_type: globals.selectedPublicPrivet,
                             color: Colors.green,));
-                        //globals.occupenTable.add
+                        //globals.occupenTable.add('0');
                       });
                     },
                   ),
@@ -143,6 +143,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     table_name: globals.tableName,
                                     table_type: globals.selectedPublicPrivet,
                                     color: Colors.green,));
+                                //globals.occupenTable.add('0');
                               });
                             },
                           ),
@@ -164,7 +165,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
   Future<void> _loadTables() async {
     globals.children.clear();
-    globals.occupenTable.clear();
+    //globals.occupenTable.clear();
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
     var user_uni = localStorage.getString("user_uni");
@@ -182,7 +183,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         //localStorage.setString('contrat_Id', value)
-        globals.occupenTable.add('0');// Initiate table (All table are Off)
+        //globals.occupenTable.add('0');// Initiate table (All table are Off)
         globals.children.add(
           CustomTable(
               id: i,
