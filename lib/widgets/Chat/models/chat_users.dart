@@ -3,7 +3,7 @@ class ChatUsers {
   String secondaryText;
   String image;
   String time;
-  String user_id;
+  String account_Id;
   String friendShipId;
 
   ChatUsers(
@@ -12,5 +12,5 @@ class ChatUsers {
       required this.secondaryText,
       required this.image,
       required this.time,
-      required this.user_id});
+      required this.account_Id});
 }

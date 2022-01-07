@@ -69,7 +69,7 @@ class _Intro2State extends State<Intro2> {
                   SharedPreferences localStorage =
                       await SharedPreferences.getInstance();
 
-                  var data = {'user_id': 69};
+                  var data = {'account_Id': 69};
 
                   var res =
                       await CallApi().postData(data, '(Control)tokenCheck.php');

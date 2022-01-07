@@ -105,7 +105,7 @@ class _ChatPageState extends State<ChatPage> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return ChatUsersList(
-                  id: globals.children2[index].user_id,
+                  id: globals.children2[index].account_Id,
                   text: globals.children2[index].text,
                   secondaryText: globals.children2[index].secondaryText,
                   image: globals.children2[index].image,
@@ -152,11 +152,11 @@ class _ChatPageState extends State<ChatPage> {
 
   _loadContacts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var user_id = localStorage.getString("user_id");
+    var account_Id = localStorage.getString("account_Id");
 
     var data = {
       'version': globals.version,
-      'user_id': user_id,
+      'account_Id': account_Id,
     };
 
     var res = await CallApi().postData(data, '(Control)loadContacts.php');
@@ -176,7 +176,7 @@ class _ChatPageState extends State<ChatPage> {
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              user_id: body[2][i][0],
+              account_Id: body[2][i][0],
               friendShipId: body[2][i][2]),
         );
       }
@@ -353,7 +353,7 @@ class _ChatPage2State extends State<ChatPage2> {
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return ChatUsersList(
-                  id: globals.children2[index].user_id,
+                  id: globals.children2[index].account_Id,
                   text: globals.children2[index].text,
                   secondaryText: globals.children2[index].secondaryText,
                   image: globals.children2[index].image,
@@ -374,11 +374,11 @@ class _ChatPage2State extends State<ChatPage2> {
 
   _loadFriends() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var user_id = localStorage.getString("user_id");
+    var account_Id = localStorage.getString("account_Id");
 
     var data = {
       'version': globals.version,
-      'user_id': user_id,
+      'account_Id': account_Id,
     };
 
     var res = await CallApi().postData(data, '(Control)loadFriends.php');
@@ -398,7 +398,7 @@ class _ChatPage2State extends State<ChatPage2> {
               secondaryText: "will update you in evening",
               image: "Assets/userImage6.jpeg",
               time: "17 Mar",
-              user_id: body[2][i][0],
+              account_Id: body[2][i][0],
               friendShipId: body[2][i][2]),
         );
       }

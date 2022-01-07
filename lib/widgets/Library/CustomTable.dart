@@ -282,12 +282,12 @@ class _CustomContainerState extends State<CustomTable>
 
   Future<void> _sitOnChair(String table_name, int position) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var user_id = localStorage.getString("user_id");
+    var account_Id = localStorage.getString("account_Id");
     var username = localStorage.getString("username");
 
     var data = {
       'version': globals.version,
-      'user_id': user_id,
+      'account_Id': account_Id,
       'table_name': table_name,
       'position': position
     };
@@ -461,8 +461,8 @@ class _CustomContainerState extends State<CustomTable>
   loadOccupants() async {
     try {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      String id = localStorage.getString('user_id').toString();
-      print('fdsfdsfsdf id: ' + id);
+      String account_Id = localStorage.getString('account_Id').toString();
+      print('fdsfdsfsdf id: ' + account_Id);
       //deload all
       for (int i = 7; i >= 0; i--) {
         if (widget.enablee[i] == false) continue;
@@ -484,7 +484,7 @@ class _CustomContainerState extends State<CustomTable>
 
       var data = {
         'version': globals.version,
-        'user_id': id,
+        'account_Id': account_Id,
         'table_name': widget.table_name,
       };
 

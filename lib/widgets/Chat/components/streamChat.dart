@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
   Future<void> selectFriends() async {
     var data = {
       'version': globals.version,
-      'user_id': 1
+      'account_Id': 1
     };
 
     var res = await CallApi().postData(

@@ -187,15 +187,15 @@ class _Login2State extends State<Login2> {
           print("fffffffffffffff: ${body[4]}");
           print("fffffffffffffff: ${body[5]}");
           localStorage.setString('token', body[1]);
-          localStorage.setString('user_id', body[2]);
+          localStorage.setString('account_Id', body[2]);
           localStorage.setString('username', body[3]);
           localStorage.setString('user_uni', body[4]);
           localStorage.setString('photo', body[5]);
 
 
-          var user_id =body[2];
+          var account_Id =body[2];
           var data = {'version': globals.version,
-            'user_id': user_id
+            'account_Id': account_Id
           };
 
           var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
