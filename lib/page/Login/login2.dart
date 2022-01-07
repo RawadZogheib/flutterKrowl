@@ -185,25 +185,14 @@ class _Login2State extends State<Login2> {
           // print("fffffffffffffff: ${body[2]}");
           // print("fffffffffffffff: ${body[3]}");
           // print("fffffffffffffff: ${body[4]}");
-          // print("fffffffffffffff: ${body[5]}");
+           print("CHATTTfffffffffffffff: ${body[6]}");
           localStorage.setString('token', body[1]);
           localStorage.setString('account_Id', body[2]);
           localStorage.setString('username', body[3]);
           localStorage.setString('user_uni', body[4]);
           localStorage.setString('photo', body[5]);
+          localStorage.setString('userTokenChat', body[6]);
 
-
-          var account_Id =body[2];
-          var data = {'version': globals.version,
-            'account_Id': account_Id
-          };
-
-          var res = await CallApi().postData(data, '(Control)generateTokenChat.php');
-          print(res.body);
-          List<dynamic> body1 = json.decode(res.body);
-          if (body1[0] == "success") {
-            localStorage.setString('userTokenChat', body1[1]);
-          }
             showDialog<String>(
               context: context,
               builder: (BuildContext context) =>
