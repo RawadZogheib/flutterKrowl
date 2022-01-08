@@ -39,7 +39,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         backgroundColor: globals.white,
         body: Responsive(
           mobile: SingleChildScrollView(
-            reverse: true,
+            reverse: false,
             child: Column(children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +114,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             ]),
           ),
           tablet: SingleChildScrollView(
-            reverse: true,
+            reverse: false,
             child: Column(children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,7 +189,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             ]),
           ),
           desktop: SingleChildScrollView(
-            reverse: true,
+            reverse: false,
             child: Column(children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
