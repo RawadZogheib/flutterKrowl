@@ -54,28 +54,21 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     },
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Wrap(
-                                children: [
-                                  Column(
-                                    children: globals.children,
-                                  )
-                                ],
-                              ),
-                              SizedBox(width: 20),
-                            ]),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Wrap(
+                          children: [
+                            Column(
+                              children: globals.children,
+                            )
+                          ],
+                        ),
+                        SizedBox(width: 20),
+                      ]),
                 ],
               ),
             ),
@@ -129,35 +122,28 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 height: 50,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CreateTable(
-                            onTap: (){
-                              setState(() {
-                                globals.children.add(CustomTable(
-                                    table_name: globals.tableName,
-                                    table_type: globals.selectedPublicPrivet,
-                                    color: Colors.green,));
-                                //globals.occupenTable.add('0');
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SizedBox(
-                              width: 700,
-                              child: Wrap(children: globals.children)),
-                          SizedBox(width: 20),
-                        ]),
-                  ),
-                ],
-              ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CreateTable(
+                      onTap: (){
+                        setState(() {
+                          globals.children.add(CustomTable(
+                              table_name: globals.tableName,
+                              table_type: globals.selectedPublicPrivet,
+                              color: Colors.green,));
+                          //globals.occupenTable.add('0');
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    SizedBox(
+                        width: 700,
+                        child: Wrap(children: globals.children)),
+                    SizedBox(width: 20),
+                  ]),
             ]),
           ),
         ));
