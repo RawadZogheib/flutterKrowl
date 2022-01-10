@@ -5,7 +5,6 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:desktop_window/desktop_window.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
@@ -17,6 +16,7 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
+
 class _LoginState extends State<Login> {
   @override
   void initState() {
@@ -169,32 +169,16 @@ class _LoginState extends State<Login> {
 
   _getSaved() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var e = localStorage.getString("email");
+    print(e);
 
-    print('kjkjlkg ' + globals.emailLogin.toString() + "\n");
-
-    if (globals.emailLogin == null) {
-      if (globals.passwordLogin == null) {
-        var e = localStorage.getString("email");
-        var p = localStorage.getString("password");
-            print(e);
-            print(p);
-        if (globals.emailLogin.toString().isEmpty) {
-          if (globals.passwordLogin.toString().isEmpty) {
-            if (e != null) {
-              if (p != null) {
-                setState(() {
-                  globals.emailLogin = e;
-                  globals.passwordLogin = p;
-
-                  print("loginnnn" + globals.emailLogin!);
-                  print("loginnnn" + globals.passwordLogin!);
-                });
-              }
-            }
-          }
-        }
-      }
+    if (e != null) {
+      setState(() {
+        globals.emailLogin = e;
+        print("loginnnn" + globals.emailLogin!);
+      });
     }
-    //End if
   }
+//End if
+
 }

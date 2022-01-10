@@ -25,6 +25,14 @@ class _Login2State extends State<Login2> {
   var blue1;
   var blue2;
   var white;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getSaved();
+  }
+
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -341,8 +349,8 @@ class _Login2State extends State<Login2> {
 
   _yesRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.setString('email',globals.emailLogin!);
-    localStorage.setString('password',globals.passwordLogin!);
+    localStorage.setString('email', globals.emailLogin!);
+    localStorage.setString('password', globals.passwordLogin!);
 
     Navigator.pushNamed(cont, '/Library');
   }
@@ -351,14 +359,26 @@ class _Login2State extends State<Login2> {
   _noRemember() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove("email");
+    localStorage.remove("password");
     setState(() {
       globals.emailLogin = "";
-
+      globals.passwordLogin = "";
     });
 
     Navigator.pushNamed(cont, '/Library');
-
   }
 
+  _getSaved() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var p = localStorage.getString("password");
+    print(p);
+
+    if (p != null) {
+      setState(() {
+        globals.passwordLogin = p;
+        print("loginnnn" + globals.passwordLogin!);
+      });
+    }
+  }
 
 }
