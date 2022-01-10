@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -11,8 +10,6 @@ import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/Contributors.dart';
 import 'package:flutter_app_backend/widgets/Forum/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/SearchBar.dart';
-import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
-import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
