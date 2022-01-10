@@ -51,9 +51,7 @@ class _CustomContainerState extends State<CustomTable>
     // TODO: implement initState
     super.initState();
     for (int i = 0; i < widget.realImgs.length; i++) {
-      realImgs.add(
-          https://i.picsum.photos/id/572/500/500
-      )
+      widget.realImgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
     }
   }
 
