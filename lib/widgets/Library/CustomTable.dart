@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,17 +27,18 @@ class CustomTable extends StatefulWidget {
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<String> imgs = ['', '', '', '', '', '', '', ''];
-  List<String> realImgs = ['', '', '', '', '', '', '', ''];
+  List<String> emptyImgs = ['', '', '', '', '', '', '', ''];
 
-  CustomTable({this.children,
-    required this.table_name,
-    required this.table_type,
-    required this.color,
-    this.id,
-    this.icon,
-    this.height,
-    this.width,
-    this.seats});
+  CustomTable(
+      {this.children,
+      required this.table_name,
+      required this.table_type,
+      required this.color,
+      this.id,
+      this.icon,
+      this.height,
+      this.width,
+      this.seats});
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
@@ -45,15 +47,6 @@ class CustomTable extends StatefulWidget {
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   late Timer timer;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    for (int i = 0; i < widget.realImgs.length; i++) {
-      widget.realImgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,51 +202,51 @@ class _CustomContainerState extends State<CustomTable>
               )),
           widget.enablee[0] == true
               ? Positioned(
-              top: 66,
-              left: 105,
-              child: Chair2(img: widget.imgs[0].toString()))
+                  top: 66,
+                  left: 105,
+                  child: Chair2(img: widget.imgs[0].toString()))
               : Container(),
           widget.enablee[1] == true
               ? Positioned(
-              top: 66,
-              left: 180,
-              child: Chair2(img: widget.imgs[1].toString()))
+                  top: 66,
+                  left: 180,
+                  child: Chair2(img: widget.imgs[1].toString()))
               : Container(),
           widget.enablee[2] == true
               ? Positioned(
-              top: 127,
-              left: 248,
-              child: Chair2(img: widget.imgs[2].toString()))
+                  top: 127,
+                  left: 248,
+                  child: Chair2(img: widget.imgs[2].toString()))
               : Container(),
           widget.enablee[3] == true
               ? Positioned(
-              top: 202.5,
-              left: 248,
-              child: Chair2(img: widget.imgs[3].toString()))
+                  top: 202.5,
+                  left: 248,
+                  child: Chair2(img: widget.imgs[3].toString()))
               : Container(),
           widget.enablee[4] == true
               ? Positioned(
-              top: 266,
-              left: 180,
-              child: Chair2(img: widget.imgs[4].toString()))
+                  top: 266,
+                  left: 180,
+                  child: Chair2(img: widget.imgs[4].toString()))
               : Container(),
           widget.enablee[5] == true
               ? Positioned(
-              top: 266,
-              left: 105,
-              child: Chair2(img: widget.imgs[5].toString()))
+                  top: 266,
+                  left: 105,
+                  child: Chair2(img: widget.imgs[5].toString()))
               : Container(),
           widget.enablee[6] == true
               ? Positioned(
-              top: 202.5,
-              left: 45,
-              child: Chair2(img: widget.imgs[6].toString()))
+                  top: 202.5,
+                  left: 45,
+                  child: Chair2(img: widget.imgs[6].toString()))
               : Container(),
           widget.enablee[7] == true
               ? Positioned(
-              top: 127,
-              left: 45,
-              child: Chair2(img: widget.imgs[7].toString()))
+                  top: 127,
+                  left: 45,
+                  child: Chair2(img: widget.imgs[7].toString()))
               : Container(),
           hiddenFunction(),
           Positioned(
@@ -307,7 +300,8 @@ class _CustomContainerState extends State<CustomTable>
 
     if (body[0] == "success") {
       setState(() {
-        widget.imgs[position - 1] = widget.realImgs[position - 1];
+        widget.imgs[position - 1] =
+            'https://i.picsum.photos/id/572/500/500?${position - 1}'; //get img from server body[1]
         widget.enablee[position - 1] = true;
       });
       if (!await launch(
@@ -316,89 +310,83 @@ class _CustomContainerState extends State<CustomTable>
         forceWebView: true,
         headers: <String, String>{'my_header_key': 'my_header_value'},
       )) {
-        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' +
-            username.toString()}';
+        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
       }
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  "Your version: " + globals.version + "\n" +
-                      globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "errorToken") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error7") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error8") {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error8),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error8),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     } else if (body[0] == "error9") {
       setState(() {
-        widget.imgs[position - 1] = widget.realImgs[position - 1];
+        widget.imgs[position - 1] =
+            'https://i.picsum.photos/id/572/500/500?${position - 1}'; //get img from server body[1]
         widget.enablee[position - 1] = true;
       });
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error9),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error9),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
             ),
+          ],
+        ),
       );
     }
   }
@@ -452,6 +440,7 @@ class _CustomContainerState extends State<CustomTable>
         //widget.status = false;
         globals.tmpid = null;
         widget.hiddenBool = true;
+        widget.imgs = widget.emptyImgs;
         widget.enablee = [
           false,
           false,
@@ -489,7 +478,7 @@ class _CustomContainerState extends State<CustomTable>
       for (int i = 0; i < 8; i++) {
         await Future.delayed(const Duration(milliseconds: 100), () {
           setState(() {
-            widget.imgs[i] = '';
+            widget.imgs[i] = widget.emptyImgs[i];
             widget.enablee[i] = true;
           });
         });
@@ -506,6 +495,9 @@ class _CustomContainerState extends State<CustomTable>
       List<dynamic> body = json.decode(res.body);
 
       if (body[0] == "success") {
+        // for (int i = 0; i < widget.imgs.length; i++) {
+        //   widget.imgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
+        // }
         setState(() {
           widget.nb = body[1].length.toString();
         });
@@ -520,7 +512,7 @@ class _CustomContainerState extends State<CustomTable>
             if (i == (int.parse(body[1][j][2]) - 1)) {
               setState(() {
                 widget.imgs[int.parse(body[1][j][2]) - 1] =
-                widget.realImgs[int.parse(body[1][j][2]) - 1];
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}';
               });
               if (j > 0) {
                 j--;
@@ -565,65 +557,61 @@ class _CustomContainerState extends State<CustomTable>
       } else if (body[0] == "errorVersion") {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text("Your version: " +
-                    globals.version +
-                    "\n" +
-                    globals.errorVersion),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text("Your version: " +
+                globals.version +
+                "\n" +
+                globals.errorVersion),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
       } else if (body[0] == "errorToken") {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.errorToken),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorToken),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
       } else if (body[0] == "error4") {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.error7),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.error7),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
       } else {
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.errorElse),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorElse),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
               ),
+            ],
+          ),
         );
       }
     } catch (e) {
@@ -644,7 +632,6 @@ class _CustomContainerState extends State<CustomTable>
         widget.status = false;
         globals.tmpid = null;
         widget.hiddenBool = true;
-        widget.imgs = ['', '', '', '', '', '', '', ''];
         widget.enablee = [
           false,
           false,
