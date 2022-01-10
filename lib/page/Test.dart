@@ -18,8 +18,8 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-      ),
+      body: Column(children: [
+      ]),
     );
   }
 

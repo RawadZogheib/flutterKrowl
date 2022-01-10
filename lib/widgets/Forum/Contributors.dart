@@ -19,8 +19,6 @@ class Contributors extends StatefulWidget {
 }
 
 class _Contributors extends State<Contributors> {
-  int _like = 0;
-  int _dislike = 0;
   @override
   Widget build(BuildContext context) {
     return Column(

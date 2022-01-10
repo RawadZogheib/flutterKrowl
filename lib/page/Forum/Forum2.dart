@@ -4,8 +4,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Forum/AskQuestionButton.dart';
-import 'package:flutter_app_backend/widgets/Forum/Dropdown2.dart';
+import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
+import 'package:flutter_app_backend/widgets/Forum/Forum2/Dropdown2.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -163,8 +163,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                               color2: Colors.blueGrey,
                               text: 'Create post',
                               onPressed: () {
-                                print('hii');
                                 _createPost();
+                                Navigator.pushNamedAndRemoveUntil(context, '/Forum1', (route) => false);
                               },
                               textcolor: globals.blue2,
                             ),

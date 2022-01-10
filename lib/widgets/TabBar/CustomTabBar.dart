@@ -19,7 +19,7 @@ class CustomTabBar extends StatelessWidget {
           scale: 2.0,
         ),
         SizedBox(
-          width: 350,
+          width: 550,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -81,6 +81,22 @@ class CustomTabBar extends StatelessWidget {
             onTap: (){
             },
             child: Text("Students",
+                style: TextStyle(
+                  color: globals.blue1,
+                  fontFamily: 'Rubik',
+                  fontSize: 15,
+                )),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          child: InkWell(
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: (){
+            },
+            child: Text("Reminders",
                 style: TextStyle(
                   color: globals.blue1,
                   fontFamily: 'Rubik',
