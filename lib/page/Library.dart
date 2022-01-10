@@ -63,7 +63,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         Wrap(
                           children: [
                             Column(
-                              children: globals.children,
+                              children: globals.children.reversed.toList(),
                             )
                           ],
                         ),
@@ -94,7 +94,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               Wrap(
                                 children: [
                                   Column(
-                                    children: globals.children,
+                                    children: globals.children.reversed.toList(),
                                   )
                                 ],
                               ),
@@ -141,7 +141,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ),
                     SizedBox(
                         width: 700,
-                        child: Wrap(children: globals.children)),
+                        child: Wrap(children: globals.children.reversed.toList())),
                     SizedBox(width: 20),
                   ]),
             ]),

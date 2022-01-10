@@ -27,7 +27,6 @@ class CustomTable extends StatefulWidget {
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<String> imgs = ['', '', '', '', '', '', '', ''];
-  List<String> emptyImgs = ['', '', '', '', '', '', '', ''];
 
   CustomTable(
       {this.children,
@@ -440,7 +439,7 @@ class _CustomContainerState extends State<CustomTable>
         //widget.status = false;
         globals.tmpid = null;
         widget.hiddenBool = true;
-        widget.imgs = widget.emptyImgs;
+        widget.imgs = ['','','','','','','',''];
         widget.enablee = [
           false,
           false,
@@ -460,6 +459,7 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   loadOccupants() async {
+    widget.imgs = ['','','','','','','',''];
     try {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       String account_Id = localStorage.getString('account_Id').toString();
@@ -478,7 +478,7 @@ class _CustomContainerState extends State<CustomTable>
       for (int i = 0; i < 8; i++) {
         await Future.delayed(const Duration(milliseconds: 100), () {
           setState(() {
-            widget.imgs[i] = widget.emptyImgs[i];
+            widget.imgs[i] = '';
             widget.enablee[i] = true;
           });
         });
@@ -628,23 +628,26 @@ class _CustomContainerState extends State<CustomTable>
       print('Time Out!!!!!!!!!!!!!');
       //print('time!!!!!!!!!!!!!: ' + (i).toString());
       //globals.occupenTable[widget.id] = '0';
-      setState(() {
-        widget.status = false;
-        globals.tmpid = null;
-        widget.hiddenBool = true;
-        widget.imgs = widget.emptyImgs;
-        widget.enablee = [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false
-        ];
-        widget.nb = '0';
-      });
+      if(mounted){
+        setState(() {
+          widget.status = false;
+          globals.tmpid = null;
+          widget.hiddenBool = true;
+          widget.imgs = ['','','','','','','',''];
+          widget.enablee = [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ];
+          widget.nb = '0';
+        });
+
+      }
     });
   }
 }
