@@ -15,7 +15,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.bottomLeft,
-      width: 730,
+      width: MediaQuery.of(context).size.width*0.62,
       height: 40,
       child:Theme(
         data:ThemeData(

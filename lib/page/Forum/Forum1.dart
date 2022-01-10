@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class Forum1 extends StatefulWidget {
 }
 
 class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
-
   @override
   var children = <Widget>[]; // Posts
 
@@ -33,7 +31,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     _loadPosts();
   }
 
-
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
@@ -42,135 +39,114 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         body: Responsive(
           mobile: SingleChildScrollView(
             reverse: false,
-            child: Column(children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTabBar(),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 130,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BouncingWidget(
-                            duration: Duration(milliseconds: 100),
-                            scaleFactor: 1.5,
-                            onPressed: () {
-                              print("onPressed");
-                            },
-                            child: Text(
-                              "Forum",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 430,
-                          ),
-                          AskQuestionButton(onPressed: (){
-                            Navigator.pushNamed(context, '/Forum2');
-                          }, text: 'Ask a question', color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
-                        ],
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BouncingWidget(
+                      duration: Duration(milliseconds: 100),
+                      scaleFactor: 1.5,
+                      onPressed: () {
+                        print("onPressed");
+                      },
+                      child: Text(
+                        "Forum",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Rubik',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SearchBar(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ]),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                    AskQuestionButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Forum2');
+                      },
+                      text: 'Ask a question',
+                      color1: globals.blue2,
+                      color2: Colors.blueGrey,
+                      textcolor: globals.blue1,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SearchBar(),
+                SizedBox(
+                  height: 20,
+                ),
+                Wrap(
+                  direction: Axis.vertical,
+                  children: children, // My Children
+                ),
+              ],
+            ),
           ),
           tablet: SingleChildScrollView(
             reverse: false,
-            child: Column(children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTabBar(),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 130,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BouncingWidget(
-                            duration: Duration(milliseconds: 100),
-                            scaleFactor: 1.5,
-                            onPressed: () {
-                              print("onPressed");
-                            },
-                            child: Text(
-                              "Forum",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
-                              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 130,
+                ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BouncingWidget(
+                          duration: Duration(milliseconds: 100),
+                          scaleFactor: 1.5,
+                          onPressed: () {
+                            print("onPressed");
+                          },
+                          child: Text(
+                            "Forum",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Rubik',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40,
                             ),
                           ),
-                          SizedBox(
-                            width: 430,
-                          ),
-                          AskQuestionButton(onPressed: (){
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                        ),
+                        AskQuestionButton(
+                          onPressed: () {
                             Navigator.pushNamed(context, '/Forum2');
-                          }, text: 'Ask a question', color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SearchBar(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ]),
+                          },
+                          text: 'Ask a question',
+                          color1: globals.blue2,
+                          color2: Colors.blueGrey,
+                          textcolor: globals.blue1,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SearchBar(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Wrap(
+                      direction: Axis.vertical,
+                      children: children, // My Children
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           desktop: SingleChildScrollView(
             reverse: false,
@@ -190,7 +166,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 130,
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                   Column(
                     children: [
@@ -214,11 +190,17 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                             ),
                           ),
                           SizedBox(
-                            width: 430,
+                            width: MediaQuery.of(context).size.width * 0.35,
                           ),
-                          AskQuestionButton(onPressed: (){
-                            Navigator.pushNamed(context, '/Forum2');
-                          }, text: 'Ask a question', color1: globals.blue2, color2: Colors.blueGrey, textcolor: globals.blue1,),
+                          AskQuestionButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/Forum2');
+                            },
+                            text: 'Ask a question',
+                            color1: globals.blue2,
+                            color2: Colors.blueGrey,
+                            textcolor: globals.blue1,
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -241,6 +223,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       ),
                       Contributors(),
                     ],
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.01,
                   ),
                 ],
               ),

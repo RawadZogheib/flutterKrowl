@@ -45,7 +45,7 @@ class _QuestionState extends State<Question> {
       child: Column(
         children: [
           Container(
-            width: 730,
+            width: MediaQuery.of(context).size.width*0.62,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.8),
@@ -81,7 +81,7 @@ class _QuestionState extends State<Question> {
                       height: 7,
                     ),
                     Container(
-                      width: 500,
+                      width: MediaQuery.of(context).size.width*0.35,
                       alignment: Alignment.topLeft,
                       child: Text(widget.text,
                           style: GoogleFonts.nunito(
