@@ -175,7 +175,6 @@ class _LoginState extends State<Login> {
     if (e != null) {
       setState(() {
         globals.emailLogin = e;
-        print("loginnnn" + globals.emailLogin!);
       });
     }
   }

@@ -376,7 +376,6 @@ class _Login2State extends State<Login2> {
     if (p != null) {
       setState(() {
         globals.passwordLogin = p;
-        print("loginnnn" + globals.passwordLogin!);
       });
     }
   }
