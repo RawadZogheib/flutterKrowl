@@ -301,7 +301,7 @@ class _CustomContainerState extends State<CustomTable>
     if (body[0] == "success") {
       setState(() {
         widget.imgs[position - 1] =
-            'https://i.picsum.photos/id/572/500/500?${position - 1}'; //get img from server body[1]
+            'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
         widget.enablee[position - 1] = true;
       });
       if (!await launch(
@@ -372,7 +372,7 @@ class _CustomContainerState extends State<CustomTable>
     } else if (body[0] == "error9") {
       setState(() {
         widget.imgs[position - 1] =
-            'https://i.picsum.photos/id/572/500/500?${position - 1}'; //get img from server body[1]
+            'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
         widget.enablee[position - 1] = true;
       });
       showDialog<String>(
@@ -632,6 +632,7 @@ class _CustomContainerState extends State<CustomTable>
         widget.status = false;
         globals.tmpid = null;
         widget.hiddenBool = true;
+        widget.imgs = widget.emptyImgs;
         widget.enablee = [
           false,
           false,
