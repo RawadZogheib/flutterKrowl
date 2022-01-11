@@ -23,19 +23,14 @@ class _FirstPage extends State<FirstPage> {
     var height;
     return Scaffold(
       backgroundColor: globals.blue2,
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 700,),
-          Image(
-            image: AssetImage('Assets/krowl_logo.png'),
-            fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.4,
-            alignment: Alignment.center,
-          ),
-        ],
+      body: Container(
+        alignment: Alignment.center,
+        child: Image(
+          image: AssetImage('Assets/krowl_logo.png'),
+          fit: BoxFit.cover,
+          height: MediaQuery.of(context).size.height * 0.4,
+          width: MediaQuery.of(context).size.width * 0.4,
+        ),
       ),
     );
   }
