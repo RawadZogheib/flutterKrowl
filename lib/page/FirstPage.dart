@@ -19,21 +19,30 @@ class _FirstPage extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+    var height;
     return Scaffold(
       backgroundColor: globals.blue2,
-      body: Image(
-        image: AssetImage('Assets/krowl_logo.png'),
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-        alignment: Alignment.center,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 700,),
+          Image(
+            image: AssetImage('Assets/krowl_logo.png'),
+            fit: BoxFit.cover,
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width * 0.4,
+            alignment: Alignment.center,
+          ),
+        ],
       ),
     );
   }
 
   _timer() async {
     try {
-      new Future.delayed(const Duration(seconds: 3), () {
+      new Future.delayed(const Duration(seconds: 5), () {
         Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
       });
     } catch (e) {
