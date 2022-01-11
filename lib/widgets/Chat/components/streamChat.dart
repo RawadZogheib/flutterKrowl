@@ -33,7 +33,7 @@ class StreamExample extends StatefulWidget {
     required this.client,
     required this.channel,
   }) : super(key: key);
-  
+
 
   @override
   State<StreamExample> createState() => _StreamExampleState();
@@ -88,9 +88,6 @@ class _StreamExampleState extends State<StreamExample> {
   }
 
   _back() {
-    setState(() {
-      widget.channel.dispose();
-    });
     Navigator.of(context).pop();
   }
 }
