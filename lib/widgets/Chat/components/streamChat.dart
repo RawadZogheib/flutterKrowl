@@ -5,6 +5,18 @@ import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
+// class StreamExample extends StatelessWidget {
+//
+//
+//   @override
+//   Widget build(BuildContext context) => MaterialApp(
+//     title: 'Stream Chat Dart Example',
+//     home: HomeScreen(channel: channel, name: name,),
+//   );
+// }
+
+/// Main screen of our application. The layout is comprised of an [AppBar]
+/// containing the channel name and a [MessageView] displaying recent messages.
 class StreamExample extends StatelessWidget {
   String name;
 
@@ -25,71 +37,61 @@ class StreamExample extends StatelessWidget {
   final Channel channel;
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    title: 'Stream Chat Dart Example',
-    home: HomeScreen(channel: channel, name: name,),
-  );
-}
-
-/// Main screen of our application. The layout is comprised of an [AppBar]
-/// containing the channel name and a [MessageView] displaying recent messages.
-class HomeScreen extends StatelessWidget {
-  String name;
-
-  /// [HomeScreen] is constructed using the [Channel] we defined earlier.
-  HomeScreen({
-    Key? key,
-    required this.name,
-    required this.channel,
-  }) : super(key: key);
-
-  /// Channel object containing the [Channel.id] we'd like to observe.
-  final Channel channel;
-
-  @override
   Widget build(BuildContext context) {
     final messages = channel.state!.messagesStream;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(name),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add_rounded),
-            onPressed: () {
-              selectFriends();
-            },
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: StreamBuilder<List<Message>?>(
-          stream: messages,
-          builder: (
-              BuildContext context,
-              AsyncSnapshot<List<Message>?> snapshot,
-              ) {
-            if (snapshot.hasData && snapshot.data != null) {
-              return MessageView(
-                messages: snapshot.data!.reversed.toList(),
-                channel: channel,
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text(
-                  'There was an error loading messages. Please see logs.',
+    return Builder(
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async => _back(context),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(name),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.add_rounded),
+                  onPressed: () {
+                    selectFriends();
+                  },
                 ),
-              );
-            }
-            return const Center(
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: CircularProgressIndicator(),
+              ],
+              leading: new IconButton(
+                  icon: new Icon(Icons.arrow_back),
+                  onPressed: () {
+                    _back(context);
+                  }),
+            ),
+            body: SafeArea(
+              child: StreamBuilder<List<Message>?>(
+                stream: messages,
+                builder: (
+                    BuildContext context,
+                    AsyncSnapshot<List<Message>?> snapshot,
+                    ) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    return MessageView(
+                      messages: snapshot.data!.reversed.toList(),
+                      channel: channel,
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(
+                      child: Text(
+                        'There was an error loading messages. Please see logs.',
+                      ),
+                    );
+                  }
+                  return const Center(
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      }
     );
   }
 
@@ -106,6 +108,10 @@ class HomeScreen extends StatelessWidget {
     if (body[0] == "success") {
 
     }
+  }
+
+  _back(BuildContext ctxt) {
+    Navigator.of(ctxt).pop();
   }
 }
 
