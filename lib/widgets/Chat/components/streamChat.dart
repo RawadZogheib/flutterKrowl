@@ -17,7 +17,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
 /// containing the channel name and a [MessageView] displaying recent messages.
-class StreamExample extends StatelessWidget {
+class StreamExample extends StatefulWidget {
   String name;
 
   /// To initialize this example, an instance of
@@ -37,19 +37,22 @@ class StreamExample extends StatelessWidget {
   final Channel channel;
 
   @override
+  State<StreamExample> createState() => _StreamExampleState();
+}
+
+class _StreamExampleState extends State<StreamExample> {
+  @override
   Widget build(BuildContext context) {
-    final messages = channel.state!.messagesStream;
-    return Builder(
-      builder: (context) {
-        return WillPopScope(
-          onWillPop: () async => _back(context),
+    final messages = widget.channel.state!.messagesStream;
+    return WillPopScope(
+          onWillPop: () async => _back(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text(name),
+              title: Text(widget.name),
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {
-                    _back(context);
+                    _back();
                   }),
             ),
             body: SafeArea(
@@ -62,7 +65,7 @@ class StreamExample extends StatelessWidget {
                   if (snapshot.hasData && snapshot.data != null) {
                     return MessageView(
                       messages: snapshot.data!.reversed.toList(),
-                      channel: channel,
+                      channel: widget.channel,
                     );
                   } else if (snapshot.hasError) {
                     return const Center(
@@ -83,12 +86,11 @@ class StreamExample extends StatelessWidget {
             ),
           ),
         );
-      }
-    );
   }
 
-  _back(BuildContext ctxt) {
-    Navigator.of(ctxt).pop();
+  _back() {
+    widget.channel.dispose();
+    Navigator.of(context).pop();
   }
 }
 
