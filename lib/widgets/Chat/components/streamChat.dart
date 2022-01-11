@@ -19,6 +19,11 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 /// containing the channel name and a [MessageView] displaying recent messages.
 class StreamExample extends StatefulWidget {
   String name;
+  /// Instance of [StreamChatClient] we created earlier.
+  /// This contains information about our application and connection state.
+  final StreamChatClient client;
+  /// The channel we'd like to observe and participate.
+  final Channel channel;
 
   /// To initialize this example, an instance of
   /// [client] and [channel] is required.
@@ -28,13 +33,7 @@ class StreamExample extends StatefulWidget {
     required this.client,
     required this.channel,
   }) : super(key: key);
-
-  /// Instance of [StreamChatClient] we created earlier.
-  /// This contains information about our application and connection state.
-  final StreamChatClient client;
-
-  /// The channel we'd like to observe and participate.
-  final Channel channel;
+  
 
   @override
   State<StreamExample> createState() => _StreamExampleState();
@@ -89,7 +88,9 @@ class _StreamExampleState extends State<StreamExample> {
   }
 
   _back() {
-    widget.channel.dispose();
+    setState(() {
+      widget.channel.dispose();
+    });
     Navigator.of(context).pop();
   }
 }
