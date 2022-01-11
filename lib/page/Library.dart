@@ -179,9 +179,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               seats: body[1][i][1]),
         );
       }
-      setState(() {
-        globals.children;
-      });
+      if(mounted){
+        setState(() {
+          globals.children;
+        });
+      }
     }else if(body[0] == "empty"){
       showDialog<String>(
         context: context,
