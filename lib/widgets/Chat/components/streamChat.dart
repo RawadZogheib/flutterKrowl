@@ -46,14 +46,6 @@ class StreamExample extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(name),
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.add_rounded),
-                  onPressed: () {
-                    selectFriends();
-                  },
-                ),
-              ],
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {
@@ -93,21 +85,6 @@ class StreamExample extends StatelessWidget {
         );
       }
     );
-  }
-
-  Future<void> selectFriends() async {
-    var data = {
-      'version': globals.version,
-      'account_Id': 1
-    };
-
-    var res = await CallApi().postData(
-        data, '(Control)generateChatId.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-    if (body[0] == "success") {
-
-    }
   }
 
   _back(BuildContext ctxt) {
