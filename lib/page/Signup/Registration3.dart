@@ -46,7 +46,6 @@ class _Registration3State extends State<Registration3> {
         onKey: (event){
           final key = event.logicalKey;
           if (event is RawKeyDownEvent) {
-            if (keys.contains(key)) return;
             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               try {
                 if(_testpass() == true)
@@ -88,6 +87,7 @@ class _Registration3State extends State<Registration3> {
                 Container(
                   width: 470,
                   child: TextField(
+                    autofocus: true,
                     obscureText: true,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -118,6 +118,7 @@ class _Registration3State extends State<Registration3> {
                 Container(
                   width: 470,
                   child: TextField(
+                    autofocus: true,
                     obscureText: true,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(

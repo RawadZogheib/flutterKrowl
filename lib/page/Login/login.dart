@@ -34,7 +34,6 @@ List<LogicalKeyboardKey> keys = [];
       onKey: (event){
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
-          if (keys.contains(key)) return;
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (globals.emailLogin != null) {
               if (globals.emailLogin!.isNotEmpty) {
@@ -109,6 +108,7 @@ List<LogicalKeyboardKey> keys = [];
                 Container(
                   width: 500,
                   child: TextFormField(
+                    autofocus: true,
                     key: Key(globals.emailLogin.toString()),
                     initialValue: globals.emailLogin.toString(),
                     inputFormatters: [
