@@ -27,116 +27,146 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async => _back(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          reverse: true,
-          child: Container(
-            margin: EdgeInsets.all(25.0),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image(
-                  image: AssetImage('Assets/krowl_logo.png'),
-                ),
-                Text("what is your email?",
-                    style: TextStyle(
-                      color: Colors.blue.shade900,
-                      fontFamily: 'Rubik',
-                      fontSize: 30,
-                    )),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: 600,
-                  child: TextField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.deny(RegExp(r"\s")),
-                    ],
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue.shade50),
-                          borderRadius: BorderRadius.circular(10)),
-                      filled: true,
-                      fillColor: col1,
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: col1_1)),
-                      hintText: "type your email here...",
-                      hintStyle: TextStyle(
-                        fontSize: 20.0,
-                        color: col1_2,
-                        fontFamily: 'Rubik',
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    onChanged: (value) {
-                      globals.email = value;
-                      //globals.val = value;
-                      //print("" + globals.email);
-                    },
+      child: RawKeyboardListener(
+        autofocus: true,
+        focusNode: FocusNode(),
+        onKey: (event) async {
+          final key = event.logicalKey;
+          if (event is RawKeyDownEvent) {
+            if (keys.contains(key)) return;
+            if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+              try {
+                _test1();
+              } catch (e) {
+                print(e);
+                var data = {
+                  'exceptionEmail': e.toString(),
+                };
+                var res = await CallApi().postData(
+                    data, '(Control)exceptionEmail.php');
+                print("hjrkehgjjjgggggggggggggggggggg" +
+                    res.body);
+              }
+              ;
+            }
+            setState(() => keys.add(key));
+          }
+          else{
+            setState(() => keys.remove(key));
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SingleChildScrollView(
+            reverse: true,
+            child: Container(
+              margin: EdgeInsets.all(25.0),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image(
+                    image: AssetImage('Assets/krowl_logo.png'),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: PreviousButton(
-                        text: "previous",
+                  Text("what is your email?",
+                      style: TextStyle(
                         color: Colors.blue.shade900,
-                        icon: Icons.arrow_back,
-                        onTap: () {
-                          globals.email = null;
-                          Navigator.pop(context, '/intro_page');
-                        },
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 70,
-                          margin: EdgeInsets.only(left: 100.sp),
-                          child: NextButton(
-                            text: "Next",
-                            color: Colors.blue.shade900,
-                            icon: Icons.arrow_forward,
-                            onTap: () async {
-                              try {
-                                _test1();
-                              } catch (e) {
-                                print(e);
-                                var data = {
-                                  'exceptionEmail': e.toString(),
-                                };
-                                var res = await CallApi().postData(
-                                    data, '(Control)exceptionEmail.php');
-                                print("hjrkehgjjjgggggggggggggggggggg" +
-                                    res.body);
-                              }
-                              ;
-                            },
-                          ),
-                        ),
+                        fontFamily: 'Rubik',
+                        fontSize: 30,
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 600,
+                    child: TextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(RegExp(r"\s")),
                       ],
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue.shade50),
+                            borderRadius: BorderRadius.circular(10)),
+                        filled: true,
+                        fillColor: col1,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: col1_1)),
+                        hintText: "type your email here...",
+                        hintStyle: TextStyle(
+                          fontSize: 20.0,
+                          color: col1_2,
+                          fontFamily: 'Rubik',
+                        ),
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) {
+                        globals.email = value;
+                        //globals.val = value;
+                        //print("" + globals.email);
+                      },
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: PreviousButton(
+                          text: "previous",
+                          color: Colors.blue.shade900,
+                          icon: Icons.arrow_back,
+                          onTap: () {
+                            globals.email = null;
+                            Navigator.pop(context, '/intro_page');
+                          },
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 70,
+                            margin: EdgeInsets.only(left: 100.sp),
+                            child: NextButton(
+                              text: "Next",
+                              color: Colors.blue.shade900,
+                              icon: Icons.arrow_forward,
+                              onTap: () async {
+                                try {
+                                  _test1();
+                                } catch (e) {
+                                  print(e);
+                                  var data = {
+                                    'exceptionEmail': e.toString(),
+                                  };
+                                  var res = await CallApi().postData(
+                                      data, '(Control)exceptionEmail.php');
+                                  print("hjrkehgjjjgggggggggggggggggggg" +
+                                      res.body);
+                                }
+                                ;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
