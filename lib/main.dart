@@ -18,6 +18,7 @@ import 'package:flutter_app_backend/page/intro_page.dart';
 import 'package:flutter_app_backend/page/intro_page2.dart';
 import 'package:flutter_app_backend/page/videoConference.dart';
 import 'package:flutter_app_backend/page/videoConference2.dart';
+import 'package:flutter_app_backend/page/FirstPage.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -37,8 +38,9 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //home: Intro(),
-          initialRoute: '/intro_page',
+          initialRoute: '/FirstPage',
           routes: {
+            '/FirstPage': (context) => FirstPage(),
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
             '/login2': (context) => Login2(),
