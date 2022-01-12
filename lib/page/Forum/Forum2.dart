@@ -262,20 +262,6 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
           ],
         ),
       );
-    } else if (body[0] == "error10") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error10),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
     }
   }
 }
