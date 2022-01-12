@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quill_delta/quill_delta.dart';
+import 'package:flutter_app_backend/widgets/Forum/ReplyPage/UnansweredQuestions.dart';
 
 import 'Responsive.dart';
 
@@ -19,6 +19,7 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
+        UnansweredQuestions(username: 'idotalia', question:' Anyone here have experience with Pytorch?', contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn', NbrReplies: 1,)
       ]),
     );
   }

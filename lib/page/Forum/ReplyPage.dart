@@ -2,9 +2,10 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
-import 'package:flutter_app_backend/widgets/Forum/Contributors.dart';
+import 'package:flutter_app_backend/widgets/Forum/Forum2/Contributors.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/ReplyPage/DetailedReplyContainer.dart';
+import 'package:flutter_app_backend/widgets/Forum/ReplyPage/UnansweredQuestions.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
@@ -50,14 +51,17 @@ class _ReplyPageState extends State<ReplyPage> {
                 SizedBox(
                   width: 20,
                 ),
-                Contributors(),
+                Column(
+                  children: [
+                    Contributors(),
+                    SizedBox(height: 20,),
+                    UnansweredQuestions(username: 'idotalia', question:' Anyone here have experience with Pytorch?', contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn', NbrReplies: 1,)
+                  ],
+                ),
               ],
             ),
           ],
         ),
-        Text(
-          "TESTTTTTTTTT"
-        )
       ]),
     );
   }

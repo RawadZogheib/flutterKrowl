@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
-import 'package:flutter_app_backend/widgets/Forum/Contributors.dart';
+import 'package:flutter_app_backend/widgets/Forum/Forum2/Contributors.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
