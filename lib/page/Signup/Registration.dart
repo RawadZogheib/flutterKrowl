@@ -87,7 +87,6 @@ class _RegistrationState extends State<Registration> {
         onKey: (event){
           final key = event.logicalKey;
           if (event is RawKeyDownEvent) {
-            if (keys.contains(key)) return;
             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               _test1();
             }
@@ -111,6 +110,7 @@ class _RegistrationState extends State<Registration> {
             Container(
               width: 470,
               child: TextField(
+                autofocus: true,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue.shade50),
@@ -140,6 +140,7 @@ class _RegistrationState extends State<Registration> {
             Container(
               width: 470,
               child: TextField(
+                autofocus: true,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue.shade50),
@@ -169,6 +170,7 @@ class _RegistrationState extends State<Registration> {
             Container(
               width: 470,
               child: TextField(
+                autofocus: true,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.blue.shade50),
@@ -198,6 +200,7 @@ class _RegistrationState extends State<Registration> {
             Container(
               width: 470,
               child: TextFormField(
+                autofocus: true,
                 key: Key(dateOfBirthText),
                 initialValue: dateOfBirthText,
                 //controller: _datecontroller,

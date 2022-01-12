@@ -45,7 +45,6 @@ class _Login2State extends State<Login2> {
       onKey: (event){
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
-          if (keys.contains(key)) return;
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
 
             if (globals.passwordLogin != null ) {
@@ -124,6 +123,7 @@ class _Login2State extends State<Login2> {
                 Container(
                   width: 600,
                   child: TextFormField(
+                    autofocus: true,
                     key: Key(globals.passwordLogin.toString()),
                     initialValue: globals.passwordLogin.toString(),
                     obscureText: true,

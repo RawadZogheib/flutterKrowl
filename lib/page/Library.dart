@@ -241,20 +241,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           ],
         ),
       );
-    } else if (body[0] == "error11") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error11),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
     }
   }
 

@@ -32,8 +32,9 @@ const String error6 = "Email already exist.";
 const String error7 = "Field cannot be empty.";
 const String error8 = "Full Table";
 const String error9 = "Position Taken";
-const String error10 = "Oops! Can't create the Table";
-const String error11 = "Oops! Can't load Tables";
+const String error10 = "Table name already taken";
+
+
 const String errorEmptyLibrary = "There is no Table yet";
 const String errorEmptyTable = "There is no occupants on this table yet";
 const String errorEmptyContacts = "You doesn't have contacts yet";

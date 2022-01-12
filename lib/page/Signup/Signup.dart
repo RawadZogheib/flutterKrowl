@@ -39,7 +39,6 @@ class _SignupState extends State<Signup> {
         onKey: (event) async {
           final key = event.logicalKey;
           if (event is RawKeyDownEvent) {
-            if (keys.contains(key)) return;
             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               try {
                 _test1();
@@ -86,6 +85,7 @@ class _SignupState extends State<Signup> {
                   Container(
                     width: 600,
                     child: TextField(
+                      autofocus: true,
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(RegExp(r"\s")),
                       ],

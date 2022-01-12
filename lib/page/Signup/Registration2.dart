@@ -48,7 +48,6 @@ class _Registration2State extends State<Registration2> {
         onKey: (event){
           final key = event.logicalKey;
           if (event is RawKeyDownEvent) {
-            if (keys.contains(key)) return;
             if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               if (globals.uniId != null &&
                   globals.majorId != null &&
@@ -256,6 +255,7 @@ class _Registration2State extends State<Registration2> {
 
   Widget buildCity() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),
@@ -287,6 +287,7 @@ class _Registration2State extends State<Registration2> {
 
   Widget buildCity2() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),
@@ -318,6 +319,7 @@ class _Registration2State extends State<Registration2> {
 
   Widget buildCity3() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),
