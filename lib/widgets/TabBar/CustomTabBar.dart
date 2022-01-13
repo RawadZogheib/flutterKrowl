@@ -19,7 +19,7 @@ class CustomTabBar extends StatelessWidget {
           scale: 2.0,
         ),
         SizedBox(
-          width: 550,
+          width: 500,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
@@ -103,7 +103,19 @@ class CustomTabBar extends StatelessWidget {
                   fontSize: 15,
                 )),
           ),
-        )
+        ),
+        Icon(
+          Icons.notifications_none_outlined,
+          color: Colors.black,
+          size: 22,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('Assets/userImage6.jpeg'),
+            maxRadius: 20,
+          ),
+        ),
       ],
     );
   }
