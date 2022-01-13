@@ -98,3 +98,6 @@ const apiKey = "z5j34vkctqrq";
 String?dropdown2=null;
 String?question=null;
 String?context_question=null;
+
+//Forum3
+String?reply_data=null;

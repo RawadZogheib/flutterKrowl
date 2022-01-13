@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
             '/VideoConference2': (context) => VideoConference2(),
             '/Forum1': (context) => Forum1(),
             '/Forum2': (context) => Forum2(),
-            '/ReplyPage': (context) => ReplyPage(),
           });
     });
   }

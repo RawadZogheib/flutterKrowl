@@ -21,7 +21,7 @@ class _TestState extends State<Test> {
     return Scaffold(
       body: Column(children: [
         UnansweredQuestions(username: 'idotalia', question:' Anyone here have experience with Pytorch?', contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn', NbrReplies: 1,),
-        Replies( date: "posted on Jan 25, 2021", username: 'DimitriHaddad', reply: 'Yes', NbrReplies: 1,),
+        Replies( date: "posted on Jan 25, 2021", username: 'DimitriHaddad', reply: 'Yes', NbrReplies: 1, id: '1',),
       ]),
     );
   }
