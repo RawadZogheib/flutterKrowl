@@ -266,8 +266,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               // post_val
               date: DateTime.parse(body[1][i][5]),
               // post_date
-              question_context:body[1][i][6],
-              //context of the question
             ),
             SizedBox(
               height: 20,

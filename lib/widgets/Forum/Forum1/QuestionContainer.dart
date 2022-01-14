@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/page/Forum/ReplyPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Question extends StatefulWidget {
@@ -9,25 +10,22 @@ class Question extends StatefulWidget {
   String id;
   String username;
   String tag;
-  String text; //question
+  String text;
   int val;
   DateTime date;
-  String question_context;
   var color = Colors.grey.shade600;
   var color2 = Colors.grey.shade600;
   var onTap;
 
-  Question(
-      {this.height,
-      this.width,
-      required this.id,
-      required this.username,
-      required this.tag,
-      required this.text,
-      required this.val,
-      required this.date,
-      required this.question_context,
-      this.onTap});
+  Question({this.height,
+    this.width,
+    required this.id,
+    required this.username,
+    required this.tag,
+    required this.text,
+    required this.val,
+    required this.date,
+    this.onTap});
 
   @override
   State<Question> createState() => _QuestionState();
@@ -47,7 +45,7 @@ class _QuestionState extends State<Question> {
       child: Column(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 0.62,
+            width: MediaQuery.of(context).size.width*0.62,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.8),
@@ -83,7 +81,7 @@ class _QuestionState extends State<Question> {
                       height: 7,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.35,
+                      width: MediaQuery.of(context).size.width*0.35,
                       alignment: Alignment.topLeft,
                       child: Text(widget.text,
                           style: GoogleFonts.nunito(
@@ -97,8 +95,7 @@ class _QuestionState extends State<Question> {
                         Container(
                           alignment: Alignment.topLeft,
                           child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage("Assets/userImage1.jpeg"),
+                            backgroundImage: AssetImage("Assets/userImage1.jpeg"),
                             maxRadius: 16,
                           ),
                         ),
@@ -218,18 +215,6 @@ class _QuestionState extends State<Question> {
 
   _openReply() {
     print('go to reply');
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ReplyPage(
-            id: widget.id,
-            question: widget.text,
-            subject: widget.tag,
-            username: widget.username,
-            contextQuestion: widget.question_context,
-            date:widget.date
-        ),
-      ),
-    );
+    Navigator.pushNamed(context, '/ReplyPage');
   }
 }

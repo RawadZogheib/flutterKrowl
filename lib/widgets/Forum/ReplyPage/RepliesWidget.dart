@@ -7,12 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class Replies extends StatelessWidget {
-  String id;
+
   String username;
   String reply;
   var date;
 
-  Replies({ required this.reply, this.NbrReplies, required this.username, required this.date,required this.id,this.color,});
+  Replies({ required this.reply, this.NbrReplies, required this.username, required this.date,this.color});
   var color;
   var NbrReplies;
   @override
