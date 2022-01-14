@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum2/Contributors.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
@@ -11,15 +15,36 @@ import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReplyPage extends StatefulWidget {
-  const ReplyPage({Key? key}) : super(key: key);
+  String id;
+  String question;
+  String subject;
+  String username;
+  String contextQuestion;
+  var date;
+
+  ReplyPage(
+      {required this.id,
+        required this.question,
+        required this.subject,
+        required this.username,
+        required this.contextQuestion,
+        required this.date});
 
   @override
   _ReplyPageState createState() => _ReplyPageState();
 }
 
 class _ReplyPageState extends State<ReplyPage> {
+  var children3 = <Widget>[]; //Replies
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadReplies();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +69,19 @@ class _ReplyPageState extends State<ReplyPage> {
               Column(
                 children: [
                   DetailedReplyContainer(
-                      question: "The question will be displayed here",
-                      subject: "#science",
-                      username: "Jane Russel",
-                      contextQuestion:
-                          "Contemporary China has recently been seen as in the throes of `neoliberal restructuring'. This claim is contested on theoretical and methodological grounds. During the period of economic liberalization since the death of Mao, China has shown a hybrid governance that has combined earlier Maoist socialist, nationalist and developmentalist practices and discourses of the Communist Party with the more recent market logic of `market socialism'. With that in mind, would you consider China as following the principles of neoliberalism?",
-                      date: "on Jan25, 2021"),
-                  SizedBox(height: 30,),
-                  Replies( date: "posted on Jan 25, 2021", username: 'DimitriHaddad', reply: 'Yes', NbrReplies: 1,),
+                      id:widget.id,
+                      question: widget.question,
+                      subject: widget.subject,
+                      username: widget.username,
+                      contextQuestion:widget.contextQuestion,
+                      date: widget.date),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Wrap(
+                    direction: Axis.vertical,
+                    children: children3, // My Children
+                  ),
                 ],
               ),
               Row(
@@ -73,5 +103,90 @@ class _ReplyPageState extends State<ReplyPage> {
         ]),
       ),
     );
+  }
+  _loadReplies() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var account_Id = localStorage.getString("account_Id");
+
+
+    var data = {
+      'version': globals.version,
+      'account_Id': account_Id,
+      'post_id':widget.id
+    };
+
+    var res = await CallApi().postData(data, '(Control)loadReplies.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+
+    if (body[0] == "success") {
+      for (var i = 0; i < body[1].length; i++) {
+        children3.addAll(
+          [
+            Replies(
+              id: body[1][i][0],
+              // reply_date
+              username: body[1][i][1],
+              // username
+              reply: body[1][i][2],
+              // reply_data
+              NbrReplies:int.parse(body[1][i][3]),
+              // reply_like
+              date: body[1][0][4],
+              // reply_date
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        );
+      }
+      setState(() {
+        children3;
+      });
+    } else if (body[0] == "errorVersion") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              "Your version: " + globals.version + "\n" + globals.errorVersion),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "errorToken") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.errorToken),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else if (body[0] == "error7") {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(globals.error7),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

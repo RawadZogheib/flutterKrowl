@@ -2,6 +2,7 @@ library flutterKrowl.globals;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
+import 'package:flutter_app_backend/widgets/Forum/ReplyPage/RepliesWidget.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 
 const String version = "v1.0";
@@ -98,3 +99,7 @@ const apiKey = "z5j34vkctqrq";
 String?dropdown2=null;
 String?question=null;
 String?context_question=null;
+
+//Forum3
+var children3 = <Replies>[];
+String?reply_data=null;
