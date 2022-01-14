@@ -47,6 +47,7 @@ class _ReplyPageState extends State<ReplyPage> {
   }
   @override
   Widget build(BuildContext context) {
+    var NbrReplies;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -67,6 +68,7 @@ class _ReplyPageState extends State<ReplyPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DetailedReplyContainer(
                       id:widget.id,
@@ -77,6 +79,16 @@ class _ReplyPageState extends State<ReplyPage> {
                       date: widget.date),
                   SizedBox(
                     height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 110.0, bottom: 15),
+                    child: Text(
+                        "Replies ($NbrReplies)", // this is the number of replies
+                        style: GoogleFonts.nunito(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black)
+                    ),
                   ),
                   Wrap(
                     direction: Axis.vertical,

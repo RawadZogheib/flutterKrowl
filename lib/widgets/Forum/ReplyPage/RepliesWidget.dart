@@ -22,16 +22,6 @@ class Replies extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 110.0, bottom: 15),
-            child: Text(
-              "Replies ($NbrReplies)", // this is the number of replies
-              style: GoogleFonts.nunito(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black)
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
