@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
@@ -26,10 +25,10 @@ class _FirstPage extends State<FirstPage> {
       body: Container(
         alignment: Alignment.center,
         child: Image(
-          image: AssetImage('Assets/krowl_logo.png'),
+          image: AssetImage('Assets/krowl_logo.gif'),
           fit: BoxFit.cover,
-          height: MediaQuery.of(context).size.height * 0.4,
-          width: MediaQuery.of(context).size.width * 0.4,
+          height: 400,
+          width: 400,
         ),
       ),
     );
