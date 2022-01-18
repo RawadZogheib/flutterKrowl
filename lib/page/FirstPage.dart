@@ -27,8 +27,8 @@ class _FirstPage extends State<FirstPage> {
         child: Image(
           image: AssetImage('Assets/krowl_logo.gif'),
           fit: BoxFit.cover,
-          height: 400,
-          width: 400,
+          height: 200,
+          width: 200,
         ),
       ),
     );
