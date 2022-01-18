@@ -33,6 +33,13 @@ class DetailedReplyContainer extends StatefulWidget {
 }
 
 class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
+  final nameHolder = TextEditingController();
+
+  clearTextInput(){
+
+    nameHolder.clear();
+
+  }
   var color1;
 
   var color2;
@@ -166,6 +173,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
                   padding: const EdgeInsets.only(left: 8.0, top: 60),
                   child: Container(
                     child: TextInput1(
+                        controller: nameHolder,
                         fillColor: Colors.white,
                         focusColor: Colors.transparent,
                         cursorColor: Colors.transparent,
@@ -189,6 +197,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
                     color1: globals.blue2,
                     color2: Colors.grey,
                     onPressed: () {
+                  clearTextInput();
                       _createReply();
                     })),
           )
