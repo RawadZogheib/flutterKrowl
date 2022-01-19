@@ -200,7 +200,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                             width: 20,
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width*0.57,
+                              width: MediaQuery.of(context).size.width * 0.57,
                               child: Column(
                                 children: [
                                   Wrap(children: children.reversed.toList()),
@@ -214,7 +214,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                       });
                                     },
                                     // initially selected index
-                                    initialPage: 1,
+                                    initialPage: _currentPage - 1,
                                     // default height is 48
                                     buttonShape: BeveledRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
@@ -356,8 +356,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
   }
 
-
-  _loadNewPage(){
+  _loadNewPage() {
     timer?.cancel();
     _loadTables(); //0
     _loadPage(); //1 -> INFINI
