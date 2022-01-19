@@ -33,7 +33,6 @@ class CustomTabBar extends StatelessWidget {
               if (globals.currentPage != 'Library') {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Library', (route) => false);
-                globals.currentPage = 'Library';
               }
             },
             child: Text("Library",
@@ -54,7 +53,6 @@ class CustomTabBar extends StatelessWidget {
               if (globals.currentPage != 'Chat') {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/MainChat', (route) => false);
-                globals.currentPage = 'Chat';
               }
             },
             child: Text("Chat",
@@ -75,7 +73,6 @@ class CustomTabBar extends StatelessWidget {
               if (globals.currentPage != 'Forum') {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Forum1', (route) => false);
-                globals.currentPage = 'Forum';
               }
             },
             child: Text("Forum",

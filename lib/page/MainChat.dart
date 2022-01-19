@@ -1,13 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Chat/components/streamChat.dart';
-import 'package:flutter_app_backend/page/Forum/Forum1.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stream_chat/stream_chat.dart';
 
 import '../widgets/Chat/modules/chat_page.dart';
 
@@ -23,6 +16,13 @@ class _MainChatState extends State<MainChat> {
     ChatPage(),
     ChatPage2(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    globals.currentPage = 'Chat';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,6 @@ class _MainChatState extends State<MainChat> {
       ),
     );
   }
-
 
   void _onItemTapped(int index) {
     setState(() {

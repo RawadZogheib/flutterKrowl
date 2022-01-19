@@ -37,6 +37,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    globals.currentPage = 'Library';
     _loadNewPage();
   }
 
