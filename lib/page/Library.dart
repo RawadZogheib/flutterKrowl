@@ -28,6 +28,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   bool load = false;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer?.cancel();
+  }
+
+  @override
   void initState() {
     super.initState();
     _loadNewPage();

@@ -82,6 +82,9 @@ String? code6 = null;
 String? emailLogin ="";
 String? passwordLogin = "";
 
+//global
+String? currentPage = "Library";// Library Chat Forum Students Reminders
+
 //Library
 //var tmpid = null;
 //List<String> occupenTable = [];

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 class CustomTabBar extends StatelessWidget {
+  CustomTabBar({
+    this.text,
+  });
 
- CustomTabBar({  this.text,  });
- var text;
+  var text;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,11 @@ class CustomTabBar extends StatelessWidget {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: (){
-              Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
+            onTap: () {
+              if (globals.currentPage != 'Library') {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Library', (route) => false);
+              }
             },
             child: Text("Library",
                 style: TextStyle(
@@ -44,8 +49,11 @@ class CustomTabBar extends StatelessWidget {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: (){
-              Navigator.pushNamedAndRemoveUntil(context, '/MainChat', (route) => false);
+            onTap: () {
+              if (globals.currentPage != 'Chat') {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/MainChat', (route) => false);
+              }
             },
             child: Text("Chat",
                 style: TextStyle(
@@ -61,8 +69,11 @@ class CustomTabBar extends StatelessWidget {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: (){
-              Navigator.pushNamedAndRemoveUntil(context, '/Forum1', (route) => false);
+            onTap: () {
+              if (globals.currentPage != 'Forum') {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Forum1', (route) => false);
+              }
             },
             child: Text("Forum",
                 style: TextStyle(
@@ -78,8 +89,7 @@ class CustomTabBar extends StatelessWidget {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: (){
-            },
+            onTap: () {},
             child: Text("Students",
                 style: TextStyle(
                   color: globals.blue1,
@@ -94,8 +104,7 @@ class CustomTabBar extends StatelessWidget {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: (){
-            },
+            onTap: () {},
             child: Text("Reminders",
                 style: TextStyle(
                   color: globals.blue1,
