@@ -24,13 +24,13 @@ class Library extends StatefulWidget {
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
+  int _currentPage = 1;
   bool load = false;
 
   @override
   void initState() {
     super.initState();
-    _loadTables(); //0
-    _loadPage(); //1 -> INFINI
+    _loadNewPage();
   }
 
   Widget build(BuildContext context) {
@@ -200,14 +200,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                             width: 20,
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width*0.55,
+                              width: MediaQuery.of(context).size.width*0.57,
                               child: Column(
                                 children: [
                                   Wrap(children: children.reversed.toList()),
                                   NumberPaginator(
                                     numberPages: 35,
                                     onPageChange: (int index) {
-                                      setState(() {});
+                                      setState(() {
+                                        _currentPage = index + 1;
+                                        _loadNewPage();
+                                        print(index + 1);
+                                      });
                                     },
                                     // initially selected index
                                     initialPage: 1,
@@ -350,6 +354,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         ),
       );
     }
+  }
+
+
+  _loadNewPage(){
+    timer?.cancel();
+    _loadTables(); //0
+    _loadPage(); //1 -> INFINI
   }
 
   _loadPage() {
