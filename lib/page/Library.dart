@@ -167,7 +167,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         width: 20,
                       ),
                       SizedBox(
-                          width: 950,
+                          width: MediaQuery.of(context).size.width * 0.57,
                           child: Center(
                             child: Image(
                               image: AssetImage('Assets/krowl_logo.gif'),
