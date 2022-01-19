@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +23,8 @@ class CustomTable extends StatefulWidget {
   bool hiddenBool = true;
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
+  List<String> getUsers;// Users names
+  List<String> getImgs;// Users imgs
   List<String> imgs = ['', '', '', '', '', '', '', ''];
 
   CustomTable(
@@ -33,6 +32,8 @@ class CustomTable extends StatefulWidget {
       required this.table_name,
       required this.table_type,
       required this.color,
+      required this.getUsers,
+      required this.getImgs,
       this.id,
       this.icon,
       this.height,
@@ -46,6 +47,14 @@ class CustomTable extends StatefulWidget {
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   late Timer timer;
+  var tableStatus;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadOccupants();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -247,35 +256,35 @@ class _CustomContainerState extends State<CustomTable>
                   left: 45,
                   child: Chair2(img: widget.imgs[7].toString()))
               : Container(),
-          hiddenFunction(),
-          Positioned(
-            top: 15,
-            right: 20,
-            child: FlutterSwitch(
-              width: 60,
-              height: 27,
-              valueFontSize: 25.0,
-              toggleSize: 25.0,
-              value: widget.status,
-              borderRadius: 30.0,
-              padding: 0.0,
-              activeColor: globals.blue1,
-              inactiveColor: globals.blue2,
-              activeToggleColor: globals.blue1,
-              inactiveToggleColor: globals.blue2,
-              activeIcon: Icon(
-                Icons.lightbulb,
-                color: Colors.yellow,
-              ),
-              inactiveIcon: Icon(
-                Icons.lightbulb_outline_sharp,
-                color: Colors.white,
-              ),
-              onToggle: (val) {
-                toggleButton(val);
-              },
-            ),
-          ),
+          // hiddenFunction(),
+          // Positioned(
+          //   top: 15,
+          //   right: 20,
+          //   child: FlutterSwitch(
+          //     width: 60,
+          //     height: 27,
+          //     valueFontSize: 25.0,
+          //     toggleSize: 25.0,
+          //     value: widget.status,
+          //     borderRadius: 30.0,
+          //     padding: 0.0,
+          //     activeColor: globals.blue1,
+          //     inactiveColor: globals.blue2,
+          //     activeToggleColor: globals.blue1,
+          //     inactiveToggleColor: globals.blue2,
+          //     activeIcon: Icon(
+          //       Icons.lightbulb,
+          //       color: Colors.yellow,
+          //     ),
+          //     inactiveIcon: Icon(
+          //       Icons.lightbulb_outline_sharp,
+          //       color: Colors.white,
+          //     ),
+          //     onToggle: (val) {
+          //       toggleButton(val);
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
@@ -298,11 +307,13 @@ class _CustomContainerState extends State<CustomTable>
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      setState(() {
-        widget.imgs[position - 1] =
-            'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-        widget.enablee[position - 1] = true;
-      });
+      if (mounted) {
+        setState(() {
+          widget.imgs[position - 1] =
+              'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
+          widget.enablee[position - 1] = true;
+        });
+      }
       if (!await launch(
         globals.jaasUrl + table_name + '&account=' + username.toString(),
         forceSafariVC: false,
@@ -369,11 +380,13 @@ class _CustomContainerState extends State<CustomTable>
         ),
       );
     } else if (body[0] == "error9") {
-      setState(() {
-        widget.imgs[position - 1] =
-            'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-        widget.enablee[position - 1] = true;
-      });
+      if (mounted) {
+        setState(() {
+          widget.imgs[position - 1] =
+              'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
+          widget.enablee[position - 1] = true;
+        });
+      }
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -390,144 +403,146 @@ class _CustomContainerState extends State<CustomTable>
     }
   }
 
-  hiddenFunction() {
-    if (widget.hiddenBool == true) {
-      return Container(
-        height: 360,
-        width: 340,
-        color: Colors.black.withOpacity(0.3),
-      );
-    } else {
-      return Container();
-    }
-  }
+  // hiddenFunction() {
+  //   if (widget.hiddenBool == true) {
+  //     return Container(
+  //       height: 360,
+  //       width: 340,
+  //       color: Colors.black.withOpacity(0.3),
+  //     );
+  //   } else {
+  //     return Container();
+  //   }
+  // }
 
-  toggleButton(bool val) {
-    // bool test = false;
-    //
-    // for (int i = 0; i < globals.occupenTable.length; i++) {
-    //   // Check all table
-    //   if (globals.occupenTable[i] == '1') {
-    //     // Table getting token
-    //     test = true; // There is table getting token
-    //     break;
-    //   }
-    // }
-    //if (test == false) {
-    // There is no  table getting token
-    if (widget.status == false) {
-      setState(() {
-        widget.status = !widget.status;
-      });
+  // toggleButton(bool val) {
+  //   // bool test = false;
+  //   //
+  //   // for (int i = 0; i < globals.occupenTable.length; i++) {
+  //   //   // Check all table
+  //   //   if (globals.occupenTable[i] == '1') {
+  //   //     // Table getting token
+  //   //     test = true; // There is table getting token
+  //   //     break;
+  //   //   }
+  //   // }
+  //   //if (test == false) {
+  //   // There is no  table getting token
+  //   if (widget.status == false) {
+  //     setState(() {
+  //       widget.status = !widget.status;
+  //     });
+  //
+  //     //globals.occupenTable[widget.id] = '1'; // Table getting token
+  //     print("stts: 1");
+  //     // Toggle  On
+  //     widget.hiddenBool = false;
+  //     _loadOccupants();
+  //     _startTimer();
+  //   } else {
+  //     // Toggle Off
+  //     setState(() {
+  //       widget.status = !widget.status;
+  //     });
+  //     if (timer.isActive) {
+  //       timer.cancel();
+  //     }
+  //     //globals.occupenTable[widget.id] = '0';
+  //     setState(() {
+  //       //widget.status = false;
+  //       globals.tmpid = null;
+  //       widget.hiddenBool = true;
+  //       widget.imgs = ['','','','','','','',''];
+  //       widget.enablee = [
+  //         false,
+  //         false,
+  //         false,
+  //         false,
+  //         false,
+  //         false,
+  //         false,
+  //         false
+  //       ];
+  //       widget.nb = '0';
+  //     });
+  //   }
+  //   // } else {
+  //   //   // There is table getting token
+  //   // }
+  // }
 
-      //globals.occupenTable[widget.id] = '1'; // Table getting token
-      print("stts: 1");
-      // Toggle  On
-      widget.hiddenBool = false;
-      loadOccupants();
-      _startTimer();
-    } else {
-      // Toggle Off
-      setState(() {
-        widget.status = !widget.status;
-      });
-      if (timer.isActive) {
-        timer.cancel();
-      }
-      //globals.occupenTable[widget.id] = '0';
-      setState(() {
-        //widget.status = false;
-        globals.tmpid = null;
-        widget.hiddenBool = true;
-        widget.imgs = ['','','','','','','',''];
-        widget.enablee = [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false
-        ];
-        widget.nb = '0';
-      });
-    }
-    // } else {
-    //   // There is table getting token
-    // }
-  }
-
-  loadOccupants() async {
-    widget.imgs = ['','','','','','','',''];
+  _loadOccupants() async {
+    widget.imgs = ['', '', '', '', '', '', '', ''];
     try {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      String account_Id = localStorage.getString('account_Id').toString();
-      print('fdsfdsfsdf id: ' + account_Id);
+      // SharedPreferences localStorage = await SharedPreferences.getInstance();
+      // String account_Id = localStorage.getString('account_Id').toString();
+      // print('fdsfdsfsdf id: ' + account_Id);
       //deload all
       for (int i = 7; i >= 0; i--) {
         if (widget.enablee[i] == false) continue;
         await Future.delayed(const Duration(milliseconds: 100), () {
-          setState(() {
-            widget.enablee[i] = false;
-          });
+          if (mounted) {
+            setState(() {
+              widget.enablee[i] = false;
+            });
+          }
         });
       }
 
       //load all
       for (int i = 0; i < 8; i++) {
         await Future.delayed(const Duration(milliseconds: 100), () {
-          setState(() {
-            widget.imgs[i] = '';
-            widget.enablee[i] = true;
-          });
+          if (mounted) {
+            setState(() {
+              widget.imgs[i] = '';
+              widget.enablee[i] = true;
+            });
+          }
         });
       }
 
-      var data = {
-        'version': globals.version,
-        'account_Id': account_Id,
-        'table_name': widget.table_name,
-      };
+      if (!widget.getUsers.isEmpty) {
+        tableStatus = "success";
+      } else {
+        tableStatus = "empty";
+      }
 
-      var res = await CallApi().postData(data, '(Control)loadOccupants.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
-
-      if (body[0] == "success") {
-        // for (int i = 0; i < widget.imgs.length; i++) {
-        //   widget.imgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
-        // }
-        setState(() {
-          widget.nb = body[1].length.toString();
-        });
+      if (tableStatus == "success") {
+        if (mounted) {
+          setState(() {
+            widget.nb = widget.getUsers.length.toString();
+          });
+        }
 
         //deload
-        int j = body[1].length - 1;
+        int j = widget.getUsers.length - 1;
         for (int i = 7; i >= 0; i--) {
-          // print('i: ' + i.toString());
-          // print('j: ' + j.toString());
-          // print('nb: ' + body[2].length.toString());
           await Future.delayed(const Duration(milliseconds: 100), () {
-            if (i == (int.parse(body[1][j][2]) - 1)) {
-              setState(() {
-                widget.imgs[int.parse(body[1][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}';
-              });
+            if (i == (int.parse(widget.getUsers[1][j][2]) - 1)) {
+              if (mounted) {
+                setState(() {
+                  widget.imgs[int.parse(widget.getUsers[1][j][2]) - 1] =
+                      widget.getImgs[int.parse(widget.getUsers[1][j][2]) - 1];
+                });
+              }
               if (j > 0) {
                 j--;
               }
             } else {
-              setState(() {
-                widget.enablee[i] = false;
-              });
+              if (mounted) {
+                setState(() {
+                  widget.enablee[i] = false;
+                });
+              }
             }
           });
         }
-      } else if (body[0] == "empty") {
-        setState(() {
-          widget.nb = '0';
-        });
+      } else if (tableStatus == "empty") {
+        if (mounted) {
+          setState(() {
+            widget.nb = '0';
+          });
+        }
 
         //deload
         //int j = body[1].length - 1;
@@ -536,89 +551,180 @@ class _CustomContainerState extends State<CustomTable>
           // print('j: ' + j.toString());
           // print('nb: ' + body[2].length.toString());
           await Future.delayed(const Duration(milliseconds: 100), () {
-            setState(() {
-              widget.enablee[i] = false;
-            });
+            if (mounted) {
+              setState(() {
+                widget.enablee[i] = false;
+              });
+            }
           });
         }
-        // showDialog<String>(
-        //   context: context,
-        //   builder: (BuildContext context) => AlertDialog(
-        //     title: const Text('Error'),
-        //     content: const Text(globals.errorEmptyTable),
-        //     actions: <Widget>[
-        //       TextButton(
-        //         onPressed: () => Navigator.pop(context, 'OK'),
-        //         child: const Text('OK'),
-        //       ),
-        //     ],
-        //   ),
-        // );
-      } else if (body[0] == "errorVersion") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text("Your version: " +
-                globals.version +
-                "\n" +
-                globals.errorVersion),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "errorToken") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorToken),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "error4") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error7),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorElse),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
       }
     } catch (e) {
       print("Exeption: " + e.toString());
     }
-    //globals.occupenTable[widget.id] = '0'; // Table is On
   }
+
+  // loadOccupants() async {
+  //   widget.imgs = ['','','','','','','',''];
+  //   try {
+  //     SharedPreferences localStorage = await SharedPreferences.getInstance();
+  //     String account_Id = localStorage.getString('account_Id').toString();
+  //     print('fdsfdsfsdf id: ' + account_Id);
+  //     //deload all
+  //     for (int i = 7; i >= 0; i--) {
+  //       if (widget.enablee[i] == false) continue;
+  //       await Future.delayed(const Duration(milliseconds: 100), () {
+  //         setState(() {
+  //           widget.enablee[i] = false;
+  //         });
+  //       });
+  //     }
+  //
+  //     //load all
+  //     for (int i = 0; i < 8; i++) {
+  //       await Future.delayed(const Duration(milliseconds: 100), () {
+  //         setState(() {
+  //           widget.imgs[i] = '';
+  //           widget.enablee[i] = true;
+  //         });
+  //       });
+  //     }
+  //
+  //     var data = {
+  //       'version': globals.version,
+  //       'account_Id': account_Id,
+  //       'table_name': widget.table_name,
+  //     };
+  //
+  //     var res = await CallApi().postData(data, '(Control)loadOccupants.php');
+  //     print(res.body);
+  //     List<dynamic> body = json.decode(res.body);
+  //
+  //     if (body[0] == "success") {
+  //       // for (int i = 0; i < widget.imgs.length; i++) {
+  //       //   widget.imgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
+  //       // }
+  //       setState(() {
+  //         widget.nb = body[1].length.toString();
+  //       });
+  //
+  //       //deload
+  //       int j = body[1].length - 1;
+  //       for (int i = 7; i >= 0; i--) {
+  //         // print('i: ' + i.toString());
+  //         // print('j: ' + j.toString());
+  //         // print('nb: ' + body[2].length.toString());
+  //         await Future.delayed(const Duration(milliseconds: 100), () {
+  //           if (i == (int.parse(body[1][j][2]) - 1)) {
+  //             setState(() {
+  //               widget.imgs[int.parse(body[1][j][2]) - 1] =
+  //                   'https://picsum.photos/50/50/?${Random().nextInt(1000)}';
+  //             });
+  //             if (j > 0) {
+  //               j--;
+  //             }
+  //           } else {
+  //             setState(() {
+  //               widget.enablee[i] = false;
+  //             });
+  //           }
+  //         });
+  //       }
+  //     } else if (body[0] == "empty") {
+  //       setState(() {
+  //         widget.nb = '0';
+  //       });
+  //
+  //       //deload
+  //       //int j = body[1].length - 1;
+  //       for (int i = 7; i >= 0; i--) {
+  //         // print('i: ' + i.toString());
+  //         // print('j: ' + j.toString());
+  //         // print('nb: ' + body[2].length.toString());
+  //         await Future.delayed(const Duration(milliseconds: 100), () {
+  //           setState(() {
+  //             widget.enablee[i] = false;
+  //           });
+  //         });
+  //       }
+  //       // showDialog<String>(
+  //       //   context: context,
+  //       //   builder: (BuildContext context) => AlertDialog(
+  //       //     title: const Text('Error'),
+  //       //     content: const Text(globals.errorEmptyTable),
+  //       //     actions: <Widget>[
+  //       //       TextButton(
+  //       //         onPressed: () => Navigator.pop(context, 'OK'),
+  //       //         child: const Text('OK'),
+  //       //       ),
+  //       //     ],
+  //       //   ),
+  //       // );
+  //     } else if (body[0] == "errorVersion") {
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: const Text('Error'),
+  //           content: const Text("Your version: " +
+  //               globals.version +
+  //               "\n" +
+  //               globals.errorVersion),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context, 'OK'),
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     } else if (body[0] == "errorToken") {
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: const Text('Error'),
+  //           content: const Text(globals.errorToken),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context, 'OK'),
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     } else if (body[0] == "error4") {
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: const Text('Error'),
+  //           content: const Text(globals.error7),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context, 'OK'),
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     } else {
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: const Text('Error'),
+  //           content: const Text(globals.errorElse),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context, 'OK'),
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print("Exeption: " + e.toString());
+  //   }
+  //   //globals.occupenTable[widget.id] = '0'; // Table is On
+  // }
 
   _startTimer() async {
     // if(timer.isActive) {
@@ -628,12 +734,12 @@ class _CustomContainerState extends State<CustomTable>
       print('Time Out!!!!!!!!!!!!!');
       //print('time!!!!!!!!!!!!!: ' + (i).toString());
       //globals.occupenTable[widget.id] = '0';
-      if(mounted){
+      if (mounted) {
         setState(() {
           widget.status = false;
-          globals.tmpid = null;
+          //globals.tmpid = null;
           widget.hiddenBool = true;
-          widget.imgs = ['','','','','','','',''];
+          widget.imgs = ['', '', '', '', '', '', '', ''];
           widget.enablee = [
             false,
             false,
@@ -646,7 +752,6 @@ class _CustomContainerState extends State<CustomTable>
           ];
           widget.nb = '0';
         });
-
       }
     });
   }

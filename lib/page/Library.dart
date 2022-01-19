@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -9,6 +9,7 @@ import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() =>
@@ -21,12 +22,15 @@ class Library extends StatefulWidget {
 }
 
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
-
+  List<CustomTable> children = <CustomTable>[];
+  Timer? timer;
+  bool load = false;
 
   @override
   void initState() {
     super.initState();
-    _loadTables();
+    _loadTables(); //0
+    _loadPage(); //1 -> INFINI
   }
 
   Widget build(BuildContext context) {
@@ -43,12 +47,15 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CreateTable(
-                    onTap: (){
+                    onTap: () {
                       setState(() {
-                        globals.children.add(CustomTable(
-                            table_name: globals.tableName,
-                            table_type: globals.selectedPublicPrivet,
-                            color: Colors.green,));
+                        children.add(CustomTable(
+                          table_name: globals.tableName,
+                          getUsers: [],
+                          getImgs: ['', '', '', '', '', '', '', ''],
+                          table_type: globals.selectedPublicPrivet,
+                          color: Colors.green,
+                        ));
                         //globals.occupenTable.add('0');
                       });
                     },
@@ -62,9 +69,19 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         ),
                         Wrap(
                           children: [
-                            Column(
-                              children: globals.children.reversed.toList(),
-                            )
+                            load == true
+                                ? Center(
+                                    child: Image(
+                                      image:
+                                          AssetImage('Assets/krowl_logo.gif'),
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
+                                    ),
+                                  )
+                                : Column(
+                                    children: children.reversed.toList(),
+                                  )
                           ],
                         ),
                         SizedBox(width: 20),
@@ -93,9 +110,19 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                               Wrap(
                                 children: [
-                                  Column(
-                                    children: globals.children.reversed.toList(),
-                                  )
+                                  load == true
+                                      ? Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'Assets/krowl_logo.gif'),
+                                            fit: BoxFit.cover,
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        )
+                                      : Column(
+                                          children: children.reversed.toList(),
+                                        )
                                 ],
                               ),
                               SizedBox(width: 20),
@@ -114,43 +141,106 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomTabBar(
-                  ),
+                  CustomTabBar(),
                 ],
               ),
               SizedBox(
                 height: 50,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CreateTable(
-                      onTap: (){
-                        setState(() {
-                          globals.children.add(CustomTable(
+              load == true
+                  ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      CreateTable(
+                        onTap: () {
+                          setState(() {
+                            children.add(CustomTable(
                               table_name: globals.tableName,
+                              getUsers: [],
+                              getImgs: ['', '', '', '', '', '', '', ''],
                               table_type: globals.selectedPublicPrivet,
-                              color: Colors.green,));
-                          //globals.occupenTable.add('0');
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                        width: 700,
-                        child: Wrap(children: globals.children.reversed.toList())),
-                    SizedBox(width: 20),
-                  ]),
+                              color: Colors.green,
+                            ));
+                            //globals.occupenTable.add('0');
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                          width: 950,
+                          child: Center(
+                            child: Image(
+                              image: AssetImage('Assets/krowl_logo.gif'),
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                            ),
+                          )),
+                      SizedBox(width: 20),
+                    ])
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                          CreateTable(
+                            onTap: () {
+                              setState(() {
+                                children.add(CustomTable(
+                                  table_name: globals.tableName,
+                                  getUsers: [],
+                                  getImgs: ['', '', '', '', '', '', '', ''],
+                                  table_type: globals.selectedPublicPrivet,
+                                  color: Colors.green,
+                                ));
+                                //globals.occupenTable.add('0');
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width*0.55,
+                              child: Column(
+                                children: [
+                                  Wrap(children: children.reversed.toList()),
+                                  NumberPaginator(
+                                    numberPages: 35,
+                                    onPageChange: (int index) {
+                                      setState(() {});
+                                    },
+                                    // initially selected index
+                                    initialPage: 1,
+                                    // default height is 48
+                                    buttonShape: BeveledRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    buttonSelectedForegroundColor:
+                                        globals.blue2,
+                                    buttonUnselectedForegroundColor:
+                                        globals.blue1,
+                                    buttonUnselectedBackgroundColor:
+                                        globals.blue2,
+                                    buttonSelectedBackgroundColor:
+                                        globals.blue1,
+                                  ),
+                                ],
+                              )),
+                          SizedBox(width: 20),
+                        ]),
             ]),
           ),
         ));
   }
 
-  Future<void> _loadTables() async {
-    globals.children.clear();
+  _loadTables() async {
+    if (mounted) {
+      setState(() {
+        children.clear();
+        load = true;
+      });
+    }
+
     //globals.occupenTable.clear();
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
@@ -166,25 +256,43 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
+    setState(() {
+      load = false;
+    });
+
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         //localStorage.setString('contrat_Id', value)
         //globals.occupenTable.add('0');// Initiate table (All table are Off)
-        globals.children.add(
-          CustomTable(
+        children.add(
+          new CustomTable(
               id: i,
               table_name: body[1][i][0],
+              getUsers: [],
+              // Users names on the table
+              getImgs: [
+                // Imgs of users on the  table
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
+              ],
               table_type: "1",
               color: Colors.green,
               seats: body[1][i][1]),
         );
       }
-      if(mounted){
+
+      if (mounted) {
         setState(() {
-          globals.children;
+          children;
         });
       }
-    }else if(body[0] == "empty"){
+    } else if (body[0] == "empty") {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -244,41 +352,51 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
   }
 
-  // _columnChecker(int val, int nb) {
-  //   if (val == 0) {
-  //     for (var i = nb; i <= 0; i--) {
-  //       print(i);
-  //       if (i % 2 == 0) {
-  //         _columnChecker(val, i);
-  //         return CustomTable(
-  //           id: globals.children[i].id,
-  //           table_name: globals.children[i].table_name,
-  //           table_type: globals.children[i].table_type,
-  //           color: globals.children[i].color,
-  //           seats: globals.children[i].seats,
-  //         );
-  //       } else {
-  //         _columnChecker(val, i);
-  //       }
-  //     }
-  //   } else if (val == 1) {
-  //     for (var i = nb; i <= 0; i--) {
-  //       if (i % 2 != 0) {
-  //         _columnChecker(val, i);
-  //         return CustomTable(
-  //           id: globals.children[i].id,
-  //           table_name: globals.children[i].table_name,
-  //           table_type: globals.children[i].table_type,
-  //           color: globals.children[i].color,
-  //           seats: globals.children[i].seats,
-  //         );
-  //       } else {
-  //         _columnChecker(val, i);
-  //       }
-  //     }
-  //   } else {
-  //     print("val =/= 0 and 1");
-  //     exit;
-  //   }
-  // }
+  _loadPage() {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      print("30sec gone!!");
+      if (mounted) {
+        print("30sec gone,and _loadChildrenOnline!!");
+        _loadTables();
+      }
+    });
+  }
+
+// _columnChecker(int val, int nb) {
+//   if (val == 0) {
+//     for (var i = nb; i <= 0; i--) {
+//       print(i);
+//       if (i % 2 == 0) {
+//         _columnChecker(val, i);
+//         return CustomTable(
+//           id: globals.children[i].id,
+//           table_name: globals.children[i].table_name,
+//           table_type: globals.children[i].table_type,
+//           color: globals.children[i].color,
+//           seats: globals.children[i].seats,
+//         );
+//       } else {
+//         _columnChecker(val, i);
+//       }
+//     }
+//   } else if (val == 1) {
+//     for (var i = nb; i <= 0; i--) {
+//       if (i % 2 != 0) {
+//         _columnChecker(val, i);
+//         return CustomTable(
+//           id: globals.children[i].id,
+//           table_name: globals.children[i].table_name,
+//           table_type: globals.children[i].table_type,
+//           color: globals.children[i].color,
+//           seats: globals.children[i].seats,
+//         );
+//       } else {
+//         _columnChecker(val, i);
+//       }
+//     }
+//   } else {
+//     print("val =/= 0 and 1");
+//     exit;
+//   }
+// }
 }

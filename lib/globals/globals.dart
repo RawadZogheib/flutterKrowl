@@ -83,8 +83,7 @@ String? emailLogin ="";
 String? passwordLogin = "";
 
 //Library
-var tmpid = null;
-var children = <CustomTable>[];
+//var tmpid = null;
 //List<String> occupenTable = [];
 
 //Createtable
