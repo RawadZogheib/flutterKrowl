@@ -9,8 +9,12 @@ LoadingPopUp(context){
         height: 150,
         width: 150,
         padding: const EdgeInsets.all(8.0),
-        child: Image(
-          image: AssetImage('Assets/krowl_logo2.png'),
+        child: Column(
+          children: [
+            Image(
+              image: AssetImage('Assets/krowl_logo2.png'),
+            ),
+            Text('Loading ...')          ],
         ),
       ),
     ),
