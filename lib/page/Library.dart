@@ -25,7 +25,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
-  bool load = false;
+  bool load = true;
 
   @override
   void dispose() {
