@@ -56,16 +56,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 children: [
                   CreateTable(
                     onTap: () {
-                      setState(() {
-                        children.add(CustomTable(
-                          table_name: globals.tableName,
-                          getUsers: [],
-                          getImgs: ['', '', '', '', '', '', '', ''],
-                          table_type: globals.selectedPublicPrivet,
-                          color: Colors.green,
-                        ));
-                        //globals.occupenTable.add('0');
-                      });
+                      _createTable();
                     },
                   ),
                   Row(
@@ -157,18 +148,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               ),
               load == true
                   ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.09),
                       CreateTable(
                         onTap: () {
-                          setState(() {
-                            children.add(CustomTable(
-                              table_name: globals.tableName,
-                              getUsers: [],
-                              getImgs: ['', '', '', '', '', '', '', ''],
-                              table_type: globals.selectedPublicPrivet,
-                              color: Colors.green,
-                            ));
-                            //globals.occupenTable.add('0');
-                          });
+                          _createTable();
                         },
                       ),
                       SizedBox(
@@ -190,26 +173,20 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.09),
                           CreateTable(
                             onTap: () {
-                              setState(() {
-                                children.add(CustomTable(
-                                  table_name: globals.tableName,
-                                  getUsers: [],
-                                  getImgs: ['', '', '', '', '', '', '', ''],
-                                  table_type: globals.selectedPublicPrivet,
-                                  color: Colors.green,
-                                ));
-                                //globals.occupenTable.add('0');
-                              });
+                              _createTable();
                             },
                           ),
                           SizedBox(
                             width: 20,
                           ),
-                          SizedBox(
+                          Container(
                               width: MediaQuery.of(context).size.width * 0.57,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Wrap(children: children.reversed.toList()),
                                   NumberPaginator(
@@ -238,7 +215,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   ),
                                 ],
                               )),
-                          SizedBox(width: 20),
                         ]),
             ]),
           ),
@@ -261,6 +237,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     var data = {
       'version': globals.version,
       'account_Id': account_Id,
+      'currentPage': _currentPage,
       'user_uni': user_uni,
     };
 
@@ -274,29 +251,34 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       });
     }
     if (body[0] == "success") {
-      for (var i = 0; i < body[1].length; i++) {
+      for (var i = 0; i < body[2].length; i++) {
+        List<dynamic> _userId = [];
+        List<dynamic> _userName = [];
+        List<dynamic> _userPosition = [];
+        List<dynamic> _userImgUrl = [];
+
+        for (int j = 0; j < body[2][i][3].length; j++) {
+          _userId.add(body[2][i][3][j][0]); // userId
+          _userName.add(body[2][i][3][j][1]); // userName
+          _userPosition.add(body[2][i][3][j][2]); // userPosition
+          _userImgUrl.add(
+              'https://picsum.photos/50/50/?${Random().nextInt(1000)}' // body[2][i][3][j][3]
+              ); // userImgUrl
+        }
         //localStorage.setString('contrat_Id', value)
         //globals.occupenTable.add('0');// Initiate table (All table are Off)
         children.add(
           new CustomTable(
-              id: i,
-              table_name: body[1][i][0],
-              getUsers: [],
-              // Users names on the table
-              getImgs: [
-                // Imgs of users on the  table
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-                'https://picsum.photos/50/50/?${Random().nextInt(1000)}',
-              ],
-              table_type: "1",
-              color: Colors.green,
-              seats: body[1][i][1]),
+            id: i,
+            table_name: body[2][i][0],
+            seats: body[2][i][1],
+            table_type: body[2][i][2],
+            color: Colors.green,
+            getIds: _userId,
+            getUsers: _userName,
+            getPos: _userPosition,
+            getImgs: _userImgUrl,
+          ),
         );
       }
 
@@ -378,6 +360,22 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         print("30sec gone,and _loadChildrenOnline!!");
         _loadTables();
       }
+    });
+  }
+
+  _createTable() {
+    setState(() {
+      children.removeLast();
+      children.add(CustomTable(
+        table_name: globals.tableName,
+        getIds: [],
+        getUsers: [],
+        getPos: [],
+        getImgs: [],
+        table_type: globals.selectedPublicPrivet,
+        color: Colors.green,
+      ));
+      //globals.occupenTable.add('0');
     });
   }
 

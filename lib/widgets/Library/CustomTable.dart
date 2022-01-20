@@ -23,16 +23,20 @@ class CustomTable extends StatefulWidget {
   bool hiddenBool = true;
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
-  List<String> getUsers;// Users names
-  List<String> getImgs;// Users imgs
-  List<String> imgs = ['', '', '', '', '', '', '', ''];
+  List<dynamic> getIds; // Users ids
+  List<dynamic> getUsers; // Users names
+  List<dynamic> getPos; // Users imgs
+  List<dynamic> getImgs; // Users imgs
+  List<dynamic> imgs = ['', '', '', '', '', '', '', ''];
 
   CustomTable(
       {this.children,
       required this.table_name,
       required this.table_type,
       required this.color,
+      required this.getIds,
       required this.getUsers,
+      required this.getPos,
       required this.getImgs,
       this.id,
       this.icon,
@@ -518,11 +522,11 @@ class _CustomContainerState extends State<CustomTable>
         int j = widget.getUsers.length - 1;
         for (int i = 7; i >= 0; i--) {
           await Future.delayed(const Duration(milliseconds: 100), () {
-            if (i == (int.parse(widget.getUsers[1][j][2]) - 1)) {
+            if (i == (int.parse(widget.getPos[j]) - 1)) {
               if (mounted) {
                 setState(() {
-                  widget.imgs[int.parse(widget.getUsers[1][j][2]) - 1] =
-                      widget.getImgs[int.parse(widget.getUsers[1][j][2]) - 1];
+                  widget.imgs[int.parse(widget.getPos[j]) - 1] =
+                      widget.getImgs[int.parse(widget.getPos[j]) - 1];
                 });
               }
               if (j > 0) {
