@@ -268,10 +268,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    setState(() {
-      load = false;
-    });
-
+    if (mounted) {
+      setState(() {
+        load = false;
+      });
+    }
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         //localStorage.setString('contrat_Id', value)
