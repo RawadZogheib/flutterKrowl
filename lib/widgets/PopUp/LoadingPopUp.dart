@@ -10,7 +10,7 @@ LoadingPopUp(context){
         width: 150,
         padding: const EdgeInsets.all(8.0),
         child: Image(
-          image: AssetImage('Assets/krowl_logo2.gif'),
+          image: AssetImage('Assets/krowl_logo2.png'),
         ),
       ),
     ),
