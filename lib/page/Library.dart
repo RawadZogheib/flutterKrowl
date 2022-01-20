@@ -189,29 +189,32 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Wrap(children: children.reversed.toList()),
-                                  NumberPaginator(
-                                    numberPages: 35,
-                                    onPageChange: (int index) {
-                                      setState(() {
-                                        _currentPage = index + 1;
-                                        _loadNewPage();
-                                        print(index + 1);
-                                      });
-                                    },
-                                    // initially selected index
-                                    initialPage: _currentPage - 1,
-                                    // default height is 48
-                                    buttonShape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: NumberPaginator(
+                                      numberPages: 35,
+                                      onPageChange: (int index) {
+                                        setState(() {
+                                          _currentPage = index + 1;
+                                          _loadNewPage();
+                                          print(index + 1);
+                                        });
+                                      },
+                                      // initially selected index
+                                      initialPage: _currentPage - 1,
+                                      // default height is 48
+                                      buttonShape: BeveledRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      buttonSelectedForegroundColor:
+                                          globals.blue2,
+                                      buttonUnselectedForegroundColor:
+                                          globals.blue1,
+                                      buttonUnselectedBackgroundColor:
+                                          globals.blue2,
+                                      buttonSelectedBackgroundColor:
+                                          globals.blue1,
                                     ),
-                                    buttonSelectedForegroundColor:
-                                        globals.blue2,
-                                    buttonUnselectedForegroundColor:
-                                        globals.blue1,
-                                    buttonUnselectedBackgroundColor:
-                                        globals.blue2,
-                                    buttonSelectedBackgroundColor:
-                                        globals.blue1,
                                   ),
                                 ],
                               )),
