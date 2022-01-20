@@ -148,7 +148,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               ),
               load == true
                   ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.09),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                       CreateTable(
                         onTap: () {
                           _createTable();
@@ -174,7 +174,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                           SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.09),
+                              width: MediaQuery.of(context).size.width * 0.05),
                           CreateTable(
                             onTap: () {
                               _createTable();
