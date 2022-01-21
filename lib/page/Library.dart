@@ -25,7 +25,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
-  int _totalPages = 99999;
+  int _totalPages = 999;
   bool load = true;
 
   @override
@@ -256,7 +256,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
     if (body[0] == "success") {
       setState(() {
-        _totalPages=  body[1];
+        _totalPages = (body[1] / 12).round() + 1;
       });
       for (var i = 0; i < body[2].length; i++) {
         List<dynamic> _userId = [];
