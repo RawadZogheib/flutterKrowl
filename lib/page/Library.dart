@@ -26,6 +26,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   Timer? timer;
   int _currentPage = 1;
   int _totalPages = 999;
+  int _totalTables  = 11988;
   bool load = true;
 
   @override
@@ -80,7 +81,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     ),
                                   )
                                 : Column(
-                                    children: children.reversed.toList(),
+                                    children: children.toList(),
                                   )
                           ],
                         ),
@@ -121,7 +122,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                           ),
                                         )
                                       : Column(
-                                          children: children.reversed.toList(),
+                                          children: children.toList(),
                                         )
                                 ],
                               ),
@@ -189,7 +190,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Wrap(children: children.reversed.toList()),
+                                  Wrap(children: children.toList()),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: NumberPaginator(
@@ -256,7 +257,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
     if (body[0] == "success") {
       setState(() {
-        _totalPages = (body[1] / 12).round() + 1;
+        _totalTables = int.parse(body[1]);
+        _totalPages = (_totalTables/ 12).ceil();
       });
       for (var i = 0; i < body[2].length; i++) {
         List<dynamic> _userId = [];
@@ -295,19 +297,26 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         });
       }
     } else if (body[0] == "empty") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorEmptyLibrary),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      if (_currentPage != 1) {
+        setState(() {
+          _currentPage = 1;
+          _loadNewPage();
+        });
+      }else{
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Error'),
+            content: const Text(globals.errorEmptyLibrary),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
         context: context,
@@ -371,17 +380,28 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   _createTable() {
+
     setState(() {
-      children.removeLast();
-      children.add(CustomTable(
-        table_name: globals.tableName,
-        getIds: [],
-        getUsers: [],
-        getPos: [],
-        getImgs: [],
-        table_type: globals.selectedPublicPrivet,
-        color: Colors.green,
-      ));
+      _totalTables++;
+      _totalPages = (_totalTables/ 12).ceil();
+      if (_currentPage != 1) {
+        _currentPage = 1;
+        _loadNewPage();
+      } else {
+        if (children.length == 12) children.removeLast();
+        children.insert(
+            0,
+            CustomTable(
+              table_name: globals.tableName,
+              getIds: [],
+              getUsers: [],
+              getPos: [],
+              getImgs: [],
+              table_type: globals.selectedPublicPrivet,
+              color: Colors.green,
+            ));
+      }
+
       //globals.occupenTable.add('0');
     });
   }
