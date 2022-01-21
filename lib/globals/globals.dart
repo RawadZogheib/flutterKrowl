@@ -35,7 +35,6 @@ const String error8 = "Full Table";
 const String error9 = "Position Taken";
 const String error10 = "Table name already taken";
 const String errorEmptyLibrary = "There is no Table yet";
-const String errorEmptyTable = "There is no occupants on this table yet";
 const String errorEmptyContacts = "You doesn't have contacts yet";
 const String errorEmptyFriends = "You doesn't have friends yet";
 const String errorToken = "Token Error.";

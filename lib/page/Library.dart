@@ -25,6 +25,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
+  int _totalPages = 99999;
   bool load = true;
 
   @override
@@ -192,7 +193,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: NumberPaginator(
-                                      numberPages: 35,
+                                      numberPages: _totalPages,
                                       onPageChange: (int index) {
                                         setState(() {
                                           _currentPage = index + 1;
@@ -254,6 +255,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       });
     }
     if (body[0] == "success") {
+      setState(() {
+        _totalPages=  body[1];
+      });
       for (var i = 0; i < body[2].length; i++) {
         List<dynamic> _userId = [];
         List<dynamic> _userName = [];
