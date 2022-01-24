@@ -43,6 +43,13 @@ class _ReplyPageState extends State<ReplyPage> {
   Timer? timer;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer?.cancel();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();

@@ -32,7 +32,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     // TODO: implement dispose
     super.dispose();
     timer?.cancel();
-    print('bye');
   }
 
   @override
