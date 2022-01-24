@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
@@ -39,11 +40,13 @@ class ReplyPage extends StatefulWidget {
 
 class _ReplyPageState extends State<ReplyPage> {
   var children3 = <Widget>[]; //Replies
+  Timer? timer;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _loadReplies();
+    _loadNewPage();
   }
   @override
   Widget build(BuildContext context) {
@@ -200,5 +203,21 @@ class _ReplyPageState extends State<ReplyPage> {
         ),
       );
     }
+  }
+
+  _loadNewPage() {
+    timer?.cancel();
+    _loadReplies(); //0
+    _loadPage(); //1 -> INFINI
+  }
+
+  _loadPage() {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      print("30sec gone!!");
+      if (mounted) {
+        print("30sec gone,and _loadChildrenOnline!!");
+        _loadReplies();
+      }
+    });
   }
 }
