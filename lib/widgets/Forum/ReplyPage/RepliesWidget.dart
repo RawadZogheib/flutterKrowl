@@ -107,6 +107,9 @@ class Replies extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            height: 20,
+          )
         ],
       );
   }

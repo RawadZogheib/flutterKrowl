@@ -245,7 +245,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   _loadPosts() async {
-    children.clear();
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
     var user_uni = localStorage.getString("user_uni");
@@ -260,6 +259,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
+    children.clear();
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         children.addAll(

@@ -256,10 +256,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       });
     }
     if (body[0] == "success") {
-      setState(() {
-        _totalTables = int.parse(body[1]);
-        _totalPages = (_totalTables/ 12).ceil();
-      });
+      if(mounted) {
+        setState(() {
+          _totalTables = int.parse(body[1]);
+          _totalPages = (_totalTables / 12).ceil();
+        });
+      }
       for (var i = 0; i < body[2].length; i++) {
         List<dynamic> _userId = [];
         List<dynamic> _userName = [];
