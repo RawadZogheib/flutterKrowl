@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
@@ -24,12 +25,21 @@ class Forum1 extends StatefulWidget {
 class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   @override
   var children = <Widget>[]; // Posts
+  Timer? timer;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer?.cancel();
+    print('bye');
+  }
 
   @override
   void initState() {
     super.initState();
     globals.currentPage = 'Forum';
-    _loadPosts();
+    _loadNewPage();
   }
 
   Widget build(BuildContext context) {
@@ -235,7 +245,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         ));
   }
 
-  Future<void> _loadPosts() async {
+  _loadPosts() async {
+    children.clear();
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
     var user_uni = localStorage.getString("user_uni");
@@ -323,5 +334,21 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         ),
       );
     }
+  }
+
+  _loadNewPage() {
+    timer?.cancel();
+    _loadPosts(); //0
+    _loadPage(); //1 -> INFINI
+  }
+
+  _loadPage() {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      print("30sec gone!!");
+      if (mounted) {
+        print("30sec gone,and _loadChildrenOnline!!");
+        _loadPosts();
+      }
+    });
   }
 }
