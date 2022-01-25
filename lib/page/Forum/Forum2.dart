@@ -25,23 +25,24 @@ class Forum2 extends StatefulWidget {
 
 class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
   List<LogicalKeyboardKey> keys = [];
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKey: (event){
+      onKey: (event) {
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
           if (keys.contains(key)) return;
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             _createPost();
-            Navigator.pushNamedAndRemoveUntil(context, '/Forum1', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/Forum1', (route) => false);
           }
           setState(() => keys.add(key));
-        }
-        else{
+        } else {
           setState(() => keys.remove(key));
         }
       },
@@ -169,7 +170,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                     hintText: 'Give some context...',
                                     onChanged: (val) {
                                       globals.context_question = val;
-                                      print(globals.context_question.toString());
+                                      print(
+                                          globals.context_question.toString());
                                     })),
                             SizedBox(
                               height: 100,
@@ -183,7 +185,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                 text: 'Create post',
                                 onPressed: () {
                                   _createPost();
-                                  Navigator.pushNamedAndRemoveUntil(context, '/Forum1', (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context, '/Forum1', (route) => false);
                                 },
                                 textcolor: globals.blue2,
                               ),

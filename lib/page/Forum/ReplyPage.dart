@@ -75,13 +75,14 @@ class _ReplyPageState extends State<ReplyPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DetailedReplyContainer(
-                      id: widget.id,
-                      question: widget.question,
-                      subject: widget.subject,
-                      username: widget.username,
-                      contextQuestion: widget.contextQuestion,
-                      date: widget.date,
-                      onTap: (data) => _addReply(data),),
+                    id: widget.id,
+                    question: widget.question,
+                    subject: widget.subject,
+                    username: widget.username,
+                    contextQuestion: widget.contextQuestion,
+                    date: widget.date,
+                    onTap: (data) => _addReply(data),
+                  ),
                   SizedBox(
                     height: 30,
                   ),
@@ -228,10 +229,9 @@ class _ReplyPageState extends State<ReplyPage> {
 
   _addReply(data) async {
     print(data);
-    SharedPreferences localStorage =
-        await SharedPreferences.getInstance();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     String? username = localStorage.getString('username');
-    if(mounted){
+    if (mounted) {
       setState(() {
         children.insert(
           0,
