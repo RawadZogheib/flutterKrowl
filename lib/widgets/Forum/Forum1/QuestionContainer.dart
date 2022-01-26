@@ -217,8 +217,7 @@ class _QuestionState extends State<Question> {
   }
 
   _openReply() {
-    print('go to reply');
-    ////
+    globals.currentPage = 'Forum(1)';
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
