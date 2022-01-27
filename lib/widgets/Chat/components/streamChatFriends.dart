@@ -5,15 +5,6 @@ import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
-// class StreamExample extends StatelessWidget {
-//
-//
-//   @override
-//   Widget build(BuildContext context) => MaterialApp(
-//     title: 'Stream Chat Dart Example',
-//     home: HomeScreen(channel: channel, name: name,),
-//   );
-// }
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
 /// containing the channel name and a [MessageView] displaying recent messages.
