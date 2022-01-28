@@ -30,9 +30,6 @@ class CallApi{
   _setHeaders() => {
     'Content-type' : 'application/json',
     'Accept' : 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Origin': '10.10.4.67:8080'
-
   };
 
   _getToken() async {
