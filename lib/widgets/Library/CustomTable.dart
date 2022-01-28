@@ -313,6 +313,7 @@ class _CustomContainerState extends State<CustomTable>
     if (body[0] == "success") {
       if (mounted) {
         setState(() {
+          widget.nb++;
           widget.imgs[position - 1] =
               'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
           widget.enablee[position - 1] = true;
