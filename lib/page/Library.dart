@@ -26,7 +26,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   Timer? timer;
   int _currentPage = 1;
   int _totalPages = 999;
-  int _totalTables  = 11988;
+  int _totalTables = 11988;
   bool load = true;
 
   @override
@@ -256,25 +256,37 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       });
     }
     if (body[0] == "success") {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           _totalTables = int.parse(body[1]);
           _totalPages = (_totalTables / 12).ceil();
         });
       }
       for (var i = 0; i < body[2].length; i++) {
-        List<dynamic> _userId = [];
-        List<dynamic> _userName = [];
-        List<dynamic> _userPosition = [];
-        List<dynamic> _userImgUrl = [];
+        List<dynamic> _userId = ['', '', '', '', '', '', '', ''];
+        List<dynamic> _userName = ['', '', '', '', '', '', '', ''];
+        List<dynamic> _userPosition = [
+          '-1',
+          '-1',
+          '-1',
+          '-1',
+          '-1',
+          '-1',
+          '-1',
+          '-1'
+        ];
+        List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
         for (int j = 0; j < body[2][i][3].length; j++) {
-          _userId.add(body[2][i][3][j][0]); // userId
-          _userName.add(body[2][i][3][j][1]); // userName
-          _userPosition.add(body[2][i][3][j][2]); // userPosition
-          _userImgUrl.add(
-              'https://picsum.photos/50/50/?${Random().nextInt(1000)}' // body[2][i][3][j][3]
-              ); // userImgUrl
+          _userId[int.parse(body[2][i][3][j][2]) - 1] =
+              body[2][i][3][j][0]; // userId
+          _userName[int.parse(body[2][i][3][j][2]) - 1] =
+              body[2][i][3][j][1]; // userName
+          _userPosition[int.parse(body[2][i][3][j][2]) - 1] =
+              body[2][i][3][j][2]; // userPosition
+          _userImgUrl[int.parse(body[2][i][3][j][2]) - 1] =
+              'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][3][j][3]
+          // userImgUrl
         }
         //localStorage.setString('contrat_Id', value)
         //globals.occupenTable.add('0');// Initiate table (All table are Off)
@@ -291,6 +303,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             getImgs: _userImgUrl,
           ),
         );
+        print(_userId);
+        print(_userName);
+        print(_userPosition);
+        print(_userImgUrl);
       }
 
       if (mounted) {
@@ -304,7 +320,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           _currentPage = 1;
           _loadNewPage();
         });
-      }else{
+      } else {
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
@@ -382,10 +398,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   _createTable() {
-
     setState(() {
       _totalTables++;
-      _totalPages = (_totalTables/ 12).ceil();
+      _totalPages = (_totalTables / 12).ceil();
       if (_currentPage != 1) {
         _currentPage = 1;
         _loadNewPage();

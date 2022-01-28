@@ -19,7 +19,7 @@ class CustomTable extends StatefulWidget {
   var icon;
   var seats;
   var id;
-  var nb = '0';
+  var nb = 0;
   bool hiddenBool = true;
   bool status = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
@@ -114,7 +114,7 @@ class _CustomContainerState extends State<CustomTable>
                         style: TextStyle(
                             color: Colors.grey.shade600, fontFamily: 'Rubik')),
                     Text(
-                      "${widget.nb}/8",
+                      "${widget.nb.toString()}/8",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey.shade700,
@@ -487,6 +487,7 @@ class _CustomContainerState extends State<CustomTable>
         await Future.delayed(const Duration(milliseconds: 100), () {
           if (mounted) {
             setState(() {
+              widget.nb--;
               widget.enablee[i] = false;
             });
           }
@@ -498,6 +499,7 @@ class _CustomContainerState extends State<CustomTable>
         await Future.delayed(const Duration(milliseconds: 100), () {
           if (mounted) {
             setState(() {
+              widget.nb++;
               widget.imgs[i] = '';
               widget.enablee[i] = true;
             });
@@ -514,27 +516,29 @@ class _CustomContainerState extends State<CustomTable>
       if (tableStatus == "success") {
         if (mounted) {
           setState(() {
-            widget.nb = widget.getUsers.length.toString();
+            widget.nb = widget.getUsers.length;
           });
         }
 
         //deload
-        int j = widget.getUsers.length - 1;
+
+        //int j = widget.getUsers.length - 1;
         for (int i = 7; i >= 0; i--) {
           await Future.delayed(const Duration(milliseconds: 100), () {
-            if (i == (int.parse(widget.getPos[j]) - 1)) {
+            if (int.parse(widget.getPos[i]) != -1) {
               if (mounted) {
                 setState(() {
-                  widget.imgs[int.parse(widget.getPos[j]) - 1] =
-                      widget.getImgs[int.parse(widget.getPos[j]) - 1];
+                  widget.imgs[int.parse(widget.getPos[i]) - 1] =
+                      widget.getImgs[int.parse(widget.getPos[i]) - 1];
                 });
               }
-              if (j > 0) {
-                j--;
-              }
+              // if (j > 0) {
+              //   j--;
+              // }
             } else {
               if (mounted) {
                 setState(() {
+                  widget.nb--;
                   widget.enablee[i] = false;
                 });
               }
@@ -544,7 +548,7 @@ class _CustomContainerState extends State<CustomTable>
       } else if (tableStatus == "empty") {
         if (mounted) {
           setState(() {
-            widget.nb = '0';
+            widget.nb = 0;
           });
         }
 
@@ -557,6 +561,7 @@ class _CustomContainerState extends State<CustomTable>
           await Future.delayed(const Duration(milliseconds: 100), () {
             if (mounted) {
               setState(() {
+                widget.nb--;
                 widget.enablee[i] = false;
               });
             }
@@ -754,7 +759,7 @@ class _CustomContainerState extends State<CustomTable>
             false,
             false
           ];
-          widget.nb = '0';
+          widget.nb = 0;
         });
       }
     });
