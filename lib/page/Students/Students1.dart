@@ -229,7 +229,7 @@ class _Students1State extends State<Students1>
         children.add(
           StudentCard(
             userId: body[2][i][0],
-            username: body[2][i][1] + body[2][i][2],
+            username: body[2][i][1] + ' ' + body[2][i][2],
             universityname: body[2][i][4],
             isFriend: tempBool,
           ),
