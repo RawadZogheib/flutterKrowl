@@ -5,14 +5,16 @@ import 'package:flutter_app_backend/widgets/Students/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StudentCard extends StatefulWidget {
-  var username;
-  var universityname;
+  String userId;
+  String username;
+  String universityname;
   var color1; //light
   var color2; //dark
   bool isFriend;
   var onTap;
 
   StudentCard({
+    required this.userId,
     required this.username,
     required this.universityname,
     required this.isFriend,
