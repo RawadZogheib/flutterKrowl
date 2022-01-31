@@ -8,9 +8,10 @@ class StudentCard extends StatefulWidget {
   String userId;
   String username;
   String universityname;
+  bool isFriend;
+  var userImg;
   var color1; //light
   var color2; //dark
-  bool isFriend;
   var onTap;
 
   StudentCard({
@@ -18,6 +19,7 @@ class StudentCard extends StatefulWidget {
     required this.username,
     required this.universityname,
     required this.isFriend,
+    this.userImg,
     this.color1,
     this.color2,
     this.onTap,
@@ -73,12 +75,15 @@ class _StudentCardState extends State<StudentCard> {
                 ),
                 Positioned(
                     top: 50,
-                    child: Avatar(
+                    child: widget.userImg.isEmpty
+                        ?Avatar(
                       elevation: 3,
                       shape: AvatarShape.circle(27),
                       name: '${widget.username}',
                       placeholderColors: [globals.blue1],
-                    )),
+                    )
+                :Image.network(globals.myIP + '/' + widget.userImg),
+                ),
               ]),
               Column(
                 children: [

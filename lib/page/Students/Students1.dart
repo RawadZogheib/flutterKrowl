@@ -232,6 +232,7 @@ class _Students1State extends State<Students1>
             username: body[2][i][1] + ' ' + body[2][i][2],
             universityname: body[2][i][4],
             isFriend: tempBool,
+            userImg: body[2][i][3],
           ),
         );
       }
