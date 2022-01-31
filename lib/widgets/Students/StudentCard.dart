@@ -30,7 +30,7 @@ class _StudentCardState extends State<StudentCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      margin: EdgeInsets.all(4.0),
+      margin: EdgeInsets.all(6.0),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(

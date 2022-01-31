@@ -112,7 +112,7 @@ class _Students1State extends State<Students1> with SingleTickerProviderStateMix
                 ],
               ),
               SizedBox(
-                height: 50,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _Students1State extends State<Students1> with SingleTickerProviderStateMix
                       ),
                       SearchBar(hintText: "Search for students..."),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       SingleChildScrollView(
                         child: Container(
