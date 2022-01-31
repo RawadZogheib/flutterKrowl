@@ -74,15 +74,15 @@ class _StudentCardState extends State<StudentCard> {
                   ],
                 ),
                 Positioned(
-                    top: 50,
-                    child: widget.userImg.isEmpty
-                        ?Avatar(
-                      elevation: 3,
-                      shape: AvatarShape.circle(27),
-                      name: '${widget.username}',
-                      placeholderColors: [globals.blue1],
-                    )
-                :Image.network(globals.myIP + '/' + widget.userImg),
+                  top: 50,
+                  child: widget.userImg.isEmpty
+                      ? Avatar(
+                          elevation: 3,
+                          shape: AvatarShape.circle(27),
+                          name: '${widget.username}',
+                          placeholderColors: [globals.blue1],
+                        )
+                      : Image.network(globals.myIP + '/' + widget.userImg),
                 ),
               ]),
               Column(
@@ -136,7 +136,7 @@ class _StudentCardState extends State<StudentCard> {
                   // ),
                   widget.isFriend == true
                       ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
                                 margin: EdgeInsets.only(
@@ -160,19 +160,19 @@ class _StudentCardState extends State<StudentCard> {
                           ],
                         )
                       : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(bottom: 15, right: 15),
-                              child: StudentButton(
-                                text: "Add Friend",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () {},
-                              )),
-                        ],
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(bottom: 15, right: 15),
+                                child: StudentButton(
+                                  text: "Add Friend",
+                                  textcolor: globals.blue1,
+                                  color1: globals.blue2,
+                                  color2: Colors.blueGrey,
+                                  onPressed: () {},
+                                )),
+                          ],
+                        ),
                 ],
               ),
             ],
