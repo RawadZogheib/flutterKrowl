@@ -32,8 +32,6 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-  bool _like = false;
-  bool _dislike = false;
 
   @override
   Widget build(BuildContext context) {

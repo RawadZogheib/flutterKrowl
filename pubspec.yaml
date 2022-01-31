@@ -59,6 +59,7 @@ dependencies:
   provider: ^6.0.2
   number_paginator: ^0.0.2
   stream_chat_flutter_core: ^3.3.1
+  avatars: ^3.0.2
 
 
 
@@ -95,6 +96,7 @@ flutter:
     - Assets/clara3.png
     - Assets/clara4.PNG
     - Assets/testNet.PNG
+    - Assets/CoverPhoto.jpg
 
   #   - images/a_dot_ham.jpeg
 

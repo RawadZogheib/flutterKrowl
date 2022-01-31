@@ -87,7 +87,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                SearchBar(),
+                SearchBar(hintText: "Search a subject..."),
                 SizedBox(
                   height: 20,
                 ),
@@ -145,7 +145,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    SearchBar(),
+                    SearchBar(hintText: "Search a subject..."),
                     SizedBox(
                       height: 20,
                     ),
@@ -216,7 +216,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      SearchBar(),
+                      SearchBar(hintText: "Search a subject...",),
                       SizedBox(
                         height: 20,
                       ),

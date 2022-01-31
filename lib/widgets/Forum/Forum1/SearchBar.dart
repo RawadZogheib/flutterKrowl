@@ -6,10 +6,11 @@ import 'package:flutter/services.dart';
 
 class SearchBar extends StatelessWidget {
 
-  SearchBar ({ this.text, this.onChanged });
+  SearchBar ({ this.text, this.onChanged, this.hintText });
 
   var text;
   var onChanged;
+  var hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class SearchBar extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.grey.shade400, width: 0.7),
                 borderRadius: BorderRadius.circular(5),),
 
-            hintText: 'Search a subject',
+            hintText: '$hintText',
             hintStyle: TextStyle(
               fontSize: 17,
               color: Colors.grey,
