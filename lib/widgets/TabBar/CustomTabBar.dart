@@ -90,8 +90,10 @@ class CustomTabBar extends StatelessWidget {
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/Students1', (route) => false);
+              if (globals.currentPage != 'Students') {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Students1', (route) => false);
+              }
             },
             child: Text("Students",
                 style: TextStyle(

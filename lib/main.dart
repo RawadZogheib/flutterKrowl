@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/page/Students/Students1.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatFriends.dart';
 import 'package:flutter_app_backend/page/Code.dart';
 import 'package:flutter_app_backend/page/Forum/Forum1.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
             '/VideoConference2': (context) => VideoConference2(),
             '/Forum1': (context) => Forum1(),
             '/Forum2': (context) => Forum2(),
+            '/Students1': (context) => Students1()
             //'/ReplyPage': (context) => ReplyPage(),
           });
     });
