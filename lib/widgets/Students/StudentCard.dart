@@ -8,7 +8,7 @@ class StudentCard extends StatefulWidget {
   String userId;
   String username;
   String universityname;
-  bool isFriend;
+  String isFriend;
   var userImg;
   var color1; //light
   var color2; //dark
@@ -134,7 +134,7 @@ class _StudentCardState extends State<StudentCard> {
                   //         ))
                   //   ],
                   // ),
-                  widget.isFriend == true
+                  widget.isFriend == '0'
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -146,7 +146,9 @@ class _StudentCardState extends State<StudentCard> {
                                   textcolor: globals.blue1,
                                   color1: globals.blue2,
                                   color2: Colors.blueGrey,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _unfriend();
+                                  },
                                 )),
                             Container(
                                 margin: EdgeInsets.only(bottom: 15, right: 15),
@@ -155,24 +157,49 @@ class _StudentCardState extends State<StudentCard> {
                                   textcolor: globals.blue1,
                                   color1: globals.blue2,
                                   color2: Colors.blueGrey,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _goToMessage();
+                                  },
                                 )),
                           ],
                         )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(bottom: 15, right: 15),
-                                child: StudentButton(
-                                  text: "Add Friend",
-                                  textcolor: globals.blue1,
-                                  color1: globals.blue2,
-                                  color2: Colors.blueGrey,
-                                  onPressed: () {},
-                                )),
-                          ],
-                        ),
+                      : widget.isFriend == '1'
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                    margin:
+                                        EdgeInsets.only(bottom: 15, right: 15),
+                                    child: StudentButton(
+                                      text: "Requetsed",
+                                      textcolor: globals.blue1,
+                                      color1: globals.blue2,
+                                      color2: Colors.blueGrey,
+                                      onPressed: () {
+                                        _requested();
+                                      },
+                                    )),
+                              ],
+                            )
+                          : widget.isFriend == '2'
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: 15, right: 15),
+                                        child: StudentButton(
+                                          text: "Add Friend",
+                                          textcolor: globals.blue1,
+                                          color1: globals.blue2,
+                                          color2: Colors.blueGrey,
+                                          onPressed: () {
+                                            _addFriend();
+                                          },
+                                        )),
+                                  ],
+                                )
+                              : Container(),
                 ],
               ),
             ],
@@ -180,6 +207,22 @@ class _StudentCardState extends State<StudentCard> {
         ),
       ),
     );
+  }
+
+  void _unfriend() {
+    //Remove From Friend List
+  }
+
+  void _goToMessage() {
+    //Go To Message
+  }
+
+  void _requested() {
+    //Remove Request
+  }
+
+  void _addFriend() {
+    //Add Friend
   }
 }
 

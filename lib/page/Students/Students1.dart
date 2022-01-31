@@ -220,18 +220,13 @@ class _Students1State extends State<Students1>
         });
       }
       for (var i = 0; i < body[2].length; i++) {
-        bool tempBool;
-        if (body[2][i][5] == 'true')
-          tempBool = true;
-        else
-          tempBool = false;
 
         children.add(
           StudentCard(
             userId: body[2][i][0],
             username: body[2][i][1] + ' ' + body[2][i][2],
             universityname: body[2][i][4],
-            isFriend: tempBool,
+            isFriend: body[2][i][5],
             userImg: body[2][i][3],
           ),
         );
