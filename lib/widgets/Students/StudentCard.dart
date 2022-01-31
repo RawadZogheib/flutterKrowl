@@ -91,6 +91,7 @@ class _StudentCardState extends State<StudentCard> {
                         )),
                         subtitle: Center(
                             child: Text("${widget.universityname}",
+                                textAlign: TextAlign.center,
                                 style: GoogleFonts.nunito(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w500,
