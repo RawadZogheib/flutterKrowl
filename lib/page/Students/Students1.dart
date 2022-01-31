@@ -221,15 +221,15 @@ class _Students1State extends State<Students1>
       }
       for (var i = 0; i < body[2].length; i++) {
         bool tempBool;
-        if (body[2][i][4] == 'true')
+        if (body[2][i][5] == 'true')
           tempBool = true;
         else
           tempBool = false;
 
         children.add(
           StudentCard(
-            universityname: "Lebanese University",
             username: body[2][i][0] + body[2][i][1],
+            universityname: body[2][i][4],
             isFriend: tempBool,
           ),
         );
