@@ -519,7 +519,7 @@ class _ChatPage2State extends State<ChatPage2> {
 
     channel = client.channel('messaging',
       extraData: {
-      "name":channelName,
+      // "name":channelName,
       "members": [usernameChat,channelName],
     },);
     await channel.watch();
