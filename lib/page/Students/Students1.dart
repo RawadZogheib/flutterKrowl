@@ -29,6 +29,9 @@ class _Students1State extends State<Students1>
   int _totalPages = 999;
   int _totalStudents = 11988;
   bool load = true;
+  bool onAddFriendLoad = false;
+  bool onRequestedLoad = false;
+  bool onUnFriendLoad = false;
 
   @override
   void dispose() {
@@ -220,7 +223,6 @@ class _Students1State extends State<Students1>
         });
       }
       for (var i = 0; i < body[2].length; i++) {
-
         children.add(
           StudentCard(
             userId: body[2][i][0],
