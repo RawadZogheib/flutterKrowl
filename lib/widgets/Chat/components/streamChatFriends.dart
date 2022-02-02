@@ -4,12 +4,13 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
 /// containing the channel name and a [MessageView] displaying recent messages.
 class StreamExample extends StatefulWidget {
-  String name;
+ // String name;
   /// Instance of [StreamChatClient] we created earlier.
   /// This contains information about our application and connection state.
   final StreamChatClient client;
@@ -20,7 +21,7 @@ class StreamExample extends StatefulWidget {
   /// [client] and [channel] is required.
   StreamExample({
     Key? key,
-    required this.name,
+    //required this.name,
     required this.client,
     required this.channel,
   }) : super(key: key);
@@ -34,11 +35,12 @@ class _StreamExampleState extends State<StreamExample> {
   @override
   Widget build(BuildContext context) {
     final messages = widget.channel.state!.messagesStream;
+    final channel = StreamChannel.of(context).channel;
     return WillPopScope(
           onWillPop: () async => _back(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text(widget.name),
+              title: Text(channel.name.toString()),
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {
