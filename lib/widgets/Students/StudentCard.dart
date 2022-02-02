@@ -312,7 +312,7 @@ class _StudentCardState extends State<StudentCard> {
         'Success',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      description: Text('Friend added Successfully'),
+      description: Text('Friend request sent Successfully'),
       position: MOTION_TOAST_POSITION.bottom,
       animationType: ANIMATION.fromRight,
       height: 100,
@@ -325,7 +325,7 @@ class _StudentCardState extends State<StudentCard> {
 
   _requested() async {
     //Remove Request
-    await _cancelFriend('Friend request sent Successfully');
+    await _cancelFriend('Friend request removed Successfully');
   }
 
   _unFriend() async {
