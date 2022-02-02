@@ -4,7 +4,6 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
@@ -35,12 +34,11 @@ class _StreamExampleState extends State<StreamExample> {
   @override
   Widget build(BuildContext context) {
     final messages = widget.channel.state!.messagesStream;
-    final channel = StreamChannel.of(context).channel;
     return WillPopScope(
           onWillPop: () async => _back(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text(channel.name.toString()),
+              //title: Text(widget.name),
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {

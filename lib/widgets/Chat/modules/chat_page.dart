@@ -506,21 +506,15 @@ class _ChatPage2State extends State<ChatPage2> {
     print("ddddddddddddddddddddddddd" + userToken.toString());
 
     client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
-    await client.upsertUsers([{
-      "id": usernameChat.toString(),
-      "role": 'user',
-      "username": usernameChat.toString(),
-      name:'Loring',
-      image: 'https://robohash.org/Loring'
-    }]);
     await client.connectUser(
       User(
-        "id": usernameChat.toString(),
+        id: usernameChat.toString(),
      extraData: {
-       "name": usernameChat,
+       "username": usernameChat,
        // image:
        // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-     }),
+     }
+      ),
       userToken,
     );
 
