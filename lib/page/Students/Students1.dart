@@ -23,15 +23,12 @@ class Students1 extends StatefulWidget {
 class _Students1State extends State<Students1>
     with SingleTickerProviderStateMixin {
   @override
-  var children = <Widget>[]; // Posts
+  var children = <StudentCard>[]; // StudentsCards
   Timer? timer;
   int _currentPage = 1;
   int _totalPages = 999;
   int _totalStudents = 11988;
   bool load = true;
-  bool onAddFriendLoad = false;
-  bool onRequestedLoad = false;
-  bool onUnFriendLoad = false;
 
   @override
   void dispose() {
@@ -230,6 +227,10 @@ class _Students1State extends State<Students1>
             universityname: body[2][i][4],
             isFriend: body[2][i][5],
             userImg: body[2][i][3],
+            contextStudentPage: context,
+            reload: () {
+              _loadNewPage();
+            },
           ),
         );
       }
