@@ -8,6 +8,7 @@ import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:sizer/sizer.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 late BuildContext cont;
 
@@ -263,83 +264,96 @@ class _CodeState extends State<Code> {
 
   _sendCode() async {
     try {
-      String? vCode;
-      vCode = globals.code1! +
-          globals.code2! +
-          globals.code3! +
-          globals.code4! +
-          globals.code5! +
-          globals.code6!;
-      var data = {
-        'version': globals.version,
-        'email': globals.email,
-        'vCode': vCode
-      };
-      var res = await CallApi().postData(data, '(Control)getVCode.php');
-      List<dynamic> body = json.decode(res.body);
-      print(body[0]);
-      if (body[0] == "success") {
-        Navigator.pushNamedAndRemoveUntil(
-            cont, '/intro_page2', (route) => false);
-      } else if (body[0] == "errorVersion") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text("Your version: " +
-                globals.version +
-                "\n" +
-                globals.errorVersion),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "errorToken") {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorToken),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (body[0] == "false") {
-        showDialog<String>(
-          context: cont,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text('Wrong Code !'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        showDialog<String>(
-          context: cont,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.errorElse),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+      if (globals.userName != null) {
+        String? vCode;
+        vCode = globals.code1! +
+            globals.code2! +
+            globals.code3! +
+            globals.code4! +
+            globals.code5! +
+            globals.code6!;
+        var data = {
+          'version': globals.version,
+          'email': globals.email,
+          'username': globals.userName!,
+          'vCode': vCode
+        };
+        var res = await CallApi().postData(data, '(Control)getVCode.php');
+        List<dynamic> body = json.decode(res.body);
+        print(body[0]);
+        if (body[0] == "success") {
+          var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
+          await client.connectUser(
+            User(id: globals.userName!, extraData: {
+              "username": globals.userName!,
+              // image:
+              // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+            }),
+            body[1],
+          );
+
+          Navigator.pushNamedAndRemoveUntil(
+              cont, '/intro_page2', (route) => false);
+        } else if (body[0] == "errorVersion") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: const Text("Your version: " +
+                  globals.version +
+                  "\n" +
+                  globals.errorVersion),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        } else if (body[0] == "errorToken") {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.errorToken),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        } else if (body[0] == "false") {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Wrong Code !'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        } else {
+          showDialog<String>(
+            context: cont,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Error'),
+              content: const Text(globals.errorElse),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
       }
     } catch (e) {
       showDialog<String>(
