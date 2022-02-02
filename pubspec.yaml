@@ -60,6 +60,7 @@ dependencies:
   number_paginator: ^0.0.2
   stream_chat_flutter_core: ^3.3.1
   avatars: ^3.0.2
+  motion_toast: ^2.1.1
 
 
 

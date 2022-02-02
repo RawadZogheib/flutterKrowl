@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:avatars/avatars.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Students/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentCard extends StatefulWidget {
@@ -13,20 +16,24 @@ class StudentCard extends StatefulWidget {
   String username;
   String universityname;
   String isFriend;
+  BuildContext contextStudentPage;
   var userImg;
   var color1; //light
   var color2; //dark
   var onTap;
+  var reload;
 
   StudentCard({
     required this.userId,
     required this.username,
     required this.universityname,
     required this.isFriend,
+    required this.contextStudentPage,
     this.userImg,
     this.color1,
     this.color2,
     this.onTap,
+    required this.reload,
   });
 
   @override
@@ -114,64 +121,81 @@ class _StudentCardState extends State<StudentCard> {
                     ),
                     widget.isFriend == '0' // Not Friend
                         ? Expanded(
-                          child: Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(bottom:15, right: 15),
+                                    margin:
+                                        EdgeInsets.only(bottom: 15, right: 15),
                                     child: StudentButton(
                                       text: "Add Friend",
                                       textcolor: globals.blue1,
                                       color1: globals.blue2,
                                       color2: Colors.blueGrey,
-                                      onPressed: () {
-                                        _addFriend();
+                                      onPressed: () async {
+                                        if (globals.onClickLoad == false) {
+                                          globals.onClickLoad = true;
+                                          await _addFriend();
+                                          globals.onClickLoad = false;
+                                        }
                                       },
                                     )),
                               ],
                             ),
-                        )
+                          )
                         : widget.isFriend == '1' // Requested
                             ? Expanded(
-                              child: Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Container(
-                                        margin: EdgeInsets.only(bottom:15, right: 15),
+                                        margin: EdgeInsets.only(
+                                            bottom: 15, right: 15),
                                         child: StudentButton(
                                           text: "Requetsed",
                                           textcolor: globals.blue1,
                                           color1: globals.blue2,
                                           color2: Colors.blueGrey,
-                                          onPressed: () {
-                                            _requested();
+                                          onPressed: () async {
+                                            if (globals.onClickLoad == false) {
+                                              globals.onClickLoad = true;
+                                              await _requested();
+                                              globals.onClickLoad = false;
+                                            }
                                           },
                                         )),
                                   ],
                                 ),
-                            )
+                              )
                             : widget.isFriend == '2' // Friend
                                 ? Expanded(
-                                  child: Row(
+                                    child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Container(
                                             margin: EdgeInsets.only(
-                                                bottom:15, left: 10, right: 6),
+                                                bottom: 15, left: 10, right: 6),
                                             child: StudentButton(
                                               text: "Unfriend",
                                               textcolor: globals.blue1,
                                               color1: globals.blue2,
                                               color2: Colors.blueGrey,
-                                              onPressed: () {
-                                                _unFriend();
+                                              onPressed: () async {
+                                                if (globals.onClickLoad ==
+                                                    false) {
+                                                  globals.onClickLoad = true;
+                                                  await _unFriend();
+                                                  globals.onClickLoad = false;
+                                                }
                                               },
                                             )),
                                         Container(
-                                            margin: EdgeInsets.only(bottom:15, right: 15),
+                                            margin: EdgeInsets.only(
+                                                bottom: 15, right: 15),
                                             child: StudentButton(
                                               text: "Message",
                                               textcolor: globals.blue1,
@@ -183,7 +207,7 @@ class _StudentCardState extends State<StudentCard> {
                                             )),
                                       ],
                                     ),
-                                )
+                                  )
                                 : Container(),
                   ],
                 ),
@@ -211,6 +235,13 @@ class _StudentCardState extends State<StudentCard> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
+      if (mounted) {
+        setState(() {
+          widget.isFriend = '1';
+        });
+      }else{
+        widget.reload();
+      }
       print('addFriend Success');
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
@@ -270,9 +301,22 @@ class _StudentCardState extends State<StudentCard> {
         ),
       );
     }
-    setState(() {
-      widget.isFriend = '1';
-    });
+
+    MotionToast(
+      icon: CupertinoIcons.checkmark_alt_circle,
+      primaryColor: globals.blue2,
+      secondaryColor: globals.blue1,
+      toastDuration: Duration(seconds: 3),
+      backgroundType: BACKGROUND_TYPE.solid,
+      title: Text(
+        'Success',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      description: Text('Friend added Successfully'),
+      position: MOTION_TOAST_POSITION.bottom,
+      animationType: ANIMATION.fromRight,
+      height: 100,
+    ).show(widget.contextStudentPage);
   }
 
   void _goToMessage() {
@@ -281,21 +325,15 @@ class _StudentCardState extends State<StudentCard> {
 
   _requested() async {
     //Remove Request
-    await _cancelFriend();
-    setState(() {
-      widget.isFriend = '0';
-    });
+    await _cancelFriend('Friend request sent Successfully');
   }
 
   _unFriend() async {
     //Remove From Friend List
-    await _cancelFriend();
-    setState(() {
-      widget.isFriend = '0';
-    });
+    await _cancelFriend('Friend removed Successfully');
   }
 
-  _cancelFriend() async {
+  _cancelFriend(String text) async {
     //Add Friend
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
@@ -311,6 +349,35 @@ class _StudentCardState extends State<StudentCard> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
+      if (mounted) {
+        setState(() {
+          widget.isFriend = '0';
+        });
+      }else{
+        widget.reload();
+      }
+      // for (int i = 0; i < globals.children.length; i++) {
+      //   if (globals.children[i].userId == body[1]) {
+      //     setState(() {
+      //       globals.children[i].isFriend = '0';
+      //     });
+      //   }
+      // }
+      MotionToast(
+        icon: CupertinoIcons.checkmark_alt_circle,
+        primaryColor: globals.blue2,
+        secondaryColor: globals.blue1,
+        toastDuration: Duration(seconds: 3),
+        backgroundType: BACKGROUND_TYPE.solid,
+        title: Text(
+          'Success',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        description: Text(text),
+        position: MOTION_TOAST_POSITION.bottom,
+        animationType: ANIMATION.fromRight,
+        height: 100,
+      ).show(widget.contextStudentPage);
       print('cancelFriend Success');
     } else if (body[0] == "errorVersion") {
       showDialog<String>(
