@@ -8,7 +8,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import '../widgets/Chat/modules/chat_page.dart';
 
 final StreamChatClient client =
-    StreamChatClient('z5j34vkctqrq', logLevel: Level.INFO);
+    StreamChatClient(globals.apiKey, logLevel: Level.INFO);
 
 class MainChat extends StatefulWidget {
   @override
@@ -28,7 +28,6 @@ class _MainChatState extends State<MainChat> {
 
   @override
   void initState() {
-    //initChat();
     // TODO: implement initState
     super.initState();
     initChat();
