@@ -98,6 +98,9 @@ var selectedPublicPrivet = '1';
 var children2 = <ChatUsers>[];
 const apiKey = "z5j34vkctqrq";
 
+//Forum1
+bool load = true;
+
 //Forum2
 String? dropdown2 = null;
 String? question = null;

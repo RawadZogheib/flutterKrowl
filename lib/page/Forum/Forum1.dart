@@ -216,7 +216,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      SearchBar(hintText: "Search a subject...",),
+                      SearchBar(
+                        hintText: "Search a subject...",
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -262,6 +264,18 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     children.clear();
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
+        bool _like = false;
+        bool _dislike = false;
+        if (int.parse(body[1][i][7]) == 0) {
+          _like = false;
+          _dislike = false;
+        } else if (int.parse(body[1][i][7]) == 1) {
+          _like = true;
+          _dislike = false;
+        } else if (int.parse(body[1][i][7]) == -1) {
+          _like = false;
+          _dislike = true;
+        }
         children.addAll(
           [
             Question(
@@ -273,12 +287,14 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               // tag
               text: body[1][i][3],
               // post_data
-              val: int.parse(body[1][0][4]),
+              val: int.parse(body[1][i][4]),
               // post_val
               date: body[1][i][5],
               // post_date
               question_context: body[1][i][6],
               //context of the question
+              like: _like,
+              dislike: _dislike,
             ),
             SizedBox(
               height: 20,
@@ -342,11 +358,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   _loadPage() {
-    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) async {
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
-        _loadPosts();
+        globals.load = true;
+        await _loadPosts();
+        globals.load = false;
       }
     });
   }

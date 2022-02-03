@@ -11,6 +11,10 @@ class Question extends StatefulWidget {
   String tag;
   String text;
   String question_context;
+
+  bool like;
+  bool dislike;
+
   int val;
   var date;
   var color = Colors.grey.shade600;
@@ -26,6 +30,8 @@ class Question extends StatefulWidget {
       required this.text,
       required this.val,
       required this.date,
+      required this.like,
+      required this.dislike,
       required this.question_context,
       this.onTap});
 
@@ -34,8 +40,13 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-  bool _like = false;
-  bool _dislike = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +133,9 @@ class _QuestionState extends State<Question> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       onTap: () {
-                        _onLike();
+                        if (globals.load == false) {
+                          _onLike();
+                        }
                       },
                       child: Icon(
                         Icons.thumb_up,
@@ -142,7 +155,9 @@ class _QuestionState extends State<Question> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       onTap: () {
-                        _onDislike();
+                        if (globals.load == false) {
+                          _onDislike();
+                        }
                       },
                       child: Icon(
                         Icons.thumb_down,
@@ -161,19 +176,19 @@ class _QuestionState extends State<Question> {
   }
 
   _onLike() {
-    if (_like == false) {
-      if (_dislike == false) {
+    if (widget.like == false) {
+      if (widget.dislike == false) {
         setState(() {
           widget.val += 1;
-          _like = true;
+          widget.like = true;
           widget.color = globals.blue1;
           widget.color2 = Colors.grey.shade600;
         });
       } else {
         setState(() {
           widget.val += 2;
-          _like = true;
-          _dislike = false;
+          widget.like = true;
+          widget.dislike = false;
           widget.color = globals.blue1;
           widget.color2 = Colors.grey.shade600;
         });
@@ -181,7 +196,7 @@ class _QuestionState extends State<Question> {
     } else {
       setState(() {
         widget.val -= 1;
-        _like = false;
+        widget.like = false;
         widget.color = Colors.grey.shade600;
         widget.color2 = Colors.grey.shade600;
       });
@@ -189,19 +204,19 @@ class _QuestionState extends State<Question> {
   }
 
   _onDislike() {
-    if (_dislike == false) {
-      if (_like == false) {
+    if (widget.dislike == false) {
+      if (widget.like == false) {
         setState(() {
           widget.val -= 1;
-          _dislike = true;
+          widget.dislike = true;
           widget.color = Colors.grey.shade600;
           widget.color2 = globals.blue1;
         });
       } else {
         setState(() {
           widget.val -= 2;
-          _dislike = true;
-          _like = false;
+          widget.dislike = true;
+          widget.like = false;
           widget.color = Colors.grey.shade600;
           widget.color2 = globals.blue1;
         });
@@ -209,7 +224,7 @@ class _QuestionState extends State<Question> {
     } else {
       setState(() {
         widget.val += 1;
-        _dislike = false;
+        widget.dislike = false;
         widget.color = Colors.grey.shade600;
         widget.color2 = Colors.grey.shade600;
       });
