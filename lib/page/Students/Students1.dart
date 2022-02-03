@@ -184,6 +184,7 @@ class _Students1State extends State<Students1>
   }
 
   _loadStudents() async {
+    children.clear();
     if (mounted) {
       setState(() {
         children.clear();
