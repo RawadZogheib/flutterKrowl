@@ -40,12 +40,23 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    if (widget.like == false && widget.dislike == false) {
+      //0
+      widget.color = Colors.grey.shade600;
+      widget.color2 = Colors.grey.shade600;
+    } else if (widget.like == true && widget.dislike == false) {
+      //1
+      widget.color = globals.blue1;
+      widget.color2 = Colors.grey.shade600;
+    } else if (widget.like == false && widget.dislike == true) {
+      //-1
+      widget.color = Colors.grey.shade600;
+      widget.color2 = globals.blue1;
+    }
   }
 
   @override
@@ -132,9 +143,11 @@ class _QuestionState extends State<Question> {
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
-                      onTap: () {
+                      onTap: () async {
                         if (globals.load == false) {
-                          _onLike();
+                          globals.load = true;
+                          await _onLike();
+                          globals.load = false;
                         }
                       },
                       child: Icon(
@@ -154,9 +167,11 @@ class _QuestionState extends State<Question> {
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
-                      onTap: () {
+                      onTap: () async {
                         if (globals.load == false) {
-                          _onDislike();
+                          globals.load = true;
+                          await _onDislike();
+                          globals.load = false;
                         }
                       },
                       child: Icon(

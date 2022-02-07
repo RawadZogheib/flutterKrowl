@@ -91,7 +91,27 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                Wrap(
+                globals.load == true
+                    ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width *
+                              0.57,
+                          child: Center(
+                            child: Image(
+                              image: AssetImage(
+                                  'Assets/krowl_logo.gif'),
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                            ),
+                          )),
+                    ])
+                    :Wrap(
                   direction: Axis.vertical,
                   children: children, // My Children
                 ),
@@ -149,7 +169,27 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    Wrap(
+                    globals.load == true
+                        ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  0.57,
+                              child: Center(
+                                child: Image(
+                                  image: AssetImage(
+                                      'Assets/krowl_logo.gif'),
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
+                              )),
+                        ])
+                        :Wrap(
                       direction: Axis.vertical,
                       children: children, // My Children
                     ),
@@ -222,10 +262,30 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
+                      globals.load == true
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.57,
+                                      child: Center(
+                                        child: Image(
+                                          image: AssetImage(
+                                              'Assets/krowl_logo.gif'),
+                                          fit: BoxFit.cover,
+                                          height: 150,
+                                          width: 150,
+                                        ),
+                                      )),
+                                ])
+                          : Wrap(
+                              direction: Axis.vertical,
+                              children: children, // My Children
+                            ),
                     ],
                   ),
                   Row(
@@ -247,6 +307,12 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   _loadPosts() async {
+    if (mounted) {
+      setState(() {
+        children.clear();
+        globals.load = true;
+      });
+    }
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
     var user_uni = localStorage.getString("user_uni");
@@ -261,7 +327,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    children.clear();
     if (body[0] == "success") {
       for (var i = 0; i < body[1].length; i++) {
         bool _like = false;
@@ -349,6 +414,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         ),
       );
     }
+    globals.load = false;
   }
 
   _loadNewPage() {
@@ -362,9 +428,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
-        globals.load = true;
         await _loadPosts();
-        globals.load = false;
       }
     });
   }
