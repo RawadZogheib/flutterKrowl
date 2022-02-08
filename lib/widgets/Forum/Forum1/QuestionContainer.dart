@@ -205,7 +205,6 @@ class _QuestionState extends State<Question> {
     //send to server
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
 
     var data = {
       'version': globals.version,
@@ -275,7 +274,6 @@ class _QuestionState extends State<Question> {
     //send to server
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
 
     var data = {
       'version': globals.version,
