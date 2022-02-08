@@ -92,27 +92,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                globals.loadForm1 == true
-                    ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width *
-                              0.57,
-                          child: Center(
-                            child: Image(
-                              image: AssetImage(
-                                  'Assets/krowl_logo.gif'),
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            ),
-                          )),
-                    ])
-                    :Wrap(
+                Wrap(
                   direction: Axis.vertical,
                   children: children, // My Children
                 ),
@@ -170,27 +150,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    globals.loadForm1 == true
-                        ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width *
-                                  0.57,
-                              child: Center(
-                                child: Image(
-                                  image: AssetImage(
-                                      'Assets/krowl_logo.gif'),
-                                  fit: BoxFit.cover,
-                                  height: 150,
-                                  width: 150,
-                                ),
-                              )),
-                        ])
-                        :Wrap(
+                    Wrap(
                       direction: Axis.vertical,
                       children: children, // My Children
                     ),
@@ -263,27 +223,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      globals.loadForm1 == true
-                          ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 20,
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.57,
-                                child: Center(
-                                  child: Image(
-                                    image: AssetImage(
-                                        'Assets/krowl_logo.gif'),
-                                    fit: BoxFit.cover,
-                                    height: 150,
-                                    width: 150,
-                                  ),
-                                )),
-                          ])
-                          :Wrap(
+                      Wrap(
                         direction: Axis.vertical,
                         children: children, // My Children
                       ),
@@ -313,14 +253,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         await Future.delayed(Duration(seconds: 1));
         print("reload forum");
       }
-      print('load forum1');
-      //await Future.delayed(Duration(seconds: 10));
-      if (mounted) {
-        setState(() {
-          globals.loadForm1 = true;
-          children.clear();
-        });
-      }
+      print('load forum1'); 
+      globals.loadForm1 = true;
+
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var account_Id = localStorage.getString("account_Id");
       var user_uni = localStorage.getString("user_uni");
@@ -330,24 +265,27 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         'account_Id': account_Id,
         'user_uni': user_uni,
       };
-
+      children.clear();
       var res = await CallApi().postData(data, '(Control)loadPosts.php');
       print(res.body);
       List<dynamic> body = json.decode(res.body);
 
       if (body[0] == "success") {
         for (var i = 0; i < body[1].length; i++) {
-          bool _like = false;
-          bool _dislike = false;
+          Color _color;
+          Color _color2;
           if (int.parse(body[1][i][7]) == 0) {
-            _like = false;
-            _dislike = false;
+            _color = Colors.grey.shade600;
+            _color2 = Colors.grey.shade600;
           } else if (int.parse(body[1][i][7]) == 1) {
-            _like = true;
-            _dislike = false;
+            _color = globals.blue1;
+            _color2 = Colors.grey.shade600;
           } else if (int.parse(body[1][i][7]) == -1) {
-            _like = false;
-            _dislike = true;
+            _color = Colors.grey.shade600;
+            _color2 = globals.blue1;
+          }else{
+            _color = Colors.transparent;
+            _color2 = Colors.transparent;
           }
           children.addAll(
             [
@@ -365,9 +303,11 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 date: body[1][i][5],
                 // post_date
                 question_context: body[1][i][6],
-                //context of the question
-                like: _like,
-                dislike: _dislike,
+                // context of the question
+                color: _color,
+                // like color
+                color2: _color2,
+                // dislike color
               ),
               SizedBox(
                 height: 20,

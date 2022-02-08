@@ -18,13 +18,13 @@ class Question extends StatefulWidget {
   String text;
   String question_context;
 
-  bool like;
-  bool dislike;
+  // bool like;
+  // bool dislike;
 
   int val;
   var date;
-  var color = Colors.grey.shade600;
-  var color2 = Colors.grey.shade600;
+  Color color;
+  Color color2;
   var onTap;
 
   Question(
@@ -36,8 +36,8 @@ class Question extends StatefulWidget {
       required this.text,
       required this.val,
       required this.date,
-      required this.like,
-      required this.dislike,
+      required this.color,
+      required this.color2,
       required this.question_context,
       this.onTap});
 
@@ -46,24 +46,6 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (widget.like == false && widget.dislike == false) {
-      //0
-      widget.color = Colors.grey.shade600;
-      widget.color2 = Colors.grey.shade600;
-    } else if (widget.like == true && widget.dislike == false) {
-      //1
-      widget.color = globals.blue1;
-      widget.color2 = Colors.grey.shade600;
-    } else if (widget.like == false && widget.dislike == true) {
-      //-1
-      widget.color = Colors.grey.shade600;
-      widget.color2 = globals.blue1;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -218,9 +200,21 @@ class _QuestionState extends State<Question> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      setState(() {
-        widget.val = int.parse(body[1]);
-      });
+      if(mounted) {
+        setState(() {
+          if (int.parse(body[1]) == 0) {
+            widget.color = Colors.grey.shade600;
+            widget.color2 = Colors.grey.shade600;
+          } else if (int.parse(body[1]) == 1) {
+            widget.color = globals.blue1;
+            widget.color2 = Colors.grey.shade600;
+          } else if (int.parse(body[1]) == -1) {
+            widget.color = Colors.grey.shade600;
+            widget.color2 = globals.blue1;
+          }
+          widget.val = int.parse(body[2]);
+        });
+      }
     } else if (body[0] == "errorVersion") {
       ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
@@ -234,8 +228,6 @@ class _QuestionState extends State<Question> {
     }
     //
     //await Future.delayed(Duration(seconds: 10));
-    globals.loadLike = false;
-    print('load like end!!!');
 
     // if (widget.like == false) {
     //   if (widget.dislike == false) {
@@ -262,6 +254,8 @@ class _QuestionState extends State<Question> {
     //     widget.color2 = Colors.grey.shade600;
     //   });
     // }
+    globals.loadLike = false;
+    print('load like end!!!');
   }
 
   _onDislike() async {
@@ -287,9 +281,21 @@ class _QuestionState extends State<Question> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      setState(() {
-        widget.val = int.parse(body[1]);
-      });
+      if(mounted) {
+        setState(() {
+          if (int.parse(body[1]) == 0) {
+            widget.color = Colors.grey.shade600;
+            widget.color2 = Colors.grey.shade600;
+          } else if (int.parse(body[1]) == 1) {
+            widget.color = globals.blue1;
+            widget.color2 = Colors.grey.shade600;
+          } else if (int.parse(body[1]) == -1) {
+            widget.color = Colors.grey.shade600;
+            widget.color2 = globals.blue1;
+          }
+          widget.val = int.parse(body[2]);
+        });
+      }
     } else if (body[0] == "errorVersion") {
       ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
@@ -303,8 +309,7 @@ class _QuestionState extends State<Question> {
     }
     //
     //await Future.delayed(Duration(seconds: 10));
-    globals.loadDislike = false;
-    print('load dislike end!!!');
+
     // if (widget.dislike == false) {
     //   if (widget.like == false) {
     //     setState(() {
@@ -330,6 +335,8 @@ class _QuestionState extends State<Question> {
     //     widget.color2 = Colors.grey.shade600;
     //   });
     // }
+    globals.loadDislike = false;
+    print('load dislike end!!!');
   }
 
   _openReply() {
