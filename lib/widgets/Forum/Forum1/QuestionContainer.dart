@@ -181,6 +181,7 @@ class _QuestionState extends State<Question> {
       await Future.delayed(Duration(seconds: 1));
       print("reload like");
     }
+    _loadLike = true;
     globals.loadLike = true;
     print('Sending like to server...');
 
@@ -255,6 +256,7 @@ class _QuestionState extends State<Question> {
     //   });
     // }
     globals.loadLike = false;
+    _loadLike = false;
     print('load like end!!!');
   }
 
@@ -263,6 +265,7 @@ class _QuestionState extends State<Question> {
       await Future.delayed(Duration(seconds: 1));
       print("reload dislike");
     }
+    _loadDislike = true;
     globals.loadDislike = true;
     print('Sending dislike to server...');
     //send to server
@@ -336,6 +339,7 @@ class _QuestionState extends State<Question> {
     //   });
     // }
     globals.loadDislike = false;
+    _loadDislike = false;
     print('load dislike end!!!');
   }
 
