@@ -253,7 +253,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         await Future.delayed(Duration(seconds: 1));
         print("reload forum");
       }
-      print('load forum1'); 
+      print('load forum1');
       globals.loadForm1 = true;
 
       SharedPreferences localStorage = await SharedPreferences.getInstance();
