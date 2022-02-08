@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Chat/components/chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatFriends.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat/stream_chat.dart';
@@ -421,13 +421,13 @@ class _ChatPage2State extends State<ChatPage2> {
         });
       }
     } else if (body[0] == "empty") {
-      WarningPopUp(context, globals.warningEmptyFriends);
+      WarningPopup(context, globals.warningEmptyFriends);
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 

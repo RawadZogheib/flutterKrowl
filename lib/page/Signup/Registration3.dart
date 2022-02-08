@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
@@ -52,7 +52,7 @@ class _Registration3State extends State<Registration3> {
                 if(_testpass() == true)
                   _reg();
               } catch (e) {
-                ErrorPopUp(context, globals.errorException);
+                ErrorPopup(context, globals.errorException);
               }
             }
             setState(() => keys.add(key));
@@ -158,7 +158,7 @@ class _Registration3State extends State<Registration3> {
                               if(_testpass() == true)
                                 _reg();
                             } catch (e) {
-                              ErrorPopUp(context, globals.errorException);
+                              ErrorPopup(context, globals.errorException);
                             }
                           },)
                         ),
@@ -229,7 +229,7 @@ _testpass() {
              col2_1 = Colors.red.shade900;
              col2_2 = Colors.red.shade900.withOpacity(0.5);
            });
-           WarningPopUp(context, globals.error3);
+           WarningPopup(context, globals.error3);
          }
        } else {
          setState(() {
@@ -237,10 +237,10 @@ _testpass() {
            col1_1 = Colors.red.shade900;
            col1_2 = Colors.red.shade900.withOpacity(0.5);
          });
-         WarningPopUp(context, globals.warning2_3);
+         WarningPopup(context, globals.warning2_3);
        }
      }else {
-       WarningPopUp(context, globals.warning7);
+       WarningPopup(context, globals.warning7);
      }
    }
 
@@ -320,33 +320,33 @@ _testpass() {
            Navigator.pushNamed(context, '/Code');
 
         } else if (body[0] == "errorVersion") {
-          ErrorPopUp(context, globals.errorVersion);
+          ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "error1") {
-          WarningPopUp(context, globals.warning1);
+          WarningPopup(context, globals.warning1);
         } else if (body[0] == "error2_1") {
-          WarningPopUp(context, globals.warning2_1);
+          WarningPopup(context, globals.warning2_1);
         } else if (body[0] == "error2_2") {
-          WarningPopUp(context, globals.warning2_2);
+          WarningPopup(context, globals.warning2_2);
         } else if (body[0] == "error2_3") {
-          WarningPopUp(context, globals.warning2_3);
+          WarningPopup(context, globals.warning2_3);
         } else if (body[0] == "error2_4") {
-          WarningPopUp(context, globals.warning2_4);
+          WarningPopup(context, globals.warning2_4);
         } else if (body[0] == "error2_5") {
-          WarningPopUp(context, globals.warning2_5);
+          WarningPopup(context, globals.warning2_5);
         }else if (body[0] == "error2_6") {
-          WarningPopUp(context, globals.warning2_6);
+          WarningPopup(context, globals.warning2_6);
         } else if (body[0] == "error3") {
-          ErrorPopUp(context, globals.error3);
+          ErrorPopup(context, globals.error3);
         } else if (body[0] == "error4") {
-          ErrorPopUp(context, globals.error4);
+          ErrorPopup(context, globals.error4);
         } else if (body[0] == "error5") {
-          WarningPopUp(context, globals.warning5);
+          WarningPopup(context, globals.warning5);
         } else if (body[0] == "error6") {
-          WarningPopUp(context, globals.warning6);
+          WarningPopup(context, globals.warning6);
         } else if (body[0] == "error7") {
-          WarningPopUp(context, globals.warning7);
+          WarningPopup(context, globals.warning7);
         } else {
-          ErrorPopUp(context, globals.errorElse);
+          ErrorPopup(context, globals.errorElse);
         }
         /* } else {
             showDialog<String>(
@@ -382,10 +382,10 @@ _testpass() {
           );
         }  } */
       }else {
-        WarningPopUp(context, globals.warning1);
+        WarningPopup(context, globals.warning1);
       }
     } else {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
  _saveLogin() async{

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -262,13 +262,13 @@ class _StudentCardState extends State<StudentCard> {
 
       print('addFriend Success');
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopUp(context, globals.error4);
+      ErrorPopup(context, globals.error4);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
 
   }
@@ -335,13 +335,13 @@ class _StudentCardState extends State<StudentCard> {
 
       print('cancelFriend Success');
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopUp(context, globals.error4);
+      ErrorPopup(context, globals.error4);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 }

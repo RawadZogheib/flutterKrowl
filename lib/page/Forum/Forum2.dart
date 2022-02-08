@@ -7,7 +7,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum2/Dropdown2.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -224,11 +224,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
       //toast success
       //show on forum1
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 }

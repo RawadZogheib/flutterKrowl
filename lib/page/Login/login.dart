@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -40,10 +40,10 @@ List<LogicalKeyboardKey> keys = [];
               if (globals.emailLogin!.isNotEmpty) {
                 Navigator.pushNamed(context, '/login2');
               } else {
-                WarningPopUp(context, globals.warning1);
+                WarningPopup(context, globals.warning1);
               }
             } else {
-              WarningPopUp(context, globals.warning7);
+              WarningPopup(context, globals.warning7);
             }
           }
           setState(() => keys.add(key));
@@ -145,10 +145,10 @@ List<LogicalKeyboardKey> keys = [];
                                 if (globals.emailLogin!.isNotEmpty) {
                                   Navigator.pushNamed(context, '/login2');
                                 } else {
-                                  WarningPopUp(context, globals.warning1);
+                                  WarningPopup(context, globals.warning1);
                                 }
                               } else {
-                                WarningPopUp(context, globals.warning7);
+                                WarningPopup(context, globals.warning7);
                               }
                             },
                           ),

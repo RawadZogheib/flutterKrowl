@@ -11,7 +11,7 @@ import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sizer/sizer.dart';
@@ -55,7 +55,7 @@ class _Registration2State extends State<Registration2> {
                   globals.minorId != null) {
                 Navigator.pushNamed(context, '/Registration3');
               } else {
-                WarningPopUp(context, globals.warning7);
+                WarningPopup(context, globals.warning7);
               }
             }
             setState(() => keys.add(key));
@@ -126,7 +126,7 @@ class _Registration2State extends State<Registration2> {
                                   globals.minorId != null) {
                                 Navigator.pushNamed(context, '/Registration3');
                               } else {
-                                WarningPopUp(context, globals.warning7);
+                                WarningPopup(context, globals.warning7);
                               }
                             },
                           ),
@@ -175,11 +175,11 @@ class _Registration2State extends State<Registration2> {
       //});
       print("asdasdsadsadsadsdsd");
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     }else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopUp(context, globals.error4);
+      ErrorPopup(context, globals.error4);
     }
   }
 

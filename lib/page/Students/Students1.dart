@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/StudentCard.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:number_paginator/number_paginator.dart';
@@ -249,14 +249,14 @@ class _Students1State extends State<Students1>
           _loadNewPage();
         });
       } else {
-        WarningPopUp(context, globals.warningEmptyLibrary);
+        WarningPopup(context, globals.warningEmptyLibrary);
       }
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 

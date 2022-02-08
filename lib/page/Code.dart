@@ -7,7 +7,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -296,17 +296,17 @@ class _CodeState extends State<Code> {
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
-          ErrorPopUp(context, globals.errorVersion);
+          ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopUp(context, globals.errorToken);
+          ErrorPopup(context, globals.errorToken);
         } else if (body[0] == "false") {
-          ErrorPopUp(context, 'Wrong Code !');
+          ErrorPopup(context, 'Wrong Code !');
         } else {
-          ErrorPopUp(context, globals.errorElse);
+          ErrorPopup(context, globals.errorElse);
         }
       }
     } catch (e) {
-      ErrorPopUp(context, globals.errorException);
+      ErrorPopup(context, globals.errorException);
     }
   }
 }

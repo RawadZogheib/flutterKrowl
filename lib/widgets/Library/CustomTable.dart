@@ -6,7 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -329,13 +329,13 @@ class _CustomContainerState extends State<CustomTable>
         throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
       }
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     } else if (body[0] == "error8") {
-      WarningPopUp(context, globals.warning8);
+      WarningPopup(context, globals.warning8);
     } else if (body[0] == "error9") {
       if (mounted) {
         setState(() {
@@ -344,7 +344,7 @@ class _CustomContainerState extends State<CustomTable>
           widget.enablee[position - 1] = true;
         });
       }
-      ErrorPopUp(context, globals.error9);
+      ErrorPopup(context, globals.error9);
     }
   }
 

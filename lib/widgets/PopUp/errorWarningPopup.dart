@@ -4,7 +4,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 
-ErrorPopUp(BuildContext context, String? text) {
+ErrorPopup(BuildContext context, String? text) {
   MotionToast(
     icon: Icons.error,
     primaryColor: globals.red2,
@@ -24,7 +24,7 @@ ErrorPopUp(BuildContext context, String? text) {
   ).show(context);
 }
 
-WarningPopUp(BuildContext context, String? text) {
+WarningPopup(BuildContext context, String? text) {
   MotionToast(
     icon: Icons.warning,
     primaryColor: globals.yellow2,

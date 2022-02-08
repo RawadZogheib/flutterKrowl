@@ -8,7 +8,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -322,14 +322,14 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           _loadNewPage();
         });
       } else {
-        WarningPopUp(context, globals.warningEmptyLibrary);
+        WarningPopup(context, globals.warningEmptyLibrary);
       }
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 

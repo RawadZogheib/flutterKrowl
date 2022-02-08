@@ -9,7 +9,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/PopUp/LoadingPopUp.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -287,21 +287,21 @@ class _Login2State extends State<Login2> {
             ),
           );
         } else if (body[0] == "errorToken") {
-          ErrorPopUp(context, globals.errorToken);
+          ErrorPopup(context, globals.errorToken);
         } else if (body[0] == "errorVersion") {
-          ErrorPopUp(context, globals.errorToken);
+          ErrorPopup(context, globals.errorToken);
         } else if (body[0] == "false") {
-          WarningPopUp(context, 'Invalid username or password.');
+          WarningPopup(context, 'Invalid username or password.');
         } else if (body[0] == "error7") {
-          WarningPopUp(context, globals.warning7);
+          WarningPopup(context, globals.warning7);
         } else {
-          ErrorPopUp(context, globals.errorElse);
+          ErrorPopup(context, globals.errorElse);
         }
       } else {
-        WarningPopUp(context, globals.warning7);
+        WarningPopup(context, globals.warning7);
       }
     } else {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     }
   }
 

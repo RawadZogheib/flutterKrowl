@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Forum/ReplyPage.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -221,15 +221,15 @@ class _QuestionState extends State<Question> {
         widget.val = int.parse(body[1]);
       });
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopUp(context, globals.error4);
+      ErrorPopup(context, globals.error4);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     } else {
-      ErrorPopUp(context, globals.errorElse);
+      ErrorPopup(context, globals.errorElse);
     }
     //
     //await Future.delayed(Duration(seconds: 10));
@@ -289,15 +289,15 @@ class _QuestionState extends State<Question> {
         widget.val = int.parse(body[1]);
       });
     } else if (body[0] == "errorVersion") {
-      ErrorPopUp(context, globals.errorVersion);
+      ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopUp(context, globals.errorToken);
+      ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopUp(context, globals.error4);
+      ErrorPopup(context, globals.error4);
     } else if (body[0] == "error7") {
-      WarningPopUp(context, globals.warning7);
+      WarningPopup(context, globals.warning7);
     } else {
-      ErrorPopUp(context, globals.errorElse);
+      ErrorPopup(context, globals.errorElse);
     }
     //
     //await Future.delayed(Duration(seconds: 10));
