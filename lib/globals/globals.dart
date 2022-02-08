@@ -106,7 +106,7 @@ const apiKey = "z5j34vkctqrq";
 
 //Forum1
 bool loadForm1 = false;
-bool loadLikeDislike = false;
+bool loadLikeDislikeForm1 = false;
 
 //Forum2
 String? dropdown2 = null;
@@ -116,6 +116,10 @@ String? context_question = null;
 //Forum3
 var children3 = <Replies>[];
 String? reply_data = null;
+
+//ReplyPage
+bool loadReplyPage = false;
+bool loadLikeDislikeReplyPage = false;
 
 //Student
 bool onClickLoad = false;
