@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:flutter_app_backend/widgets/Students/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -242,81 +243,34 @@ class _StudentCardState extends State<StudentCard> {
       }else{
         widget.reload();
       }
+
+      MotionToast(
+        icon: CupertinoIcons.checkmark_alt_circle,
+        primaryColor: globals.blue2,
+        secondaryColor: globals.blue1,
+        toastDuration: Duration(seconds: 3),
+        backgroundType: BACKGROUND_TYPE.solid,
+        title: Text(
+          'Success',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        description: Text('Friend request sent Successfully'),
+        position: MOTION_TOAST_POSITION.bottom,
+        animationType: ANIMATION.fromRight,
+        height: 100,
+      ).show(widget.contextStudentPage);
+
       print('addFriend Success');
     } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error4),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.error4);
     } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
 
-    MotionToast(
-      icon: CupertinoIcons.checkmark_alt_circle,
-      primaryColor: globals.blue2,
-      secondaryColor: globals.blue1,
-      toastDuration: Duration(seconds: 3),
-      backgroundType: BACKGROUND_TYPE.solid,
-      title: Text(
-        'Success',
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      description: Text('Friend request sent Successfully'),
-      position: MOTION_TOAST_POSITION.bottom,
-      animationType: ANIMATION.fromRight,
-      height: 100,
-    ).show(widget.contextStudentPage);
   }
 
   void _goToMessage() {
@@ -378,64 +332,16 @@ class _StudentCardState extends State<StudentCard> {
         animationType: ANIMATION.fromRight,
         height: 100,
       ).show(widget.contextStudentPage);
+
       print('cancelFriend Success');
     } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error4),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.error4);
     } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
 }

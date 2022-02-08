@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:sizer/sizer.dart';
 
 Color col1 = Colors.blue.shade50;
@@ -28,6 +28,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   List<LogicalKeyboardKey> keys = [];
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -47,16 +48,14 @@ class _SignupState extends State<Signup> {
                 var data = {
                   'exceptionEmail': e.toString(),
                 };
-                var res = await CallApi().postData(
-                    data, '(Control)exceptionEmail.php');
-                print("hjrkehgjjjgggggggggggggggggggg" +
-                    res.body);
+                var res = await CallApi()
+                    .postData(data, '(Control)exceptionEmail.php');
+                print("hjrkehgjjjgggggggggggggggggggg" + res.body);
               }
               ;
             }
             setState(() => keys.add(key));
-          }
-          else{
+          } else {
             setState(() => keys.remove(key));
           }
         },
@@ -191,19 +190,7 @@ class _SignupState extends State<Signup> {
               col1_1 = Colors.red.shade900;
               col1_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.error2_5),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-            );
+            WarningPopUp(context, globals.warning2_5);
           }
         } else {
           setState(() {
@@ -211,19 +198,7 @@ class _SignupState extends State<Signup> {
             col1_1 = Colors.red.shade900;
             col1_2 = Colors.red.shade900.withOpacity(0.5);
           });
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error1),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          WarningPopUp(context, globals.warning1);
         }
       } else {
         setState(() {
@@ -231,19 +206,7 @@ class _SignupState extends State<Signup> {
           col1_1 = Colors.red.shade900;
           col1_2 = Colors.red.shade900.withOpacity(0.5);
         });
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error7),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+        WarningPopUp(context, globals.warning7);
       }
     } else {
       setState(() {
@@ -251,19 +214,7 @@ class _SignupState extends State<Signup> {
         col1_1 = Colors.red.shade900;
         col1_2 = Colors.red.shade900.withOpacity(0.5);
       });
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
 
@@ -296,154 +247,51 @@ class _SignupState extends State<Signup> {
               });
               Navigator.pushNamed(context, '/Registration');
             } else if (body[0] == "errorVersion") {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) =>
-                    AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text("Your version: " + globals.version + "\n"+
-                          globals.errorVersion),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-              );
-
-            }else if (body[0] == "errorToken") {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) =>
-                    AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text(
-                          globals.errorToken),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () =>
-                              Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-              );
+              ErrorPopUp(context, globals.errorVersion);
+            } else if (body[0] == "errorToken") {
+              ErrorPopUp(context, globals.errorToken);
             } else if (body[0] == "error1") {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error1),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              WarningPopUp(context, globals.warning1);
             } else if (body[0] == "error2_5") {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_5),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              WarningPopUp(context, globals.warning2_5);
             } else if (body[0] == "error2_6") {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              WarningPopUp(context, globals.warning2_6);
             } else if (body[0] == "error6") {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              WarningPopUp(context, globals.warning6);
             } else if (body[0] == "error7") {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error7),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              WarningPopUp(context, globals.warning7);
             } else {
               setState(() {
                 col1 = Colors.red.shade50;
                 col1_1 = Colors.red.shade900;
                 col1_2 = Colors.red.shade900.withOpacity(0.5);
               });
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.errorElse),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+              ErrorPopUp(context, globals.errorElse);
             }
           } else {
             setState(() {
@@ -451,19 +299,7 @@ class _SignupState extends State<Signup> {
               col1_1 = Colors.red.shade900;
               col1_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Error'),
-                content: const Text(globals.error1),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-            );
+            WarningPopUp(context, globals.warning1);
           }
         } else {
           setState(() {
@@ -471,19 +307,7 @@ class _SignupState extends State<Signup> {
             col1_1 = Colors.red.shade900;
             col1_2 = Colors.red.shade900.withOpacity(0.5);
           });
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error2_5),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          WarningPopUp(context, globals.warning2_5);
         }
       } else {
         setState(() {
@@ -491,19 +315,7 @@ class _SignupState extends State<Signup> {
           col1_1 = Colors.red.shade900;
           col1_2 = Colors.red.shade900.withOpacity(0.5);
         });
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error7),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+        WarningPopUp(context, globals.warning7);
       }
     } else {
       setState(() {
@@ -511,19 +323,7 @@ class _SignupState extends State<Signup> {
         col1_1 = Colors.red.shade900;
         col1_2 = Colors.red.shade900.withOpacity(0.5);
       });
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
 

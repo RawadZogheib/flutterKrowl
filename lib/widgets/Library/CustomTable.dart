@@ -6,6 +6,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -328,62 +329,13 @@ class _CustomContainerState extends State<CustomTable>
         throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
       }
     } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     } else if (body[0] == "error8") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error8),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning8);
     } else if (body[0] == "error9") {
       if (mounted) {
         setState(() {
@@ -392,19 +344,7 @@ class _CustomContainerState extends State<CustomTable>
           widget.enablee[position - 1] = true;
         });
       }
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error9),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.error9);
     }
   }
 

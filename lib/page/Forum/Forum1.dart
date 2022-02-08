@@ -10,6 +10,7 @@ import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart'
 import 'package:flutter_app_backend/widgets/Forum/Forum1/QuestionContainer.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum2/Contributors.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -91,7 +92,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                globals.load == true
+                globals.loadForm1 == true
                     ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -169,7 +170,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    globals.load == true
+                    globals.loadForm1 == true
                         ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -262,30 +263,30 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      globals.load == true
+                      globals.loadForm1 == true
                           ? Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.57,
-                                      child: Center(
-                                        child: Image(
-                                          image: AssetImage(
-                                              'Assets/krowl_logo.gif'),
-                                          fit: BoxFit.cover,
-                                          height: 150,
-                                          width: 150,
-                                        ),
-                                      )),
-                                ])
-                          : Wrap(
-                              direction: Axis.vertical,
-                              children: children, // My Children
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 20,
                             ),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width *
+                                    0.57,
+                                child: Center(
+                                  child: Image(
+                                    image: AssetImage(
+                                        'Assets/krowl_logo.gif'),
+                                    fit: BoxFit.cover,
+                                    height: 150,
+                                    width: 150,
+                                  ),
+                                )),
+                          ])
+                          :Wrap(
+                        direction: Axis.vertical,
+                        children: children, // My Children
+                      ),
                     ],
                   ),
                   Row(
@@ -307,114 +308,86 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   _loadPosts() async {
-    if (mounted) {
-      setState(() {
-        children.clear();
-        globals.load = true;
-      });
-    }
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'user_uni': user_uni,
-    };
-
-    var res = await CallApi().postData(data, '(Control)loadPosts.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (body[0] == "success") {
-      for (var i = 0; i < body[1].length; i++) {
-        bool _like = false;
-        bool _dislike = false;
-        if (int.parse(body[1][i][7]) == 0) {
-          _like = false;
-          _dislike = false;
-        } else if (int.parse(body[1][i][7]) == 1) {
-          _like = true;
-          _dislike = false;
-        } else if (int.parse(body[1][i][7]) == -1) {
-          _like = false;
-          _dislike = true;
-        }
-        children.addAll(
-          [
-            Question(
-              id: body[1][i][0],
-              // post_id
-              username: body[1][i][1],
-              // username
-              tag: body[1][i][2],
-              // tag
-              text: body[1][i][3],
-              // post_data
-              val: int.parse(body[1][i][4]),
-              // post_val
-              date: body[1][i][5],
-              // post_date
-              question_context: body[1][i][6],
-              //context of the question
-              like: _like,
-              dislike: _dislike,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
-        );
+    if (globals.loadForm1 == false) {
+      while (globals.loadLike == true || globals.loadDislike == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print("reload forum");
       }
-      setState(() {
-        children;
-      });
-    } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              "Your version: " + globals.version + "\n" + globals.errorVersion),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorToken),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      print('load forum1');
+      //await Future.delayed(Duration(seconds: 10));
+      if (mounted) {
+        setState(() {
+          globals.loadForm1 = true;
+          children.clear();
+        });
+      }
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
+      var user_uni = localStorage.getString("user_uni");
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'user_uni': user_uni,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadPosts.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+
+      if (body[0] == "success") {
+        for (var i = 0; i < body[1].length; i++) {
+          bool _like = false;
+          bool _dislike = false;
+          if (int.parse(body[1][i][7]) == 0) {
+            _like = false;
+            _dislike = false;
+          } else if (int.parse(body[1][i][7]) == 1) {
+            _like = true;
+            _dislike = false;
+          } else if (int.parse(body[1][i][7]) == -1) {
+            _like = false;
+            _dislike = true;
+          }
+          children.addAll(
+            [
+              Question(
+                id: body[1][i][0],
+                // post_id
+                username: body[1][i][1],
+                // username
+                tag: body[1][i][2],
+                // tag
+                text: body[1][i][3],
+                // post_data
+                val: int.parse(body[1][i][4]),
+                // post_val
+                date: body[1][i][5],
+                // post_date
+                question_context: body[1][i][6],
+                //context of the question
+                like: _like,
+                dislike: _dislike,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          );
+        }
+        setState(() {
+          children;
+        });
+      } else if (body[0] == "errorVersion") {
+        ErrorPopUp(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopUp(context, globals.errorToken);
+      } else if (body[0] == "error7") {
+        WarningPopUp(context, globals.warning7);
+      }
+      globals.loadForm1 = false;
+      print('load forum1 end!!!');
     }
-    globals.load = false;
   }
 
   _loadNewPage() {

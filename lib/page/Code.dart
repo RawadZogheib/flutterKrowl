@@ -7,6 +7,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -295,80 +296,17 @@ class _CodeState extends State<Code> {
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " +
-                  globals.version +
-                  "\n" +
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorToken);
         } else if (body[0] == "false") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text('Wrong Code !'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, 'Wrong Code !');
         } else {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorElse),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorElse);
         }
       }
     } catch (e) {
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.errorException),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.errorException);
     }
   }
 }

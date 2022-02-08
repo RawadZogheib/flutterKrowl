@@ -11,6 +11,7 @@ import 'package:flutter_app_backend/globals/globals.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sizer/sizer.dart';
@@ -54,21 +55,7 @@ class _Registration2State extends State<Registration2> {
                   globals.minorId != null) {
                 Navigator.pushNamed(context, '/Registration3');
               } else {
-                showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        'Those fields can not be empty.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
+                WarningPopUp(context, globals.warning7);
               }
             }
             setState(() => keys.add(key));
@@ -139,21 +126,7 @@ class _Registration2State extends State<Registration2> {
                                   globals.minorId != null) {
                                 Navigator.pushNamed(context, '/Registration3');
                               } else {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) => AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        'Those fields can not be empty.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                WarningPopUp(context, globals.warning7);
                               }
                             },
                           ),
@@ -202,54 +175,11 @@ class _Registration2State extends State<Registration2> {
       //});
       print("asdasdsadsadsadsdsd");
     } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " + globals.version + "\n"+
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
-
+      ErrorPopUp(context, globals.errorVersion);
     }else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
+      ErrorPopUp(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error4),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      ErrorPopUp(context, globals.error4);
     }
   }
 

@@ -9,6 +9,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
 import 'package:flutter_app_backend/widgets/PopUp/LoadingPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -272,7 +273,7 @@ class _Login2State extends State<Login2> {
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('Remember Me'),
-              content: const Text(globals.errorRememberMe),
+              content: const Text(globals.rememberMe),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => _yesRemember(),
@@ -286,109 +287,21 @@ class _Login2State extends State<Login2> {
             ),
           );
         } else if (body[0] == "errorToken") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorToken);
         } else if (body[0] == "errorVersion") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text("Your version: " +
-                  globals.version +
-                  "\n" +
-                  globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorToken);
         } else if (body[0] == "false") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text('Invalid username or password.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          WarningPopUp(context, 'Invalid username or password.');
         } else if (body[0] == "error7") {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          WarningPopUp(context, globals.warning7);
         } else {
-          showDialog<String>(
-            context: cont,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Error'),
-              content:
-                  const Text('Failed to connect... Try again in few seconds.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          ErrorPopUp(context, globals.errorElse);
         }
       } else {
-        showDialog<String>(
-          context: cont,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text('No empty Allowed.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+        WarningPopUp(context, globals.warning7);
       }
     } else {
-      showDialog<String>(
-        context: cont,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('No nulls Allowed.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
 

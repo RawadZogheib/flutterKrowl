@@ -6,6 +6,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Chat/components/chat.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatFriends.dart';
 import 'package:flutter_app_backend/widgets/Chat/models/chat_users.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat/stream_chat.dart';
@@ -420,67 +421,13 @@ class _ChatPage2State extends State<ChatPage2> {
         });
       }
     } else if (body[0] == "empty") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorEmptyFriends),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
+      WarningPopUp(context, globals.warningEmptyFriends);
     } else if (body[0] == "errorVersion") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  "Your version: " + globals.version + "\n" +
-                      globals.errorVersion),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
+      ErrorPopUp(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.errorToken),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
+      ErrorPopUp(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            AlertDialog(
-              title: const Text('Error'),
-              content: const Text(globals.error7),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
 

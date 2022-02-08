@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/globals/globals.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorPopUp.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_app_backend/widgets/Stack.dart';
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
@@ -51,20 +52,7 @@ class _Registration3State extends State<Registration3> {
                 if(_testpass() == true)
                   _reg();
               } catch (e) {
-                showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                        globals.errorException),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
+                ErrorPopUp(context, globals.errorException);
               }
             }
             setState(() => keys.add(key));
@@ -170,20 +158,7 @@ class _Registration3State extends State<Registration3> {
                               if(_testpass() == true)
                                 _reg();
                             } catch (e) {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Error'),
-                                  content: const Text(
-                                      globals.errorException),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
+                              ErrorPopUp(context, globals.errorException);
                             }
                           },)
                         ),
@@ -254,21 +229,7 @@ _testpass() {
              col2_1 = Colors.red.shade900;
              col2_2 = Colors.red.shade900.withOpacity(0.5);
            });
-           showDialog<String>(
-             context: context,
-             builder: (BuildContext context) =>
-                 AlertDialog(
-                   title: const Text('Error'),
-                   content: const Text(
-                       globals.error3),
-                   actions: <Widget>[
-                     TextButton(
-                       onPressed: () => Navigator.pop(context, 'OK'),
-                       child: const Text('OK'),
-                     ),
-                   ],
-                 ),
-           );
+           WarningPopUp(context, globals.error3);
          }
        } else {
          setState(() {
@@ -276,38 +237,10 @@ _testpass() {
            col1_1 = Colors.red.shade900;
            col1_2 = Colors.red.shade900.withOpacity(0.5);
          });
-         showDialog<String>(
-           context: context,
-           builder: (BuildContext context) =>
-               AlertDialog(
-                 title: const Text('Error'),
-                 content: const Text(
-                     globals.error2_3),
-                 actions: <Widget>[
-                   TextButton(
-                     onPressed: () => Navigator.pop(context, 'OK'),
-                     child: const Text('OK'),
-                   ),
-                 ],
-               ),
-         );
+         WarningPopUp(context, globals.warning2_3);
        }
      }else {
-       showDialog<String>(
-         context: context,
-         builder: (BuildContext context) =>
-             AlertDialog(
-               title: const Text('Error'),
-               content: const Text(
-                   'No nulls Allowed.'),
-               actions: <Widget>[
-                 TextButton(
-                   onPressed: () =>
-                       Navigator.pop(context, 'OK'),
-                   child: const Text('OK'),
-                 ),
-               ],
-             ),);
+       WarningPopUp(context, globals.warning7);
      }
    }
 
@@ -387,240 +320,33 @@ _testpass() {
            Navigator.pushNamed(context, '/Code');
 
         } else if (body[0] == "errorVersion") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text("Your version: " + globals.version + "\n"+
-                      globals.errorVersion),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
-
-        }else if (body[0] == "errorToken") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      globals.errorToken),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          ErrorPopUp(context, globals.errorVersion);
         } else if (body[0] == "error1") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error1),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning1);
         } else if (body[0] == "error2_1") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      globals.error2_1),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_1);
         } else if (body[0] == "error2_2") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      globals.error2_2),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_2);
         } else if (body[0] == "error2_3") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                    globals.error2_3),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_3);
         } else if (body[0] == "error2_4") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_4),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_4);
         } else if (body[0] == "error2_5") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_5),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_5);
         }else if (body[0] == "error2_6") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error2_6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning2_6);
         } else if (body[0] == "error3") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      globals.error3),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          ErrorPopUp(context, globals.error3);
         } else if (body[0] == "error4") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error4),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          ErrorPopUp(context, globals.error4);
         } else if (body[0] == "error5") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error5),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning5);
         } else if (body[0] == "error6") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error6),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning6);
         } else if (body[0] == "error7") {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(globals.error7),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          WarningPopUp(context, globals.warning7);
         } else {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) =>
-                AlertDialog(
-                  title: const Text('Error'),
-                  content: const Text(
-                      globals.errorElse),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-          );
+          ErrorPopUp(context, globals.errorElse);
         }
         /* } else {
             showDialog<String>(
@@ -656,34 +382,10 @@ _testpass() {
           );
         }  } */
       }else {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Error'),
-            content: const Text(globals.error1),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
+        WarningPopUp(context, globals.warning1);
       }
     } else {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(globals.error7),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+      WarningPopUp(context, globals.warning7);
     }
   }
  _saveLogin() async{
