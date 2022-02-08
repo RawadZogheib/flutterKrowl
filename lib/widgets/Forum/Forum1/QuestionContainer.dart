@@ -46,6 +46,8 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
+  bool _loadLike = false;
+  bool _loadDislike = false;
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +134,7 @@ class _QuestionState extends State<Question> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       onTap: () async {
-                        if (globals.loadLike == false &&
-                            globals.loadDislike == false) {
+                        if (_loadLike == false && _loadDislike == false) {
                           await _onLike();
                         }
                       },
@@ -155,8 +156,7 @@ class _QuestionState extends State<Question> {
                       splashColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       onTap: () async {
-                        if (globals.loadLike == false &&
-                            globals.loadDislike == false) {
+                        if (_loadLike == false && _loadDislike == false) {
                           await _onDislike();
                         }
                       },
