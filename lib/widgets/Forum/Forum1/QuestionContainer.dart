@@ -210,6 +210,8 @@ class _QuestionState extends State<Question> {
     var data = {
       'version': globals.version,
       'account_Id': account_Id,
+      'post_id': widget.id,
+      'like_val': '1',
     };
 
     var res = await CallApi().postData(data, '(Control)likePosts.php');
@@ -278,6 +280,8 @@ class _QuestionState extends State<Question> {
     var data = {
       'version': globals.version,
       'account_Id': account_Id,
+      'post_id': widget.id,
+      'like_val': '-1',
     };
 
     var res = await CallApi().postData(data, '(Control)likePosts.php');
