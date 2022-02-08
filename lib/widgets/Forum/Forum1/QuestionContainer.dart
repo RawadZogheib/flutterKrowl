@@ -182,7 +182,7 @@ class _QuestionState extends State<Question> {
       print("reload like");
     }
     _loadLike = true;
-    globals.loadLike = true;
+    globals.loadLikeDislike = true;
     print('Sending like to server...');
 
     //send to server
@@ -255,7 +255,7 @@ class _QuestionState extends State<Question> {
     //     widget.color2 = Colors.grey.shade600;
     //   });
     // }
-    globals.loadLike = false;
+    globals.loadLikeDislike = false;
     _loadLike = false;
     print('load like end!!!');
   }
@@ -266,7 +266,7 @@ class _QuestionState extends State<Question> {
       print("reload dislike");
     }
     _loadDislike = true;
-    globals.loadDislike = true;
+    globals.loadLikeDislike = true;
     print('Sending dislike to server...');
     //send to server
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -338,7 +338,7 @@ class _QuestionState extends State<Question> {
     //     widget.color2 = Colors.grey.shade600;
     //   });
     // }
-    globals.loadDislike = false;
+    globals.loadLikeDislike = false;
     _loadDislike = false;
     print('load dislike end!!!');
   }

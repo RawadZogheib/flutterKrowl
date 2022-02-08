@@ -106,8 +106,7 @@ const apiKey = "z5j34vkctqrq";
 
 //Forum1
 bool loadForm1 = false;
-bool loadLike = false;
-bool loadDislike = false;
+bool loadLikeDislike = false;
 
 //Forum2
 String? dropdown2 = null;

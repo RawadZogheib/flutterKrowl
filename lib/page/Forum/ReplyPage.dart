@@ -163,9 +163,11 @@ class _ReplyPageState extends State<ReplyPage> {
           ),
         );
       }
-      setState(() {
-        children;
-      });
+      if(mounted){
+        setState(() {
+          children;
+        });
+      }
     } else if (body[0] == "errorVersion") {
       ErrorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
