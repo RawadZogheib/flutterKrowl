@@ -249,7 +249,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
   _loadPosts() async {
     if (globals.loadForm1 == false) {
-      while (globals.loadLikeDislike == true) {
+      while (globals.loadLikeDislikeForm1 == true) {
         await Future.delayed(Duration(seconds: 1));
         print("reload forum");
       }
