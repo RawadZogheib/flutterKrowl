@@ -352,7 +352,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         await _loadPosts();
-      } else{
+      } else {
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
