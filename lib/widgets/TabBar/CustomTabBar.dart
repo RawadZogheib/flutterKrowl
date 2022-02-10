@@ -141,8 +141,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           ),
         ),
         Stack(
-          clipBehavior: Clip.none,
-          children: <Widget>[
+          clipBehavior: Clip.none, children: <Widget>[
             IconButton(
                 icon: Icon(
                   Icons.notifications_none_outlined,
@@ -156,10 +155,10 @@ class _CustomTabBarState extends State<CustomTabBar>
               child: FadeTransition(
                 opacity: opacityAnimation,
                 child: ShapedWidget(
-                  onlyTop: true,
+                  onlyTop: false,
                 ),
               ),
-              right: 4.0,
+              right: -107.0,
               top: 48.0,
             ),
           ],
