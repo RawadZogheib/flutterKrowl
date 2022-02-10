@@ -96,19 +96,19 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 ),
                 load == true
                     ? SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.57,
-                    child: Center(
-                      child: Image(
-                        image: AssetImage('Assets/krowl_logo.gif'),
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: 150,
-                      ),
-                    ))
+                        width: MediaQuery.of(context).size.width * 0.57,
+                        child: Center(
+                          child: Image(
+                            image: AssetImage('Assets/krowl_logo.gif'),
+                            fit: BoxFit.cover,
+                            height: 150,
+                            width: 150,
+                          ),
+                        ))
                     : Wrap(
-                  direction: Axis.vertical,
-                  children: children, // My Children
-                ),
+                        direction: Axis.vertical,
+                        children: children, // My Children
+                      ),
               ],
             ),
           ),
@@ -175,9 +175,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                               ),
                             ))
                         : Wrap(
-                      direction: Axis.vertical,
-                      children: children, // My Children
-                    ),
+                            direction: Axis.vertical,
+                            children: children, // My Children
+                          ),
                   ],
                 ),
               ],
@@ -249,19 +249,19 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       ),
                       load == true
                           ? SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.57,
-                          child: Center(
-                            child: Image(
-                              image: AssetImage('Assets/krowl_logo.gif'),
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            ),
-                          ))
+                              width: MediaQuery.of(context).size.width * 0.57,
+                              child: Center(
+                                child: Image(
+                                  image: AssetImage('Assets/krowl_logo.gif'),
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
+                              ))
                           : Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
+                              direction: Axis.vertical,
+                              children: children, // My Children
+                            ),
                     ],
                   ),
                   Row(
@@ -292,10 +292,11 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
-      print('load forum1');
-      globals.loadForm1 = true;
 
       try {
+        print('load forum1');
+        globals.loadForm1 = true;
+
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
         var user_uni = localStorage.getString("user_uni");
@@ -310,6 +311,11 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
 
+        if (mounted) {
+          setState(() {
+            load = false;
+          });
+        }
         if (body[0] == "success") {
           for (var i = 0; i < body[1].length; i++) {
             Color _color;
@@ -364,22 +370,27 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           ErrorPopup(context, globals.errorToken);
         } else if (body[0] == "error7") {
           WarningPopup(context, globals.warning7);
-        }else{
-          load = false;
+        } else {
+          if (mounted) {
+            setState(() {
+              load = true;
+            });
+          }
           ErrorPopup(context, globals.errorElse);
         }
-      }catch(e){
-        if(mounted){
+
+        print('load forum1 end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      } catch (e) {
+        if (mounted) {
           setState(() {
-            load = false;
+            load = true;
             ErrorPopup(context, globals.errorException);
           });
         }
       }
       globals.loadForm1 = false;
-      print('load forum1 end!!!');
-      print(
-          '=========<<======================================================<<==================================================<<=========');
     }
   }
 
