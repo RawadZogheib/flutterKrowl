@@ -228,108 +228,120 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   _loadTables() async {
-    if (mounted) {
-      setState(() {
-        children.clear();
-        load = true;
-      });
-    }
-
-    //globals.occupenTable.clear();
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'currentPage': _currentPage,
-      'user_uni': user_uni,
-    };
-
-    var res = await CallApi().postData(data, '(Control)loadTables.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (mounted) {
-      setState(() {
-        load = false;
-      });
-    }
-    if (body[0] == "success") {
+    try {
       if (mounted) {
         setState(() {
-          _totalTables = int.parse(body[1]);
-          _totalPages = (_totalTables / 12).ceil();
+          children.clear();
+          load = true;
         });
       }
-      for (var i = 0; i < body[2].length; i++) {
-        List<dynamic> _userId = ['', '', '', '', '', '', '', ''];
-        List<dynamic> _userName = ['', '', '', '', '', '', '', ''];
-        List<dynamic> _userPosition = [
-          '-1',
-          '-1',
-          '-1',
-          '-1',
-          '-1',
-          '-1',
-          '-1',
-          '-1'
-        ];
-        List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
-        for (int j = 0; j < body[2][i][3].length; j++) {
-          _userId[int.parse(body[2][i][3][j][2]) - 1] =
-              body[2][i][3][j][0]; // userId
-          _userName[int.parse(body[2][i][3][j][2]) - 1] =
-              body[2][i][3][j][1]; // userName
-          _userPosition[int.parse(body[2][i][3][j][2]) - 1] =
-              body[2][i][3][j][2]; // userPosition
-          _userImgUrl[int.parse(body[2][i][3][j][2]) - 1] =
-              'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][3][j][3]
-          // userImgUrl
+      //globals.occupenTable.clear();
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
+      var user_uni = localStorage.getString("user_uni");
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'currentPage': _currentPage,
+        'user_uni': user_uni,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadTables.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+
+      if (mounted) {
+        setState(() {
+          load = false;
+        });
+      }
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            _totalTables = int.parse(body[1]);
+            _totalPages = (_totalTables / 12).ceil();
+          });
         }
-        //localStorage.setString('contrat_Id', value)
-        //globals.occupenTable.add('0');// Initiate table (All table are Off)
-        children.add(
-          new CustomTable(
-            id: i,
-            table_name: body[2][i][0],
-            seats: body[2][i][1],
-            table_type: body[2][i][2],
-            color: Colors.green,
-            getIds: _userId,
-            getUsers: _userName,
-            getPos: _userPosition,
-            getImgs: _userImgUrl,
-          ),
-        );
-        print(_userId);
-        print(_userName);
-        print(_userPosition);
-        print(_userImgUrl);
-      }
+        for (var i = 0; i < body[2].length; i++) {
+          List<dynamic> _userId = ['', '', '', '', '', '', '', ''];
+          List<dynamic> _userName = ['', '', '', '', '', '', '', ''];
+          List<dynamic> _userPosition = [
+            '-1',
+            '-1',
+            '-1',
+            '-1',
+            '-1',
+            '-1',
+            '-1',
+            '-1'
+          ];
+          List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
+          for (int j = 0; j < body[2][i][3].length; j++) {
+            _userId[int.parse(body[2][i][3][j][2]) - 1] =
+                body[2][i][3][j][0]; // userId
+            _userName[int.parse(body[2][i][3][j][2]) - 1] =
+                body[2][i][3][j][1]; // userName
+            _userPosition[int.parse(body[2][i][3][j][2]) - 1] =
+                body[2][i][3][j][2]; // userPosition
+            _userImgUrl[int.parse(body[2][i][3][j][2]) - 1] =
+                'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][3][j][3]
+            // userImgUrl
+          }
+          //localStorage.setString('contrat_Id', value)
+          //globals.occupenTable.add('0');// Initiate table (All table are Off)
+          children.add(
+            new CustomTable(
+              id: i,
+              table_name: body[2][i][0],
+              seats: body[2][i][1],
+              table_type: body[2][i][2],
+              color: Colors.green,
+              getIds: _userId,
+              getUsers: _userName,
+              getPos: _userPosition,
+              getImgs: _userImgUrl,
+            ),
+          );
+          print(_userId);
+          print(_userName);
+          print(_userPosition);
+          print(_userImgUrl);
+        }
+
+        if (mounted) {
+          setState(() {
+            children;
+          });
+        }
+      } else if (body[0] == "empty") {
+        if (_currentPage != 1) {
+          setState(() {
+            _currentPage = 1;
+            _loadNewPage();
+          });
+        } else {
+          WarningPopup(context, globals.warningEmptyLibrary);
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        load = false;
+        ErrorPopup(context, globals.errorElse);
+      }
+    } catch (e) {
       if (mounted) {
         setState(() {
-          children;
+          load = false;
+          ErrorPopup(context, globals.errorException);
         });
       }
-    } else if (body[0] == "empty") {
-      if (_currentPage != 1) {
-        setState(() {
-          _currentPage = 1;
-          _loadNewPage();
-        });
-      } else {
-        WarningPopup(context, globals.warningEmptyLibrary);
-      }
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
     }
     print(
         '=========<<======================================================<<==================================================<<=========');
@@ -351,7 +363,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         _loadTables();
-      } else{
+      } else {
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

@@ -27,6 +27,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   @override
   var children = <Widget>[]; // Posts
   Timer? timer;
+  bool load = true;
 
   @override
   void dispose() {
@@ -44,6 +45,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: globals.white,
@@ -92,7 +94,18 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                Wrap(
+                load == true
+                    ? SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.57,
+                    child: Center(
+                      child: Image(
+                        image: AssetImage('Assets/krowl_logo.gif'),
+                        fit: BoxFit.cover,
+                        height: 150,
+                        width: 150,
+                      ),
+                    ))
+                    : Wrap(
                   direction: Axis.vertical,
                   children: children, // My Children
                 ),
@@ -150,7 +163,18 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     SizedBox(
                       height: 20,
                     ),
-                    Wrap(
+                    load == true
+                        ? SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.57,
+                            child: Center(
+                              child: Image(
+                                image: AssetImage('Assets/krowl_logo.gif'),
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              ),
+                            ))
+                        : Wrap(
                       direction: Axis.vertical,
                       children: children, // My Children
                     ),
@@ -223,7 +247,18 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       SizedBox(
                         height: 20,
                       ),
-                      Wrap(
+                      load == true
+                          ? SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.57,
+                          child: Center(
+                            child: Image(
+                              image: AssetImage('Assets/krowl_logo.gif'),
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                            ),
+                          ))
+                          : Wrap(
                         direction: Axis.vertical,
                         children: children, // My Children
                       ),
@@ -260,74 +295,86 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
       print('load forum1');
       globals.loadForm1 = true;
 
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
-      var user_uni = localStorage.getString("user_uni");
+      try {
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
+        var user_uni = localStorage.getString("user_uni");
 
-      var data = {
-        'version': globals.version,
-        'account_Id': account_Id,
-        'user_uni': user_uni,
-      };
-      children.clear();
-      var res = await CallApi().postData(data, '(Control)loadPosts.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'user_uni': user_uni,
+        };
+        children.clear();
+        var res = await CallApi().postData(data, '(Control)loadPosts.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
 
-      if (body[0] == "success") {
-        for (var i = 0; i < body[1].length; i++) {
-          Color _color;
-          Color _color2;
-          if (int.parse(body[1][i][7]) == 0) {
-            _color = Colors.grey.shade600;
-            _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1][i][7]) == 1) {
-            _color = globals.blue1;
-            _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1][i][7]) == -1) {
-            _color = Colors.grey.shade600;
-            _color2 = globals.blue1;
-          } else {
-            _color = Colors.transparent;
-            _color2 = Colors.transparent;
+        if (body[0] == "success") {
+          for (var i = 0; i < body[1].length; i++) {
+            Color _color;
+            Color _color2;
+            if (int.parse(body[1][i][7]) == 0) {
+              _color = Colors.grey.shade600;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1][i][7]) == 1) {
+              _color = globals.blue1;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1][i][7]) == -1) {
+              _color = Colors.grey.shade600;
+              _color2 = globals.blue1;
+            } else {
+              _color = Colors.transparent;
+              _color2 = Colors.transparent;
+            }
+            children.addAll(
+              [
+                Question(
+                  id: body[1][i][0],
+                  // post_id
+                  username: body[1][i][1],
+                  // username
+                  tag: body[1][i][2],
+                  // tag
+                  text: body[1][i][3],
+                  // post_data
+                  val: int.parse(body[1][i][4]),
+                  // post_val
+                  date: body[1][i][5],
+                  // post_date
+                  question_context: body[1][i][6],
+                  // context of the question
+                  color: _color,
+                  // like color
+                  color2: _color2,
+                  // dislike color
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            );
           }
-          children.addAll(
-            [
-              Question(
-                id: body[1][i][0],
-                // post_id
-                username: body[1][i][1],
-                // username
-                tag: body[1][i][2],
-                // tag
-                text: body[1][i][3],
-                // post_data
-                val: int.parse(body[1][i][4]),
-                // post_val
-                date: body[1][i][5],
-                // post_date
-                question_context: body[1][i][6],
-                // context of the question
-                color: _color,
-                // like color
-                color2: _color2,
-                // dislike color
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          );
+          setState(() {
+            children;
+          });
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        }else{
+          load = false;
+          ErrorPopup(context, globals.errorElse);
         }
-        setState(() {
-          children;
-        });
-      } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
-      } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
-      } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
+      }catch(e){
+        if(mounted){
+          setState(() {
+            load = false;
+            ErrorPopup(context, globals.errorException);
+          });
+        }
       }
       globals.loadForm1 = false;
       print('load forum1 end!!!');

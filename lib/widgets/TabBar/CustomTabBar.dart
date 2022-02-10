@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
 
-class CustomTabBar extends StatelessWidget {
+class CustomTabBar extends StatefulWidget {
   CustomTabBar({
     this.text,
   });
@@ -10,8 +10,30 @@ class CustomTabBar extends StatelessWidget {
   var text;
 
   @override
+  State<CustomTabBar> createState() => _CustomTabBarState();
+}
+
+class _CustomTabBarState extends State<CustomTabBar>
+    with SingleTickerProviderStateMixin {
+  AnimationController? animationController;
+  bool _menuShown = false;
+
+  @override
+  void initState() {
+    animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    Animation<double> opacityAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(animationController!);
+    if (_menuShown)
+      animationController!.forward();
+    else
+      animationController!.reverse();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,10 +140,29 @@ class CustomTabBar extends StatelessWidget {
                 )),
           ),
         ),
-        Icon(
-          Icons.notifications_none_outlined,
-          color: Colors.black,
-          size: 22,
+        Stack(
+          clipBehavior: Clip.none,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.notifications_none_outlined,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _menuShown = !_menuShown;
+                  });
+                }),
+            Positioned(
+              child: FadeTransition(
+                opacity: opacityAnimation,
+                child: ShapedWidget(
+                  onlyTop: true,
+                ),
+              ),
+              right: 4.0,
+              top: 48.0,
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
