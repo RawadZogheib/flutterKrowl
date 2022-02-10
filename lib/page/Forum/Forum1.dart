@@ -251,7 +251,11 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     if (globals.loadForm1 == false) {
       while (globals.loadLikeDislikeForm1 == true) {
         await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
         print("reload forum");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
       print('load forum1');
       globals.loadForm1 = true;
@@ -283,7 +287,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           } else if (int.parse(body[1][i][7]) == -1) {
             _color = Colors.grey.shade600;
             _color2 = globals.blue1;
-          }else{
+          } else {
             _color = Colors.transparent;
             _color2 = Colors.transparent;
           }
@@ -327,10 +331,14 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
       }
       globals.loadForm1 = false;
       print('load forum1 end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
   }
 
   _loadNewPage() {
+    print(
+        '=========>>======================================================>>==================================================>>=========');
     timer?.cancel();
     _loadPosts(); //0
     _loadPage(); //1 -> INFINI
@@ -338,10 +346,15 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
   _loadPage() {
     timer = Timer.periodic(const Duration(seconds: 30), (Timer t) async {
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         await _loadPosts();
+      } else{
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
     });
   }

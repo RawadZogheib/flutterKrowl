@@ -205,9 +205,14 @@ class _ReplyPageState extends State<ReplyPage> {
     }
     globals.loadReplyPage = false;
     print('load replyPage end!!!');
+    print(
+        '=========<<======================================================<<==================================================<<=========');
+
   }
 
   _loadNewPage() {
+    print(
+        '=========>>======================================================>>==================================================>>=========');
     timer?.cancel();
     _loadReplies(); //0
     _loadPage(); //1 -> INFINI
@@ -215,10 +220,15 @@ class _ReplyPageState extends State<ReplyPage> {
 
   _loadPage() {
     timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         _loadReplies();
+      } else{
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
     });
   }

@@ -331,9 +331,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     } else if (body[0] == "error7") {
       WarningPopup(context, globals.warning7);
     }
+    print(
+        '=========<<======================================================<<==================================================<<=========');
   }
 
   _loadNewPage() {
+    print(
+        '=========>>======================================================>>==================================================>>=========');
     timer?.cancel();
     _loadTables(); //0
     _loadPage(); //1 -> INFINI
@@ -341,10 +345,15 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
   _loadPage() {
     timer = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         _loadTables();
+      } else{
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
     });
   }

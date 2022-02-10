@@ -179,10 +179,16 @@ class _QuestionState extends State<Question> {
   _onLike() async {
     while (globals.loadForm1 == true) {
       await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("reload like");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
     _loadLike = true;
     globals.loadLikeDislikeForm1 = true;
+    print(
+        '=========>>======================================================>>==================================================>>=========');
     print('Sending like to server...');
 
     //send to server
@@ -201,7 +207,7 @@ class _QuestionState extends State<Question> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           if (int.parse(body[1]) == 0) {
             widget.color = Colors.grey.shade600;
@@ -258,15 +264,23 @@ class _QuestionState extends State<Question> {
     globals.loadLikeDislikeForm1 = false;
     _loadLike = false;
     print('load like end!!!');
+    print(
+        '=========<<======================================================<<==================================================<<=========');
   }
 
   _onDislike() async {
     while (globals.loadForm1 == true) {
       await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("reload dislike");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
     _loadDislike = true;
     globals.loadLikeDislikeForm1 = true;
+    print(
+        '=========>>======================================================>>==================================================>>=========');
     print('Sending dislike to server...');
     //send to server
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -284,7 +298,7 @@ class _QuestionState extends State<Question> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           if (int.parse(body[1]) == 0) {
             widget.color = Colors.grey.shade600;
@@ -341,6 +355,8 @@ class _QuestionState extends State<Question> {
     globals.loadLikeDislikeForm1 = false;
     _loadDislike = false;
     print('load dislike end!!!');
+    print(
+        '=========<<======================================================<<==================================================<<=========');
   }
 
   _openReply() {
