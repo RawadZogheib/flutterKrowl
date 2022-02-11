@@ -374,9 +374,10 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         } else {
           if (mounted) {
             setState(() {
-              load = false;
+              load = true;
             });
           }
+          globals.loadForm1 = false;
           ErrorPopup(context, globals.errorElse);
         }
 
@@ -387,10 +388,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         print(e);
         if (mounted) {
           setState(() {
-            load = false;
-            ErrorPopup(context, globals.errorException);
+            load = true;
           });
         }
+        globals.loadForm1 = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
       globals.loadForm1 = false;
     }

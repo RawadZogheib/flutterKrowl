@@ -134,11 +134,16 @@ class _ReplyPageState extends State<ReplyPage> {
     if (globals.loadReplyPage == false) {
       while (globals.loadLikeDislikeReplyPage == true) {
         await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
         print("reload replyPage");
-      }
+        print(
+            '=========<<======================================================<<==================================================<<=========');
 
+      }
+      try{
       print('load replyPage');
-      //globals.loadForm1 = true;
+      globals.loadReplyPage = true;
 
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var account_Id = localStorage.getString("account_Id");
@@ -201,13 +206,31 @@ class _ReplyPageState extends State<ReplyPage> {
         ErrorPopup(context, globals.errorToken);
       } else if (body[0] == "error7") {
         WarningPopup(context, globals.warning7);
+      } else {
+        // if (mounted) {
+        //   setState(() {
+        //     load = true;
+        //   });
+        // }
+        ErrorPopup(context, globals.errorElse);
+      }
+
+      print('load replyPage end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+
+      } catch (e) {
+        print(e);
+        if (mounted) {
+          setState(() {
+            //load = false;
+            ErrorPopup(context, globals.errorException);
+          });
+        }
       }
     }
-    globals.loadReplyPage = false;
-    print('load replyPage end!!!');
-    print(
-        '=========<<======================================================<<==================================================<<=========');
 
+    globals.loadReplyPage = false;
   }
 
   _loadNewPage() {
