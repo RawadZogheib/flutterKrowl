@@ -27,10 +27,8 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
-      width: MediaQuery.of(context).size.width * 0.57,
+      width: MediaQuery.of(context).size.width * 0.6,
       margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -55,86 +53,75 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
 
           // These are the questions asked from this student on krowl
 
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (Questions)
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.55,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Questions ($NbrOfQuestions)",
-                                    // this is the number of replies
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      Questions = !Questions;
-                                    });
-                                  },
-                                  child: Icon(Icons.keyboard_arrow_down_outlined),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                if (!Questions)
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.54,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Questions ($NbrOfQuestions)",
-                                    // this is the number of replies
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      Questions = !Questions;
-                                    });
-                                  },
-                                  child: Icon(Icons.keyboard_arrow_up_outlined),
-                                ),
-                              ],
-                            ),
-                          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (Questions)
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Text("Questions ($NbrOfQuestions)",
+                                // this is the number of replies
+                                style: GoogleFonts.nunito(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
+                          ],
                         ),
-                        ProfileQuestions(TheQuestion: "Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?", contextQuestion: "COVID-19", dateOfQuestion: "on Feb 3, 2021",) // This is a widget for the questions
-                      ],
-                    ),
-                  )
-              ],
-            ),
+                      ),
+                    if (!Questions)
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.54,
+                                child: Row(
+                                  children: [
+                                    Text("Questions ($NbrOfQuestions)",
+                                        // this is the number of replies
+                                        style: GoogleFonts.nunito(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            ProfileQuestions(TheQuestion: "Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?", contextQuestion: "COVID-19", dateOfQuestion: "on Feb 3, 2021",) // This is a widget for the questions
+                          ],
+                        ),
+                      )
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 15,
+                right: 20,
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      Questions = !Questions;
+                    });
+                  },
+                  child: Icon(Icons.keyboard_arrow_down_outlined),
+                ),
+              ),
+            ],
           ),
           Container(
             height: 0.3,
-            width: MediaQuery.of(context).size.width * 0.57,
+            width: MediaQuery.of(context).size.width * 0.6,
             color: Colors.grey.shade500,
           ),
 
