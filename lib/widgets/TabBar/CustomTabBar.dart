@@ -158,7 +158,7 @@ class _CustomTabBarState extends State<CustomTabBar>
                   onlyTop: false,
                 ),
               ),
-              right: -107.0,
+              right: -58.0,
               top: 48.0,
             ),
           ],

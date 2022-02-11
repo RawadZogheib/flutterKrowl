@@ -374,7 +374,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         } else {
           if (mounted) {
             setState(() {
-              load = true;
+              load = false;
             });
           }
           ErrorPopup(context, globals.errorElse);
@@ -387,7 +387,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         print(e);
         if (mounted) {
           setState(() {
-            load = true;
+            load = false;
             ErrorPopup(context, globals.errorException);
           });
         }

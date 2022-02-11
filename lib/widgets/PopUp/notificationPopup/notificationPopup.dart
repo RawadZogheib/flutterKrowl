@@ -13,10 +13,12 @@ class ShapedWidget extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape: _ShapedWidgetBorder(
               borderRadius: BorderRadius.all(Radius.circular(padding)),
-              padding: padding),
-          elevation: 4.0,
+                padding: padding),
+            elevation: 4.0,
           child: Container(
-            color:Colors.red,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
             padding: EdgeInsets.all(padding).copyWith(bottom: padding * 2),
             child: onlyTop
                 ? SizedBox(
@@ -46,9 +48,9 @@ class _ShapedWidgetBorder extends RoundedRectangleBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     return Path()
-      ..moveTo(rect.width - 115.0, rect.top)
-      ..lineTo(rect.width - 128.0, rect.top - 16.0)
-      ..lineTo(rect.width - 139.0, rect.top)
+      ..moveTo(rect.width - 65.0, rect.top)
+      ..lineTo(rect.width - 78.0, rect.top - 16.0)
+      ..lineTo(rect.width - 89.0, rect.top)
       ..addRRect(borderRadius.resolve(textDirection).toRRect(Rect.fromLTWH(
           rect.left, rect.top, rect.width, rect.height - padding)));
   }
