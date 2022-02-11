@@ -116,10 +116,9 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                     padding: const EdgeInsets.only(top: 10.0, bottom: 20),
                     child: Text(
                       "$NbrOfFriends Friends", //this is the date
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'Rubik',
                           color: globals.blue1),
                     ),
                   ),
