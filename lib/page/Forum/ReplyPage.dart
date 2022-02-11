@@ -138,7 +138,7 @@ class _ReplyPageState extends State<ReplyPage> {
       }
 
       print('load replyPage');
-      globals.loadForm1 = true;
+      //globals.loadForm1 = true;
 
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var account_Id = localStorage.getString("account_Id");
