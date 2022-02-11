@@ -37,16 +37,28 @@ class _CustomTabBarState extends State<CustomTabBar>
     return Column(
       children: [
         Container(
-          color: globals.blue2,
+          decoration: BoxDecoration(
+            color: globals.blue2,
+            border: Border(
+              bottom: BorderSide(width: 4, color: globals.blue1   ),
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'Assets/krowl_logo2.png',
-                scale: 2.0,
-                height: 100,
-                width: 100,
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Image.asset(
+                    'Assets/krowl_logo2.png',
+                    scale: 2.0,
+                    height: 100,
+                    width: 100,
+                  ),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -182,10 +194,6 @@ class _CustomTabBarState extends State<CustomTabBar>
               ),
             ],
           ),
-        ),
-        Container(
-          height: 4,
-          color: globals.blue1,
         ),
       ],
     );

@@ -388,9 +388,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             setState(() {
               load = true;
             });
+            ErrorPopup(context, globals.errorElse);
           }
           globals.loadForm1 = false;
-          ErrorPopup(context, globals.errorElse);
         }
 
         print('load forum1 end!!!');
@@ -402,9 +402,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           setState(() {
             load = true;
           });
+          ErrorPopup(context, globals.errorException);
         }
         globals.loadForm1 = false;
-        ErrorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
