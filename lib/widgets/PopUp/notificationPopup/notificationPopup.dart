@@ -29,17 +29,15 @@ class ShapedWidget extends StatelessWidget {
                 : SizedBox(
                     width: 250.0,
                     height: 400.0,
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        children: [
-                          NotificationPopupChildren(),
-                          NotificationPopupChildren(),
-                          NotificationPopupChildren(),
-                          NotificationPopupChildren(),
-                          NotificationPopupChildren(),
-                          NotificationPopupChildren(),
-                        ],
-                      ),
+                    child: Wrap(
+                      children: [
+                        NotificationPopupChildren(),
+                        NotificationPopupChildren(),
+                        NotificationPopupChildren(),
+                        NotificationPopupChildren(),
+                        NotificationPopupChildren(),
+                        NotificationPopupChildren(),
+                      ],
                     ),
                   ),
           )),
