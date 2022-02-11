@@ -40,7 +40,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           decoration: BoxDecoration(
             color: globals.blue2,
             border: Border(
-              bottom: BorderSide(width: 4, color: globals.blue1   ),
+              bottom: BorderSide(width: 4, color: globals.blue1),
             ),
           ),
           child: Row(

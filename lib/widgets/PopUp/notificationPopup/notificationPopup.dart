@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
 
 class ShapedWidget extends StatelessWidget {
   ShapedWidget({this.onlyTop = false});
@@ -13,8 +14,8 @@ class ShapedWidget extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           shape: _ShapedWidgetBorder(
               borderRadius: BorderRadius.all(Radius.circular(padding)),
-                padding: padding),
-            elevation: 4.0,
+              padding: padding),
+          elevation: 4.0,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -28,8 +29,17 @@ class ShapedWidget extends StatelessWidget {
                 : SizedBox(
                     width: 250.0,
                     height: 400.0,
-                    child: Center(
-                      child: Text('ShapedWidget'),
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: [
+                          NotificationPopupChildren(),
+                          NotificationPopupChildren(),
+                          NotificationPopupChildren(),
+                          NotificationPopupChildren(),
+                          NotificationPopupChildren(),
+                          NotificationPopupChildren(),
+                        ],
+                      ),
                     ),
                   ),
           )),
