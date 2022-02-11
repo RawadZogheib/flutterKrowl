@@ -69,32 +69,44 @@ class _Students1State extends State<Students1>
               ],
             ),
           ),
-          tablet: SingleChildScrollView(
-            reverse: false,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 130,
-                ),
-                Column(
+          tablet: Stack(
+            children: [
+              SingleChildScrollView(
+                reverse: false,
+                child: Column(
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: 130,
                     ),
-                    SearchBar(hintText: "Search for students..."),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Wrap(
-                      direction: Axis.vertical,
-                      children: children, // My Children
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 130,
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SearchBar(hintText: "Search for students..."),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Wrap(
+                              direction: Axis.vertical,
+                              children: children, // My Children
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              CustomTabBar(),
+            ],
           ),
           desktop: Stack(
             children: [

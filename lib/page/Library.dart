@@ -57,10 +57,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height  : 20,
+                  ),
                   CreateTable(
                     onTap: () {
                       _createTable();
                     },
+                  ),
+                  SizedBox(
+                    height  : 20,
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -92,49 +98,78 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
-          tablet: SingleChildScrollView(
-            reverse: false,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
+          tablet: Stack(
+            children: [
+              SingleChildScrollView(
+                reverse: false,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Wrap(
+                      SizedBox(
+                        height: 130,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  load == true
-                                      ? Center(
-                                          child: Image(
-                                            image: AssetImage(
-                                                'Assets/krowl_logo.gif'),
-                                            fit: BoxFit.cover,
-                                            height: 150,
-                                            width: 150,
-                                          ),
-                                        )
-                                      : Column(
-                                          children: children.toList(),
-                                        )
-                                ],
-                              ),
-                              SizedBox(width: 20),
-                            ]),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  CreateTable(
+                                    onTap: () {
+                                      _createTable();
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Wrap(
+                                    children: [
+                                      load == true
+                                          ? SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: Center(
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      'Assets/krowl_logo.gif'),
+                                                  fit: BoxFit.cover,
+                                                  height: 150,
+                                                  width: 150,
+                                                ),
+                                              ))
+                                          : SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: Center(
+                                                child: Column(
+                                                  children: children.toList(),
+                                                ),
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 20),
+                                ]),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+              CustomTabBar(),
+            ],
           ),
           desktop: Stack(
             children: [
@@ -145,34 +180,41 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     height: 130,
                   ),
                   load == true
-                      ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                          CreateTable(
-                            onTap: () {
-                              _createTable();
-                            },
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.57,
-                              child: Center(
-                                child: Image(
-                                  image: AssetImage('Assets/krowl_logo.gif'),
-                                  fit: BoxFit.cover,
-                                  height: 150,
-                                  width: 150,
-                                ),
-                              )),
-                          SizedBox(width: 20),
-                        ])
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              CreateTable(
+                                onTap: () {
+                                  _createTable();
+                                },
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.57,
+                                  child: Center(
+                                    child: Image(
+                                      image:
+                                          AssetImage('Assets/krowl_logo.gif'),
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
+                                    ),
+                                  )),
+                              SizedBox(width: 20),
+                            ])
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                               SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.05),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.05),
                               CreateTable(
                                 onTap: () {
                                   _createTable();
@@ -182,7 +224,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 width: 20,
                               ),
                               Container(
-                                  width: MediaQuery.of(context).size.width * 0.57,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.57,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -202,7 +245,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                           initialPage: _currentPage - 1,
                                           // default height is 48
                                           buttonShape: BeveledRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
                                           ),
                                           buttonSelectedForegroundColor:
                                               globals.blue2,
@@ -330,13 +374,17 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       } else if (body[0] == "error7") {
         WarningPopup(context, globals.warning7);
       } else {
-        load = false;
+        if (mounted) {
+          setState(() {
+            load = true;
+          });
+        }
         ErrorPopup(context, globals.errorElse);
       }
     } catch (e) {
       if (mounted) {
         setState(() {
-          load = false;
+          load = true;
           ErrorPopup(context, globals.errorException);
         });
       }

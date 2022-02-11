@@ -112,76 +112,88 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
-          tablet: SingleChildScrollView(
-            reverse: false,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 130,
-                ),
-                Column(
+          tablet: Stack(
+            children: [
+              SingleChildScrollView(
+                reverse: false,
+                child: Column(
                   children: [
+                    SizedBox(
+                      height: 130,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BouncingWidget(
-                          duration: Duration(milliseconds: 100),
-                          scaleFactor: 1.5,
-                          onPressed: () {
-                            print("onPressed");
-                          },
-                          child: Text(
-                            "Forum",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Rubik',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                            ),
-                          ),
-                        ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.2,
+                          width: 130,
                         ),
-                        AskQuestionButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/Forum2');
-                          },
-                          text: 'Ask a question',
-                          color1: globals.blue2,
-                          color2: Colors.blueGrey,
-                          textcolor: globals.blue1,
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                BouncingWidget(
+                                  duration: Duration(milliseconds: 100),
+                                  scaleFactor: 1.5,
+                                  onPressed: () {
+                                    print("onPressed");
+                                  },
+                                  child: Text(
+                                    "Forum",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Rubik',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 40,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.2,
+                                ),
+                                AskQuestionButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/Forum2');
+                                  },
+                                  text: 'Ask a question',
+                                  color1: globals.blue2,
+                                  color2: Colors.blueGrey,
+                                  textcolor: globals.blue1,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SearchBar(hintText: "Search a subject..."),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            load == true
+                                ? SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.57,
+                                    child: Center(
+                                      child: Image(
+                                        image: AssetImage('Assets/krowl_logo.gif'),
+                                        fit: BoxFit.cover,
+                                        height: 150,
+                                        width: 150,
+                                      ),
+                                    ))
+                                : Wrap(
+                                    direction: Axis.vertical,
+                                    children: children, // My Children
+                                  ),
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SearchBar(hintText: "Search a subject..."),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    load == true
-                        ? SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.57,
-                            child: Center(
-                              child: Image(
-                                image: AssetImage('Assets/krowl_logo.gif'),
-                                fit: BoxFit.cover,
-                                height: 150,
-                                width: 150,
-                              ),
-                            ))
-                        : Wrap(
-                            direction: Axis.vertical,
-                            children: children, // My Children
-                          ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              CustomTabBar(),
+            ],
           ),
           desktop: Stack(
             clipBehavior: Clip.none,

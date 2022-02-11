@@ -131,7 +131,7 @@ class _StudentCardState extends State<StudentCard> {
                                         EdgeInsets.only(bottom: 15, right: 15),
                                     child: StudentButton(
                                       height: 25,
-                                      fontSize: 12,
+                                      fontSize: 12.0,
                                       text: "Add Friend",
                                       textcolor: globals.blue1,
                                       color1: globals.blue2,
@@ -157,7 +157,7 @@ class _StudentCardState extends State<StudentCard> {
                                         margin: EdgeInsets.only(
                                             bottom: 15, right: 15),
                                         child: StudentButton(
-                                          fontSize: 12,
+                                          fontSize: 12.0,
                                           height: 25,
                                           text: "Requetsed",
                                           textcolor: globals.blue1,
@@ -185,7 +185,7 @@ class _StudentCardState extends State<StudentCard> {
                                             margin: EdgeInsets.only(
                                                 bottom: 15, left: 10, right: 6),
                                             child: StudentButton(
-                                              fontSize: 12,
+                                              fontSize: 12.0,
                                               height: 25,
                                               text: "Unfriend",
                                               textcolor: globals.blue1,
@@ -205,7 +205,7 @@ class _StudentCardState extends State<StudentCard> {
                                                 bottom: 15, right: 15),
                                             child: StudentButton(
                                               height: 25,
-                                              fontSize: 12,
+                                              fontSize: 12.0,
                                               text: "Message",
                                               textcolor: globals.blue1,
                                               color1: globals.blue2,
