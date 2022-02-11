@@ -190,7 +190,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                 reverse: false,
                 child: Column(children: [
                   SizedBox(
-                    height: 120,
+                    height: 130,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -56,76 +56,74 @@ class _ReplyPageState extends State<ReplyPage> {
   Widget build(BuildContext context) {
     var NbrReplies;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomTabBar(),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DetailedReplyContainer(
-                    id: widget.id,
-                    question: widget.question,
-                    subject: widget.subject,
-                    username: widget.username,
-                    contextQuestion: widget.contextQuestion,
-                    date: widget.date,
-                    onTap: (data) => _addReply(data),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 110.0, bottom: 15),
-                    child: Text("Replies ($NbrReplies)",
-                        // this is the number of replies
-                        style: GoogleFonts.nunito(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black)),
-                  ),
-                  Wrap(
-                    direction: Axis.vertical,
-                    children: children, // My Children
-                  ),
-                ],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(children: [
+              SizedBox(
+                height: 130,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 20,
-                  ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Contributors(),
-                      SizedBox(
-                        height: 20,
+                      DetailedReplyContainer(
+                        id: widget.id,
+                        question: widget.question,
+                        subject: widget.subject,
+                        username: widget.username,
+                        contextQuestion: widget.contextQuestion,
+                        date: widget.date,
+                        onTap: (data) => _addReply(data),
                       ),
-                      UnansweredQuestions(
-                        username: 'idotalia',
-                        question: ' Anyone here have experience with Pytorch?',
-                        contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn',
-                        NbrReplies: 1,
-                      )
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 110.0, bottom: 15),
+                        child: Text("Replies ($NbrReplies)",
+                            // this is the number of replies
+                            style: GoogleFonts.nunito(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black)),
+                      ),
+                      Wrap(
+                        direction: Axis.vertical,
+                        children: children, // My Children
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          Contributors(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          UnansweredQuestions(
+                            username: 'idotalia',
+                            question: ' Anyone here have experience with Pytorch?',
+                            contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn',
+                            NbrReplies: 1,
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ],
               ),
-            ],
+            ]),
           ),
-        ]),
+          CustomTabBar(),
+        ],
       ),
     );
   }
@@ -212,6 +210,7 @@ class _ReplyPageState extends State<ReplyPage> {
         //     load = true;
         //   });
         // }
+        globals.loadReplyPage = false;
         ErrorPopup(context, globals.errorElse);
       }
 
@@ -221,12 +220,10 @@ class _ReplyPageState extends State<ReplyPage> {
 
       } catch (e) {
         print(e);
-        if (mounted) {
-          setState(() {
-            //load = false;
-            ErrorPopup(context, globals.errorException);
-          });
-        }
+        globals.loadReplyPage = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
     }
 

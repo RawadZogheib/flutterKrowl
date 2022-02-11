@@ -136,48 +136,17 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
-          desktop: SingleChildScrollView(
-            reverse: false,
-            child: Column(children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTabBar(),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              load == true
-                  ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                      CreateTable(
-                        onTap: () {
-                          _createTable();
-                        },
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.57,
-                          child: Center(
-                            child: Image(
-                              image: AssetImage('Assets/krowl_logo.gif'),
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            ),
-                          )),
-                      SizedBox(width: 20),
-                    ])
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.05),
+          desktop: Stack(
+            children: [
+              SingleChildScrollView(
+                reverse: false,
+                child: Column(children: [
+                  SizedBox(
+                    height: 130,
+                  ),
+                  load == true
+                      ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                           CreateTable(
                             onTap: () {
                               _createTable();
@@ -186,43 +155,72 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                           SizedBox(
                             width: 20,
                           ),
-                          Container(
+                          SizedBox(
                               width: MediaQuery.of(context).size.width * 0.57,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Wrap(children: children.toList()),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: NumberPaginator(
-                                      numberPages: _totalPages,
-                                      onPageChange: (int index) {
-                                        setState(() {
-                                          _currentPage = index + 1;
-                                          _loadNewPage();
-                                          print(index + 1);
-                                        });
-                                      },
-                                      // initially selected index
-                                      initialPage: _currentPage - 1,
-                                      // default height is 48
-                                      buttonShape: BeveledRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      buttonSelectedForegroundColor:
-                                          globals.blue2,
-                                      buttonUnselectedForegroundColor:
-                                          globals.blue1,
-                                      buttonUnselectedBackgroundColor:
-                                          globals.blue2,
-                                      buttonSelectedBackgroundColor:
-                                          globals.blue1,
-                                    ),
-                                  ),
-                                ],
+                              child: Center(
+                                child: Image(
+                                  image: AssetImage('Assets/krowl_logo.gif'),
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
                               )),
-                        ]),
-            ]),
+                          SizedBox(width: 20),
+                        ])
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.05),
+                              CreateTable(
+                                onTap: () {
+                                  _createTable();
+                                },
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Container(
+                                  width: MediaQuery.of(context).size.width * 0.57,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Wrap(children: children.toList()),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: NumberPaginator(
+                                          numberPages: _totalPages,
+                                          onPageChange: (int index) {
+                                            setState(() {
+                                              _currentPage = index + 1;
+                                              _loadNewPage();
+                                              print(index + 1);
+                                            });
+                                          },
+                                          // initially selected index
+                                          initialPage: _currentPage - 1,
+                                          // default height is 48
+                                          buttonShape: BeveledRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          buttonSelectedForegroundColor:
+                                              globals.blue2,
+                                          buttonUnselectedForegroundColor:
+                                              globals.blue1,
+                                          buttonUnselectedBackgroundColor:
+                                              globals.blue2,
+                                          buttonSelectedBackgroundColor:
+                                              globals.blue1,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ]),
+                ]),
+              ),
+              CustomTabBar(),
+            ],
           ),
         ));
   }
