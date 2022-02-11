@@ -45,6 +45,7 @@ class _StudentCardState extends State<StudentCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.pushNamed(context, '/StudentProfile');
         print("Click");
       },
       hoverColor: Colors.transparent,
