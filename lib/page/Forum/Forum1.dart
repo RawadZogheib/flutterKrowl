@@ -183,101 +183,102 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
-          desktop: SingleChildScrollView(
-            reverse: false,
-            child: Column(children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTabBar(),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+          desktop: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SingleChildScrollView(
+                reverse: false,
+                child: Column(children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.01,
+                    height: 120,
                   ),
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                      Column(
                         children: [
-                          BouncingWidget(
-                            duration: Duration(milliseconds: 100),
-                            scaleFactor: 1.5,
-                            onPressed: () {
-                              print("onPressed");
-                            },
-                            child: Text(
-                              "Forum",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BouncingWidget(
+                                duration: Duration(milliseconds: 100),
+                                scaleFactor: 1.5,
+                                onPressed: () {
+                                  print("onPressed");
+                                },
+                                child: Text(
+                                  "Forum",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Rubik',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 40,
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.35,
+                              ),
+                              AskQuestionButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/Forum2');
+                                },
+                                text: 'Ask a question',
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                textcolor: globals.blue1,
+                              ),
+                            ],
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: 20,
                           ),
-                          AskQuestionButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/Forum2');
-                            },
-                            text: 'Ask a question',
-                            color1: globals.blue2,
-                            color2: Colors.blueGrey,
-                            textcolor: globals.blue1,
+                          SearchBar(
+                            hintText: "Search a subject...",
                           ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          load == true
+                              ? SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.57,
+                                  child: Center(
+                                    child: Image(
+                                      image:
+                                          AssetImage('Assets/krowl_logo.gif'),
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
+                                    ),
+                                  ))
+                              : Wrap(
+                                  direction: Axis.vertical,
+                                  children: children, // My Children
+                                ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Contributors(),
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        width: MediaQuery.of(context).size.width * 0.01,
                       ),
-                      SearchBar(
-                        hintText: "Search a subject...",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      load == true
-                          ? SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.57,
-                              child: Center(
-                                child: Image(
-                                  image: AssetImage('Assets/krowl_logo.gif'),
-                                  fit: BoxFit.cover,
-                                  height: 150,
-                                  width: 150,
-                                ),
-                              ))
-                          : Wrap(
-                              direction: Axis.vertical,
-                              children: children, // My Children
-                            ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Contributors(),
-                    ],
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.01,
-                  ),
-                ],
+                ]),
               ),
-            ]),
+              CustomTabBar(),
+            ],
           ),
         ));
   }
