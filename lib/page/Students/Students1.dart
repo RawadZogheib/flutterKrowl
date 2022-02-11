@@ -185,78 +185,86 @@ class _Students1State extends State<Students1>
   }
 
   _loadStudents() async {
-    children.clear();
-    if (mounted) {
-      setState(() {
-        children.clear();
-        load = true;
-      });
-    }
-
-    //globals.occupenTable.clear();
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'currentPage': _currentPage,
-      //'user_uni': user_uni,
-    };
-
-    var res = await CallApi().postData(data, '(Control)loadStudents.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (mounted) {
-      setState(() {
-        load = false;
-      });
-    }
-    if (body[0] == "success") {
+    try {
+      children.clear();
       if (mounted) {
         setState(() {
-          _totalStudents = int.parse(body[1]);
-          _totalPages = (_totalStudents / 20).ceil();
+          children.clear();
+          load = true;
         });
       }
-      for (var i = 0; i < body[2].length; i++) {
-        children.add(
-          StudentCard(
-            userId: body[2][i][0],
-            username: body[2][i][1] + ' ' + body[2][i][2],
-            universityname: body[2][i][4],
-            isFriend: body[2][i][5],
-            userImg: body[2][i][3],
-            contextStudentPage: context,
-            reload: () {
-              _loadNewPage();
-            },
-          ),
-        );
-      }
+
+      //globals.occupenTable.clear();
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
+      var user_uni = localStorage.getString("user_uni");
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'currentPage': _currentPage,
+        //'user_uni': user_uni,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadStudents.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
 
       if (mounted) {
         setState(() {
-          children;
+          load = false;
         });
       }
-    } else if (body[0] == "empty") {
-      if (_currentPage != 1) {
-        setState(() {
-          _currentPage = 1;
-          _loadNewPage();
-        });
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            _totalStudents = int.parse(body[1]);
+            _totalPages = (_totalStudents / 20).ceil();
+          });
+        }
+        for (var i = 0; i < body[2].length; i++) {
+          children.add(
+            StudentCard(
+              userId: body[2][i][0],
+              username: body[2][i][1] + ' ' + body[2][i][2],
+              universityname: body[2][i][4],
+              isFriend: body[2][i][5],
+              userImg: body[2][i][3],
+              contextStudentPage: context,
+              reload: () {
+                _loadNewPage();
+              },
+            ),
+          );
+        }
+
+        if (mounted) {
+          setState(() {
+            children;
+          });
+        }
+      } else if (body[0] == "empty") {
+        if (_currentPage != 1) {
+          setState(() {
+            _currentPage = 1;
+            _loadNewPage();
+          });
+        } else {
+          WarningPopup(context, globals.warningEmptyLibrary);
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
       } else {
-        WarningPopup(context, globals.warningEmptyLibrary);
+        ErrorPopup(context, globals.errorElse);
       }
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+    } catch (e) {
+      print(e);
+      Navigator.pop(context);
+      ErrorPopup(context, globals.errorException);
     }
   }
 

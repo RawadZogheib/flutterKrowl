@@ -237,71 +237,79 @@ class _Login2State extends State<Login2> {
 
   _login() async {
     LoadingPopUp(context);
+    try {
+      if (globals.emailLogin != null && globals.passwordLogin != null) {
+        if (globals.emailLogin!.isNotEmpty &&
+            globals.passwordLogin!.isNotEmpty) {
+          var data = {
+            'version': globals.version,
+            'email': globals.emailLogin,
+            'password': globals.passwordLogin
+          };
 
-    if (globals.emailLogin != null && globals.passwordLogin != null) {
-      if (globals.emailLogin!.isNotEmpty && globals.passwordLogin!.isNotEmpty) {
-        var data = {
-          'version': globals.version,
-          'email': globals.emailLogin,
-          'password': globals.passwordLogin
-        };
+          var res = await CallApi().postData(data, '(Control)login.php');
+          print(res.body);
+          List<dynamic> body = json.decode(res.body);
 
-        var res = await CallApi().postData(data, '(Control)login.php');
-        print(res.body);
-        List<dynamic> body = json.decode(res.body);
+          setState(() {
+            Navigator.pop(context);
+          });
 
-        setState(() {
-          Navigator.pop(context);
-        });
+          if (body[0] == "true") {
+            SharedPreferences localStorage =
+            await SharedPreferences.getInstance();
+            // print("fffffffffffffff: ${body[1]}");
+            // print("fffffffffffffff: ${body[2]}");
+            // print("fffffffffffffff: ${body[3]}");
+            // print("fffffffffffffff: ${body[4]}");
+            print("CHATTTfffffffffffffff: ${body[6]}");
+            localStorage.setString('token', body[1]);
+            localStorage.setString('account_Id', body[2]);
+            localStorage.setString('username', body[3]);
+            localStorage.setString('user_uni', body[4]);
+            localStorage.setString('photo', body[5]);
+            localStorage.setString('userTokenChat', body[6]);
 
-        if (body[0] == "true") {
-          SharedPreferences localStorage =
-              await SharedPreferences.getInstance();
-          // print("fffffffffffffff: ${body[1]}");
-          // print("fffffffffffffff: ${body[2]}");
-          // print("fffffffffffffff: ${body[3]}");
-          // print("fffffffffffffff: ${body[4]}");
-          print("CHATTTfffffffffffffff: ${body[6]}");
-          localStorage.setString('token', body[1]);
-          localStorage.setString('account_Id', body[2]);
-          localStorage.setString('username', body[3]);
-          localStorage.setString('user_uni', body[4]);
-          localStorage.setString('photo', body[5]);
-          localStorage.setString('userTokenChat', body[6]);
-
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Remember Me'),
-              content: const Text(globals.rememberMe),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => _yesRemember(),
-                  child: const Text('Yes'),
-                ),
-                TextButton(
-                  onPressed: () => _noRemember(),
-                  child: const Text('No'),
-                ),
-              ],
-            ),
-          );
-        } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
-        } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorToken);
-        } else if (body[0] == "false") {
-          WarningPopup(context, 'Invalid username or password.');
-        } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    title: const Text('Remember Me'),
+                    content: const Text(globals.rememberMe),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => _yesRemember(),
+                        child: const Text('Yes'),
+                      ),
+                      TextButton(
+                        onPressed: () => _noRemember(),
+                        child: const Text('No'),
+                      ),
+                    ],
+                  ),
+            );
+          } else if (body[0] == "errorToken") {
+            ErrorPopup(context, globals.errorToken);
+          } else if (body[0] == "errorVersion") {
+            ErrorPopup(context, globals.errorToken);
+          } else if (body[0] == "false") {
+            WarningPopup(context, 'Invalid username or password.');
+          } else if (body[0] == "error7") {
+            WarningPopup(context, globals.warning7);
+          } else {
+            Navigator.pop(context);
+            ErrorPopup(context, globals.errorElse);
+          }
         } else {
-          ErrorPopup(context, globals.errorElse);
+          WarningPopup(context, globals.warning7);
         }
       } else {
         WarningPopup(context, globals.warning7);
       }
-    } else {
-      WarningPopup(context, globals.warning7);
+    }catch(e){
+      print(e);
+      Navigator.pop(context);
+      ErrorPopup(context, globals.errorException);
     }
   }
 

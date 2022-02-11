@@ -205,30 +205,37 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
   }
 
   Future<void> _createPost() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
+    try {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
 
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'post_subject': globals.dropdown2,
-      'post_question': globals.question.toString(),
-      'post_context': globals.context_question.toString(),
-    };
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'post_subject': globals.dropdown2,
+        'post_question': globals.question.toString(),
+        'post_context': globals.context_question.toString(),
+      };
 
-    var res = await CallApi().postData(data, '(Control)createPost.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
+      var res = await CallApi().postData(data, '(Control)createPost.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
-      //toast success
-      //show on forum1
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+      if (body[0] == "success") {
+        //toast success
+        //show on forum1
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        ErrorPopup(context, globals.errorElse);
+      }
+    } catch (e) {
+      print(e);
+      ErrorPopup(context, globals.errorException);
     }
   }
 }

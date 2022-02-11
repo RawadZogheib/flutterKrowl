@@ -384,6 +384,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
         print(
             '=========<<======================================================<<==================================================<<=========');
       } catch (e) {
+        print(e);
         if (mounted) {
           setState(() {
             load = true;
