@@ -5,10 +5,12 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 class StudentButton extends StatelessWidget {
   var text;
-  var width;
+  var fontSize;
+  // double width;
+  double height;
   final onPressed;
 
-  StudentButton({ required this.text,this.width, required this.textcolor, required this.color1,required this.color2, this.color, required this.onPressed});
+  StudentButton({ required this.text,required this.fontSize, required this.height, required this.textcolor, required this.color1,required this.color2, this.color, required this.onPressed});
   var color;
   var color1;
   var color2;
@@ -16,8 +18,7 @@ class StudentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: 25,
+      height: height,
       child: ElevatedButton(onPressed: onPressed,
         style:
         ButtonStyle(
@@ -31,7 +32,7 @@ class StudentButton extends StatelessWidget {
             )
         ),
         child: Text (text,
-          style: TextStyle(fontSize: 12, fontFamily: 'Rubik', color: textcolor),
+          style: TextStyle(fontSize: fontSize, fontFamily: 'Rubik', color: textcolor),
 
         ),),
     );

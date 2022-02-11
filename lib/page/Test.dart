@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/Forum/ReplyPage/RepliesWidget.dart';
-import 'package:flutter_app_backend/widgets/Forum/ReplyPage/UnansweredQuestions.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 
-import 'Responsive.dart';
+import '../widgets/Students/StudentProfile/ProfileQuestions&Replies.dart';
+import '../widgets/Students/StudentProfile/StudentDetailedProfileContainer.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Test()));
@@ -16,17 +16,38 @@ class Test extends StatefulWidget {
 
 class _TestState extends State<Test> {
   FocusNode _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        UnansweredQuestions(username: 'idotalia', question:' Anyone here have experience with Pytorch?', contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn', NbrReplies: 1,),
-        //Replies( date: "posted on Jan 25, 2021", username: 'DimitriHaddad', reply: 'Yes', NbrReplies: 1,),
-      ]),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomTabBar(),
+              ],
+            ),
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StudentDetailedProfile(isFriend: false, universityname: "Lebanese Universty", username:"Rawad Zogheib", description: "No description provided",  ),
+                  SizedBox(height: 15,),
+                  StudentQuestionsReplies(),
+                  SizedBox(
+                    height: 30,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
-
 }
-
-
-

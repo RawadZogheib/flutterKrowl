@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:avatars/avatars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentButton.dart';
+import 'package:flutter_app_backend/widgets/Students/Students1/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
@@ -130,6 +129,8 @@ class _StudentCardState extends State<StudentCard> {
                                     margin:
                                         EdgeInsets.only(bottom: 15, right: 15),
                                     child: StudentButton(
+                                      height: 25,
+                                      fontSize: 12,
                                       text: "Add Friend",
                                       textcolor: globals.blue1,
                                       color1: globals.blue2,
@@ -155,6 +156,8 @@ class _StudentCardState extends State<StudentCard> {
                                         margin: EdgeInsets.only(
                                             bottom: 15, right: 15),
                                         child: StudentButton(
+                                          fontSize: 12,
+                                          height: 25,
                                           text: "Requetsed",
                                           textcolor: globals.blue1,
                                           color1: globals.blue2,
@@ -181,6 +184,8 @@ class _StudentCardState extends State<StudentCard> {
                                             margin: EdgeInsets.only(
                                                 bottom: 15, left: 10, right: 6),
                                             child: StudentButton(
+                                              fontSize: 12,
+                                              height: 25,
                                               text: "Unfriend",
                                               textcolor: globals.blue1,
                                               color1: globals.blue2,
@@ -198,6 +203,8 @@ class _StudentCardState extends State<StudentCard> {
                                             margin: EdgeInsets.only(
                                                 bottom: 15, right: 15),
                                             child: StudentButton(
+                                              height: 25,
+                                              fontSize: 12,
                                               text: "Message",
                                               textcolor: globals.blue1,
                                               color1: globals.blue2,
