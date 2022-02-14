@@ -321,7 +321,7 @@ class _CustomContainerState extends State<CustomTable>
         });
       }
       if (!await launch(
-        globals.jaasUrl + table_name + '&account=' + username.toString(),
+        globals.jaasUrl + table_name + '&account=' + username.toString() + '&type=silent',
         forceSafariVC: false,
         forceWebView: true,
         headers: <String, String>{'my_header_key': 'my_header_value'},
