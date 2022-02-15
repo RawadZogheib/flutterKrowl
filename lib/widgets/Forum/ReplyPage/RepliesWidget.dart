@@ -144,111 +144,151 @@ class _RepliesState extends State<Replies> {
   _onLike() async {
     while (globals.loadReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("reload like");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
-    _loadLike = true;
-    globals.loadLikeDislikeForm1 = true;
-    print('Sending like to server...');
+    try {
+      _loadLike = true;
+      globals.loadLikeDislikeReplyPage = true;
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print('Sending like to server...');
 
-    //send to server
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
+      //send to server
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
 
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'post_id': widget.id,
-      'like_val': '1',
-    };
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'post_id': widget.id,
+        'like_val': '1',
+      };
 
-    var res = await CallApi().postData(data, '(Control)likePosts.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
+      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
-      if (mounted) {
-        setState(() {
-          if (int.parse(body[1]) == 0) {
-            widget.color = Colors.grey.shade600;
-            widget.color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1]) == 1) {
-            widget.color = globals.blue1;
-            widget.color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1]) == -1) {
-            widget.color = Colors.grey.shade600;
-            widget.color2 = globals.blue1;
-          }
-          widget.val = int.parse(body[2]);
-        });
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            if (int.parse(body[1]) == 0) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == 1) {
+              widget.color = globals.blue1;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == -1) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = globals.blue1;
+            }
+            widget.val = int.parse(body[2]);
+          });
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error4") {
+        ErrorPopup(context, globals.error4);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        _loadLike = false;
+        globals.loadLikeDislikeReplyPage = false;
+        ErrorPopup(context, globals.errorElse);
       }
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error4") {
-      ErrorPopup(context, globals.error4);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
-    } else {
-      ErrorPopup(context, globals.errorElse);
+
+      globals.loadLikeDislikeReplyPage = false;
+      _loadLike = false;
+      print('load like end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    } catch (e) {
+      print(e);
+      _loadLike = false;
+      globals.loadLikeDislikeReplyPage = false;
+      ErrorPopup(context, globals.errorException);
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
-    globals.loadLikeDislikeForm1 = false;
-    _loadLike = false;
-    print('load like end!!!');
   }
 
   _onDislike() async {
     while (globals.loadReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
       print("reload dislike");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
-    _loadDislike = true;
-    globals.loadLikeDislikeForm1 = true;
-    print('Sending dislike to server...');
-    //send to server
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
+    try {
+      _loadDislike = true;
+      globals.loadLikeDislikeReplyPage = true;
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print('Sending dislike to server...');
+      //send to server
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
 
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'post_id': widget.id,
-      'like_val': '-1',
-    };
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'post_id': widget.id,
+        'like_val': '-1',
+      };
 
-    var res = await CallApi().postData(data, '(Control)likePosts.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
+      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
-      if (mounted) {
-        setState(() {
-          if (int.parse(body[1]) == 0) {
-            widget.color = Colors.grey.shade600;
-            widget.color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1]) == 1) {
-            widget.color = globals.blue1;
-            widget.color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1]) == -1) {
-            widget.color = Colors.grey.shade600;
-            widget.color2 = globals.blue1;
-          }
-          widget.val = int.parse(body[2]);
-        });
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            if (int.parse(body[1]) == 0) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == 1) {
+              widget.color = globals.blue1;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == -1) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = globals.blue1;
+            }
+            widget.val = int.parse(body[2]);
+          });
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error4") {
+        ErrorPopup(context, globals.error4);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        _loadDislike = false;
+        globals.loadLikeDislikeReplyPage = false;
+        ErrorPopup(context, globals.errorElse);
       }
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error4") {
-      ErrorPopup(context, globals.error4);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
-    } else {
-      ErrorPopup(context, globals.errorElse);
+
+      globals.loadLikeDislikeReplyPage = false;
+      _loadDislike = false;
+      print('load dislike end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    } catch (e) {
+      print(e);
+      _loadDislike = false;
+      globals.loadLikeDislikeReplyPage = false;
+      ErrorPopup(context, globals.errorException);
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
-    globals.loadLikeDislikeForm1 = false;
-    _loadDislike = false;
-    print('load dislike end!!!');
   }
 }

@@ -303,34 +303,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
         globals.loadLikeDislikeReplyPage = false;
         ErrorPopup(context, globals.errorElse);
       }
-      //
-      //await Future.delayed(Duration(seconds: 10));
 
-      // if (widget.like == false) {
-      //   if (widget.dislike == false) {
-      //     setState(() {
-      //       widget.val += 1;
-      //       widget.like = true;
-      //       widget.color = globals.blue1;
-      //       widget.color2 = Colors.grey.shade600;
-      //     });
-      //   } else {
-      //     setState(() {
-      //       widget.val += 2;
-      //       widget.like = true;
-      //       widget.dislike = false;
-      //       widget.color = globals.blue1;
-      //       widget.color2 = Colors.grey.shade600;
-      //     });
-      //   }
-      // } else {
-      //   setState(() {
-      //     widget.val -= 1;
-      //     widget.like = false;
-      //     widget.color = Colors.grey.shade600;
-      //     widget.color2 = Colors.grey.shade600;
-      //   });
-      // }
       globals.loadLikeDislikeReplyPage = false;
       _loadLike = false;
       print('load like end!!!');
@@ -405,34 +378,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
         globals.loadLikeDislikeReplyPage = false;
         ErrorPopup(context, globals.errorElse);
       }
-      //
-      //await Future.delayed(Duration(seconds: 10));
 
-      // if (widget.dislike == false) {
-      //   if (widget.like == false) {
-      //     setState(() {
-      //       widget.val -= 1;
-      //       widget.dislike = true;
-      //       widget.color = Colors.grey.shade600;
-      //       widget.color2 = globals.blue1;
-      //     });
-      //   } else {
-      //     setState(() {
-      //       widget.val -= 2;
-      //       widget.dislike = true;
-      //       widget.like = false;
-      //       widget.color = Colors.grey.shade600;
-      //       widget.color2 = globals.blue1;
-      //     });
-      //   }
-      // } else {
-      //   setState(() {
-      //     widget.val += 1;
-      //     widget.dislike = false;
-      //     widget.color = Colors.grey.shade600;
-      //     widget.color2 = Colors.grey.shade600;
-      //   });
-      // }
       globals.loadLikeDislikeReplyPage = false;
       _loadDislike = false;
       print('load dislike end!!!');
