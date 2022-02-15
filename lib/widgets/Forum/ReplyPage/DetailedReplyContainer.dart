@@ -15,7 +15,10 @@ class DetailedReplyContainer extends StatefulWidget {
   String question;
   String subject;
   String username;
+  var val;
   var date;
+  Color color;
+  Color color2;
   String contextQuestion;
   var onTap;
 
@@ -24,27 +27,25 @@ class DetailedReplyContainer extends StatefulWidget {
       required this.question,
       required this.subject,
       required this.username,
+      required this.val,
       required this.contextQuestion,
       required this.date,
-      this.color,
+      required this.color,
+      required this.color2,
       required this.onTap});
-
-  var color;
 
   @override
   State<DetailedReplyContainer> createState() => _DetailedReplyContainerState();
 }
 
 class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
+  bool _loadLike = false;
+  bool _loadDislike = false;
   final nameHolder = TextEditingController();
 
   clearTextInput() {
     nameHolder.clear();
   }
-
-  var color1;
-
-  var color2;
 
   @override
   Widget build(BuildContext context) {
@@ -133,17 +134,21 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () async {
+                    if (_loadLike == false && _loadDislike == false) {
+                      await _onLike();
+                    }
+                  },
                   child: Icon(
                     Icons.thumb_up,
-                    color: Colors.grey,
+                    color: widget.color,
                     size: 20,
                   ),
                 ),
                 SizedBox(
                   height: 8,
                 ),
-                Text('1'),
+                Text('${widget.val.toString()}'),
                 SizedBox(
                   height: 8,
                 ),
@@ -151,10 +156,14 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () async {
+                    if (_loadLike == false && _loadDislike == false) {
+                      await _onDislike();
+                    }
+                  },
                   child: Icon(
                     Icons.thumb_down,
-                    color: Colors.grey,
+                    color: widget.color2,
                     size: 20,
                   ),
                 ),
@@ -222,7 +231,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
     List<dynamic> body = json.decode(res.body);
 
     if (body[0] == "success") {
-      widget.onTap('33');// get reply id from php body[2]
+      widget.onTap('33'); // get reply id from php body[2]
       //toast success
       //show on forum1
     } else if (body[0] == "errorVersion") {
@@ -231,6 +240,211 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       ErrorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
       WarningPopup(context, globals.warning7);
+    }
+  }
+
+  _onLike() async {
+    while (globals.loadReplyPage == true) {
+      await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print("reload like");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+    try {
+      _loadLike = true;
+      globals.loadLikeDislikeReplyPage = true;
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print('Sending like to server...');
+
+      //send to server
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'post_id': widget.id,
+        'like_val': '1',
+      };
+
+      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            if (int.parse(body[1]) == 0) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == 1) {
+              widget.color = globals.blue1;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == -1) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = globals.blue1;
+            }
+            widget.val = int.parse(body[2]);
+          });
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error4") {
+        ErrorPopup(context, globals.error4);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        _loadLike = false;
+        globals.loadLikeDislikeReplyPage = false;
+        ErrorPopup(context, globals.errorElse);
+      }
+      //
+      //await Future.delayed(Duration(seconds: 10));
+
+      // if (widget.like == false) {
+      //   if (widget.dislike == false) {
+      //     setState(() {
+      //       widget.val += 1;
+      //       widget.like = true;
+      //       widget.color = globals.blue1;
+      //       widget.color2 = Colors.grey.shade600;
+      //     });
+      //   } else {
+      //     setState(() {
+      //       widget.val += 2;
+      //       widget.like = true;
+      //       widget.dislike = false;
+      //       widget.color = globals.blue1;
+      //       widget.color2 = Colors.grey.shade600;
+      //     });
+      //   }
+      // } else {
+      //   setState(() {
+      //     widget.val -= 1;
+      //     widget.like = false;
+      //     widget.color = Colors.grey.shade600;
+      //     widget.color2 = Colors.grey.shade600;
+      //   });
+      // }
+      globals.loadLikeDislikeReplyPage = false;
+      _loadLike = false;
+      print('load like end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    } catch (e) {
+      print(e);
+      _loadLike = false;
+      globals.loadLikeDislikeReplyPage = false;
+      ErrorPopup(context, globals.errorException);
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+  }
+
+  _onDislike() async {
+    while (globals.loadReplyPage == true) {
+      await Future.delayed(Duration(seconds: 1));
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print("reload dislike");
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+    try {
+      _loadDislike = true;
+      globals.loadLikeDislikeReplyPage = true;
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print('Sending dislike to server...');
+      //send to server
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'post_id': widget.id,
+        'like_val': '-1',
+      };
+
+      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+
+      if (body[0] == "success") {
+        if (mounted) {
+          setState(() {
+            if (int.parse(body[1]) == 0) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == 1) {
+              widget.color = globals.blue1;
+              widget.color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1]) == -1) {
+              widget.color = Colors.grey.shade600;
+              widget.color2 = globals.blue1;
+            }
+            widget.val = int.parse(body[2]);
+          });
+        }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error4") {
+        ErrorPopup(context, globals.error4);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        _loadDislike = false;
+        globals.loadLikeDislikeReplyPage = false;
+        ErrorPopup(context, globals.errorElse);
+      }
+      //
+      //await Future.delayed(Duration(seconds: 10));
+
+      // if (widget.dislike == false) {
+      //   if (widget.like == false) {
+      //     setState(() {
+      //       widget.val -= 1;
+      //       widget.dislike = true;
+      //       widget.color = Colors.grey.shade600;
+      //       widget.color2 = globals.blue1;
+      //     });
+      //   } else {
+      //     setState(() {
+      //       widget.val -= 2;
+      //       widget.dislike = true;
+      //       widget.like = false;
+      //       widget.color = Colors.grey.shade600;
+      //       widget.color2 = globals.blue1;
+      //     });
+      //   }
+      // } else {
+      //   setState(() {
+      //     widget.val += 1;
+      //     widget.dislike = false;
+      //     widget.color = Colors.grey.shade600;
+      //     widget.color2 = Colors.grey.shade600;
+      //   });
+      // }
+      globals.loadLikeDislikeReplyPage = false;
+      _loadDislike = false;
+      print('load dislike end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    } catch (e) {
+      print(e);
+      _loadDislike = false;
+      globals.loadLikeDislikeReplyPage = false;
+      ErrorPopup(context, globals.errorException);
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
   }
 }

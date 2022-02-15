@@ -22,9 +22,9 @@ class Question extends StatefulWidget {
   // bool dislike;
 
   int val;
-  var date;
   Color color;
   Color color2;
+  var date;
   var onTap;
 
   Question(
@@ -35,9 +35,9 @@ class Question extends StatefulWidget {
       required this.tag,
       required this.text,
       required this.val,
-      required this.date,
       required this.color,
       required this.color2,
+      required this.date,
       required this.question_context,
       this.onTap});
 
@@ -391,6 +391,9 @@ class _QuestionState extends State<Question> {
               question: widget.text,
               subject: widget.tag,
               username: widget.username,
+              val: widget.val,
+              color: widget.color,
+              color2: widget.color2,
               contextQuestion: widget.question_context,
               date: widget.date),
         ),

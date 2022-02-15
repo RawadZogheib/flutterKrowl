@@ -19,16 +19,22 @@ class ReplyPage extends StatefulWidget {
   String question;
   String subject;
   String username;
+  var val;
   String contextQuestion;
   var date;
+  Color color;
+  Color color2;
 
   ReplyPage(
       {required this.id,
       required this.question,
       required this.subject,
       required this.username,
+      required this.val,
       required this.contextQuestion,
-      required this.date});
+      required this.date,
+      required this.color,
+        required this.color2,});
 
   @override
   _ReplyPageState createState() => _ReplyPageState();
@@ -75,6 +81,9 @@ class _ReplyPageState extends State<ReplyPage> {
                         question: widget.question,
                         subject: widget.subject,
                         username: widget.username,
+                        val: widget.val,
+                        color: widget.color,
+                        color2: widget.color2,
                         contextQuestion: widget.contextQuestion,
                         date: widget.date,
                         onTap: (data) => _addReply(data),
@@ -83,7 +92,8 @@ class _ReplyPageState extends State<ReplyPage> {
                         height: 30,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 110.0, bottom: 15),
+                        padding:
+                            const EdgeInsets.only(right: 110.0, bottom: 15),
                         child: Text("Replies ($NbrReplies)",
                             // this is the number of replies
                             style: GoogleFonts.nunito(
@@ -110,7 +120,8 @@ class _ReplyPageState extends State<ReplyPage> {
                           ),
                           UnansweredQuestions(
                             username: 'idotalia',
-                            question: ' Anyone here have experience with Pytorch?',
+                            question:
+                                ' Anyone here have experience with Pytorch?',
                             contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn',
                             NbrReplies: 1,
                           )
@@ -137,87 +148,85 @@ class _ReplyPageState extends State<ReplyPage> {
         print("reload replyPage");
         print(
             '=========<<======================================================<<==================================================<<=========');
-
       }
-      try{
-      print('load replyPage');
-      globals.loadReplyPage = true;
+      try {
+        print('load replyPage');
+        globals.loadReplyPage = true;
 
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
 
-      var data = {
-        'version': globals.version,
-        'account_Id': account_Id,
-        'post_id': widget.id
-      };
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'post_id': widget.id
+        };
 
-      var res = await CallApi().postData(data, '(Control)loadReplies.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
+        var res = await CallApi().postData(data, '(Control)loadReplies.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
 
-      children.clear();
-      if (body[0] == "success") {
-        for (var i = 0; i < body[1].length; i++) {
-          Color _color;
-          Color _color2;
-          if (int.parse(body[1][i][7]) == 0) {
-            _color = Colors.grey.shade600;
-            _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1][i][7]) == 1) {
-            _color = globals.blue1;
-            _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[1][i][7]) == -1) {
-            _color = Colors.grey.shade600;
-            _color2 = globals.blue1;
-          } else {
-            _color = Colors.transparent;
-            _color2 = Colors.transparent;
+        children.clear();
+        if (body[0] == "success") {
+          for (var i = 0; i < body[1].length; i++) {
+            Color _color;
+            Color _color2;
+            if (int.parse(body[1][i][5]) == 0) {
+              _color = Colors.grey.shade600;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1][i][5]) == 1) {
+              _color = globals.blue1;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[1][i][5]) == -1) {
+              _color = Colors.grey.shade600;
+              _color2 = globals.blue1;
+            } else {
+              _color = Colors.transparent;
+              _color2 = Colors.transparent;
+            }
+            children.insert(
+              0,
+              Replies(
+                id: body[1][i][0],
+                // reply_date
+                username: body[1][i][1],
+                // username
+                reply: body[1][i][2],
+                // reply_data
+                val: int.parse(body[1][i][3]),
+                // reply_like
+                date: body[1][0][4],
+                // reply_date
+                color: _color,
+                //
+                color2: _color2,
+              ),
+            );
           }
-          children.insert(
-            0,
-            Replies(
-              id: body[1][i][0],
-              // reply_date
-              username: body[1][i][1],
-              // username
-              reply: body[1][i][2],
-              // reply_data
-              val: int.parse(body[1][i][3]),
-              // reply_like
-              date: body[1][0][4],
-              // reply_date
-              color: _color,
-              //
-              color2: _color2,
-            ),
-          );
+          if (mounted) {
+            setState(() {
+              children;
+            });
+          }
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          // if (mounted) {
+          //   setState(() {
+          //     load = true;
+          //   });
+          // }
+          globals.loadReplyPage = false;
+          ErrorPopup(context, globals.errorElse);
         }
-        if (mounted) {
-          setState(() {
-            children;
-          });
-        }
-      } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
-      } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
-      } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
-      } else {
-        // if (mounted) {
-        //   setState(() {
-        //     load = true;
-        //   });
-        // }
-        globals.loadReplyPage = false;
-        ErrorPopup(context, globals.errorElse);
-      }
 
-      print('load replyPage end!!!');
-      print(
-          '=========<<======================================================<<==================================================<<=========');
-
+        print('load replyPage end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       } catch (e) {
         print(e);
         globals.loadReplyPage = false;
@@ -246,7 +255,7 @@ class _ReplyPageState extends State<ReplyPage> {
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
         _loadReplies();
-      } else{
+      } else {
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
