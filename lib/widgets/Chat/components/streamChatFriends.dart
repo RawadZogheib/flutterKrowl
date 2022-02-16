@@ -34,11 +34,12 @@ class _StreamExampleState extends State<StreamExample> {
   @override
   Widget build(BuildContext context) {
     final messages = widget.channel.state!.messagesStream;
+
     return WillPopScope(
           onWillPop: () async => _back(),
           child: Scaffold(
             appBar: AppBar(
-              //title: Text(widget.name),
+              title: Text( widget.channel.name.toString()),
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {

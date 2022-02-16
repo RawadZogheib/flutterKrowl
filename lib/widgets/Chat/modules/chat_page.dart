@@ -457,7 +457,7 @@ class _ChatPage2State extends State<ChatPage2> {
       User(
         id: usernameChat.toString(),
      extraData: {
-       "username": usernameChat,
+       "name": usernameChat,
        // image:
        // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
      }

@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 late BuildContext cont;
+var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -24,6 +25,13 @@ class Code extends StatefulWidget {
 }
 
 class _CodeState extends State<Code> {
+
+  Future<void> dispose() async {
+    // TODO: implement dispose
+    super.dispose();
+    await client.disconnectUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     cont = context;
@@ -283,10 +291,10 @@ class _CodeState extends State<Code> {
         List<dynamic> body = json.decode(res.body);
         print(body[0]);
         if (body[0] == "success") {
-          var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
+          //var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
           await client.connectUser(
             User(id: globals.userName!, extraData: {
-              "username": globals.userName!,
+              "name": globals.userName!,
               // image:
               // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
             }),

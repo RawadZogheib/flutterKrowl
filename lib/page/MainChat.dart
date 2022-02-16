@@ -7,8 +7,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 import '../widgets/Chat/modules/chat_page.dart';
 
-final StreamChatClient client =
-    StreamChatClient(globals.apiKey, logLevel: Level.INFO);
+var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
 
 class MainChat extends StatefulWidget {
   @override
@@ -106,13 +105,14 @@ class _MainChatState extends State<MainChat> {
     var userToken = localStorage.getString("userTokenChat");
     print("ddddddddddddddddddddddddd" + userToken.toString());
 
-     await client
-        .connectUser(
+     await client.connectUser(
           User(
             id: usernameChat.toString(),
-            //name: 'Cool Shadow',
-            // image:
-            // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+              extraData: {
+                "name": usernameChat,
+                // image:
+                // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+              }
           ),
           userToken.toString(),
         )

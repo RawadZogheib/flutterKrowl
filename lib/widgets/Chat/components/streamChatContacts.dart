@@ -5,7 +5,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 class StreamExampleTest extends StatelessWidget {
   final StreamChatClient client;
 
-  // final Channel channel; // i added
+  //final Channel channel; // i added
   /// Minimal example using Stream's core Flutter package.
   ///
   /// If you'd prefer using pre-made UI widgets for your app, please see our
@@ -25,72 +25,6 @@ class StreamExampleTest extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
            body:HomeScreen()
-          //   children: <Widget>[
-
-              //CustomTabBar(),
-              // SafeArea(
-              //   child: Padding(
-              //     padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: <Widget>[
-              //         Text(
-              //           "Chats",
-              //           style: TextStyle(
-              //               fontSize: 30, fontWeight: FontWeight.bold),
-              //         ),
-              //         Container(
-              //           padding: EdgeInsets.only(
-              //               left: 8, right: 8, top: 2, bottom: 2),
-              //           height: 30,
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(30),
-              //             color: globals.blue2,
-              //           ),
-              //           child: Row(
-              //             children: <Widget>[
-              //               Icon(
-              //                 Icons.add,
-              //                 color: globals.blue1,
-              //                 size: 20,
-              //               ),
-              //               SizedBox(
-              //                 width: 2,
-              //               ),
-              //               Text(
-              //                 "New",
-              //                 style: TextStyle(
-              //                     fontSize: 14, fontWeight: FontWeight.bold),
-              //               ),
-              //             ],
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-              //   child: TextField(
-              //     decoration: InputDecoration(
-              //       hintText: "Search...",
-              //       hintStyle: TextStyle(color: Colors.grey.shade400),
-              //       prefixIcon: Icon(
-              //         Icons.search,
-              //         color: Colors.grey.shade400,
-              //         size: 20,
-              //       ),
-              //       filled: true,
-              //       fillColor: Colors.grey.shade100,
-              //       contentPadding: EdgeInsets.all(8),
-              //       enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(30),
-              //           borderSide: BorderSide(color: Colors.grey.shade100)),
-              //     ),
-              //   ),
-              // ),
-
-
           ),
         builder: (context, child) => StreamChatCore(
           client: client,
