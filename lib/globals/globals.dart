@@ -44,6 +44,7 @@ const String warning10 = "Table name already taken";
 const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You doesn't have contacts yet";
 const String warningEmptyFriends = "You doesn't have friends yet";
+const String warningEmptyReplyPage = "There is no Replies yet";
 const String errorToken = "Token Error.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException =
@@ -93,6 +94,9 @@ String? passwordLogin = "";
 String? currentPage = "Library"; // Library Chat Forum Students Reminders
 
 //Library
+bool loadLibrary = false;
+bool loadJoinTableLibrary = false;
+bool loadCreateTableLibrary = false;
 //var tmpid = null;
 //List<String> occupenTable = [];
 
@@ -120,6 +124,12 @@ String? reply_data = null;
 //ReplyPage
 bool loadReplyPage = false;
 bool loadLikeDislikeReplyPage = false;
+bool loadCreateReplyPage = false;
 
 //Student
-bool onClickLoad = false;
+bool loadStudent = false;
+bool loadButtonStudent = false;
+
+//StudentProfile
+bool loadStudentProfile = false;
+bool loadButtonStudentProfile = false;

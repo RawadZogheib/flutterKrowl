@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -12,6 +11,7 @@ import 'package:flutter_app_backend/widgets/Forum/ReplyPage/UnansweredQuestions.
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReplyPage extends StatefulWidget {
@@ -19,129 +19,254 @@ class ReplyPage extends StatefulWidget {
   String question;
   String subject;
   String username;
-  var val;
+  int val;
   String contextQuestion;
   var date;
   Color color;
   Color color2;
 
-  ReplyPage(
-      {required this.id,
-      required this.question,
-      required this.subject,
-      required this.username,
-      required this.val,
-      required this.contextQuestion,
-      required this.date,
-      required this.color,
-        required this.color2,});
+  ReplyPage({
+    required this.id,
+    required this.question,
+    required this.subject,
+    required this.username,
+    required this.val,
+    required this.contextQuestion,
+    required this.date,
+    required this.color,
+    required this.color2,
+  });
 
   @override
   _ReplyPageState createState() => _ReplyPageState();
 }
 
-class _ReplyPageState extends State<ReplyPage> {
+class _ReplyPageState extends State<ReplyPage>
+    with SingleTickerProviderStateMixin {
   var children = <Widget>[]; //Replies
+  var children2 = <Widget>[];
   Timer? timer;
+  int _currentPage = 1;
+  int _totalPages = 999;
+  int _totalReplies = 11988;
+  int _maxReplies = 20;
+  bool _load = true;
+
+  Timer? timer2;
+  AnimationController? animationController;
+  final int _animationDuration = 4;
+  int _k = 0;
 
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     timer?.cancel();
+    timer2?.cancel();
+    animationController?.stop();
+    super.dispose();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
+    globals.currentPage = 'ForumReply';
+    children2.add(
+      DetailedReplyContainer(
+        id: widget.id,
+        question: widget.question,
+        subject: widget.subject,
+        username: widget.username,
+        val: widget.val,
+        color: widget.color,
+        color2: widget.color2,
+        contextQuestion: widget.contextQuestion,
+        date: widget.date,
+        onTap: (id, date) => _addReply(id, date),
+      ),
+    );
+    _distAnimation();
     _loadNewPage();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var NbrReplies;
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(
-                height: 130,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DetailedReplyContainer(
-                        id: widget.id,
-                        question: widget.question,
-                        subject: widget.subject,
-                        username: widget.username,
-                        val: widget.val,
-                        color: widget.color,
-                        color2: widget.color2,
-                        contextQuestion: widget.contextQuestion,
-                        date: widget.date,
-                        onTap: (data) => _addReply(data),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(right: 110.0, bottom: 15),
-                        child: Text("Replies ($NbrReplies)",
-                            // this is the number of replies
-                            style: GoogleFonts.nunito(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black)),
-                      ),
-                      Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
-                    ],
+    Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
+        CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
+    if (_k % 2 == 0) {
+      animationController!.forward();
+    } else {
+      animationController!.reverse();
+    }
+    return AnimatedBuilder(
+        animation: animationController!,
+        builder: (BuildContext context, Widget) {
+          return Scaffold(
+            body: Stack(
+              children: [
+                Column(children: [
+                  SizedBox(
+                    height: 130,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        children: [
-                          Contributors(),
-                          SizedBox(
-                            height: 20,
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Wrap(
+                                  direction: Axis.vertical,
+                                  children: children2.toList(), // My Children
+                                ),
+
+                                // DetailedReplyContainer(
+                                //   id: widget.id,
+                                //   question: widget.question,
+                                //   subject: widget.subject,
+                                //   username: widget.username,
+                                //   val: widget.val,
+                                //   color: widget.color,
+                                //   color2: widget.color2,
+                                //   contextQuestion: widget.contextQuestion,
+                                //   date: widget.date,
+                                //   onTap: (id, date) => _addReply(id, date),
+                                // ),
+
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 110.0, bottom: 15),
+                                    child: _load == true
+                                        ? Text("Replies (Loading...)",
+                                            // this is the number of replies
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black))
+                                        : Text("Replies ($_totalReplies)",
+                                            // this is the number of replies
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black)),
+                                  ),
+                                ),
+                                _load == true
+                                    ? Center(
+                                        child: Image(
+                                          image: AssetImage(
+                                              'Assets/krowl_logo.gif'),
+                                          fit: BoxFit.cover,
+                                          height: 150,
+                                          width: 150,
+                                        ),
+                                      )
+                                    : Wrap(
+                                        direction: Axis.vertical,
+                                        children:
+                                            children.toList(), // My Children
+                                      ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.35,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: _load == true
+                                      ? null
+                                      : NumberPaginator(
+                                          numberPages: _totalPages,
+                                          onPageChange: (int index) {
+                                            setState(() {
+                                              _currentPage = index + 1;
+                                              print(index + 1);
+                                            });
+                                            _loadNewPage();
+                                          },
+                                          // initially selected index
+                                          initialPage: _currentPage - 1,
+                                          // default height is 48
+                                          buttonShape: BeveledRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          buttonSelectedForegroundColor:
+                                              globals.blue2,
+                                          buttonUnselectedForegroundColor:
+                                              globals.blue1,
+                                          buttonUnselectedBackgroundColor:
+                                              globals.blue2,
+                                          buttonSelectedBackgroundColor:
+                                              globals.blue1,
+                                        ),
+                                ),
+                              ],
+                            ),
                           ),
-                          UnansweredQuestions(
-                            username: 'idotalia',
-                            question:
-                                ' Anyone here have experience with Pytorch?',
-                            contextofquestion: 'dsngujbnuydfvhngysdnbvugfndugn',
-                            NbrReplies: 1,
-                          )
-                        ],
-                      ),
-                    ],
+                        ),
+                        SizedBox(
+                          width: 385,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: distAnimation.value,
+                                  ),
+                                  Contributors(
+                                    height: double.parse(
+                                        (220 + distAnimation.value).toString()),
+                                    width: double.parse(
+                                        (350 + distAnimation.value).toString()),
+                                  ),
+                                  SizedBox(
+                                    height: distAnimation.value,
+                                  ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                  UnansweredQuestions(
+                                    username: 'idotalia',
+                                    question:
+                                        ' Anyone here have experience with Pytorch?',
+                                    contextofquestion:
+                                        'dsngujbnuydfvhngysdnbvugfndugn',
+                                    NbrReplies: 1,
+                                    height: double.parse(
+                                        (270 + distAnimation.value).toString()),
+                                    width: double.parse(
+                                        (350 + distAnimation.value).toString()),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ]),
-          ),
-          CustomTabBar(),
-        ],
-      ),
-    );
+                ]),
+                CustomTabBar(),
+              ],
+            ),
+          );
+        });
   }
 
   _loadReplies() async {
     if (globals.loadReplyPage == false) {
-      while (globals.loadLikeDislikeReplyPage == true) {
+      globals.loadReplyPage = true;
+      while (globals.loadLikeDislikeReplyPage == true ||
+          globals.loadCreateReplyPage == true) {
         await Future.delayed(Duration(seconds: 1));
         print(
             '=========>>======================================================>>==================================================>>=========');
@@ -151,7 +276,12 @@ class _ReplyPageState extends State<ReplyPage> {
       }
       try {
         print('load replyPage');
-        globals.loadReplyPage = true;
+        // if (mounted) {
+        //   setState(() {
+        //     children.clear();
+        //     load = true;
+        //   });
+        // }
 
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
@@ -159,7 +289,8 @@ class _ReplyPageState extends State<ReplyPage> {
         var data = {
           'version': globals.version,
           'account_Id': account_Id,
-          'post_id': widget.id
+          'post_id': widget.id,
+          'currentPage': _currentPage,
         };
 
         var res = await CallApi().postData(data, '(Control)loadReplies.php');
@@ -167,35 +298,50 @@ class _ReplyPageState extends State<ReplyPage> {
         List<dynamic> body = json.decode(res.body);
 
         children.clear();
+        children2.clear();
+
+        if (mounted) {
+          setState(() {
+            _load = false;
+          });
+        }
         if (body[0] == "success") {
-          for (var i = 0; i < body[1].length; i++) {
+          if (mounted) {
+            setState(() {
+              _totalReplies = int.parse(body[1]);
+              _totalPages = (_totalReplies / _maxReplies).ceil();
+            });
+          }
+
+          for (var i = 0; i < body[3].length; i++) {
             Color _color;
             Color _color2;
-            if (int.parse(body[1][i][5]) == 0) {
+            if (int.parse(body[3][i][5]) == 0) {
               _color = Colors.grey.shade600;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[1][i][5]) == 1) {
+            } else if (int.parse(body[3][i][5]) == 1) {
               _color = globals.blue1;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[1][i][5]) == -1) {
+            } else if (int.parse(body[3][i][5]) == -1) {
               _color = Colors.grey.shade600;
               _color2 = globals.blue1;
             } else {
               _color = Colors.transparent;
               _color2 = Colors.transparent;
             }
-            children.insert(
-              0,
-              Replies(
-                id: body[1][i][0],
+            children.add(
+              new Replies(
+                id: body[3][i][0],
                 // reply_date
-                username: body[1][i][1],
+                postId: widget.id,
+                // replyPageId
+                username: body[3][i][1],
                 // username
-                reply: body[1][i][2],
+                reply: body[3][i][2],
                 // reply_data
-                val: int.parse(body[1][i][3]),
+                val: int.parse(body[3][i][3]),
                 // reply_like
-                date: body[1][0][4],
+                date: body[3][i][4],
                 // reply_date
                 color: _color,
                 //
@@ -203,10 +349,60 @@ class _ReplyPageState extends State<ReplyPage> {
               ),
             );
           }
+
+          Color _color;
+          Color _color2;
+          if (int.parse(body[2][6]) == 0) {
+            _color = Colors.grey.shade600;
+            _color2 = Colors.grey.shade600;
+          } else if (int.parse(body[2][6]) == 1) {
+            _color = globals.blue1;
+            _color2 = Colors.grey.shade600;
+          } else if (int.parse(body[2][6]) == -1) {
+            _color = Colors.grey.shade600;
+            _color2 = globals.blue1;
+          } else {
+            _color = Colors.transparent;
+            _color2 = Colors.transparent;
+          }
+
+          children2.add(
+            DetailedReplyContainer(
+              id: widget.id,
+              question: body[2][2],
+              subject: body[2][1],
+              username: body[2][0],
+              val: int.parse(body[2][3]),
+              color: _color,
+              color2: _color2,
+              contextQuestion: body[2][5],
+              date: body[2][4],
+              onTap: (id, date) => _addReply(id, date),
+            ),
+          );
+
           if (mounted) {
             setState(() {
+              // widget.username = ;
+              // widget.subject = ;
+              // widget.question = ;
+              // widget.val = ;
+              // widget.date = ;
+              // widget.contextQuestion = ;
+              // widget.color = ;
+              // widget.color2 = ;
+              children2;
               children;
             });
+          }
+        } else if (body[0] == "empty") {
+          if (_currentPage != 1) {
+            setState(() {
+              _currentPage = 1;
+            });
+            _loadNewPage();
+          } else {
+            WarningPopup(context, globals.warningEmptyReplyPage);
           }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -215,28 +411,31 @@ class _ReplyPageState extends State<ReplyPage> {
         } else if (body[0] == "error7") {
           WarningPopup(context, globals.warning7);
         } else {
-          // if (mounted) {
-          //   setState(() {
-          //     load = true;
-          //   });
-          // }
+          if (mounted) {
+            setState(() {
+              _load = true;
+            });
+          }
           globals.loadReplyPage = false;
           ErrorPopup(context, globals.errorElse);
         }
-
-        print('load replyPage end!!!');
-        print(
-            '=========<<======================================================<<==================================================<<=========');
       } catch (e) {
         print(e);
         globals.loadReplyPage = false;
+        if (mounted) {
+          setState(() {
+            _load = true;
+          });
+        }
         ErrorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
+      globals.loadReplyPage = false;
+      print('load replyPage end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
-
-    globals.loadReplyPage = false;
   }
 
   _loadNewPage() {
@@ -262,25 +461,67 @@ class _ReplyPageState extends State<ReplyPage> {
     });
   }
 
-  _addReply(data) async {
-    print(data);
+  _addReply(id, date) async {
+    print(id);
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     String? username = localStorage.getString('username');
+
     if (mounted) {
       setState(() {
-        children.insert(
-          0,
-          Replies(
-            id: data,
-            username: username,
-            reply: globals.reply_data,
-            val: 0,
-            date: DateTime.now().toString(),
-            color: Colors.grey.shade600,
-            color2: Colors.grey.shade600,
-          ),
-        );
+        _totalReplies++;
+        _totalPages = (_totalReplies / _maxReplies).ceil();
+        if (_currentPage != 1) {
+          _currentPage = 1;
+          _loadNewPage();
+        } else {
+          if (children.length == _maxReplies) children.removeLast();
+          children.insert(
+            0,
+            Replies(
+              id: id,
+              postId: widget.id,
+              username: username,
+              reply: globals.reply_data,
+              val: 0,
+              date: date,
+              color: Colors.grey.shade600,
+              color2: Colors.grey.shade600,
+            ),
+          );
+        }
+
+        //globals.occupenTable.add('0');
       });
     }
+
+    // if (mounted) {
+    //   setState(() {
+    //     children.insert(
+    //       0,
+    //       Replies(
+    //         id: id,
+    //         postId: widget.id,
+    //         username: username,
+    //         reply: globals.reply_data,
+    //         val: 0,
+    //         date: date,
+    //         color: Colors.grey.shade600,
+    //         color2: Colors.grey.shade600,
+    //       ),
+    //     );
+    //   });
+    // }
+  }
+
+  void _distAnimation() {
+    animationController = AnimationController(
+        vsync: this, duration: Duration(seconds: _animationDuration));
+    timer2 =
+        Timer.periodic(Duration(seconds: _animationDuration), (Timer t) async {
+      setState(() {
+        _k++;
+        print('$_animationDuration Second');
+      });
+    });
   }
 }

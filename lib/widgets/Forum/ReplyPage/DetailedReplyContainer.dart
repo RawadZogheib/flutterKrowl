@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -11,11 +10,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailedReplyContainer extends StatefulWidget {
-  String id;
-  String question;
-  String subject;
-  String username;
-  var val;
+  var id;
+  var question;
+  var subject;
+  var username;
+  int val;
   var date;
   Color color;
   Color color2;
@@ -43,8 +42,11 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
   bool _loadDislike = false;
   final nameHolder = TextEditingController();
 
-  clearTextInput() {
-    nameHolder.clear();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    clearTextInput();
   }
 
   @override
@@ -66,7 +68,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
-          child: Text(widget.subject, //this is the subject of the quest
+          child: Text('#${widget.subject}', //this is the subject of the quest
               style: TextStyle(
                   fontSize: 17,
                   fontStyle: FontStyle.italic,
@@ -216,34 +218,69 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
   }
 
   _createReply() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
+    if (globals.loadCreateReplyPage == false) {
+    globals.loadCreateReplyPage = true;
+      while (globals.loadReplyPage == true ||
+          globals.loadLikeDislikeReplyPage == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload createReplyPage");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      try {
+        print('load createReplyPage');
 
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'post_id': widget.id,
-      'reply_data': globals.reply_data,
-    };
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
+        var date = DateTime.now().toString();
 
-    var res = await CallApi().postData(data, '(Control)createReply.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'post_id': widget.id,
+          'reply_data': globals.reply_data,
+          'reply_date': date,
+        };
 
-    if (body[0] == "success") {
-      widget.onTap('33'); // get reply id from php body[2]
-      //toast success
-      //show on forum1
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+        var res = await CallApi().postData(data, '(Control)createReply.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          widget.onTap(body[1], date); // get reply id from php body[1]
+          //toast success
+          //show on forum1
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          globals.loadCreateReplyPage = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+      } catch (e) {
+        print(e);
+        globals.loadCreateReplyPage = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+
+      globals.loadCreateReplyPage = false;
+      print('load createReplyPage end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
   }
 
   _onLike() async {
+    _loadLike = true;
     while (globals.loadReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
@@ -253,7 +290,6 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadLike = true;
       globals.loadLikeDislikeReplyPage = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -276,7 +312,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
 
       if (body[0] == "success") {
         if (mounted) {
-          setState(() {
+          this.setState(() {
             if (int.parse(body[1]) == 0) {
               widget.color = Colors.grey.shade600;
               widget.color2 = Colors.grey.shade600;
@@ -287,7 +323,9 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
               widget.color = Colors.grey.shade600;
               widget.color2 = globals.blue1;
             }
+            print('sdfashgdgghkasd:  ' + widget.val.toString());
             widget.val = int.parse(body[2]);
+            print('sdfashgdgghkasd:  ' + widget.val.toString());
           });
         }
       } else if (body[0] == "errorVersion") {
@@ -320,6 +358,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
   }
 
   _onDislike() async {
+    _loadDislike = true;
     while (globals.loadReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
@@ -329,7 +368,6 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadDislike = true;
       globals.loadLikeDislikeReplyPage = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -351,7 +389,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
 
       if (body[0] == "success") {
         if (mounted) {
-          setState(() {
+          this.setState(() {
             if (int.parse(body[1]) == 0) {
               widget.color = Colors.grey.shade600;
               widget.color2 = Colors.grey.shade600;
@@ -362,7 +400,9 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
               widget.color = Colors.grey.shade600;
               widget.color2 = globals.blue1;
             }
+            print('sdfashgdgghkasd:  ' + widget.val.toString());
             widget.val = int.parse(body[2]);
+            print('sdfashgdgghkasd:  ' + widget.val.toString());
           });
         }
       } else if (body[0] == "errorVersion") {
@@ -392,5 +432,9 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
+  }
+
+  clearTextInput() {
+    nameHolder.clear();
   }
 }

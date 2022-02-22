@@ -29,274 +29,321 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   Timer? timer;
   bool load = true;
 
+  Timer? timer2;
+  AnimationController? animationController;
+  final int _animationDuration = 4;
+  int _k = 0;
+
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     timer?.cancel();
+    timer2?.cancel();
+    animationController?.stop();
+    super.dispose();
   }
 
   @override
   void initState() {
-    super.initState();
     globals.currentPage = 'Forum';
     _loadNewPage();
+    _distAnimation();
+    super.initState();
   }
 
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: globals.white,
-        body: Responsive(
-          mobile: SingleChildScrollView(
-            reverse: false,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BouncingWidget(
-                      duration: Duration(milliseconds: 100),
-                      scaleFactor: 1.5,
-                      onPressed: () {
-                        print("onPressed");
-                      },
-                      child: Text(
-                        "Forum",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.1,
-                    ),
-                    AskQuestionButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/Forum2');
-                      },
-                      text: 'Ask a question',
-                      color1: globals.blue2,
-                      color2: Colors.blueGrey,
-                      textcolor: globals.blue1,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SearchBar(hintText: "Search a subject..."),
-                SizedBox(
-                  height: 20,
-                ),
-                load == true
-                    ? SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.57,
-                        child: Center(
-                          child: Image(
-                            image: AssetImage('Assets/krowl_logo.gif'),
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: 150,
-                          ),
-                        ))
-                    : Wrap(
-                        direction: Axis.vertical,
-                        children: children, // My Children
-                      ),
-              ],
-            ),
-          ),
-          tablet: Stack(
-            children: [
-              SingleChildScrollView(
-                reverse: false,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 130,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 130,
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                BouncingWidget(
-                                  duration: Duration(milliseconds: 100),
-                                  scaleFactor: 1.5,
-                                  onPressed: () {
-                                    print("onPressed");
-                                  },
-                                  child: Text(
-                                    "Forum",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Rubik',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 40,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.2,
-                                ),
-                                AskQuestionButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/Forum2');
-                                  },
-                                  text: 'Ask a question',
-                                  color1: globals.blue2,
-                                  color2: Colors.blueGrey,
-                                  textcolor: globals.blue1,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SearchBar(hintText: "Search a subject..."),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            load == true
-                                ? SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.57,
-                                    child: Center(
-                                      child: Image(
-                                        image: AssetImage('Assets/krowl_logo.gif'),
-                                        fit: BoxFit.cover,
-                                        height: 150,
-                                        width: 150,
-                                      ),
-                                    ))
-                                : Wrap(
-                                    direction: Axis.vertical,
-                                    children: children, // My Children
-                                  ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              CustomTabBar(),
-            ],
-          ),
-          desktop: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SingleChildScrollView(
-                reverse: false,
-                child: Column(children: [
-                  SizedBox(
-                    height: 130,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
+        CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
+    if (_k % 2 == 0) {
+      animationController!.forward();
+    } else {
+      animationController!.reverse();
+    }
+    return AnimatedBuilder(
+        animation: animationController!,
+        builder: (BuildContext context, Widget) {
+          return Scaffold(
+              resizeToAvoidBottomInset: true,
+              backgroundColor: globals.white,
+              body: Responsive(
+                mobile: SingleChildScrollView(
+                  reverse: false,
+                  child: Column(
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          BouncingWidget(
+                            duration: Duration(milliseconds: 100),
+                            scaleFactor: 1.5,
+                            onPressed: () {
+                              print("onPressed");
+                            },
+                            child: Text(
+                              "Forum",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Rubik',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.1,
+                          ),
+                          AskQuestionButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/Forum2');
+                            },
+                            text: 'Ask a question',
+                            color1: globals.blue2,
+                            color2: Colors.blueGrey,
+                            textcolor: globals.blue1,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SearchBar(hintText: "Search a subject..."),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      load == true
+                          ? SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.57,
+                              child: Center(
+                                child: Image(
+                                  image: AssetImage('Assets/krowl_logo.gif'),
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
+                              ))
+                          : Wrap(
+                              direction: Axis.vertical,
+                              children: children, // My Children
+                            ),
+                    ],
+                  ),
+                ),
+                tablet: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      reverse: false,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 130,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BouncingWidget(
-                                duration: Duration(milliseconds: 100),
-                                scaleFactor: 1.5,
-                                onPressed: () {
-                                  print("onPressed");
-                                },
-                                child: Text(
-                                  "Forum",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Rubik',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 40,
-                                  ),
-                                ),
-                              ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.35,
+                                width: 130,
                               ),
-                              AskQuestionButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/Forum2');
-                                },
-                                text: 'Ask a question',
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                textcolor: globals.blue1,
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      BouncingWidget(
+                                        duration: Duration(milliseconds: 100),
+                                        scaleFactor: 1.5,
+                                        onPressed: () {
+                                          print("onPressed");
+                                        },
+                                        child: Text(
+                                          "Forum",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'Rubik',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 40,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                      ),
+                                      AskQuestionButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/Forum2');
+                                        },
+                                        text: 'Ask a question',
+                                        color1: globals.blue2,
+                                        color2: Colors.blueGrey,
+                                        textcolor: globals.blue1,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  SearchBar(hintText: "Search a subject..."),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  load == true
+                                      ? SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.57,
+                                          child: Center(
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'Assets/krowl_logo.gif'),
+                                              fit: BoxFit.cover,
+                                              height: 150,
+                                              width: 150,
+                                            ),
+                                          ))
+                                      : Wrap(
+                                          direction: Axis.vertical,
+                                          children: children, // My Children
+                                        ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          SearchBar(
-                            hintText: "Search a subject...",
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          load == true
-                              ? SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.57,
-                                  child: Center(
-                                    child: Image(
-                                      image:
-                                          AssetImage('Assets/krowl_logo.gif'),
-                                      fit: BoxFit.cover,
-                                      height: 150,
-                                      width: 150,
+                        ],
+                      ),
+                    ),
+                    CustomTabBar(),
+                  ],
+                ),
+                desktop: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    SingleChildScrollView(
+                      reverse: false,
+                      child: Column(children: [
+                        SizedBox(
+                          height: 130,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.01,
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    BouncingWidget(
+                                      duration: Duration(milliseconds: 100),
+                                      scaleFactor: 1.5,
+                                      onPressed: () {
+                                        print("onPressed");
+                                      },
+                                      child: Text(
+                                        "Forum",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Rubik',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 40,
+                                        ),
+                                      ),
                                     ),
-                                  ))
-                              : Wrap(
-                                  direction: Axis.vertical,
-                                  children: children, // My Children
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                    ),
+                                    AskQuestionButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/Forum2');
+                                      },
+                                      text: 'Ask a question',
+                                      color1: globals.blue2,
+                                      color2: Colors.blueGrey,
+                                      textcolor: globals.blue1,
+                                    ),
+                                  ],
                                 ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Contributors(),
-                        ],
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.01,
-                      ),
-                    ],
-                  ),
-                ]),
-              ),
-              CustomTabBar(),
-            ],
-          ),
-        ));
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                SearchBar(
+                                  hintText: "Search a subject...",
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                load == true
+                                    ? SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.57,
+                                        child: Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'Assets/krowl_logo.gif'),
+                                            fit: BoxFit.cover,
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        ))
+                                    : Wrap(
+                                        direction: Axis.vertical,
+                                        children: children, // My Children
+                                      ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 385,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                      Contributors(
+                                        height: double.parse(
+                                            (220 + distAnimation.value).toString()),
+                                        width: double.parse(
+                                            (350 + distAnimation.value).toString()),
+                                      ),
+                                    ],
+                                  ),
+                                  // SizedBox(
+                                  //   width: 20,
+                                  // ),
+                                  // Contributors(),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.01,
+                            ),
+                          ],
+                        ),
+                      ]),
+                    ),
+                    CustomTabBar(),
+                  ],
+                ),
+              ));
+        });
   }
 
   _loadPosts() async {
     if (globals.loadForm1 == false) {
+      globals.loadForm1 = true;
       while (globals.loadLikeDislikeForm1 == true) {
         await Future.delayed(Duration(seconds: 1));
         print(
@@ -308,7 +355,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
       try {
         print('load forum1');
-        globals.loadForm1 = true;
 
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
@@ -319,11 +365,12 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           'account_Id': account_Id,
           'user_uni': user_uni,
         };
-        children.clear();
+
         var res = await CallApi().postData(data, '(Control)loadPosts.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
 
+        children.clear();
         if (mounted) {
           setState(() {
             load = false;
@@ -433,5 +480,21 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             '=========<<======================================================<<==================================================<<=========');
       }
     });
+  }
+
+  _distAnimation() {
+    animationController = AnimationController(
+        vsync: this, duration: Duration(seconds: _animationDuration));
+    timer2 = Timer.periodic(Duration(seconds: _animationDuration), (Timer t) async {
+      if(mounted) {
+        setState(() {
+          _k++;
+       print('$_animationDuration Second');
+        });
+      }else{
+        print("errorTimer");
+      }
+    });
+
   }
 }

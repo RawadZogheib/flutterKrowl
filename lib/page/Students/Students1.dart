@@ -29,13 +29,13 @@ class _Students1State extends State<Students1>
   int _currentPage = 1;
   int _totalPages = 999;
   int _totalStudents = 11988;
-  bool load = true;
+  bool _load = true;
 
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -129,12 +129,14 @@ class _Students1State extends State<Students1>
                           SizedBox(
                             height: 30,
                           ),
-                          load == true
+                          _load == true
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                       SizedBox(
-                                          width: MediaQuery.of(context).size.width *
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.57,
                                           child: Center(
                                             child: Image(
@@ -148,7 +150,8 @@ class _Students1State extends State<Students1>
                                       SizedBox(width: 20),
                                     ])
                               : Container(
-                                  width: MediaQuery.of(context).size.width * 0.8,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -168,7 +171,8 @@ class _Students1State extends State<Students1>
                                           initialPage: _currentPage - 1,
                                           // default height is 48
                                           buttonShape: BeveledRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
                                           ),
                                           buttonSelectedForegroundColor:
                                               globals.blue2,
@@ -195,89 +199,121 @@ class _Students1State extends State<Students1>
   }
 
   _loadStudents() async {
-    try {
-      children.clear();
-      if (mounted) {
-        setState(() {
-          children.clear();
-          load = true;
-        });
+    if (globals.loadStudent == false) {
+      globals.loadStudent = true;
+      while (globals.loadButtonStudent == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload studentPage");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
-
-      //globals.occupenTable.clear();
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
-      var user_uni = localStorage.getString("user_uni");
-
-      var data = {
-        'version': globals.version,
-        'account_Id': account_Id,
-        'currentPage': _currentPage,
-        //'user_uni': user_uni,
-      };
-
-      var res = await CallApi().postData(data, '(Control)loadStudents.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
-
-      if (mounted) {
-        setState(() {
-          load = false;
-        });
-      }
-      if (body[0] == "success") {
+      try {
+        print('load studentPage');
         if (mounted) {
           setState(() {
-            _totalStudents = int.parse(body[1]);
-            _totalPages = (_totalStudents / 20).ceil();
+            children.clear();
+            _load = true;
           });
         }
-        for (var i = 0; i < body[2].length; i++) {
-          children.add(
-            StudentCard(
-              userId: body[2][i][0],
-              username: body[2][i][1] + ' ' + body[2][i][2],
-              universityname: body[2][i][4],
-              isFriend: body[2][i][5],
-              userImg: body[2][i][3],
-              contextStudentPage: context,
-              reload: () {
+
+        //globals.occupenTable.clear();
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
+        var user_uni = localStorage.getString("user_uni");
+
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'currentPage': _currentPage,
+          //'user_uni': user_uni,
+        };
+
+        var res = await CallApi().postData(data, '(Control)loadStudents.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (mounted) {
+          setState(() {
+            _load = false;
+          });
+        }
+        if (body[0] == "success") {
+          if (mounted) {
+            setState(() {
+              _totalStudents = int.parse(body[1]);
+              _totalPages = (_totalStudents / 20).ceil();
+            });
+          }
+          for (var i = 0; i < body[2].length; i++) {
+            children.add(
+              StudentCard(
+                userId: body[2][i][0],
+                username: body[2][i][1] + ' ' + body[2][i][2],
+                universityName: body[2][i][4],
+                description: body[2][i][5],
+                nbrOfFriends: int.parse(body[2][i][6]),
+                isFriend: body[2][i][7],
+                userImg: body[2][i][3],
+                contextStudentPage: context,
+                // reload: () {
+                //   _loadNewPage();
+                // },
+              ),
+            );
+          }
+
+          if (mounted) {
+            setState(() {
+              children;
+            });
+          }
+        } else if (body[0] == "empty") {
+          if (_currentPage != 1) {
+            if(mounted) {
+              setState(() {
+                _currentPage = 1;
                 _loadNewPage();
-              },
-            ),
-          );
+              });
+            }
+          } else {
+            WarningPopup(context, globals.warningEmptyLibrary);
+          }
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          if (mounted) {
+            setState(() {
+              _load = true;
+            });
+          }
+          globals.loadStudent = false;
+          ErrorPopup(context, globals.errorElse);
         }
-
+      } catch (e) {
+        print(e);
+        globals.loadStudent = false;
         if (mounted) {
           setState(() {
-            children;
+            _load = true;
           });
         }
-      } else if (body[0] == "empty") {
-        if (_currentPage != 1) {
-          setState(() {
-            _currentPage = 1;
-            _loadNewPage();
-          });
-        } else {
-          WarningPopup(context, globals.warningEmptyLibrary);
-        }
-      } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
-      } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
-      } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
-      } else {
-        ErrorPopup(context, globals.errorElse);
+        //Navigator.pop(context);
+        ErrorPopup(context, globals.errorException);
       }
-    } catch (e) {
-      print(e);
-      Navigator.pop(context);
-      ErrorPopup(context, globals.errorException);
+      globals.loadStudent = false;
+      print('load studentPage end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
   }
-
   _loadNewPage() {
     timer?.cancel();
     _loadStudents(); //0

@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:avatars/avatars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/page/Students/StudentProfile.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/Students1/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,26 +16,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StudentCard extends StatefulWidget {
   String userId;
   String username;
-  String universityname;
+  String universityName;
+  String description;
+  int nbrOfFriends;
   String isFriend;
   BuildContext contextStudentPage;
   var userImg;
   var color1; //light
   var color2; //dark
   var onTap;
-  var reload;
 
   StudentCard({
     required this.userId,
     required this.username,
-    required this.universityname,
+    required this.universityName,
+    required this.description,
+    required this.nbrOfFriends,
     required this.isFriend,
     required this.contextStudentPage,
     this.userImg,
     this.color1,
     this.color2,
     this.onTap,
-    required this.reload,
   });
 
   @override
@@ -41,12 +45,26 @@ class StudentCard extends StatefulWidget {
 }
 
 class _StudentCardState extends State<StudentCard> {
+  bool _loadButton = false;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/StudentProfile');
-        print("Click");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  StudentProfile(
+                    userId: widget.userId,
+                    username: widget.username,
+                    universityName: widget.universityName,
+                    description: widget.description,
+                    nbrOfFriends: widget.nbrOfFriends,
+                    isFriend: widget.isFriend,
+                  ),
+            ),
+                (route) => false);
       },
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -79,7 +97,10 @@ class _StudentCardState extends State<StudentCard> {
                   children: [
                     Image(
                       height: 80,
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       image: AssetImage('Assets/CoverPhoto.jpg'),
                       fit: BoxFit.cover,
                     ),
@@ -92,11 +113,11 @@ class _StudentCardState extends State<StudentCard> {
                   top: 50,
                   child: widget.userImg.isEmpty
                       ? Avatar(
-                          elevation: 3,
-                          shape: AvatarShape.circle(27),
-                          name: '${widget.username}',
-                          placeholderColors: [globals.blue1],
-                        )
+                    elevation: 3,
+                    shape: AvatarShape.circle(27),
+                    name: '${widget.username}',
+                    placeholderColors: [globals.blue1],
+                  )
                       : Image.network(globals.myIP + '/' + widget.userImg),
                 ),
               ]),
@@ -108,12 +129,12 @@ class _StudentCardState extends State<StudentCard> {
                       child: ListTile(
                           title: Center(
                               child: Text(
-                            "${widget.username}",
-                            style: GoogleFonts.archivoBlack(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          )),
+                                "${widget.username}",
+                                style: GoogleFonts.archivoBlack(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              )),
                           subtitle: Center(
-                              child: Text("${widget.universityname}",
+                              child: Text("${widget.universityName}",
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.nunito(
                                       fontSize: 17,
@@ -122,102 +143,89 @@ class _StudentCardState extends State<StudentCard> {
                     ),
                     widget.isFriend == '0' // Not Friend
                         ? Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                    margin:
-                                        EdgeInsets.only(bottom: 15, right: 15),
-                                    child: StudentButton(
-                                      height: 25,
-                                      fontSize: 12.0,
-                                      text: "Add Friend",
-                                      textcolor: globals.blue1,
-                                      color1: globals.blue2,
-                                      color2: Colors.blueGrey,
-                                      onPressed: () async {
-                                        if (globals.onClickLoad == false) {
-                                          globals.onClickLoad = true;
-                                          await _addFriend();
-                                          globals.onClickLoad = false;
-                                        }
-                                      },
-                                    )),
-                              ],
-                            ),
-                          )
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                              margin:
+                              EdgeInsets.only(bottom: 15, right: 15),
+                              child: StudentButton(
+                                height: 25,
+                                fontSize: 12.0,
+                                text: "Add Friend",
+                                textcolor: globals.blue1,
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                onPressed: () async {
+                                    await _addFriend();
+                                },
+                              )),
+                        ],
+                      ),
+                    )
                         : widget.isFriend == '1' // Requested
-                            ? Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            bottom: 15, right: 15),
-                                        child: StudentButton(
-                                          fontSize: 12.0,
-                                          height: 25,
-                                          text: "Requetsed",
-                                          textcolor: globals.blue1,
-                                          color1: globals.blue2,
-                                          color2: Colors.blueGrey,
-                                          onPressed: () async {
-                                            if (globals.onClickLoad == false) {
-                                              globals.onClickLoad = true;
-                                              await _requested();
-                                              globals.onClickLoad = false;
-                                            }
-                                          },
-                                        )),
-                                  ],
-                                ),
-                              )
-                            : widget.isFriend == '2' // Friend
-                                ? Expanded(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 15, left: 10, right: 6),
-                                            child: StudentButton(
-                                              fontSize: 12.0,
-                                              height: 25,
-                                              text: "Unfriend",
-                                              textcolor: globals.blue1,
-                                              color1: globals.blue2,
-                                              color2: Colors.blueGrey,
-                                              onPressed: () async {
-                                                if (globals.onClickLoad ==
-                                                    false) {
-                                                  globals.onClickLoad = true;
-                                                  await _unFriend();
-                                                  globals.onClickLoad = false;
-                                                }
-                                              },
-                                            )),
-                                        Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 15, right: 15),
-                                            child: StudentButton(
-                                              height: 25,
-                                              fontSize: 12.0,
-                                              text: "Message",
-                                              textcolor: globals.blue1,
-                                              color1: globals.blue2,
-                                              color2: Colors.blueGrey,
-                                              onPressed: () {
-                                                _goToMessage();
-                                              },
-                                            )),
-                                      ],
-                                    ),
-                                  )
-                                : Container(),
+                        ? Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                  bottom: 15, right: 15),
+                              child: StudentButton(
+                                fontSize: 12.0,
+                                height: 25,
+                                text: "Requetsed",
+                                textcolor: globals.blue1,
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                onPressed: () async {
+                                    await _requested();
+                                },
+                              )),
+                        ],
+                      ),
+                    )
+                        : widget.isFriend == '2' // Friend
+                        ? Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(
+                                  bottom: 15, left: 10, right: 6),
+                              child: StudentButton(
+                                fontSize: 12.0,
+                                height: 25,
+                                text: "Unfriend",
+                                textcolor: globals.blue1,
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                onPressed: () async {
+                                    await _unFriend();
+                                },
+                              )),
+                          Container(
+                              margin: EdgeInsets.only(
+                                  bottom: 15, right: 15),
+                              child: StudentButton(
+                                height: 25,
+                                fontSize: 12.0,
+                                text: "Message",
+                                textcolor: globals.blue1,
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                onPressed: () {
+                                  _goToMessage();
+                                },
+                              )),
+                        ],
+                      ),
+                    )
+                        : Container(),
                   ],
                 ),
               ),
@@ -230,57 +238,88 @@ class _StudentCardState extends State<StudentCard> {
 
   _addFriend() async {
     //Add Friend
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'friend_id': widget.userId,
-    };
-
-    var res = await CallApi().postData(data, '(Control)requestFriends.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (body[0] == "success") {
-      if (mounted) {
-        setState(() {
-          widget.isFriend = '1';
-        });
-      }else{
-        widget.reload();
+    if (_loadButton == false) {
+      _loadButton = true;
+      while (globals.loadStudent == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload Button");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
+      try {
+          globals.loadButtonStudent = true;
+          print(
+              '=========>>======================================================>>==================================================>>=========');
+          print('Sending like to server...');
 
-      MotionToast(
-        icon: CupertinoIcons.checkmark_alt_circle,
-        primaryColor: globals.blue2,
-        secondaryColor: globals.blue1,
-        toastDuration: Duration(seconds: 3),
-        backgroundType: BACKGROUND_TYPE.solid,
-        title: Text(
-          'Success',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        description: Text('Friend request sent Successfully'),
-        position: MOTION_TOAST_POSITION.bottom,
-        animationType: ANIMATION.fromRight,
-        height: 100,
-      ).show(widget.contextStudentPage);
+          //send to server
+          SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
 
-      print('addFriend Success');
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error4") {
-      ErrorPopup(context, globals.error4);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'friend_id': widget.userId,
+        };
+
+        var res = await CallApi().postData(data, '(Control)requestFriends.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          if (mounted) {
+            setState(() {
+              widget.isFriend = '1';
+            });
+          }
+
+          MotionToast(
+            icon: CupertinoIcons.checkmark_alt_circle,
+            primaryColor: globals.blue2,
+            secondaryColor: globals.blue1,
+            toastDuration: Duration(seconds: 3),
+            backgroundType: BACKGROUND_TYPE.solid,
+            title: Text(
+              'Success',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            description: Text('Friend request sent Successfully'),
+            position: MOTION_TOAST_POSITION.bottom,
+            animationType: ANIMATION.fromRight,
+            height: 100,
+          ).show(widget.contextStudentPage);
+
+          print('addFriend Success');
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          _loadButton = false;
+          globals.loadButtonStudent = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+        _loadButton = false;
+        globals.loadButtonStudent = false;
+        print('load button end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      } catch (e) {
+        print(e);
+        _loadButton = false;
+        globals.loadButtonStudent = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
     }
-
   }
-
   void _goToMessage() {
     //Go To Message
   }
@@ -297,59 +336,87 @@ class _StudentCardState extends State<StudentCard> {
 
   _cancelFriend(String text) async {
     //Add Friend
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'friend_id': widget.userId,
-    };
-
-    var res = await CallApi().postData(data, '(Control)cancelFriends.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (body[0] == "success") {
-      if (mounted) {
-        setState(() {
-          widget.isFriend = '0';
-        });
-      }else{
-        widget.reload();
+    if (_loadButton == false) {
+      _loadButton = true;
+      while (globals.loadStudent == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload Button");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
-      // for (int i = 0; i < globals.children.length; i++) {
-      //   if (globals.children[i].userId == body[1]) {
-      //     setState(() {
-      //       globals.children[i].isFriend = '0';
-      //     });
-      //   }
-      // }
-      MotionToast(
-        icon: CupertinoIcons.checkmark_alt_circle,
-        primaryColor: globals.blue2,
-        secondaryColor: globals.blue1,
-        toastDuration: Duration(seconds: 3),
-        backgroundType: BACKGROUND_TYPE.solid,
-        title: Text(
-          'Success',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        description: Text(text),
-        position: MOTION_TOAST_POSITION.bottom,
-        animationType: ANIMATION.fromRight,
-        height: 100,
-      ).show(widget.contextStudentPage);
+      try {
+        globals.loadButtonStudent = true;
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
 
-      print('cancelFriend Success');
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error4") {
-      ErrorPopup(context, globals.error4);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'friend_id': widget.userId,
+        };
+
+        var res = await CallApi().postData(data, '(Control)cancelFriends.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          if (mounted) {
+            setState(() {
+              widget.isFriend = '0';
+            });
+          }
+          // for (int i = 0; i < globals.children.length; i++) {
+          //   if (globals.children[i].userId == body[1]) {
+          //     setState(() {
+          //       globals.children[i].isFriend = '0';
+          //     });
+          //   }
+          // }
+          MotionToast(
+            icon: CupertinoIcons.checkmark_alt_circle,
+            primaryColor: globals.blue2,
+            secondaryColor: globals.blue1,
+            toastDuration: Duration(seconds: 3),
+            backgroundType: BACKGROUND_TYPE.solid,
+            title: Text(
+              'Success',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            description: Text(text),
+            position: MOTION_TOAST_POSITION.bottom,
+            animationType: ANIMATION.fromRight,
+            height: 100,
+          ).show(widget.contextStudentPage);
+
+          print('cancelFriend Success');
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          _loadButton = false;
+          globals.loadButtonStudent = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+        globals.loadButtonStudent = false;
+        _loadButton = false;
+        print('load button end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      } catch (e) {
+        print(e);
+        _loadButton = false;
+        globals.loadButtonStudent = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
     }
   }
 }

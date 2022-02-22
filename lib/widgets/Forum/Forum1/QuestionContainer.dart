@@ -177,6 +177,7 @@ class _QuestionState extends State<Question> {
   }
 
   _onLike() async {
+    _loadLike = true;
     while (globals.loadForm1 == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
@@ -186,7 +187,6 @@ class _QuestionState extends State<Question> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadLike = true;
       globals.loadLikeDislikeForm1 = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -280,6 +280,7 @@ class _QuestionState extends State<Question> {
   }
 
   _onDislike() async {
+    _loadDislike = true;
     while (globals.loadForm1 == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
@@ -289,7 +290,6 @@ class _QuestionState extends State<Question> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadDislike = true;
       globals.loadLikeDislikeForm1 = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -382,7 +382,6 @@ class _QuestionState extends State<Question> {
   }
 
   _openReply() {
-    globals.currentPage = 'Forum(1)';
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

@@ -20,34 +20,34 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomTabBar(),
-              ],
-            ),
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  StudentDetailedProfile(isFriend: false, universityname: "Lebanese Universty", username:"Rawad Zogheib", description: "No description provided",  ),
-                  SizedBox(height: 15,),
-                  StudentQuestionsReplies(),
-                  SizedBox(
-                    height: 30,
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       Row(
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: [
+      //           CustomTabBar(),
+      //         ],
+      //       ),
+      //       SingleChildScrollView(
+      //         child: Column(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           children: [
+      //             StudentDetailedProfile(isFriend: false, universityname: "Lebanese Universty", username:"Rawad Zogheib", description: "No description provided",  ),
+      //             SizedBox(height: 15,),
+      //             StudentQuestionsReplies(),
+      //             SizedBox(
+      //               height: 30,
+      //             )
+      //           ],
+      //         ),
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

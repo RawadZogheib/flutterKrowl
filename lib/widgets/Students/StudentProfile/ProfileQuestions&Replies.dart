@@ -5,13 +5,28 @@ import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileRepli
 import 'package:google_fonts/google_fonts.dart';
 
 class StudentQuestionsReplies extends StatefulWidget {
-  var text;
+
+  List<String> TheQuestion;
+  List<String> contextQuestion;
+  List<String> dateOfQuestion;
+  int nbrOfQuestions;
+
+  //ProfileReplies
+  List<String> TheAskedQuestion;
+  List<String> reply;
+  List<String> DateOfReply;
+  int nbrOfReplies;
 
 
-
-  StudentQuestionsReplies({
-     this.text,
-  });
+  StudentQuestionsReplies(
+      {required this.TheQuestion,
+      required this.contextQuestion,
+      required this.dateOfQuestion,
+      required this.nbrOfQuestions,
+      required this.TheAskedQuestion,
+      required this.reply,
+      required this.DateOfReply,
+      required this.nbrOfReplies,});
 
   @override
   State<StudentQuestionsReplies> createState() =>
@@ -21,9 +36,32 @@ class StudentQuestionsReplies extends StatefulWidget {
 class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
   bool Questions = true;
   bool Replies = true;
-  var NbrOfQuestions;
-  var NbrOfReplies;
   var username;
+  List<ProfileQuestions> _children1 = [];
+  List<ProfileReplies> _children2 = [];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+      for(int i = 0; i < widget.nbrOfQuestions; i++) {
+        _children1.add(ProfileQuestions(
+          TheQuestion: widget.TheQuestion[i],
+          contextQuestion: widget.contextQuestion[i],
+          dateOfQuestion: 'on ' + widget.dateOfQuestion[i],
+        ),);
+      }
+      for(int j = 0; j < widget.nbrOfQuestions; j++) {
+        _children2.add(ProfileReplies(
+          TheAskedQuestion: widget.TheAskedQuestion[j],
+          reply: widget.reply[j],
+          DateOfReply: 'on ' + widget.DateOfReply[j],
+        ),);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +88,6 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // These are the questions asked from this student on krowl
 
           Stack(
@@ -66,7 +103,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: [
-                            Text("Questions ($NbrOfQuestions)",
+                            Text("Questions (${widget.nbrOfQuestions})",
                                 // this is the number of replies
                                 style: GoogleFonts.nunito(
                                     fontSize: 20,
@@ -88,7 +125,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                 width: MediaQuery.of(context).size.width * 0.54,
                                 child: Row(
                                   children: [
-                                    Text("Questions ($NbrOfQuestions)",
+                                    Text("Questions (${widget.nbrOfQuestions})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -98,7 +135,11 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                 ),
                               ),
                             ),
-                            ProfileQuestions(TheQuestion: "Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?", contextQuestion: "COVID-19", dateOfQuestion: "on Feb 3, 2021",) // This is a widget for the questions
+
+                            Column(
+                              children: _children1,
+                            ),
+                            // This is a widget for the questions
                           ],
                         ),
                       )
@@ -144,9 +185,10 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.55,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Replies ($NbrOfReplies)",
+                                    Text("Replies (${widget.nbrOfReplies})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -171,9 +213,10 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.55,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Replies ($NbrOfReplies)",
+                                    Text("Replies (${widget.nbrOfReplies})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -183,13 +226,18 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                 ),
                               ),
                             ),
-                            ProfileReplies(TheAskedQuestion: "Hey everyone! Quick question about COVID and the antibodies. I just read an article stating that even if you have the antibodies, you can still catch a different strain... What do you think about this?", DateOfReply: "on Feb 3, 2021", reply: "This is my reply on the question",) //This is a widget for the replies
+
+                            Column(
+                              children: _children2,
+                            ),
+                            //This is a widget for the replies
                           ],
                         ),
                       )
                   ],
                 ),
-              ),Positioned(
+              ),
+              Positioned(
                 top: 15,
                 right: 20,
                 child: InkWell(
@@ -208,5 +256,3 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
     );
   }
 }
-
-

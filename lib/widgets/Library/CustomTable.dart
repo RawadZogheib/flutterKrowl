@@ -296,55 +296,92 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   Future<void> _sitOnChair(String table_name, int position) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-    var username = localStorage.getString("username");
-
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'table_name': table_name,
-      'position': position
-    };
-
-    var res = await CallApi().postData(data, '(Control)sitOnChair.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
-
-    if (body[0] == "success") {
-      if (mounted) {
-        setState(() {
-          widget.nb++;
-          widget.imgs[position - 1] =
-              'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-          widget.enablee[position - 1] = true;
-        });
+    if (globals.loadJoinTableLibrary == false) {
+      globals.loadJoinTableLibrary = true;
+      while (globals.loadLibrary == true ||
+          globals.loadCreateTableLibrary == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload createReplyPage");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
-      if (!await launch(
-        globals.jaasUrl + table_name + '&account=' + username.toString() + '&type=silent',
-        forceSafariVC: false,
-        forceWebView: true,
-        headers: <String, String>{'my_header_key': 'my_header_value'},
-      )) {
-        throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
+
+      try {
+        print('load joinTable');
+
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
+        var username = localStorage.getString("username");
+
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'table_name': table_name,
+          'position': position
+        };
+
+        var res = await CallApi().postData(data, '(Control)sitOnChair.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          if (mounted) {
+            setState(() {
+              widget.nb++;
+              widget.imgs[position - 1] =
+              'https://picsum.photos/50/50/?${position -
+                  1}'; //get img from server body[1]
+              widget.enablee[position - 1] = true;
+            });
+          }
+          if (!await launch(
+            globals.jaasUrl + table_name + '&account=' + username.toString() +
+                '&type=silent',
+            forceSafariVC: false,
+            forceWebView: true,
+            headers: <String, String>{'my_header_key': 'my_header_value'},
+          )) {
+            throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' +
+                username.toString()}';
+          }
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else if (body[0] == "error8") {
+          WarningPopup(context, globals.warning8);
+        } else if (body[0] == "error9") {
+          if (mounted) {
+            setState(() {
+              widget.imgs[position - 1] =
+              'https://picsum.photos/50/50/?${position -
+                  1}'; //get img from server body[1]
+              widget.enablee[position - 1] = true;
+            });
+          }
+          ErrorPopup(context, globals.error9);
+        } else {
+          globals.loadJoinTableLibrary = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+      } catch (e) {
+        print(e);
+        globals.loadJoinTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
       }
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
-    } else if (body[0] == "error8") {
-      WarningPopup(context, globals.warning8);
-    } else if (body[0] == "error9") {
-      if (mounted) {
-        setState(() {
-          widget.imgs[position - 1] =
-              'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-          widget.enablee[position - 1] = true;
-        });
-      }
-      ErrorPopup(context, globals.error9);
+      globals.loadJoinTableLibrary = false;
+      print('load joinTable end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+
     }
   }
 
@@ -508,9 +545,12 @@ class _CustomContainerState extends State<CustomTable>
             }
           });
         }
+      } else {
+        ErrorPopup(context, globals.errorElse);
       }
     } catch (e) {
       print("Exeption: " + e.toString());
+      ErrorPopup(context, globals.errorException);
     }
   }
 
@@ -676,33 +716,33 @@ class _CustomContainerState extends State<CustomTable>
   //   //globals.occupenTable[widget.id] = '0'; // Table is On
   // }
 
-  _startTimer() async {
-    // if(timer.isActive) {
-    //   timer.cancel();
-    // }
-    timer = await Timer(const Duration(seconds: 30), () {
-      print('Time Out!!!!!!!!!!!!!');
-      //print('time!!!!!!!!!!!!!: ' + (i).toString());
-      //globals.occupenTable[widget.id] = '0';
-      if (mounted) {
-        setState(() {
-          widget.status = false;
-          //globals.tmpid = null;
-          widget.hiddenBool = true;
-          widget.imgs = ['', '', '', '', '', '', '', ''];
-          widget.enablee = [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ];
-          widget.nb = 0;
-        });
-      }
-    });
-  }
+  // _startTimer() async {
+  //   // if(timer.isActive) {
+  //   //   timer.cancel();
+  //   // }
+  //   timer = await Timer(const Duration(seconds: 30), () {
+  //     print('Time Out!!!!!!!!!!!!!');
+  //     //print('time!!!!!!!!!!!!!: ' + (i).toString());
+  //     //globals.occupenTable[widget.id] = '0';
+  //     if (mounted) {
+  //       setState(() {
+  //         widget.status = false;
+  //         //globals.tmpid = null;
+  //         widget.hiddenBool = true;
+  //         widget.imgs = ['', '', '', '', '', '', '', ''];
+  //         widget.enablee = [
+  //           false,
+  //           false,
+  //           false,
+  //           false,
+  //           false,
+  //           false,
+  //           false,
+  //           false
+  //         ];
+  //         widget.nb = 0;
+  //       });
+  //     }
+  //   });
+  // }
 }

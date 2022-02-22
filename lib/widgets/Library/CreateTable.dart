@@ -6,16 +6,18 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/RadioButton.dart';
 import 'package:flutter_app_backend/widgets/Dropdown.dart';
-import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateTable extends StatefulWidget {
+  var height;
+  var width;
   var children;
   var onTap;
 
-  CreateTable({this.children, this.onTap});
+  CreateTable(
+      {required this.height, required this.width, this.children, this.onTap});
 
   @override
   State<CreateTable> createState() => _NextButtonState();
@@ -28,11 +30,11 @@ class _NextButtonState extends State<CreateTable> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          width: 250,
-          height: 415,
+          height: widget.height, //415
+          width: widget.width, //250
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -207,41 +209,71 @@ class _NextButtonState extends State<CreateTable> {
   }
 
   Future<void> _createTable() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
-    var user_uni = localStorage.getString("user_uni");
-    print(TextInput1().toString());
+    if (globals.loadCreateTableLibrary == false) {
+      while (globals.loadLibrary == true ||
+          globals.loadJoinTableLibrary == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload createLibrary");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      try {
+        print('load createReplyPage');
+        globals.loadCreateTableLibrary = true;
 
-    String table_type;
-    (globals.selectedPublicPrivet == '1')
-        ? table_type = '1'
-        : ((globals.selectedPublicPrivet == '2') ? table_type = '2' : table_type =
-    '');
-    print(table_type);
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
+        var user_uni = localStorage.getString("user_uni");
+        print(TextInput1().toString());
 
-    var data = {
-      'version': globals.version,
-      'account_Id': account_Id,
-      'table_uni':user_uni,
-      'table_name': globals.tableName.toString(),
-      'seats': '8',
-      'table_type': table_type,
-    };
+        String table_type;
+        (globals.selectedPublicPrivet == '1')
+            ? table_type = '1'
+            : ((globals.selectedPublicPrivet == '2')
+            ? table_type = '2'
+            : table_type = '');
+        print(table_type);
 
-    var res = await CallApi().postData(data, '(Control)createTable.php');
-    print(res.body);
-    List<dynamic> body = json.decode(res.body);
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'table_uni': user_uni,
+          'table_name': globals.tableName.toString(),
+          'seats': '8',
+          'table_type': table_type,
+        };
 
-    if (body[0] == "success") {
-      widget.onTap();
-    } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
-    } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
-    } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
-    } else if (body[0] == "error10") {
-      WarningPopup(context, globals.warning10);
+        var res = await CallApi().postData(data, '(Control)createTable.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          widget.onTap();
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else if (body[0] == "error10") {
+          WarningPopup(context, globals.warning10);
+        } else {
+          globals.loadCreateTableLibrary = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+      } catch (e) {
+        print(e);
+        globals.loadCreateTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      globals.loadCreateTableLibrary = false;
+      print('load createLibrary end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
     }
   }
 }

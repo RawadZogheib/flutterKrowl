@@ -24,8 +24,8 @@ class _Contributors extends State<Contributors> {
     return Column(
       children: [
         Container(
-          width: 375,
-          height: 270,
+          width: widget.width,
+          height: widget.height,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Colors.white,

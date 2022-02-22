@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -10,15 +9,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Replies extends StatefulWidget {
   var id;
+  var postId;
   var reply;
   var username;
-  var val;
+  int val;
   var date;
   Color color;
   Color color2;
 
   Replies({
     required this.id,
+    required this.postId,
     required this.reply,
     required this.username,
     required this.val,
@@ -142,7 +143,8 @@ class _RepliesState extends State<Replies> {
   }
 
   _onLike() async {
-    while (globals.loadReplyPage == true) {
+    _loadLike = true;
+    while (globals.loadReplyPage == true || globals.loadCreateReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -151,7 +153,6 @@ class _RepliesState extends State<Replies> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadLike = true;
       globals.loadLikeDislikeReplyPage = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -164,15 +165,17 @@ class _RepliesState extends State<Replies> {
       var data = {
         'version': globals.version,
         'account_Id': account_Id,
-        'post_id': widget.id,
+        'reply_id': widget.id,
+        'post_id': widget.postId,
         'like_val': '1',
       };
 
-      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      var res = await CallApi().postData(data, '(Control)likeReplies.php');
       print(res.body);
       List<dynamic> body = json.decode(res.body);
 
       if (body[0] == "success") {
+
         if (mounted) {
           setState(() {
             if (int.parse(body[1]) == 0) {
@@ -185,7 +188,9 @@ class _RepliesState extends State<Replies> {
               widget.color = Colors.grey.shade600;
               widget.color2 = globals.blue1;
             }
+
             widget.val = int.parse(body[2]);
+
           });
         }
       } else if (body[0] == "errorVersion") {
@@ -202,8 +207,8 @@ class _RepliesState extends State<Replies> {
         ErrorPopup(context, globals.errorElse);
       }
 
-      globals.loadLikeDislikeReplyPage = false;
       _loadLike = false;
+      globals.loadLikeDislikeReplyPage = false;
       print('load like end!!!');
       print(
           '=========<<======================================================<<==================================================<<=========');
@@ -218,7 +223,8 @@ class _RepliesState extends State<Replies> {
   }
 
   _onDislike() async {
-    while (globals.loadReplyPage == true) {
+    _loadDislike = true;
+    while (globals.loadReplyPage == true || globals.loadCreateReplyPage == true) {
       await Future.delayed(Duration(seconds: 1));
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -227,7 +233,6 @@ class _RepliesState extends State<Replies> {
           '=========<<======================================================<<==================================================<<=========');
     }
     try {
-      _loadDislike = true;
       globals.loadLikeDislikeReplyPage = true;
       print(
           '=========>>======================================================>>==================================================>>=========');
@@ -239,11 +244,12 @@ class _RepliesState extends State<Replies> {
       var data = {
         'version': globals.version,
         'account_Id': account_Id,
-        'post_id': widget.id,
+        'reply_id': widget.id,
+        'post_id': widget.postId,
         'like_val': '-1',
       };
 
-      var res = await CallApi().postData(data, '(Control)likePosts.php');
+      var res = await CallApi().postData(data, '(Control)likeReplies.php');
       print(res.body);
       List<dynamic> body = json.decode(res.body);
 

@@ -20,7 +20,8 @@ class UnansweredQuestions extends StatelessWidget{
     return Column(
       children: [
         Container(
-          width: 375,
+          height: height,
+          width: width,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Colors.white,
