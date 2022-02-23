@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
 
 class ShapedWidget extends StatelessWidget {
-  ShapedWidget({this.onlyTop = false});
+  ShapedWidget();
 
   final double padding = 4.0;
-  final bool onlyTop;
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +20,27 @@ class ShapedWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
-            padding: EdgeInsets.all(padding).copyWith(bottom: padding * 2),
-            child: onlyTop
-                ? SizedBox(
+            padding: EdgeInsets.all(8.0),
+            child: SizedBox(
                     width: 250.0,
                     height: 400.0,
-                  )
-                : SizedBox(
-                    width: 250.0,
-                    height: 400.0,
-                    child: Wrap(
+                    child: Column(
                       children: [
                         NotificationPopupChildren(),
                         NotificationPopupChildren(),
                         NotificationPopupChildren(),
                         NotificationPopupChildren(),
-                        NotificationPopupChildren(),
-                        NotificationPopupChildren(),
+                        GestureDetector(
+                          onTap: () => print('Show More'),
+                          child: Container(
+                            padding: EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Show More',
+                              style: TextStyle(color: globals.blue1),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

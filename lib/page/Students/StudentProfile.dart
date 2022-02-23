@@ -6,6 +6,8 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileQuestions&Replies.dart';
+import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileQuestions.dart';
+import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileReplies.dart';
 import 'package:flutter_app_backend/widgets/Students/StudentProfile/StudentDetailedProfileContainer.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,16 +38,20 @@ class _StudentProfileState extends State<StudentProfile> {
   Timer? timer;
 
   //ProfileQuestions
-  List<String> TheQuestion = [];
-  List<String> contextQuestion = [];
-  List<String> dateOfQuestion = [];
-  int questionsNbr = 0;
+  List<ProfileQuestions> children1 = [];
+
+  // List<String> TheQuestion = [];
+  // List<String> contextQuestion = [];
+  // List<String> dateOfQuestion = [];
+  //int questionsNbr = 0;
 
   //ProfileReplies
-  List<String> TheAskedQuestion = [];
-  List<String> reply = [];
-  List<String> DateOfReply = [];
-  int repliesNbr = 0;
+  List<ProfileReplies> children2 = [];
+
+  // List<String> TheAskedQuestion = [];
+  // List<String> reply = [];
+  // List<String> DateOfReply = [];
+  //int repliesNbr = 0;
   FocusNode _focusNode = FocusNode();
 
   @override
@@ -85,14 +91,8 @@ class _StudentProfileState extends State<StudentProfile> {
                       height: 15,
                     ),
                     StudentQuestionsReplies(
-                      TheQuestion: TheQuestion,
-                      contextQuestion: contextQuestion,
-                      dateOfQuestion: dateOfQuestion,
-                      TheAskedQuestion: TheAskedQuestion,
-                      reply: reply,
-                      DateOfReply: DateOfReply,
-                      nbrOfQuestions: questionsNbr,
-                      nbrOfReplies: repliesNbr,
+                      children1: children1,
+                      children2: children2,
                     ),
                     SizedBox(
                       height: 30,
@@ -125,64 +125,150 @@ class _StudentProfileState extends State<StudentProfile> {
             '=========<<======================================================<<==================================================<<=========');
       }
 
-        print('load studentPage');
-        //globals.occupenTable.clear();
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
+      try{
+      print('load studentPage');
+      //globals.occupenTable.clear();
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var account_Id = localStorage.getString("account_Id");
 
-        var data = {
-          'version': globals.version,
-          'account_Id': account_Id,
-          'userId': widget.userId,
-        };
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+        'userId': widget.userId,
+      };
 
-        var res = await CallApi().postData(data, '(Control)loadProfiles.php');
-        print(res.body);
-        List<dynamic> body = json.decode(res.body);
+      var res = await CallApi().postData(data, '(Control)loadProfiles.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
 
-        if (body[0] == "success") {
-          if (mounted) {
-            setState(() {
-              widget.username = body[1][0] + ' ' + body[1][1];
-              widget.universityName = body[1][2];
-              widget.description = body[1][3];
-              widget.nbrOfFriends = int.parse(body[1][4]);
-              widget.isFriend = body[1][5];
+      if (body[0] == "success") {
+        if (mounted) {
 
-              questionsNbr = body[2].length;
-              for (int i = 0; i < body[2].length; i++) {
-                //ProfileQuestions
-                TheQuestion.add(body[2][i][0]);
-                contextQuestion.add(body[2][i][1]);
-                dateOfQuestion.add(body[2][i][2]);
+          setState(() {
+            widget.username = body[1][0] + ' ' + body[1][1];
+            widget.universityName = body[1][2];
+            widget.description = body[1][3];
+            widget.nbrOfFriends = int.parse(body[1][4]);
+            widget.isFriend = body[1][5];
+
+            //============
+            // Post_id
+            // Post_tag
+            // Post_val
+            // post_likes_val
+            // Post_question
+            // Post_context
+            // nbrOfReplies
+            // Post_date
+
+            children1.clear();
+            for (int i = 0; i < body[2].length; i++) {
+              Color _color;
+              Color _color2;
+              if (int.parse(body[2][i][4]) == 0) {
+                _color = Colors.grey.shade600;
+                _color2 = Colors.grey.shade600;
+              } else if (int.parse(body[2][i][4]) == 1) {
+                _color = globals.blue1;
+                _color2 = Colors.grey.shade600;
+              } else if (int.parse(body[2][i][4]) == -1) {
+                _color = Colors.grey.shade600;
+                _color2 = globals.blue1;
+              } else {
+                _color = Colors.transparent;
+                _color2 = Colors.transparent;
               }
-              repliesNbr = body[3].length;
-              for (int i = 0; i < body[3].length; i++) {
-                //ProfileReplies
-                TheAskedQuestion.add(body[3][i][0]);
-                reply.add(body[3][i][1]);
-                DateOfReply.add(body[3][i][2]);
+              children1.add(
+                ProfileQuestions(
+                  Id: body[2][i][0],
+                  firstLastName: body[2][i][1],
+                  Post_tag: body[2][i][2],
+                  Post_val: int.parse(body[2][i][3]),
+                  color: _color,
+                  color2: _color2,
+                  TheQuestion: body[2][i][5],
+                  contextQuestion: body[2][i][6],
+                  nbrOfReplies: body[2][i][7],
+                  dateOfQuestion: 'on ' + body[2][i][8],
+                ),
+              );
+            }
+
+            // Body3
+            // ============
+            // Post_id
+            // Reply_id
+            // Post_tag
+            // Post_val
+            // post_likes_val
+            // Post_question
+            // Post_context
+            // post_date
+            // Reply_data
+            // Relpy_date
+            children2.clear();
+            for (int j = 0; j < body[3].length; j++) {
+              Color _color;
+              Color _color2;
+              print('dasdsadasdasd ' + body[3][j][5]);  
+              if (int.parse(body[3][j][5]) == 0) {
+                _color = Colors.grey.shade600;
+                _color2 = Colors.grey.shade600;
+              } else if (int.parse(body[3][j][5]) == 1) {
+                _color = globals.blue1;
+                _color2 = Colors.grey.shade600;
+              } else if (int.parse(body[3][j][5]) == -1) {
+                _color = Colors.grey.shade600;
+                _color2 = globals.blue1;
+              } else {
+                _color = Colors.transparent;
+                _color2 = Colors.transparent;
               }
-              print('dfdsfdsfdsf' + TheAskedQuestion.toString());
-            });
-          }
-        } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
-        } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
-        } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
-        }  else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
-        } else {
-          globals.loadStudentProfile = false;
-          ErrorPopup(context, globals.errorElse);
+
+              children2.add(
+                ProfileReplies(
+                  postId:body[3][j][0],
+                  Id: body[3][j][1],
+                  userName: body[3][j][2],
+                  firstLastName: body[1][0] + ' ' + body[1][1],
+                  Post_tag: body[3][j][3],
+                  Post_val: int.parse(body[3][j][4]),
+                  color: _color,
+                  color2: _color2,
+                  TheAskedQuestion: body[3][j][6],
+                  Post_context: body[3][j][7],
+                  post_date: body[3][j][8],
+                  reply: body[3][j][9],
+                  DateOfReply: 'on ' +  body[3][j][10],
+                ),
+              );
+            }
+          });
         }
+      } else if (body[0] == "errorVersion") {
+        ErrorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        ErrorPopup(context, globals.errorToken);
+      } else if (body[0] == "error4") {
+        ErrorPopup(context, globals.error4);
+      } else if (body[0] == "error7") {
+        WarningPopup(context, globals.warning7);
+      } else {
+        globals.loadStudentProfile = false;
+        ErrorPopup(context, globals.errorElse);
+      }
 
       globals.loadStudentProfile = false;
       print('load studentPage end!!!');
       print(
           '=========<<======================================================<<==================================================<<=========');
+    } catch (e) {
+      print(e);
+      globals.loadStudentProfile = false;
+      ErrorPopup(context, globals.errorException);
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
     }
   }
 

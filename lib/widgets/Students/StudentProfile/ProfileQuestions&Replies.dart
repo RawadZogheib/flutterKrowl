@@ -6,27 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class StudentQuestionsReplies extends StatefulWidget {
 
-  List<String> TheQuestion;
-  List<String> contextQuestion;
-  List<String> dateOfQuestion;
-  int nbrOfQuestions;
-
-  //ProfileReplies
-  List<String> TheAskedQuestion;
-  List<String> reply;
-  List<String> DateOfReply;
-  int nbrOfReplies;
+  List<ProfileQuestions> children1 = [];
+  List<ProfileReplies> children2 = [];
 
 
-  StudentQuestionsReplies(
-      {required this.TheQuestion,
-      required this.contextQuestion,
-      required this.dateOfQuestion,
-      required this.nbrOfQuestions,
-      required this.TheAskedQuestion,
-      required this.reply,
-      required this.DateOfReply,
-      required this.nbrOfReplies,});
+  StudentQuestionsReplies({required this.children1, required this.children2});
 
   @override
   State<StudentQuestionsReplies> createState() =>
@@ -37,31 +21,6 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
   bool Questions = true;
   bool Replies = true;
   var username;
-  List<ProfileQuestions> _children1 = [];
-  List<ProfileReplies> _children2 = [];
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    setState(() {
-      for(int i = 0; i < widget.nbrOfQuestions; i++) {
-        _children1.add(ProfileQuestions(
-          TheQuestion: widget.TheQuestion[i],
-          contextQuestion: widget.contextQuestion[i],
-          dateOfQuestion: 'on ' + widget.dateOfQuestion[i],
-        ),);
-      }
-      for(int j = 0; j < widget.nbrOfQuestions; j++) {
-        _children2.add(ProfileReplies(
-          TheAskedQuestion: widget.TheAskedQuestion[j],
-          reply: widget.reply[j],
-          DateOfReply: 'on ' + widget.DateOfReply[j],
-        ),);
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +62,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: [
-                            Text("Questions (${widget.nbrOfQuestions})",
+                            Text("Questions (${widget.children1.length})",
                                 // this is the number of replies
                                 style: GoogleFonts.nunito(
                                     fontSize: 20,
@@ -125,7 +84,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                 width: MediaQuery.of(context).size.width * 0.54,
                                 child: Row(
                                   children: [
-                                    Text("Questions (${widget.nbrOfQuestions})",
+                                    Text("Questions (${widget.children1.length})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -137,7 +96,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                             ),
 
                             Column(
-                              children: _children1,
+                              children: widget.children1,
                             ),
                             // This is a widget for the questions
                           ],
@@ -188,7 +147,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Replies (${widget.nbrOfReplies})",
+                                    Text("Replies (${widget.children2.length})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -216,7 +175,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Replies (${widget.nbrOfReplies})",
+                                    Text("Replies (${widget.children2.length})",
                                         // this is the number of replies
                                         style: GoogleFonts.nunito(
                                             fontSize: 20,
@@ -228,7 +187,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
                             ),
 
                             Column(
-                              children: _children2,
+                              children: widget.children2,
                             ),
                             //This is a widget for the replies
                           ],

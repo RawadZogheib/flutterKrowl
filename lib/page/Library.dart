@@ -317,6 +317,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     width: 20,
                                   ),
                                   SingleChildScrollView(
+                                    controller: ScrollController(),
                                     reverse: false,
                                     child: Container(
                                         width:

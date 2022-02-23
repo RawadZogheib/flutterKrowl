@@ -419,6 +419,11 @@ class _ReplyPageState extends State<ReplyPage>
           globals.loadReplyPage = false;
           ErrorPopup(context, globals.errorElse);
         }
+        globals.loadReplyPage = false;
+        print('load replyPage end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+
       } catch (e) {
         print(e);
         globals.loadReplyPage = false;
@@ -431,11 +436,7 @@ class _ReplyPageState extends State<ReplyPage>
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
-      globals.loadReplyPage = false;
-      print('load replyPage end!!!');
-      print(
-          '=========<<======================================================<<==================================================<<=========');
-    }
+      }
   }
 
   _loadNewPage() {

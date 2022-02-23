@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
 
@@ -34,7 +36,8 @@ class _CustomTabBarState extends State<CustomTabBar>
       animationController!.forward();
     else
       animationController!.reverse();
-    return Column(
+    return Stack(
+      clipBehavior: Clip.none,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -159,30 +162,15 @@ class _CustomTabBarState extends State<CustomTabBar>
                           )),
                     ),
                   ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: <Widget>[
-                      IconButton(
-                          icon: Icon(
-                            Icons.notifications_none_outlined,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _menuShown = !_menuShown;
-                            });
-                          }),
-                      Positioned(
-                        child: FadeTransition(
-                          opacity: opacityAnimation,
-                          child: ShapedWidget(
-                            onlyTop: false,
-                          ),
-                        ),
-                        right: -58.0,
-                        top: 48.0,
+                  IconButton(
+                      icon: Icon(
+                        Icons.notifications_none_outlined,
                       ),
-                    ],
-                  ),
+                      onPressed: () {
+                        setState(() {
+                          _menuShown = !_menuShown;
+                        });
+                      }),
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15),
                     child: CircleAvatar(
@@ -193,6 +181,18 @@ class _CustomTabBarState extends State<CustomTabBar>
                 ],
               ),
             ],
+          ),
+        ),
+        Positioned(
+          right: 10,
+          top: 85,
+          child: IgnorePointer(
+            ignoring: !_menuShown,
+            child: FadeTransition(
+              opacity: opacityAnimation,
+              child: ShapedWidget(
+              ),
+            ),
           ),
         ),
       ],
