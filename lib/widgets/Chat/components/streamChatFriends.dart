@@ -4,7 +4,9 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
-
+String? chname;
+String? tmpname;
+int? res;
 
 /// Main screen of our application. The layout is comprised of an [AppBar]
 /// containing the channel name and a [MessageView] displaying recent messages.
@@ -34,12 +36,20 @@ class _StreamExampleState extends State<StreamExample> {
   @override
   Widget build(BuildContext context) {
     final messages = widget.channel.state!.messagesStream;
-
+    tmpname=widget.channel.state!.members.first.userId; //getting the userid which is the username of the first member
+    if(tmpname !=null){
+      res=tmpname?.compareTo(widget.channel.client.uid);
+      if(res==0){
+        chname=widget.channel.state!.members.last.userId; //first member
+      }else{
+        chname=tmpname;
+      }
+    }
     return WillPopScope(
           onWillPop: () async => _back(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text( widget.channel.name.toString()),
+              title: Text(chname ?? ''),
               leading: new IconButton(
                   icon: new Icon(Icons.arrow_back),
                   onPressed: () {

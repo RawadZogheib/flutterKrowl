@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
-
+String? chname;
+String? tmpname;
+int? res;
 class StreamExampleTest extends StatelessWidget {
   final StreamChatClient client;
+
+
 
   //final Channel channel; // i added
   /// Minimal example using Stream's core Flutter package.
@@ -23,9 +27,7 @@ class StreamExampleTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: Scaffold(
-           body:HomeScreen()
-          ),
+        home: Scaffold(body: HomeScreen()),
         builder: (context, child) => StreamChatCore(
           client: client,
           child: child!,
@@ -40,9 +42,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Contacts'),
-    ),
+        appBar: AppBar(
+          title: const Text('Contacts'),
+        ),
         body: ChannelsBloc(
           child: ChannelListCore(
             channelListController: channelListController,
@@ -87,8 +89,19 @@ class HomeScreen extends StatelessWidget {
                 itemCount: channels.length,
                 itemBuilder: (BuildContext context, int index) {
                   final _item = channels[index];
+                  tmpname=_item.state!.members.first.userId; //getting the userid which is the username of the first member
+                  if(tmpname !=null){
+                    res=tmpname?.compareTo(_item.client.uid);
+                    if(res==0){
+                      chname=_item.state!.members.last.userId; //first member
+                    }else{
+                      chname=tmpname;
+                    }
+                  }
+
+
                   return ListTile(
-                    title: Text(_item.name ?? ''),
+                    title: Text(chname ?? ''),
                     subtitle: StreamBuilder<Message?>(
                       stream: _item.state!.lastMessageStream,
                       initialData: _item.state!.lastMessage,
@@ -123,7 +136,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       );
-
 }
 
 /// A list of messages sent in the current channel.
@@ -172,9 +184,18 @@ class _MessageScreenState extends State<MessageScreen> {
     /// To access the current channel, we can use the `.of()` method on
     /// [StreamChannel] to fetch the closest instance.
     final channel = StreamChannel.of(context).channel;
+    tmpname=channel.state!.members.first.userId; //getting the userid which is the username of the first member
+    if(tmpname !=null){
+      res=tmpname?.compareTo(channel.client.uid);
+      if(res==0){
+        chname=channel.state!.members.last.userId; //first member
+      }else{
+        chname=tmpname;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text(channel.name.toString()),
+        title: Text(chname ?? ''),
       ),
       body: SafeArea(
         child: Column(
