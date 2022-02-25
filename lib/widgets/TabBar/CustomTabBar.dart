@@ -36,8 +36,8 @@ class _CustomTabBarState extends State<CustomTabBar>
       animationController!.forward();
     else
       animationController!.reverse();
-    return Stack(
-      clipBehavior: Clip.none,
+    return Column(
+      // clipBehavior: Clip.none,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -183,17 +183,20 @@ class _CustomTabBarState extends State<CustomTabBar>
             ],
           ),
         ),
-        Positioned(
-          right: 10,
-          top: 85,
-          child: IgnorePointer(
-            ignoring: !_menuShown,
-            child: FadeTransition(
-              opacity: opacityAnimation,
-              child: ShapedWidget(
+        Row(
+          children: [
+            Expanded(child: SizedBox()),
+            IgnorePointer(
+              ignoring: !_menuShown,
+              child: FadeTransition(
+                opacity: opacityAnimation,
+                child: ShapedWidget(),
               ),
             ),
-          ),
+            SizedBox(
+              width: 12,
+            )
+          ],
         ),
       ],
     );

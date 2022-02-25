@@ -1,14 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
 import 'package:flutter_app_backend/widgets/Buttons/PreviousButton.dart';
-import 'package:flutter_app_backend/widgets/PopUp/LoadingPopUp.dart';
+import 'package:flutter_app_backend/widgets/PopUp/Loading/LoadingPopUp.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -306,6 +304,7 @@ class _Login2State extends State<Login2> {
       } else {
         WarningPopup(context, globals.warning7);
       }
+
     }catch(e){
       print(e);
       Navigator.pop(context);

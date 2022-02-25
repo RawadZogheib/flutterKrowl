@@ -57,7 +57,7 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   void initState() {
     // TODO: implement initState
-    globals.currentPage = 'StudentCard';
+    globals.currentPage = 'StudentProfile';
     _loadNewPage();
     super.initState();
   }
@@ -151,16 +151,6 @@ class _StudentProfileState extends State<StudentProfile> {
             widget.nbrOfFriends = int.parse(body[1][4]);
             widget.isFriend = body[1][5];
 
-            //============
-            // Post_id
-            // Post_tag
-            // Post_val
-            // post_likes_val
-            // Post_question
-            // Post_context
-            // nbrOfReplies
-            // Post_date
-
             children1.clear();
             for (int i = 0; i < body[2].length; i++) {
               Color _color;
@@ -194,23 +184,10 @@ class _StudentProfileState extends State<StudentProfile> {
               );
             }
 
-            // Body3
-            // ============
-            // Post_id
-            // Reply_id
-            // Post_tag
-            // Post_val
-            // post_likes_val
-            // Post_question
-            // Post_context
-            // post_date
-            // Reply_data
-            // Relpy_date
             children2.clear();
             for (int j = 0; j < body[3].length; j++) {
               Color _color;
               Color _color2;
-              print('dasdsadasdasd ' + body[3][j][5]);  
               if (int.parse(body[3][j][5]) == 0) {
                 _color = Colors.grey.shade600;
                 _color2 = Colors.grey.shade600;

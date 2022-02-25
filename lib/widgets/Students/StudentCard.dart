@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Students/StudentProfile.dart';
+import 'package:flutter_app_backend/widgets/PopUp/Loading/LoadingRequestAddUnFriendPopUp.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/Students1/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,17 +55,16 @@ class _StudentCardState extends State<StudentCard> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  StudentProfile(
-                    userId: widget.userId,
-                    username: widget.username,
-                    universityName: widget.universityName,
-                    description: widget.description,
-                    nbrOfFriends: widget.nbrOfFriends,
-                    isFriend: widget.isFriend,
-                  ),
+              builder: (context) => StudentProfile(
+                userId: widget.userId,
+                username: widget.username,
+                universityName: widget.universityName,
+                description: widget.description,
+                nbrOfFriends: widget.nbrOfFriends,
+                isFriend: widget.isFriend,
+              ),
             ),
-                (route) => false);
+            (route) => false);
       },
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
@@ -97,10 +97,7 @@ class _StudentCardState extends State<StudentCard> {
                   children: [
                     Image(
                       height: 80,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       image: AssetImage('Assets/CoverPhoto.jpg'),
                       fit: BoxFit.cover,
                     ),
@@ -113,11 +110,11 @@ class _StudentCardState extends State<StudentCard> {
                   top: 50,
                   child: widget.userImg.isEmpty
                       ? Avatar(
-                    elevation: 3,
-                    shape: AvatarShape.circle(27),
-                    name: '${widget.username}',
-                    placeholderColors: [globals.blue1],
-                  )
+                          elevation: 3,
+                          shape: AvatarShape.circle(27),
+                          name: '${widget.username}',
+                          placeholderColors: [globals.blue1],
+                        )
                       : Image.network(globals.myIP + '/' + widget.userImg),
                 ),
               ]),
@@ -129,10 +126,10 @@ class _StudentCardState extends State<StudentCard> {
                       child: ListTile(
                           title: Center(
                               child: Text(
-                                "${widget.username}",
-                                style: GoogleFonts.archivoBlack(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                              )),
+                            "${widget.username}",
+                            style: GoogleFonts.archivoBlack(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          )),
                           subtitle: Center(
                               child: Text("${widget.universityName}",
                                   textAlign: TextAlign.center,
@@ -143,89 +140,89 @@ class _StudentCardState extends State<StudentCard> {
                     ),
                     widget.isFriend == '0' // Not Friend
                         ? Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                              margin:
-                              EdgeInsets.only(bottom: 15, right: 15),
-                              child: StudentButton(
-                                height: 25,
-                                fontSize: 12.0,
-                                text: "Add Friend",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () async {
-                                    await _addFriend();
-                                },
-                              )),
-                        ],
-                      ),
-                    )
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                    margin:
+                                        EdgeInsets.only(bottom: 15, right: 15),
+                                    child: StudentButton(
+                                      height: 25,
+                                      fontSize: 12.0,
+                                      text: "Add Friend",
+                                      textcolor: globals.blue1,
+                                      color1: globals.blue2,
+                                      color2: Colors.blueGrey,
+                                      onPressed: () async {
+                                        await _addFriend();
+                                      },
+                                    )),
+                              ],
+                            ),
+                          )
                         : widget.isFriend == '1' // Requested
-                        ? Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(
-                                  bottom: 15, right: 15),
-                              child: StudentButton(
-                                fontSize: 12.0,
-                                height: 25,
-                                text: "Requetsed",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () async {
-                                    await _requested();
-                                },
-                              )),
-                        ],
-                      ),
-                    )
-                        : widget.isFriend == '2' // Friend
-                        ? Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(
-                                  bottom: 15, left: 10, right: 6),
-                              child: StudentButton(
-                                fontSize: 12.0,
-                                height: 25,
-                                text: "Unfriend",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () async {
-                                    await _unFriend();
-                                },
-                              )),
-                          Container(
-                              margin: EdgeInsets.only(
-                                  bottom: 15, right: 15),
-                              child: StudentButton(
-                                height: 25,
-                                fontSize: 12.0,
-                                text: "Message",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () {
-                                  _goToMessage();
-                                },
-                              )),
-                        ],
-                      ),
-                    )
-                        : Container(),
+                            ? Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: 15, right: 15),
+                                        child: StudentButton(
+                                          fontSize: 12.0,
+                                          height: 25,
+                                          text: "Requetsed",
+                                          textcolor: globals.blue1,
+                                          color1: globals.blue2,
+                                          color2: Colors.blueGrey,
+                                          onPressed: () async {
+                                            await _requested();
+                                          },
+                                        )),
+                                  ],
+                                ),
+                              )
+                            : widget.isFriend == '2' // Friend
+                                ? Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: 15, left: 10, right: 6),
+                                            child: StudentButton(
+                                              fontSize: 12.0,
+                                              height: 25,
+                                              text: "Unfriend",
+                                              textcolor: globals.blue1,
+                                              color1: globals.blue2,
+                                              color2: Colors.blueGrey,
+                                              onPressed: () async {
+                                                await _unFriend();
+                                              },
+                                            )),
+                                        Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: 15, right: 15),
+                                            child: StudentButton(
+                                              height: 25,
+                                              fontSize: 12.0,
+                                              text: "Message",
+                                              textcolor: globals.blue1,
+                                              color1: globals.blue2,
+                                              color2: Colors.blueGrey,
+                                              onPressed: () {
+                                                _goToMessage();
+                                              },
+                                            )),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
                   ],
                 ),
               ),
@@ -239,6 +236,7 @@ class _StudentCardState extends State<StudentCard> {
   _addFriend() async {
     //Add Friend
     if (_loadButton == false) {
+      LoadingRequestAddUnFriendPopUp('Adding friend...', context);
       _loadButton = true;
       while (globals.loadStudent == true) {
         await Future.delayed(Duration(seconds: 1));
@@ -249,13 +247,13 @@ class _StudentCardState extends State<StudentCard> {
             '=========<<======================================================<<==================================================<<=========');
       }
       try {
-          globals.loadButtonStudent = true;
-          print(
-              '=========>>======================================================>>==================================================>>=========');
-          print('Sending like to server...');
+        globals.loadButtonStudent = true;
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print('Sending like to server...');
 
-          //send to server
-          SharedPreferences localStorage = await SharedPreferences.getInstance();
+        //send to server
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
 
         var data = {
@@ -267,6 +265,8 @@ class _StudentCardState extends State<StudentCard> {
         var res = await CallApi().postData(data, '(Control)requestFriends.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
+
+        Navigator.pop(context);
 
         if (body[0] == "success") {
           if (mounted) {
@@ -302,6 +302,7 @@ class _StudentCardState extends State<StudentCard> {
           WarningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
+          Navigator.pop(context);
           globals.loadButtonStudent = false;
           ErrorPopup(context, globals.errorElse);
         }
@@ -313,6 +314,7 @@ class _StudentCardState extends State<StudentCard> {
       } catch (e) {
         print(e);
         _loadButton = false;
+        Navigator.pop(context);
         globals.loadButtonStudent = false;
         ErrorPopup(context, globals.errorException);
         print(
@@ -320,23 +322,26 @@ class _StudentCardState extends State<StudentCard> {
       }
     }
   }
+
   void _goToMessage() {
     //Go To Message
   }
 
   _requested() async {
     //Remove Request
-    await _cancelFriend('Friend request removed Successfully');
+    await _cancelFriend(
+        'Friend request removed Successfully', 'Removing friend request...');
   }
 
   _unFriend() async {
     //Remove From Friend List
-    await _cancelFriend('Friend removed Successfully');
+    await _cancelFriend('Friend removed Successfully', 'Removing friend...');
   }
 
-  _cancelFriend(String text) async {
+  _cancelFriend(String text, String text2) async {
     //Add Friend
     if (_loadButton == false) {
+      LoadingRequestAddUnFriendPopUp(text2, context);
       _loadButton = true;
       while (globals.loadStudent == true) {
         await Future.delayed(Duration(seconds: 1));
@@ -360,6 +365,8 @@ class _StudentCardState extends State<StudentCard> {
         var res = await CallApi().postData(data, '(Control)cancelFriends.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
+
+        Navigator.pop(context);
 
         if (body[0] == "success") {
           if (mounted) {
@@ -401,6 +408,7 @@ class _StudentCardState extends State<StudentCard> {
           WarningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
+          Navigator.pop(context);
           globals.loadButtonStudent = false;
           ErrorPopup(context, globals.errorElse);
         }
@@ -412,6 +420,7 @@ class _StudentCardState extends State<StudentCard> {
       } catch (e) {
         print(e);
         _loadButton = false;
+        Navigator.pop(context);
         globals.loadButtonStudent = false;
         ErrorPopup(context, globals.errorException);
         print(

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/PopUp/Loading/LoadingRequestAddUnFriendPopUp.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/Students/Students1/StudentButton.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -122,7 +123,8 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 20),
                   child: Text(
-                    "${widget.nbrOfFriends.toString()} Friends", //this is the date
+                    "${widget.nbrOfFriends.toString()} Friends",
+                    //this is the date
                     style: GoogleFonts.nunito(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
@@ -136,16 +138,16 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                         children: [
                           Container(
                               child: StudentButton(
-                                height: 25,
-                                fontSize: 12.0,
-                                text: "Add Friend",
-                                textcolor: globals.blue1,
-                                color1: globals.blue2,
-                                color2: Colors.blueGrey,
-                                onPressed: () async {
-                                    await _addFriend();
-                                },
-                              )),
+                            height: 25,
+                            fontSize: 12.0,
+                            text: "Add Friend",
+                            textcolor: globals.blue1,
+                            color1: globals.blue2,
+                            color2: Colors.blueGrey,
+                            onPressed: () async {
+                              await _addFriend();
+                            },
+                          )),
                         ],
                       )
                     : widget.isFriend == '1' // Requested
@@ -155,16 +157,16 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                             children: [
                               Container(
                                   child: StudentButton(
-                                    fontSize: 12.0,
-                                    height: 25,
-                                    text: "Requetsed",
-                                    textcolor: globals.blue1,
-                                    color1: globals.blue2,
-                                    color2: Colors.blueGrey,
-                                    onPressed: () async {
-                                        await _requested();
-                                    },
-                                  )),
+                                fontSize: 12.0,
+                                height: 25,
+                                text: "Requetsed",
+                                textcolor: globals.blue1,
+                                color1: globals.blue2,
+                                color2: Colors.blueGrey,
+                                onPressed: () async {
+                                  await _requested();
+                                },
+                              )),
                             ],
                           )
                         : widget.isFriend == '2' // Friend
@@ -173,7 +175,9 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                      margin: EdgeInsets.only(left: 10,),
+                                      margin: EdgeInsets.only(
+                                        left: 10,
+                                      ),
                                       child: StudentButton(
                                         fontSize: 12.0,
                                         height: 25,
@@ -182,7 +186,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                                         color1: globals.blue2,
                                         color2: Colors.blueGrey,
                                         onPressed: () async {
-                                            await _unFriend();
+                                          await _unFriend();
                                         },
                                       )),
                                   Container(
@@ -213,6 +217,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
   _addFriend() async {
     //Add Friend
     if (_loadButton == false) {
+      LoadingRequestAddUnFriendPopUp('Adding friend...', context);
       _loadButton = true;
       while (globals.loadStudentProfile == true) {
         await Future.delayed(Duration(seconds: 1));
@@ -241,6 +246,8 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
         var res = await CallApi().postData(data, '(Control)requestFriends.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
+
+        Navigator.pop(context);
 
         if (body[0] == "success") {
           if (mounted) {
@@ -275,6 +282,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
           WarningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
+          Navigator.pop(context);
           globals.loadButtonStudentProfile = false;
           ErrorPopup(context, globals.errorElse);
         }
@@ -286,6 +294,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
       } catch (e) {
         print(e);
         _loadButton = false;
+        Navigator.pop(context);
         globals.loadButtonStudentProfile = false;
         ErrorPopup(context, globals.errorException);
         print(
@@ -293,23 +302,26 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
       }
     }
   }
+
   void _goToMessage() {
     //Go To Message
   }
 
   _requested() async {
     //Remove Request
-    await _cancelFriend('Friend request removed Successfully');
+    await _cancelFriend(
+        'Friend request removed Successfully', 'Removing friend request...');
   }
 
   _unFriend() async {
     //Remove From Friend List
-    await _cancelFriend('Friend removed Successfully');
+    await _cancelFriend('Friend removed Successfully', 'Removing friend...');
   }
 
-  _cancelFriend(String text) async {
+  _cancelFriend(String text, String text2) async {
     //Add Friend
     if (_loadButton == false) {
+      LoadingRequestAddUnFriendPopUp(text2, context);
       _loadButton = true;
       while (globals.loadStudentProfile == true) {
         await Future.delayed(Duration(seconds: 1));
@@ -333,6 +345,8 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
         var res = await CallApi().postData(data, '(Control)cancelFriends.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
+
+        Navigator.pop(context);
 
         if (body[0] == "success") {
           if (mounted) {
@@ -374,6 +388,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
           WarningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
+          Navigator.pop(context);
           globals.loadButtonStudentProfile = false;
           ErrorPopup(context, globals.errorElse);
         }
@@ -385,6 +400,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
       } catch (e) {
         print(e);
         _loadButton = false;
+        Navigator.pop(context);
         globals.loadButtonStudentProfile = false;
         ErrorPopup(context, globals.errorException);
         print(
@@ -392,5 +408,4 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
       }
     }
   }
-
 }

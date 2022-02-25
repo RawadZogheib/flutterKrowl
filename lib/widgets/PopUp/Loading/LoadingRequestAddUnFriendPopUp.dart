@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-LoadingPopUp(context){
+LoadingRequestAddUnFriendPopUp(String text, BuildContext context) {
   showDialog<Image>(
     context: context,
     barrierDismissible: false,
@@ -13,10 +13,11 @@ LoadingPopUp(context){
           children: [
             Expanded(
               child: Image(
-                image: AssetImage('Assets/krowl_logo2.png'),
+                image: AssetImage('Assets/krowl_logo.gif'),
               ),
             ),
-            Text('Loading ...')          ],
+            Text(text),
+          ],
         ),
       ),
     ),
