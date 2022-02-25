@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_backend/page/Reminders.dart';
 import 'package:flutter_app_backend/page/Students/Students1.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatFriends.dart';
 import 'package:flutter_app_backend/page/Code.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //home: Intro(),
-          initialRoute: '/FirstPage',
+          initialRoute: '/Reminders',
           routes: {
             '/FirstPage': (context) => FirstPage(),
             '/intro_page': (context) => Intro(),
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
             '/VideoConference2': (context) => VideoConference2(),
             '/Forum1': (context) => Forum1(),
             '/Forum2': (context) => Forum2(),
-            '/Students1': (context) => Students1()
+            '/Students1': (context) => Students1(),
+            '/Reminders': (context) => Reminders()
             //'/ReplyPage': (context) => ReplyPage(),
           });
     });
