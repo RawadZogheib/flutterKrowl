@@ -22,6 +22,8 @@ class _RemindersState extends State<Reminders>
   bool Disabled = true;
   bool _add1 = true;
   bool _add2 = true;
+  List<ReminderWidget> _children1 = [];
+  List<ReminderWidget> _children2 = [];
   final List<Widget> myTabs = [
     Tab(child: Text("Enabled reminders", style: TextStyle(fontSize: 17.0))),
     Tab(child: Text("Disabled reminders", style: TextStyle(fontSize: 17.0))),
@@ -40,6 +42,69 @@ class _RemindersState extends State<Reminders>
     globals.currentPage = 'Reminders';
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
+    setState(() {
+      _children1.addAll([
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "Something very important",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "HELOOOOOOO",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+        ReminderWidget(
+          enabled: true,
+          ReminderContent: "Something very important",
+          dropdownValue: 'in',
+          //in/every
+          hoursValue: 0,
+          minutesValue: 2,
+        ),
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "HELOOOOOOO",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "Something very important",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "HELOOOOOOO",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+      ]);
+      _children2.addAll([
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "Something very important",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+        ReminderWidget(
+            enabled: true,
+            ReminderContent: "HELOOOOOOO",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2),
+      ]);
+    });
     super.initState();
   }
 
@@ -142,19 +207,19 @@ class _RemindersState extends State<Reminders>
                                 tabs: myTabs,
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 20,
                               ),
                               Container(
                                 width: 40,
                                 height: 40,
-                                margin: EdgeInsets.only(left: 8.0),
+                                margin: EdgeInsets.only(left: 12.0),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   border: Border.all(
                                     color: Colors.transparent,
                                     width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(32),
+                                  borderRadius: BorderRadius.circular(4),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.1),
@@ -189,7 +254,8 @@ class _RemindersState extends State<Reminders>
                                   borderRadius: BorderRadius.circular(32),
                                   child: SingleChildScrollView(
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
@@ -205,8 +271,8 @@ class _RemindersState extends State<Reminders>
                                                 _add1 == false
                                                     ? Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                15.0),
+                                                            const EdgeInsets
+                                                                .all(15.0),
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -221,16 +287,19 @@ class _RemindersState extends State<Reminders>
                                                                       color: Colors
                                                                           .black),
                                                             ),
-                                                            SizedBox(height: 10),
+                                                            SizedBox(
+                                                                height: 10),
                                                             Container(
                                                                 width: 550,
                                                                 child:
                                                                     EditTextInput(
                                                                   FocusedBorderColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                   BorderColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                   hintText:
                                                                       "ReminderContent",
@@ -241,10 +310,12 @@ class _RemindersState extends State<Reminders>
                                                                       .grey
                                                                       .shade400,
                                                                   cursorColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                 )),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Text(
                                                               "When do you want to receive this reminder ? *",
                                                               style: GoogleFonts
@@ -254,12 +325,14 @@ class _RemindersState extends State<Reminders>
                                                                       color: Colors
                                                                           .black),
                                                             ),
-                                                            SizedBox(height: 10),
+                                                            SizedBox(
+                                                                height: 10),
                                                             Container(
-                                                              padding:
-                                                                  EdgeInsets.only(
+                                                              padding: EdgeInsets
+                                                                  .only(
                                                                       left: 17,
-                                                                      right: 17),
+                                                                      right:
+                                                                          17),
                                                               width: 550,
                                                               height: 40,
                                                               decoration:
@@ -295,8 +368,9 @@ class _RemindersState extends State<Reminders>
                                                                   ),
                                                                   value:
                                                                       dropdownValue1,
-                                                                  onChanged: (String?
-                                                                      genderNewValue) {
+                                                                  onChanged:
+                                                                      (String?
+                                                                          genderNewValue) {
                                                                     setState(
                                                                       () {
                                                                         dropdownValue1 =
@@ -327,7 +401,8 @@ class _RemindersState extends State<Reminders>
                                                                 ),
                                                               ),
                                                             ),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Row(
                                                               children: [
                                                                 Text(
@@ -461,7 +536,8 @@ class _RemindersState extends State<Reminders>
                                                                 ),
                                                               ],
                                                             ),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Row(
                                                               children: [
                                                                 Container(
@@ -480,13 +556,11 @@ class _RemindersState extends State<Reminders>
                                                                       });
                                                                     },
                                                                     style: ButtonStyle(
-                                                                        backgroundColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            globals
+                                                                        backgroundColor:
+                                                                            MaterialStateProperty.all<Color>(globals
                                                                                 .blue1),
-                                                                        shadowColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            Colors
+                                                                        shadowColor:
+                                                                            MaterialStateProperty.all<Color>(Colors
                                                                                 .transparent),
                                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                                                             borderRadius:
@@ -499,8 +573,8 @@ class _RemindersState extends State<Reminders>
                                                                               17,
                                                                           fontFamily:
                                                                               'Rubik',
-                                                                          color: Colors
-                                                                              .white),
+                                                                          color:
+                                                                              Colors.white),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -523,13 +597,11 @@ class _RemindersState extends State<Reminders>
                                                                       });
                                                                     },
                                                                     style: ButtonStyle(
-                                                                        backgroundColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            globals
+                                                                        backgroundColor:
+                                                                            MaterialStateProperty.all<Color>(globals
                                                                                 .blue2),
-                                                                        shadowColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            Colors
+                                                                        shadowColor:
+                                                                            MaterialStateProperty.all<Color>(Colors
                                                                                 .transparent),
                                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                                                             borderRadius:
@@ -542,8 +614,8 @@ class _RemindersState extends State<Reminders>
                                                                               17,
                                                                           fontFamily:
                                                                               'Rubik',
-                                                                          color: globals
-                                                                              .blue1),
+                                                                          color:
+                                                                              globals.blue1),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -555,45 +627,19 @@ class _RemindersState extends State<Reminders>
                                                     : SizedBox(
                                                         height: 10,
                                                       ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
                                                 if (Enabled)
                                                   Column(
-                                                    children: [
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "Something very important"),
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "HELOOOOOOO"),
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "Something very important"),
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "HELOOOOOOO"),
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "Something very important"),
-                                                      ReminderWidget(
-                                                          enabled: true,
-                                                          ReminderContent:
-                                                              "HELOOOOOOO"),
-                                                    ],
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: _children1,
                                                   ),
                                                 if (!Enabled)
                                                   Text(
                                                     "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",
                                                     style: GoogleFonts.nunito(
                                                         fontSize: 17,
-                                                        color:
-                                                            Colors.grey.shade700),
+                                                        color: Colors
+                                                            .grey.shade700),
                                                   ),
                                               ],
                                             ),
@@ -606,59 +652,11 @@ class _RemindersState extends State<Reminders>
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Container(
-                                                  width: 40,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    border: Border.all(
-                                                      color: Colors.transparent,
-                                                      width: 1,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(4),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.grey
-                                                            .withOpacity(0.1),
-                                                        spreadRadius: 5,
-                                                        blurRadius: 5,
-                                                        offset: Offset(0,
-                                                            3), // changes position of shadow
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: InkWell(
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    customBorder:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                    ),
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _add2 = !_add2;
-                                                      });
-                                                      print("Testingg");
-                                                    },
-                                                    child: Icon(Icons.add,
-                                                        color: Colors.grey),
-                                                  ),
-                                                ),
                                                 _add2 == false
                                                     ? Padding(
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                15.0),
+                                                            const EdgeInsets
+                                                                .all(15.0),
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -673,16 +671,19 @@ class _RemindersState extends State<Reminders>
                                                                       color: Colors
                                                                           .black),
                                                             ),
-                                                            SizedBox(height: 10),
+                                                            SizedBox(
+                                                                height: 10),
                                                             Container(
                                                                 width: 550,
                                                                 child:
                                                                     EditTextInput(
                                                                   FocusedBorderColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                   BorderColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                   hintText:
                                                                       "ReminderContent",
@@ -693,10 +694,12 @@ class _RemindersState extends State<Reminders>
                                                                       .grey
                                                                       .shade400,
                                                                   cursorColor:
-                                                                      Colors.grey
+                                                                      Colors
+                                                                          .grey
                                                                           .shade400,
                                                                 )),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Text(
                                                               "When do you want to receive this reminder ? *",
                                                               style: GoogleFonts
@@ -706,12 +709,14 @@ class _RemindersState extends State<Reminders>
                                                                       color: Colors
                                                                           .black),
                                                             ),
-                                                            SizedBox(height: 10),
+                                                            SizedBox(
+                                                                height: 10),
                                                             Container(
-                                                              padding:
-                                                                  EdgeInsets.only(
+                                                              padding: EdgeInsets
+                                                                  .only(
                                                                       left: 17,
-                                                                      right: 17),
+                                                                      right:
+                                                                          17),
                                                               width: 550,
                                                               height: 40,
                                                               decoration:
@@ -747,8 +752,9 @@ class _RemindersState extends State<Reminders>
                                                                   ),
                                                                   value:
                                                                       dropdownValue1,
-                                                                  onChanged: (String?
-                                                                      genderNewValue) {
+                                                                  onChanged:
+                                                                      (String?
+                                                                          genderNewValue) {
                                                                     setState(
                                                                       () {
                                                                         dropdownValue1 =
@@ -779,7 +785,8 @@ class _RemindersState extends State<Reminders>
                                                                 ),
                                                               ),
                                                             ),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Row(
                                                               children: [
                                                                 Text(
@@ -913,7 +920,8 @@ class _RemindersState extends State<Reminders>
                                                                 ),
                                                               ],
                                                             ),
-                                                            SizedBox(height: 15),
+                                                            SizedBox(
+                                                                height: 15),
                                                             Row(
                                                               children: [
                                                                 Container(
@@ -932,13 +940,11 @@ class _RemindersState extends State<Reminders>
                                                                       });
                                                                     },
                                                                     style: ButtonStyle(
-                                                                        backgroundColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            globals
+                                                                        backgroundColor:
+                                                                            MaterialStateProperty.all<Color>(globals
                                                                                 .blue1),
-                                                                        shadowColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            Colors
+                                                                        shadowColor:
+                                                                            MaterialStateProperty.all<Color>(Colors
                                                                                 .transparent),
                                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                                                             borderRadius:
@@ -951,8 +957,8 @@ class _RemindersState extends State<Reminders>
                                                                               17,
                                                                           fontFamily:
                                                                               'Rubik',
-                                                                          color: Colors
-                                                                              .white),
+                                                                          color:
+                                                                              Colors.white),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -975,13 +981,11 @@ class _RemindersState extends State<Reminders>
                                                                       });
                                                                     },
                                                                     style: ButtonStyle(
-                                                                        backgroundColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            globals
+                                                                        backgroundColor:
+                                                                            MaterialStateProperty.all<Color>(globals
                                                                                 .blue2),
-                                                                        shadowColor: MaterialStateProperty.all<
-                                                                                Color>(
-                                                                            Colors
+                                                                        shadowColor:
+                                                                            MaterialStateProperty.all<Color>(Colors
                                                                                 .transparent),
                                                                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                                                             borderRadius:
@@ -994,8 +998,8 @@ class _RemindersState extends State<Reminders>
                                                                               17,
                                                                           fontFamily:
                                                                               'Rubik',
-                                                                          color: globals
-                                                                              .blue1),
+                                                                          color:
+                                                                              globals.blue1),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1007,29 +1011,17 @@ class _RemindersState extends State<Reminders>
                                                     : SizedBox(
                                                         height: 10,
                                                       ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
                                                 if (Disabled)
                                                   Column(
-                                                    children: [
-                                                      ReminderWidget(
-                                                          enabled: false,
-                                                          ReminderContent:
-                                                              "Something very important"),
-                                                      ReminderWidget(
-                                                          enabled: false,
-                                                          ReminderContent:
-                                                              "HELOOOOOOO")
-                                                    ],
+                                                    children: _children2,
                                                   ),
                                                 if (!Disabled)
                                                   Text(
                                                     "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",
                                                     style: GoogleFonts.nunito(
                                                         fontSize: 17,
-                                                        color:
-                                                            Colors.grey.shade700),
+                                                        color: Colors
+                                                            .grey.shade700),
                                                   ),
                                               ],
                                             ),

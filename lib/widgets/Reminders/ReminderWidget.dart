@@ -4,33 +4,57 @@ import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ReminderWidget extends StatefulWidget {
-  var ReminderContent;
+  String ReminderContent;
   bool enabled;
+  String dropdownValue;
+  double hoursValue = 0;
+  double minutesValue = 0;
 
   ReminderWidget({
     required this.enabled,
     required this.ReminderContent,
+    required this.dropdownValue,
+    required this.hoursValue,
+    required this.minutesValue,
   });
 
   @override
-  State<ReminderWidget> createState() => _ReminderWidgetState();
+  State<ReminderWidget> createState() => _ReminderWidgetState(
+      ReminderContentTMP: ReminderContent,
+      enabledTMP: enabled,
+      dropdownValueTMP: dropdownValue,
+      hoursValueTMP: hoursValue,
+      minutesValueTMP: minutesValue);
 }
 
 class _ReminderWidgetState extends State<ReminderWidget> {
   bool _edit = false;
-  String? dropdownValue1;
-  int? dropdownValue2;
-  String? dropdownValue3;
+
+  //String? dropdownValue2;
+  //String? dropdownValue3;
+
   List gender = [
     'every',
     'in',
   ];
-  List Time = [
-    'minutes',
-    'hours',
-  ];
-  double _value1 = 1;
-  double _value2 = 1;
+
+  // List Time = [
+  //   'minutes',
+  //   'hours',
+  // ];
+
+  String ReminderContentTMP;
+  bool enabledTMP;
+  String dropdownValueTMP;
+  double hoursValueTMP;
+  double minutesValueTMP;
+
+  _ReminderWidgetState(
+      {required this.minutesValueTMP,
+      required this.ReminderContentTMP,
+      required this.enabledTMP,
+      required this.dropdownValueTMP,
+      required this.hoursValueTMP});
 
   @override
   Widget build(BuildContext context) {
@@ -221,11 +245,12 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          value: dropdownValue1,
+                          value: widget.dropdownValue,
                           onChanged: (String? genderNewValue) {
                             setState(
                               () {
-                                dropdownValue1 = genderNewValue;
+                                widget.dropdownValue =
+                                    genderNewValue.toString();
                               },
                             );
                           },
@@ -249,7 +274,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                     Row(
                       children: [
                         Text(
-                          _value1.round().toString(),
+                          widget.hoursValue.round().toString(),
                           style: GoogleFonts.nunito(
                               fontSize: 16, color: Colors.black),
                         ),
@@ -262,7 +287,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                           width: 5,
                         ),
                         Text(
-                          _value2.round().toString(),
+                          widget.minutesValue.round().toString(),
                           style: GoogleFonts.nunito(
                               fontSize: 16, color: Colors.black),
                         ),
@@ -286,17 +311,17 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                         Container(
                           width: 550,
                           child: Slider(
-                              min: 1,
+                              min: 0,
                               max: 59,
-                              divisions: 58,
+                              divisions: 59,
                               activeColor: Colors.blueGrey,
                               inactiveColor: globals.blue2,
                               thumbColor: globals.blue1,
-                              value: _value1,
+                              value: widget.hoursValue,
                               onChanged: (double value) {
                                 setState(() {
-                                  _value1 = value;
-                                  print(_value1);
+                                  widget.hoursValue = value;
+                                  print(widget.hoursValue);
                                 });
                               }),
                         ),
@@ -321,11 +346,11 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                               activeColor: Colors.blueGrey,
                               inactiveColor: globals.blue2,
                               thumbColor: globals.blue1,
-                              value: _value2,
+                              value: widget.minutesValue,
                               onChanged: (double value) {
                                 setState(() {
-                                  _value2 = value;
-                                  print(_value2);
+                                  widget.minutesValue = value;
+                                  print(widget.minutesValue);
                                 });
                               }),
                         ),
