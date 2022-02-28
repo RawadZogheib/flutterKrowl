@@ -153,7 +153,12 @@ class _CustomTabBarState extends State<CustomTabBar>
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
-                      onTap: () {},
+                      onTap: () {
+                        if (globals.currentPage != 'Reminders') {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/Reminders', (route) => false);
+                        }
+                      },
                       child: Text("Reminders",
                           style: TextStyle(
                             color: globals.blue1,

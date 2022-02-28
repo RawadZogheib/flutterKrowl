@@ -1,5 +1,4 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
 import 'package:flutter_app_backend/widgets/Reminders/ReminderWidget.dart';
@@ -35,6 +34,7 @@ class _RemindersState extends State<Reminders> with SingleTickerProviderStateMix
 
   @override
   void initState() {
+    globals.currentPage = 'Reminders';
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
     super.initState();
