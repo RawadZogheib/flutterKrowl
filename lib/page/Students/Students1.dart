@@ -161,11 +161,13 @@ class _Students1State extends State<Students1>
                                         child: NumberPaginator(
                                           numberPages: _totalPages,
                                           onPageChange: (int index) {
-                                            setState(() {
-                                              _currentPage = index + 1;
-                                              _loadNewPage();
-                                              print(index + 1);
-                                            });
+                                            if (mounted) {
+                                              setState(() {
+                                                _currentPage = index + 1;
+                                                _loadNewPage();
+                                                print(index + 1);
+                                              });
+                                            }
                                           },
                                           // initially selected index
                                           initialPage: _currentPage - 1,
@@ -270,7 +272,7 @@ class _Students1State extends State<Students1>
           }
         } else if (body[0] == "empty") {
           if (_currentPage != 1) {
-            if(mounted) {
+            if (mounted) {
               setState(() {
                 _currentPage = 1;
                 _loadNewPage();
@@ -302,10 +304,10 @@ class _Students1State extends State<Students1>
         if (mounted) {
           setState(() {
             _load = true;
+            //Navigator.pop(context);
+            ErrorPopup(context, globals.errorException);
           });
         }
-        //Navigator.pop(context);
-        ErrorPopup(context, globals.errorException);
       }
       globals.loadStudent = false;
       print('load studentPage end!!!');
@@ -313,6 +315,7 @@ class _Students1State extends State<Students1>
           '=========<<======================================================<<==================================================<<=========');
     }
   }
+
   _loadNewPage() {
     timer?.cancel();
     _loadStudents(); //0

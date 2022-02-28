@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
@@ -6,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ReminderWidget extends StatefulWidget {
   var ReminderContent;
+  bool enabled;
 
   ReminderWidget({
+    required this.enabled,
     required this.ReminderContent,
   });
 
@@ -16,8 +17,7 @@ class ReminderWidget extends StatefulWidget {
 }
 
 class _ReminderWidgetState extends State<ReminderWidget> {
-  bool enabled = true;
-  bool edit = false;
+  bool _edit = false;
   String? dropdownValue1;
   int? dropdownValue2;
   String? dropdownValue3;
@@ -74,65 +74,77 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                             fontFamily: 'Rubik',
                             color: Colors.grey.shade500),
                       ),
-                      enabled == false
+                      widget.enabled == true
                           ? Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              print("Testingg");
-                            },
-                            child: Icon(
-                              Icons.notifications,
-                              color: globals.blue1,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              print("Testingg");
-                            },
-                            child: Icon(
-                              Icons.more_vert,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      )
-                          : Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              print("Testingg");
-                            },
-                            child: Icon(
-                              Icons.notifications_off,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          PopupMenuButton<int>(
-                              onSelected: (item) =>
-                                  onSelected(context, item),
-                              itemBuilder: (context) => [
-                                PopupMenuItem<int>(
-                                  value: 0,
-                                  child: Text("edit",
-                                      style: TextStyle(
-                                          color: globals.blue1)),
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.enabled = !widget.enabled;
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.notifications,
+                                    color: globals.blue1,
+                                  ),
                                 ),
-                                PopupMenuItem<int>(
-                                  value: 1,
-                                  child: Text("delete",
-                                      style: TextStyle(
-                                          color: Colors.red)),
-                                )
-                              ])
-                          // InkWell(
-                          //   onTap: () {
-                          //     print("Testingg");
-                          //   },
-                          //   child: Icon(Icons.more_vert,color: Colors.grey,),
-                          // ),
-                        ],
-                      ),
+                                PopupMenuButton<int>(
+                                    onSelected: (item) =>
+                                        onSelected(context, item),
+                                    itemBuilder: (context) => [
+                                          PopupMenuItem<int>(
+                                            value: 0,
+                                            child: Text("edit",
+                                                style: TextStyle(
+                                                    color: globals.blue1)),
+                                          ),
+                                          PopupMenuItem<int>(
+                                            value: 1,
+                                            child: Text("delete",
+                                                style: TextStyle(
+                                                    color: Colors.red)),
+                                          )
+                                        ]),
+                              ],
+                            )
+                          : Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.enabled = !widget.enabled;
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.notifications_off,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                PopupMenuButton<int>(
+                                    onSelected: (item) =>
+                                        onSelected(context, item),
+                                    itemBuilder: (context) => [
+                                          PopupMenuItem<int>(
+                                            value: 0,
+                                            child: Text("edit",
+                                                style: TextStyle(
+                                                    color: globals.blue1)),
+                                          ),
+                                          PopupMenuItem<int>(
+                                            value: 1,
+                                            child: Text("delete",
+                                                style: TextStyle(
+                                                    color: Colors.red)),
+                                          )
+                                        ]),
+                                // InkWell(
+                                //   onTap: () {
+                                //     print("Testingg");
+                                //   },
+                                //   child: Icon(Icons.more_vert,color: Colors.grey,),
+                                // ),
+                              ],
+                            ),
                     ]),
               ),
               Padding(
@@ -150,231 +162,255 @@ class _ReminderWidgetState extends State<ReminderWidget> {
         SizedBox(
           height: 5,
         ),
-        edit == true
+        _edit == true
             ? Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Content *",
-                style:
-                GoogleFonts.nunito(fontSize: 16, color: Colors.black),
-              ),
-              SizedBox(height: 10),
-              Container(
-                  width: 550,
-                  child: EditTextInput(
-                    FocusedBorderColor: globals.blue1,
-                    BorderColor: globals.blue1,
-                    suffixIcon: InkWell(
-                        onTap: () {
-                          print("Testing icon");
-                        },
-                        child: Icon(
-                          Icons.done,
-                          color: globals.blue1,
-                          size: 30,
-                        )),
-                    hintText: widget.ReminderContent,
-                    fillColor: Colors.white,
-                    focusColor: globals.blue1,
-                    cursorColor: globals.blue1,
-                  )),
-              SizedBox(height: 15),
-              Text(
-                "When do you want to receive this reminder ? *",
-                style:
-                GoogleFonts.nunito(fontSize: 16, color: Colors.black),
-              ),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.only(left: 17, right: 17),
-                width: 550,
-                height: 40,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: globals.blue1,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    hint: Text(
-                      'every',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      ),
-                      textAlign: TextAlign.center,
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Content *",
+                      style:
+                          GoogleFonts.nunito(fontSize: 16, color: Colors.black),
                     ),
-                    value: dropdownValue1,
-                    onChanged: (String? genderNewValue) {
-                      setState(
-                            () {
-                          dropdownValue1 = genderNewValue;
-                        },
-                      );
-                    },
-                    items: gender.map<DropdownMenuItem<String>>(
-                          (value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
+                    SizedBox(height: 10),
+                    Container(
+                        width: 550,
+                        child: EditTextInput(
+                          FocusedBorderColor: globals.blue1,
+                          BorderColor: globals.blue1,
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                print("Testing icon");
+                              },
+                              child: Icon(
+                                Icons.done,
+                                color: globals.blue1,
+                                size: 30,
+                              )),
+                          hintText: widget.ReminderContent,
+                          fillColor: Colors.white,
+                          focusColor: globals.blue1,
+                          cursorColor: globals.blue1,
+                        )),
+                    SizedBox(height: 15),
+                    Text(
+                      "When do you want to receive this reminder ? *",
+                      style:
+                          GoogleFonts.nunito(fontSize: 16, color: Colors.black),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.only(left: 17, right: 17),
+                      width: 550,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: globals.blue1,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          hint: Text(
+                            'every',
                             style: TextStyle(
+                              color: Colors.black,
                               fontSize: 15,
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                        );
-                      },
-                    ).toList(),
-                  ),
+                          value: dropdownValue1,
+                          onChanged: (String? genderNewValue) {
+                            setState(
+                              () {
+                                dropdownValue1 = genderNewValue;
+                              },
+                            );
+                          },
+                          items: gender.map<DropdownMenuItem<String>>(
+                            (value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Text(
+                          _value1.round().toString(),
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        Text(
+                          "Hrs",
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          _value2.round().toString(),
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        Text(
+                          "min",
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Hours:",
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 550,
+                          child: Slider(
+                              min: 1,
+                              max: 59,
+                              divisions: 58,
+                              activeColor: Colors.blueGrey,
+                              inactiveColor: globals.blue2,
+                              thumbColor: globals.blue1,
+                              value: _value1,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _value1 = value;
+                                  print(_value1);
+                                });
+                              }),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Minutes:",
+                          style: GoogleFonts.nunito(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 550,
+                          child: Slider(
+                              min: 0,
+                              max: 59,
+                              divisions: 59,
+                              activeColor: Colors.blueGrey,
+                              inactiveColor: globals.blue2,
+                              thumbColor: globals.blue1,
+                              value: _value2,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _value2 = value;
+                                  print(_value2);
+                                });
+                              }),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 90,
+                          height: 35,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              print("Clicked Save");
+                              setState(() {
+                                _edit = !_edit;
+                              });
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        globals.blue1),
+                                shadowColor: MaterialStateProperty.all<Color>(
+                                    Colors.transparent),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        side:
+                                            BorderSide(color: globals.blue1)))),
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Rubik',
+                                  color: globals.blue2),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 90,
+                          height: 35,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              print("Clicked");
+                              setState(() {
+                                print("Clicked Cancel");
+                                _edit = !_edit;
+                              });
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        globals.blue2),
+                                shadowColor: MaterialStateProperty.all<Color>(
+                                    Colors.transparent),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        side:
+                                            BorderSide(color: globals.blue2)))),
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Rubik',
+                                  color: globals.blue1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 15),
-              Row(
-                children: [
-                  Text(_value1.round().toString(), style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                  Text("Hrs", style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                  SizedBox(width: 5,),
-                  Text(_value2.round().toString(), style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                  Text("min", style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                ],
-              ),
-              Row(
-                children: [
-                  Text("Hours:", style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                  SizedBox(width: 10,),
-                  Container(
-                    width: 550,
-                    child: Slider(
-                        min: 1,
-                        max: 59,
-                        divisions: 58,
-                        activeColor: Colors.blueGrey,
-                        inactiveColor: globals.blue2,
-                        thumbColor: globals.blue1,
-                        value: _value1,
-                        onChanged: (double value) {
-                          setState(() {
-                            _value1 = value;
-                            print(_value1);
-                          });
-                        }),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text("Minutes:", style:
-                  GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
-                  SizedBox(width: 10,),
-                  Container(
-                    width: 550,
-                    child: Slider(
-                        min: 0,
-                        max: 59,
-                        divisions: 59,
-                        activeColor: Colors.blueGrey,
-                        inactiveColor: globals.blue2,
-                        thumbColor: globals.blue1,
-                        value: _value2,
-                        onChanged: (double value) {
-                          setState(() {
-                            _value2 = value;
-                            print(_value2);
-                          });
-                        }),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 90,
-                    height: 35,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print("Clicked Save");
-                        setState(() {
-                          edit = !edit;
-                        });
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all<Color>(
-                              globals.blue1),
-                          shadowColor: MaterialStateProperty.all<Color>(
-                              Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0),
-                                  side:
-                                  BorderSide(color: globals.blue1)))),
-                      child: Text(
-                        "Save",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontFamily: 'Rubik',
-                            color: globals.blue2),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    width: 90,
-                    height: 35,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print("Clicked");
-                        setState(() {
-                          print("Clicked Cancel");
-                          edit = !edit;
-                        });
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all<Color>(
-                              globals.blue2),
-                          shadowColor: MaterialStateProperty.all<Color>(
-                              Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0),
-                                  side:
-                                  BorderSide(color: globals.blue2)))),
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontFamily: 'Rubik',
-                            color: globals.blue1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
+              )
             : SizedBox(
-          height: 15,
-        )
+                height: 15,
+              )
       ],
     );
   }
@@ -384,7 +420,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
       case 0:
         print("Clicked");
         setState(() {
-          edit = !edit;
+          _edit = !_edit;
         });
         break;
       case 1:
