@@ -253,12 +253,12 @@ class _RemindersState extends State<Reminders> with SingleTickerProviderStateMix
                                               SizedBox(height: 15),
                                               Row(
                                                 children: [
-                                                  Text(_value1.toString(), style:
+                                                  Text(_value1.round().toString(), style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   Text("Hrs", style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   SizedBox(width: 5,),
-                                                  Text(_value2.toString(), style:
+                                                  Text(_value2.round().toString(), style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   Text("min", style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
@@ -504,12 +504,12 @@ class _RemindersState extends State<Reminders> with SingleTickerProviderStateMix
                                               SizedBox(height: 15),
                                               Row(
                                                 children: [
-                                                  Text(_value1.toString(), style:
+                                                  Text(_value1.round().toString(), style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   Text("Hrs", style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   SizedBox(width: 5,),
-                                                  Text(_value2.toString(), style:
+                                                  Text(_value2.round().toString(), style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
                                                   Text("min", style:
                                                   GoogleFonts.nunito(fontSize: 16, color: Colors.black),),
