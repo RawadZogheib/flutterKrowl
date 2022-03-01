@@ -202,17 +202,17 @@ class _RemindersState extends State<Reminders>
                               TabBar(
                                onTap: (val){
                                  thisTabBar = val;
-                                 setState(() {
-                                   // add1.addBool = false;
-                                   // for(int i = 0; i< _children1.length; i++){
-                                   //   _children1[i].edit = false;
-                                   // }
-                                   // add2.addBool = false;
-                                   // for(int j = 0; j< _children2.length; j++){
-                                   //   _children2[j].edit = false;
-                                   // }
-                                 });
                                  print(val);
+                                 // setState(() {
+                                 //   add1.addBool = false;
+                                 //   for(int i = 0; i< _children1.length; i++){
+                                 //     _children1[i].edit = false;
+                                 //   }
+                                 //   add2.addBool = false;
+                                 //   for(int j = 0; j< _children2.length; j++){
+                                 //     _children2[j].edit = false;
+                                 //   }
+                                 // });
                                },
                                 controller: _tabController,
                                 labelColor: Colors.black,
