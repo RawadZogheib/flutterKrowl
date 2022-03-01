@@ -4,7 +4,7 @@ import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddWidget extends StatefulWidget {
-  bool addBool = false;
+  bool _addBool = false;
 
   AddWidget({
     this.onChanged,
@@ -17,9 +17,7 @@ class AddWidget extends StatefulWidget {
 }
 
 class _AddWidgetState extends State<AddWidget> {
-  String? dropdownValue1;
-  int? dropdownValue2;
-  String? dropdownValue3;
+  String? _dropdownValue;
   List gender = [
     'every',
     'in',
@@ -28,8 +26,8 @@ class _AddWidgetState extends State<AddWidget> {
     'minutes',
     'hours',
   ];
-  double _value1 = 1;
-  double _value2 = 1;
+  double _value1 = 0;
+  double _value2 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +63,7 @@ class _AddWidgetState extends State<AddWidget> {
             ),
             onTap: () {
               setState(() {
-                widget.addBool = !widget.addBool;
+                widget._addBool = !widget._addBool;
               });
               print("Testingg");
             },
@@ -75,7 +73,7 @@ class _AddWidgetState extends State<AddWidget> {
         SizedBox(
           height: 10,
         ),
-        widget.addBool == true
+        widget._addBool == true
             ? Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -125,11 +123,11 @@ class _AddWidgetState extends State<AddWidget> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          value: dropdownValue1,
+                          value: _dropdownValue,
                           onChanged: (String? genderNewValue) {
                             setState(
                               () {
-                                dropdownValue1 = genderNewValue;
+                                _dropdownValue = genderNewValue;
                               },
                             );
                           },
@@ -190,9 +188,9 @@ class _AddWidgetState extends State<AddWidget> {
                         Container(
                           width: 550,
                           child: Slider(
-                              min: 1,
+                              min: 0,
                               max: 59,
-                              divisions: 58,
+                              divisions: 59,
                               activeColor: Colors.blueGrey,
                               inactiveColor: globals.blue2,
                               thumbColor: globals.blue1,
@@ -246,7 +244,7 @@ class _AddWidgetState extends State<AddWidget> {
                             onPressed: () {
                               print("Clicked Save");
                               setState(() {
-                                widget.addBool = !widget.addBool;
+                                widget._addBool = !widget._addBool;
                               });
                             },
                             style: ButtonStyle(
@@ -281,7 +279,8 @@ class _AddWidgetState extends State<AddWidget> {
                             onPressed: () {
                               print("Clicked Cancel");
                               setState(() {
-                                widget.addBool = !widget.addBool;
+                                widget._addBool = !widget._addBool;
+
                               });
                             },
                             style: ButtonStyle(
