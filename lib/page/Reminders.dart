@@ -19,8 +19,6 @@ class _RemindersState extends State<Reminders>
     with SingleTickerProviderStateMixin {
   FocusNode _focusNode = FocusNode();
   int thisTabBar = 0;
-  AddWidget add1 = AddWidget();
-  AddWidget add2 = AddWidget();
   List<ReminderWidget> _children1 = [];
   List<ReminderWidget> _children2 = [];
   final List<Widget> myTabs = [
@@ -232,7 +230,7 @@ class _RemindersState extends State<Reminders>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            add1,
+                                            AddWidget1(),
                                             _children1 == 0
                                                 ? Text(
                                                     "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",
@@ -264,7 +262,7 @@ class _RemindersState extends State<Reminders>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            add2,
+                                            AddWidget2(),
                                             _children2.length == 0
                                                 ? Text(
                                                     "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",

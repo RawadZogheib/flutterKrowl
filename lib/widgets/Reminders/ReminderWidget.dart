@@ -58,9 +58,6 @@ class _ReminderWidgetState extends State<ReminderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var WhenToReceiveReminder;
-    var Nbr;
-    var MinutesOrHours;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -91,7 +88,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Remind me $WhenToReceiveReminder $Nbr $MinutesOrHours ",
+                        "Remind me ${widget.dropdownValue} ${widget.hoursValue.round()} Hours ${widget.minutesValue.round()}Minutes.",
                         //this is the date
                         style: TextStyle(
                             fontSize: 13,
@@ -113,6 +110,8 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                                   ),
                                 ),
                                 PopupMenuButton<int>(
+                                    tooltip: '',
+                                    splashRadius: 0.1,
                                     onSelected: (item) =>
                                         onSelected(context, item),
                                     itemBuilder: (context) => [
@@ -145,6 +144,8 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                                   ),
                                 ),
                                 PopupMenuButton<int>(
+                                    tooltip: '',
+                                    splashRadius: 0.1,
                                     onSelected: (item) =>
                                         onSelected(context, item),
                                     itemBuilder: (context) => [
@@ -362,6 +363,11 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                               print("Clicked Save");
                               setState(() {
                                 widget.edit = !widget.edit;
+                                ReminderContentTMP =widget.ReminderContent;
+                                enabledTMP = widget.enabled;
+                                dropdownValueTMP = widget.dropdownValue;
+                                hoursValueTMP = widget.hoursValue;
+                                minutesValueTMP = widget.minutesValue;
                               });
                             },
                             style: ButtonStyle(
@@ -394,10 +400,14 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                           height: 35,
                           child: ElevatedButton(
                             onPressed: () {
-                              print("Clicked");
+                              print("Clicked Cancel");
                               setState(() {
-                                print("Clicked Cancel");
                                 widget.edit = !widget.edit;
+                                widget.ReminderContent = ReminderContentTMP;
+                                widget.enabled = enabledTMP;
+                                widget.dropdownValue = dropdownValueTMP;
+                                widget.hoursValue = hoursValueTMP;
+                                widget.minutesValue = minutesValueTMP;
                               });
                             },
                             style: ButtonStyle(
