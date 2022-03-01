@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           //home: Intro(),
-          initialRoute: '/FirstPage',
+          initialRoute: '/Reminders',
           routes: {
             '/FirstPage': (context) => FirstPage(),
             '/intro_page': (context) => Intro(),

@@ -3,69 +3,43 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ReminderWidget extends StatefulWidget {
-  String ReminderContent;
-  bool enabled;
-  String dropdownValue;
-  double hoursValue = 0;
-  double minutesValue = 0;
-  bool edit = false;
+class AddWidget extends StatefulWidget {
+  bool addBool = false;
 
-  ReminderWidget({
-    required this.enabled,
-    required this.ReminderContent,
-    required this.dropdownValue,
-    required this.hoursValue,
-    required this.minutesValue,
+  AddWidget({
+    this.onChanged,
   });
 
+  var onChanged;
+
   @override
-  State<ReminderWidget> createState() => _ReminderWidgetState(
-      ReminderContentTMP: ReminderContent,
-      enabledTMP: enabled,
-      dropdownValueTMP: dropdownValue,
-      hoursValueTMP: hoursValue,
-      minutesValueTMP: minutesValue);
+  State<AddWidget> createState() => _AddWidgetState();
 }
 
-class _ReminderWidgetState extends State<ReminderWidget> {
-
-  //String? dropdownValue2;
-  //String? dropdownValue3;
-
+class _AddWidgetState extends State<AddWidget> {
+  String? dropdownValue1;
+  int? dropdownValue2;
+  String? dropdownValue3;
   List gender = [
     'every',
     'in',
   ];
-
-  // List Time = [
-  //   'minutes',
-  //   'hours',
-  // ];
-
-  String ReminderContentTMP;
-  bool enabledTMP;
-  String dropdownValueTMP;
-  double hoursValueTMP;
-  double minutesValueTMP;
-
-  _ReminderWidgetState(
-      {required this.minutesValueTMP,
-      required this.ReminderContentTMP,
-      required this.enabledTMP,
-      required this.dropdownValueTMP,
-      required this.hoursValueTMP});
+  List Time = [
+    'minutes',
+    'hours',
+  ];
+  double _value1 = 1;
+  double _value2 = 1;
 
   @override
   Widget build(BuildContext context) {
-    var WhenToReceiveReminder;
-    var Nbr;
-    var MinutesOrHours;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 750,
+          width: 40,
+          height: 40,
+          margin: EdgeInsets.only(left: 12.0),
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -82,105 +56,26 @@ class _ReminderWidgetState extends State<ReminderWidget> {
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 5.0, left: 15),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Remind me $WhenToReceiveReminder $Nbr $MinutesOrHours ",
-                        //this is the date
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Rubik',
-                            color: Colors.grey.shade500),
-                      ),
-                      widget.enabled == true
-                          ? Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      widget.enabled = !widget.enabled;
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.notifications,
-                                    color: globals.blue1,
-                                  ),
-                                ),
-                                PopupMenuButton<int>(
-                                    onSelected: (item) =>
-                                        onSelected(context, item),
-                                    itemBuilder: (context) => [
-                                          PopupMenuItem<int>(
-                                            value: 0,
-                                            child: Text("edit",
-                                                style: TextStyle(
-                                                    color: globals.blue1)),
-                                          ),
-                                          PopupMenuItem<int>(
-                                            value: 1,
-                                            child: Text("delete",
-                                                style: TextStyle(
-                                                    color: Colors.red)),
-                                          )
-                                        ]),
-                              ],
-                            )
-                          : Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      widget.enabled = !widget.enabled;
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.notifications_off,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                PopupMenuButton<int>(
-                                    onSelected: (item) =>
-                                        onSelected(context, item),
-                                    itemBuilder: (context) => [
-                                          PopupMenuItem<int>(
-                                            value: 0,
-                                            child: Text("edit",
-                                                style: TextStyle(
-                                                    color: globals.blue1)),
-                                          ),
-                                          PopupMenuItem<int>(
-                                            value: 1,
-                                            child: Text("delete",
-                                                style: TextStyle(
-                                                    color: Colors.red)),
-                                          )
-                                        ]),
-                              ],
-                            ),
-                    ]),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15, bottom: 20, right: 15, top: 7),
-                child: Text(
-                  widget.ReminderContent,
-                  style: GoogleFonts.nunito(
-                      fontSize: 17, color: Colors.grey.shade700),
-                ),
-              ),
-            ],
+          child: InkWell(
+            highlightColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            onTap: () {
+              setState(() {
+                widget.addBool = !widget.addBool;
+              });
+              print("Testingg");
+            },
+            child: Icon(Icons.add, color: Colors.grey),
           ),
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
-        widget.edit == true
+        widget.addBool == true
             ? Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -195,21 +90,12 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                     Container(
                         width: 550,
                         child: EditTextInput(
-                          FocusedBorderColor: globals.blue1,
-                          BorderColor: globals.blue1,
-                          suffixIcon: InkWell(
-                              onTap: () {
-                                print("Testing icon");
-                              },
-                              child: Icon(
-                                Icons.done,
-                                color: globals.blue1,
-                                size: 30,
-                              )),
-                          hintText: widget.ReminderContent,
+                          FocusedBorderColor: Colors.grey.shade400,
+                          BorderColor: Colors.grey.shade400,
+                          hintText: "ReminderContent",
                           fillColor: Colors.white,
-                          focusColor: globals.blue1,
-                          cursorColor: globals.blue1,
+                          focusColor: Colors.grey.shade400,
+                          cursorColor: Colors.grey.shade400,
                         )),
                     SizedBox(height: 15),
                     Text(
@@ -224,7 +110,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                       height: 40,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: globals.blue1,
+                          color: Colors.grey.shade400,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(5),
@@ -239,12 +125,11 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          value: widget.dropdownValue,
+                          value: dropdownValue1,
                           onChanged: (String? genderNewValue) {
                             setState(
                               () {
-                                widget.dropdownValue =
-                                    genderNewValue.toString();
+                                dropdownValue1 = genderNewValue;
                               },
                             );
                           },
@@ -268,7 +153,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                     Row(
                       children: [
                         Text(
-                          widget.hoursValue.round().toString(),
+                          _value1.round().toString(),
                           style: GoogleFonts.nunito(
                               fontSize: 16, color: Colors.black),
                         ),
@@ -281,7 +166,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                           width: 5,
                         ),
                         Text(
-                          widget.minutesValue.round().toString(),
+                          _value2.round().toString(),
                           style: GoogleFonts.nunito(
                               fontSize: 16, color: Colors.black),
                         ),
@@ -305,17 +190,17 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                         Container(
                           width: 550,
                           child: Slider(
-                              min: 0,
+                              min: 1,
                               max: 59,
-                              divisions: 59,
+                              divisions: 58,
                               activeColor: Colors.blueGrey,
                               inactiveColor: globals.blue2,
                               thumbColor: globals.blue1,
-                              value: widget.hoursValue,
+                              value: _value1,
                               onChanged: (double value) {
                                 setState(() {
-                                  widget.hoursValue = value;
-                                  print(widget.hoursValue);
+                                  _value1 = value;
+                                  print(_value1);
                                 });
                               }),
                         ),
@@ -340,11 +225,11 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                               activeColor: Colors.blueGrey,
                               inactiveColor: globals.blue2,
                               thumbColor: globals.blue1,
-                              value: widget.minutesValue,
+                              value: _value2,
                               onChanged: (double value) {
                                 setState(() {
-                                  widget.minutesValue = value;
-                                  print(widget.minutesValue);
+                                  _value2 = value;
+                                  print(_value2);
                                 });
                               }),
                         ),
@@ -361,7 +246,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                             onPressed: () {
                               print("Clicked Save");
                               setState(() {
-                                widget.edit = !widget.edit;
+                                widget.addBool = !widget.addBool;
                               });
                             },
                             style: ButtonStyle(
@@ -378,11 +263,11 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                                         side:
                                             BorderSide(color: globals.blue1)))),
                             child: Text(
-                              "Save",
+                              "Create",
                               style: TextStyle(
                                   fontSize: 17,
                                   fontFamily: 'Rubik',
-                                  color: globals.blue2),
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -394,10 +279,9 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                           height: 35,
                           child: ElevatedButton(
                             onPressed: () {
-                              print("Clicked");
+                              print("Clicked Cancel");
                               setState(() {
-                                print("Clicked Cancel");
-                                widget.edit = !widget.edit;
+                                widget.addBool = !widget.addBool;
                               });
                             },
                             style: ButtonStyle(
@@ -428,26 +312,9 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                 ),
               )
             : SizedBox(
-                height: 15,
-              )
+                height: 10,
+              ),
       ],
     );
-  }
-
-  void onSelected(BuildContext context, int item) {
-    switch (item) {
-      case 0:
-        print("Clicked");
-        setState(() {
-          widget.edit = !widget.edit;
-        });
-        break;
-      case 1:
-        print("Clicked");
-        setState(() {
-          widget.edit = !widget.edit;
-        });
-        break;
-    }
   }
 }
