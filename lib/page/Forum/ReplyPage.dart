@@ -217,36 +217,38 @@ class _ReplyPageState extends State<ReplyPage>
                               SizedBox(
                                 width: 15,
                               ),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                  Contributors(
-                                    height: double.parse(
-                                        (220 + distAnimation.value).toString()),
-                                    width: double.parse(
-                                        (350 + distAnimation.value).toString()),
-                                  ),
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  UnansweredQuestions(
-                                    username: 'idotalia',
-                                    question:
-                                        ' Anyone here have experience with Pytorch?',
-                                    contextofquestion:
-                                        'dsngujbnuydfvhngysdnbvugfndugn',
-                                    NbrReplies: 1,
-                                    height: double.parse(
-                                        (270 + distAnimation.value).toString()),
-                                    width: double.parse(
-                                        (350 + distAnimation.value).toString()),
-                                  )
-                                ],
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: distAnimation.value,
+                                    ),
+                                    Contributors(
+                                      height: double.parse(
+                                          (220 + distAnimation.value).toString()),
+                                      width: double.parse(
+                                          (350 + distAnimation.value).toString()),
+                                    ),
+                                    SizedBox(
+                                      height: distAnimation.value,
+                                    ),
+                                    // SizedBox(
+                                    //   height: 20,
+                                    // ),
+                                    UnansweredQuestions(
+                                      username: 'idotalia',
+                                      question:
+                                          ' Anyone here have experience with Pytorch?',
+                                      contextofquestion:
+                                          'dsngujbnuydfvhngysdnbvugfndugn',
+                                      NbrReplies: 1,
+                                      height: double.parse(
+                                          (270 + distAnimation.value).toString()),
+                                      width: double.parse(
+                                          (350 + distAnimation.value).toString()),
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
