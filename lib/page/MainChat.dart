@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatContacts.dart';
+import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -79,17 +80,22 @@ class _MainChatState extends State<MainChat> {
             ),
           ],
         ),
-        body: Center(
-          child: initBool == true
-              ? _widgetOptions.elementAt(_selectedIndex)
-              : Center(
-                  child: Image(
-                    image: AssetImage('Assets/krowl_logo.gif'),
-                    fit: BoxFit.cover,
-                    height: 150,
-                    width: 150,
-                  ),
-                ),
+        body: Stack(
+          children: [
+            Center(
+              child: initBool == true
+                  ? _widgetOptions.elementAt(_selectedIndex)
+                  : Center(
+                      child: Image(
+                        image: AssetImage('Assets/krowl_logo.gif'),
+                        fit: BoxFit.cover,
+                        height: 150,
+                        width: 150,
+                      ),
+                    ),
+            ),
+            CustomTabBar(),
+          ],
         ));
   }
 

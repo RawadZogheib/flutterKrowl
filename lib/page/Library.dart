@@ -145,30 +145,32 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                   width: 20,
                                 ),
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    SizedBox(
-                                      height: 435,
-                                      width: 270,
-                                      child: CreateTable(
-                                        height: double.parse(
-                                            (415 + distAnimation.value)
-                                                .toString()),
-                                        width: double.parse(
-                                            (250 + distAnimation.value)
-                                                .toString()),
-                                        onTap: () {
-                                          _createTable();
-                                        },
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 435,
+                                        width: 270,
+                                        child: CreateTable(
+                                          height: double.parse(
+                                              (415 + distAnimation.value)
+                                                  .toString()),
+                                          width: double.parse(
+                                              (250 + distAnimation.value)
+                                                  .toString()),
+                                          onTap: () {
+                                            _createTable();
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 20,
@@ -239,30 +241,32 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.05),
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    SizedBox(
-                                      height: 435,
-                                      width: 270,
-                                      child: CreateTable(
-                                        height: double.parse(
-                                            (415 + distAnimation.value)
-                                                .toString()),
-                                        width: double.parse(
-                                            (250 + distAnimation.value)
-                                                .toString()),
-                                        onTap: () {
-                                          _createTable();
-                                        },
+                              SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 435,
+                                        width: 270,
+                                        child: CreateTable(
+                                          height: double.parse(
+                                              (415 + distAnimation.value)
+                                                  .toString()),
+                                          width: double.parse(
+                                              (250 + distAnimation.value)
+                                                  .toString()),
+                                          onTap: () {
+                                            _createTable();
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width *
@@ -288,30 +292,32 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.05),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                      SizedBox(
-                                        height: 435,
-                                        width: 270,
-                                        child: CreateTable(
-                                          height: double.parse(
-                                              (415 + distAnimation.value)
-                                                  .toString()),
-                                          width: double.parse(
-                                              (250 + distAnimation.value)
-                                                  .toString()),
-                                          onTap: () {
-                                            _createTable();
-                                          },
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: distAnimation.value,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 435,
+                                          width: 270,
+                                          child: CreateTable(
+                                            height: double.parse(
+                                                (415 + distAnimation.value)
+                                                    .toString()),
+                                            width: double.parse(
+                                                (250 + distAnimation.value)
+                                                    .toString()),
+                                            onTap: () {
+                                              _createTable();
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: distAnimation.value,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 20,

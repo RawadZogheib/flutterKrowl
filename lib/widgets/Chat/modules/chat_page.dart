@@ -299,7 +299,9 @@ class _ChatPage2State extends State<ChatPage2> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CustomTabBar(),
+            SizedBox(
+              height: 130,
+            ),
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 16, right: 16, top: 10),
