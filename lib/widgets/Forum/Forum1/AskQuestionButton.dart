@@ -17,7 +17,7 @@ class AskQuestionButton extends StatelessWidget {
     return Container(
       width: 170,
       height: 40,
-      child: ElevatedButton(onPressed: onPressed,
+      child: ElevatedButton(onPressed: onPressed(),
         style:
         ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(color1),
