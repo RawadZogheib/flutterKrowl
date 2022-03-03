@@ -192,6 +192,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           child: IgnorePointer(
             ignoring: !_menuShown,
             child: SingleChildScrollView(
+              controller: ScrollController(),
               child: Row(
                 children: [
                   Expanded(child: SizedBox()),
