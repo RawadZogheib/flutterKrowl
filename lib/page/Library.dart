@@ -8,6 +8,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
+import 'package:flutter_app_backend/widgets/MyDrawer.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:number_paginator/number_paginator.dart';
@@ -68,64 +69,82 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       animation: animationController!,
       builder: (BuildContext context, Widget) {
         return Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: globals.white,
-            body: Responsive(
-              mobile: SingleChildScrollView(
-                reverse: false,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 435,
-                        width: 270,
-                        child: CreateTable(
-                          height: double.parse(
-                              (415 + distAnimation.value).toString()),
-                          width: double.parse(
-                              (250 + distAnimation.value).toString()),
-                          onTap: () {
-                            _createTable();
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
+          resizeToAvoidBottomInset: true,
+          drawer: MediaQuery.of(context).size.width < 700 ? myDrawer() : null,
+          backgroundColor: globals.white,
+          body: Builder(
+            builder: (context) => Responsive(
+              mobile: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        icon: Icon(Icons.menu),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      )),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      reverse: false,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 20,
+                              height: 20,
                             ),
-                            Wrap(
-                              children: [
-                                load == true
-                                    ? Center(
-                                        child: Image(
-                                          image: AssetImage(
-                                              'Assets/krowl_logo.gif'),
-                                          fit: BoxFit.cover,
-                                          height: 150,
-                                          width: 150,
-                                        ),
-                                      )
-                                    : Column(
-                                        children: children.toList(),
-                                      )
-                              ],
+                            SizedBox(
+                              height: 435,
+                              width: 270,
+                              child: CreateTable(
+                                height: double.parse(
+                                    (415 + distAnimation.value).toString()),
+                                width: double.parse(
+                                    (250 + distAnimation.value).toString()),
+                                onTap: () {
+                                  _createTable();
+                                },
+                              ),
                             ),
-                            SizedBox(width: 20),
-                          ]),
-                    ],
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Wrap(
+                                    children: [
+                                      load == true
+                                          ? Center(
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'Assets/krowl_logo.gif'),
+                                                fit: BoxFit.cover,
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            )
+                                          : Column(
+                                              children: children.toList(),
+                                            )
+                                    ],
+                                  ),
+                                  SizedBox(width: 20),
+                                ]),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               tablet: Stack(
                 children: [
@@ -241,7 +260,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.05),
-                              SingleChildScrollView(
+                                SingleChildScrollView(
                                   child: Column(
                                     children: [
                                       SizedBox(
@@ -375,7 +394,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   CustomTabBar(),
                 ],
               ),
-            ));
+            ),
+          ),
+        );
       },
     );
   }

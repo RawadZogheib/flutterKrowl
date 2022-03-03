@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/hexColor/hexColor.dart';
+import 'package:flutter_app_backend/page/Responsive.dart';
 
 class myDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Material(
-        color: HexColor('#222222'),//globals.blue1,
-        child: ListView(
-          children: <Widget>[
-            Column(
+    return  Drawer(
+        child: Material(
+          color: HexColor('#002756'), //globals.blue1,
+          child: SingleChildScrollView(
+            controller: ScrollController(),
+            child: Column(
               children: [
                 SizedBox(
                   height: 250,
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    'Assets/HomePage/ProfilePicture/img1.png',
-                    fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Image.asset(
+                      'Assets/krowl_logo.gif',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Container(
@@ -28,34 +32,41 @@ class myDrawer extends StatelessWidget {
                       const SearchFieldDrawer(),
                       const SizedBox(height: 12),
                       MenuItem(
-                        text: 'My Courses',
+                        text: 'Library',
                         icon: Icons.menu_book,
-                        color: Colors.red,
+                          color: Colors.white,
                         onClicked: () => selectedItem(context, 0),
                       ),
                       const SizedBox(height: 5),
                       MenuItem(
-                        text: 'Liked Courses',
-                        icon: Icons.favorite_border,
-                        color: Colors.yellow,
+                        text: 'Chat',
+                        icon: Icons.message_outlined,
+                        color: Colors.white,
                         onClicked: () => selectedItem(context, 1),
                       ),
                       const SizedBox(height: 5),
                       MenuItem(
-                        text: 'Liked Teachers',
-                        icon: Icons.people,
-                        color: Colors.blue,
+                        text: 'Forum',
+                        icon: Icons.forum_outlined,
+                        color: Colors.white,
                         onClicked: () => selectedItem(context, 2),
                       ),
                       const SizedBox(height: 5),
                       MenuItem(
-                        text: 'Updates',
-                        icon: Icons.update,
-                        color: Colors.green,
+                        text: 'Students',
+                        icon: Icons.people,
+                        color: Colors.white,
                         onClicked: () => selectedItem(context, 3),
                       ),
+                      const SizedBox(height: 5),
+                      MenuItem(
+                        text: 'Reminders',
+                        icon: Icons.alarm,
+                        color: Colors.white,
+                        onClicked: () => selectedItem(context, 4),
+                      ),
                       const SizedBox(height: 8),
-                      const Divider(color: Colors.white70),
+                      const Divider(color: Colors.white),
                       const SizedBox(height: 8),
                       MenuItem(
                         text: 'Notifications',
@@ -74,44 +85,43 @@ class myDrawer extends StatelessWidget {
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
-    );
+      );
   }
 
   void selectedItem(BuildContext context, int index) {
     Navigator.of(context).pop();
     switch (index) {
-      case 0:// My Courses
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 1
-      // ));
+      case 0: // My Courses
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 1
+        // ));
         break;
-      case 1:// Liked Courses
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 2
-      // ));
+      case 1: // Liked Courses
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 2
+        // ));
         break;
-      case 3:// Liked Teachers
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 3
-      // ));
+      case 2: // Liked Teachers
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 3
+        // ));
         break;
-      case 4:// Updates
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 4
-      // ));
+      case 3: // Updates
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 4
+        // ));
         break;
-      case 5:// Notifications
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 5
-      // ));
+      case 4: // Notifications
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 5
+        // ));
         break;
-      case 6:// Settings
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context) => const Scaffold(), // Page 6
-      // ));
+      case 5: // Settings
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const Scaffold(), // Page 6
+        // ));
         break;
     }
   }
@@ -134,7 +144,7 @@ class MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Color color = globals.whiteBlue;//Colors.white;
-    Color hoverColor = Colors.transparent.withOpacity(1);//Colors.white70;
+    Color hoverColor = Colors.transparent.withOpacity(1); //Colors.white70;
 
     return ListTile(
       leading: Icon(icon, color: color),
