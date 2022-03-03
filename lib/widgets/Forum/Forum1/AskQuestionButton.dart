@@ -27,8 +27,8 @@ class AskQuestionButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           // onPressed();
-          // Navigator.pushNamed(
-          //     context, '/Forum2');
+          Navigator.pushNamed(
+              context, '/Forum2');
         },
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(color1),
