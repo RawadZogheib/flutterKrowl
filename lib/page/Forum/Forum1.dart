@@ -173,8 +173,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                                       ),
                                       AskQuestionButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/Forum2');
+                                          // Navigator.pushNamed(
+                                          //     context, '/Forum2');
                                         },
                                         text: 'Ask a question',
                                         color1: globals.blue2,

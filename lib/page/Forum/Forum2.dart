@@ -51,6 +51,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
           backgroundColor: globals.white,
           body: Responsive(
             mobile: SingleChildScrollView(
+              controller: ScrollController(),
               reverse: true,
               child: Container(
                 alignment: Alignment.center,
@@ -58,6 +59,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
               ),
             ),
             tablet: SingleChildScrollView(
+              controller: ScrollController(),
               reverse: true,
               child: Container(
                 alignment: Alignment.center,
@@ -65,6 +67,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
               ),
             ),
             desktop: SingleChildScrollView(
+              controller: ScrollController(),
               reverse: true,
               child: Column(children: [
                 CustomTabBar(),
