@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/hexColor/hexColor.dart';
+import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -15,81 +16,84 @@ class MyDrawer extends StatelessWidget {
         ? Drawer(
             child: Material(
               color: HexColor('#002756'), //globals.blue1,
-              child: SingleChildScrollView(
-                controller: ScrollController(),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 250,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.all(40.0),
-                        child: Image.asset(
-                          'Assets/krowl_logo.gif',
-                          fit: BoxFit.cover,
+              child: ScrollConfiguration(
+                behavior: MyCustomScrollBehavior(),
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 250,
+                        width: MediaQuery.of(context).size.width,
+                        child: Padding(
+                          padding: const EdgeInsets.all(40.0),
+                          child: Image.asset(
+                            'Assets/krowl_logo.gif',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 12),
-                          const SearchFieldDrawer(),
-                          const SizedBox(height: 12),
-                          MenuItem(
-                            text: 'Library',
-                            icon: Icons.menu_book,
-                            color: Colors.white,
-                            onClicked: () => selectedItem(context, 0),
-                          ),
-                          const SizedBox(height: 5),
-                          MenuItem(
-                            text: 'Chat',
-                            icon: Icons.message_outlined,
-                            color: Colors.white,
-                            onClicked: () => selectedItem(context, 1),
-                          ),
-                          const SizedBox(height: 5),
-                          MenuItem(
-                            text: 'Forum',
-                            icon: Icons.forum_outlined,
-                            color: Colors.white,
-                            onClicked: () => selectedItem(context, 2),
-                          ),
-                          const SizedBox(height: 5),
-                          MenuItem(
-                            text: 'Students',
-                            icon: Icons.people,
-                            color: Colors.white,
-                            onClicked: () => selectedItem(context, 3),
-                          ),
-                          const SizedBox(height: 5),
-                          MenuItem(
-                            text: 'Reminders',
-                            icon: Icons.alarm,
-                            color: Colors.white,
-                            onClicked: () => selectedItem(context, 4),
-                          ),
-                          const SizedBox(height: 8),
-                          const Divider(color: Colors.white),
-                          const SizedBox(height: 8),
-                          MenuItem(
-                            text: 'Notifications',
-                            icon: Icons.notifications_outlined,
-                            color: globals.white,
-                            onClicked: () => selectedItem(context, 5),
-                          ),
-                          MenuItem(
-                            text: 'Settings',
-                            icon: Icons.settings,
-                            color: globals.white,
-                            onClicked: () => selectedItem(context, 6),
-                          ),
-                        ],
+                      Container(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 12),
+                            const SearchFieldDrawer(),
+                            const SizedBox(height: 12),
+                            MenuItem(
+                              text: 'Library',
+                              icon: Icons.menu_book,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 0),
+                            ),
+                            const SizedBox(height: 5),
+                            MenuItem(
+                              text: 'Chat',
+                              icon: Icons.message_outlined,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 1),
+                            ),
+                            const SizedBox(height: 5),
+                            MenuItem(
+                              text: 'Forum',
+                              icon: Icons.forum_outlined,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 2),
+                            ),
+                            const SizedBox(height: 5),
+                            MenuItem(
+                              text: 'Students',
+                              icon: Icons.people,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 3),
+                            ),
+                            const SizedBox(height: 5),
+                            MenuItem(
+                              text: 'Reminders',
+                              icon: Icons.alarm,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 4),
+                            ),
+                            const SizedBox(height: 8),
+                            const Divider(color: Colors.white),
+                            const SizedBox(height: 8),
+                            MenuItem(
+                              text: 'Notifications',
+                              icon: Icons.notifications_outlined,
+                              color: globals.white,
+                              onClicked: () => selectedItem(context, 5),
+                            ),
+                            MenuItem(
+                              text: 'Settings',
+                              icon: Icons.settings,
+                              color: globals.white,
+                              onClicked: () => selectedItem(context, 6),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
