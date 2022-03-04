@@ -45,7 +45,7 @@ const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You doesn't have contacts yet";
 const String warningEmptyFriends = "You doesn't have friends yet";
 const String warningEmptyReplyPage = "There is no Replies yet";
-const String errorToken = "Token Error.";
+const String errorToken = "Token Expired.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException =
     "OOPs! Something went wrong. Try again in few seconds.";
