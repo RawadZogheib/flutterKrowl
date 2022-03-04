@@ -317,9 +317,10 @@ class _Login2State extends State<Login2> {
     localStorage.setString('email', globals.emailLogin!);
     localStorage.setString('password', globals.passwordLogin!);
 
-
-    Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
-    Navigator.pushNamed(cont, '/Library');
+    // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
+    // Navigator.pushNamed(cont, '/Library');
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Library', (route) => false);
   }
 
   _noRemember() async {
@@ -331,9 +332,10 @@ class _Login2State extends State<Login2> {
       globals.passwordLogin = "";
     });
 
-
-    Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
-    Navigator.pushNamed(cont, '/Library');
+    // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
+    // Navigator.pushNamed(cont, '/Library');
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Library', (route) => false);
   }
 
   _getSaved() async {
