@@ -71,10 +71,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       builder: (BuildContext context, Widget) => Scaffold(
         resizeToAvoidBottomInset: true,
         drawer: MyDrawer(),
-        appBar: AppBar(
+        appBar: MediaQuery.of(context).size.width < 700?AppBar(
           backgroundColor: globals.blue1,
           title: Center(child: Text('Krowl')),
-        ),
+        ):null,
         backgroundColor: globals.white,
         body: Builder(
           builder: (context) => Responsive(
