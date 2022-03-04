@@ -65,253 +65,206 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       animationController!.reverse();
     }
 
-    return AnimatedBuilder(
-      animation: animationController!,
-      builder: (BuildContext context, Widget) => Scaffold(
-        resizeToAvoidBottomInset: true,
-        drawer: MyDrawer(),
-        appBar: MediaQuery.of(context).size.width < 700
-            ? AppBar(
-                backgroundColor: globals.blue1,
-                title: Center(
-                  child: Text('Krowl'),
-                ),
-                leading: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      _back();
-                    }),
-                actions: [
-                  Builder(
-                    builder: (context) => IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: AnimatedBuilder(
+        animation: animationController!,
+        builder: (BuildContext context, Widget) => Scaffold(
+          resizeToAvoidBottomInset: true,
+          drawer: MyDrawer(),
+          appBar: MediaQuery.of(context).size.width < 700
+              ? AppBar(
+                  backgroundColor: globals.blue1,
+                  title: Center(
+                    child: Text('Krowl'),
+                  ),
+                  leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        _back();
+                      }),
+                  actions: [
+                    Builder(
+                      builder: (context) => IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        icon: Icon(Icons.menu),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
                     ),
-                  ),
-                ],
-              )
-            : null,
-        backgroundColor: globals.white,
-        body: Responsive(
-          mobile: SingleChildScrollView(
-            reverse: false,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 435,
-                    width: 270,
-                    child: CreateTable(
-                      height:
-                          double.parse((415 + distAnimation.value).toString()),
-                      width:
-                          double.parse((250 + distAnimation.value).toString()),
-                      onTap: () {
-                        _createTable();
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Wrap(
-                          children: [
-                            load == true
-                                ? Center(
-                                    child: Image(
-                                      image:
-                                          AssetImage('Assets/krowl_logo.gif'),
-                                      fit: BoxFit.cover,
-                                      height: 150,
-                                      width: 150,
-                                    ),
-                                  )
-                                : Column(
-                                    children: children.toList(),
-                                  )
-                          ],
-                        ),
-                        SizedBox(width: 20),
-                      ]),
-                ],
-              ),
-            ),
-          ),
-          tablet: Stack(
-            children: [
-              Container(
+                  ],
+                )
+              : null,
+          backgroundColor: globals.white,
+          body: Responsive(
+            mobile: SingleChildScrollView(
+              reverse: false,
+              child: Container(
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 130,
+                      height: 20,
                     ),
-                    Expanded(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 20,
-                            ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                  SizedBox(
-                                    height: 435,
-                                    width: 270,
-                                    child: CreateTable(
-                                      height: double.parse(
-                                          (415 + distAnimation.value)
-                                              .toString()),
-                                      width: double.parse(
-                                          (250 + distAnimation.value)
-                                              .toString()),
-                                      onTap: () {
-                                        _createTable();
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              children: [
-                                load == true
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.2,
-                                          ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              child: Center(
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      'Assets/krowl_logo.gif'),
-                                                  fit: BoxFit.cover,
-                                                  height: 150,
-                                                  width: 150,
-                                                ),
-                                              )),
-                                        ],
-                                      )
-                                    : Expanded(
-                                        child: SingleChildScrollView(
-                                          controller: ScrollController(),
-                                          reverse: false,
-                                          child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Wrap(
-                                              children: children.toList(),
-                                            ),
-                                          ),
-                                        ),
+                    SizedBox(
+                      height: 435,
+                      width: 270,
+                      child: CreateTable(
+                        height:
+                            double.parse((415 + distAnimation.value).toString()),
+                        width:
+                            double.parse((250 + distAnimation.value).toString()),
+                        onTap: () {
+                          _createTable();
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Wrap(
+                            children: [
+                              load == true
+                                  ? Center(
+                                      child: Image(
+                                        image:
+                                            AssetImage('Assets/krowl_logo.gif'),
+                                        fit: BoxFit.cover,
+                                        height: 150,
+                                        width: 150,
                                       ),
-                              ],
-                            ),
-                            SizedBox(width: 20),
-                          ]),
-                    ),
+                                    )
+                                  : Column(
+                                      children: children.toList(),
+                                    )
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                        ]),
                   ],
                 ),
               ),
-              CustomTabBar(),
-            ],
-          ),
-          desktop: Stack(
-            children: [
-              Column(children: [
-                SizedBox(
-                  height: 130,
-                ),
-                load == true
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.05),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                  SizedBox(
-                                    height: 435,
-                                    width: 270,
-                                    child: CreateTable(
-                                      height: double.parse(
-                                          (415 + distAnimation.value)
-                                              .toString()),
-                                      width: double.parse(
-                                          (250 + distAnimation.value)
-                                              .toString()),
-                                      onTap: () {
-                                        _createTable();
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: distAnimation.value,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.68,
-                                child: Center(
-                                  child: Image(
-                                    image: AssetImage('Assets/krowl_logo.gif'),
-                                    fit: BoxFit.cover,
-                                    height: 150,
-                                    width: 150,
-                                  ),
-                                )),
-                            SizedBox(
-                              width: 20,
-                            ),
-                          ])
-                    : Expanded(
+            ),
+            tablet: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 130,
+                      ),
+                      Expanded(
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: distAnimation.value,
+                                    ),
+                                    SizedBox(
+                                      height: 435,
+                                      width: 270,
+                                      child: CreateTable(
+                                        height: double.parse(
+                                            (415 + distAnimation.value)
+                                                .toString()),
+                                        width: double.parse(
+                                            (250 + distAnimation.value)
+                                                .toString()),
+                                        onTap: () {
+                                          _createTable();
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: distAnimation.value,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                children: [
+                                  load == true
+                                      ? Column(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.2,
+                                            ),
+                                            SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                child: Center(
+                                                  child: Image(
+                                                    image: AssetImage(
+                                                        'Assets/krowl_logo.gif'),
+                                                    fit: BoxFit.cover,
+                                                    height: 150,
+                                                    width: 150,
+                                                  ),
+                                                )),
+                                          ],
+                                        )
+                                      : Expanded(
+                                          child: SingleChildScrollView(
+                                            controller: ScrollController(),
+                                            reverse: false,
+                                            child: SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: Wrap(
+                                                children: children.toList(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ),
+                CustomTabBar(),
+              ],
+            ),
+            desktop: Stack(
+              children: [
+                Column(children: [
+                  SizedBox(
+                    height: 130,
+                  ),
+                  load == true
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.05),
@@ -343,57 +296,107 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.68,
+                                  child: Center(
+                                    child: Image(
+                                      image: AssetImage('Assets/krowl_logo.gif'),
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
+                                    ),
+                                  )),
+                              SizedBox(
                                 width: 20,
                               ),
-                              SingleChildScrollView(
-                                controller: ScrollController(),
-                                reverse: false,
-                                child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.68,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Wrap(children: children.toList()),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: NumberPaginator(
-                                            numberPages: _totalPages,
-                                            onPageChange: (int index) {
-                                              setState(() {
-                                                _currentPage = index + 1;
-                                                _loadNewPage();
-                                                print(index + 1);
-                                              });
-                                            },
-                                            // initially selected index
-                                            initialPage: _currentPage - 1,
-                                            // default height is 48
-                                            buttonShape: BeveledRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            buttonSelectedForegroundColor:
-                                                globals.blue2,
-                                            buttonUnselectedForegroundColor:
-                                                globals.blue1,
-                                            buttonUnselectedBackgroundColor:
-                                                globals.blue2,
-                                            buttonSelectedBackgroundColor:
-                                                globals.blue1,
-                                          ),
+                            ])
+                      : Expanded(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.05),
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                      SizedBox(
+                                        height: 435,
+                                        width: 270,
+                                        child: CreateTable(
+                                          height: double.parse(
+                                              (415 + distAnimation.value)
+                                                  .toString()),
+                                          width: double.parse(
+                                              (250 + distAnimation.value)
+                                                  .toString()),
+                                          onTap: () {
+                                            _createTable();
+                                          },
                                         ),
-                                      ],
-                                    )),
-                              ),
-                            ]),
-                      ),
-              ]),
-              CustomTabBar(),
-            ],
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                SingleChildScrollView(
+                                  controller: ScrollController(),
+                                  reverse: false,
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.68,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Wrap(children: children.toList()),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: NumberPaginator(
+                                              numberPages: _totalPages,
+                                              onPageChange: (int index) {
+                                                setState(() {
+                                                  _currentPage = index + 1;
+                                                  _loadNewPage();
+                                                  print(index + 1);
+                                                });
+                                              },
+                                              // initially selected index
+                                              initialPage: _currentPage - 1,
+                                              // default height is 48
+                                              buttonShape: BeveledRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              buttonSelectedForegroundColor:
+                                                  globals.blue2,
+                                              buttonUnselectedForegroundColor:
+                                                  globals.blue1,
+                                              buttonUnselectedBackgroundColor:
+                                                  globals.blue2,
+                                              buttonSelectedBackgroundColor:
+                                                  globals.blue1,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ]),
+                        ),
+                ]),
+                CustomTabBar(),
+              ],
+            ),
           ),
         ),
       ),
