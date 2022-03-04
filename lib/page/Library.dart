@@ -69,7 +69,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       animation: animationController!,
       builder: (BuildContext context, Widget) => Scaffold(
         resizeToAvoidBottomInset: true,
-        endDrawer: MyDrawer(),
+        drawer: MyDrawer(),
         appBar: MediaQuery.of(context).size.width < 700
             ? AppBar(
                 backgroundColor: globals.blue1,
@@ -88,7 +88,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openEndDrawer(),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
                     ),
                   ),
                 ],
