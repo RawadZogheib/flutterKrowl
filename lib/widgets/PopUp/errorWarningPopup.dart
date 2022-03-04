@@ -6,8 +6,7 @@ import 'package:motion_toast/resources/arrays.dart';
 
 ErrorPopup(BuildContext context, String? text) {
     if(text == globals.errorToken){
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/intro_page', (route) => false);
+      Navigator.popUntil(context, ModalRoute.withName('/intro_page'));  
     MotionToast(
       icon: Icons.error,
       primaryColor: globals.red2,
@@ -26,7 +25,23 @@ ErrorPopup(BuildContext context, String? text) {
       height: 100,
     ).show(context);
   }else{
-
+      MotionToast(
+        icon: Icons.error,
+        primaryColor: globals.red2,
+        secondaryColor: globals.red1,
+        toastDuration: Duration(seconds: 3),
+        backgroundType: BACKGROUND_TYPE.solid,
+        title: Text(
+          'Error',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        description: Text(
+          text != null ? text : 'Unexpected Error.',
+        ),
+        position: MOTION_TOAST_POSITION.bottom,
+        animationType: ANIMATION.fromRight,
+        height: 100,
+      ).show(context);
     }
 }
 
