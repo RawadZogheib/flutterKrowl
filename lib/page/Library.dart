@@ -70,7 +70,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       builder: (BuildContext context, Widget) {
         return Scaffold(
           resizeToAvoidBottomInset: true,
-          drawer: MediaQuery.of(context).size.width < 700 ? myDrawer() : null,
+          drawer: MediaQuery.of(context).size.width < 700 ? MyDrawer() : null,
           backgroundColor: globals.white,
           body: Builder(
             builder: (context) => Responsive(
