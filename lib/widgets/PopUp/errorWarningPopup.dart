@@ -6,7 +6,8 @@ import 'package:motion_toast/resources/arrays.dart';
 
 ErrorPopup(BuildContext context, String? text) {
     if(text == globals.errorToken){
-      Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/intro_page', (route) => false);
     MotionToast(
       icon: Icons.error,
       primaryColor: globals.red2,
