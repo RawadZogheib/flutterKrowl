@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/hexColor/hexColor.dart';
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
@@ -70,21 +71,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       builder: (BuildContext context, Widget) => Scaffold(
         resizeToAvoidBottomInset: true,
         drawer: MyDrawer(),
+        appBar: AppBar(
+          backgroundColor: globals.blue1,
+          title: Center(child: Text('Krowl')),
+        ),
         backgroundColor: globals.white,
         body: Builder(
           builder: (context) => Responsive(
             mobile: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    )),
                 Expanded(
                   child: SingleChildScrollView(
                     reverse: false,
