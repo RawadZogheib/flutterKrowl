@@ -6,9 +6,9 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).size.width > 700 &&
-        Scaffold.of(context).isDrawerOpen) {
+        Scaffold.of(context).isEndDrawerOpen) {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        Scaffold.of(context).closeDrawer();
+        Scaffold.of(context).closeEndDrawer();
       });
     }
     return MediaQuery.of(context).size.width < 700

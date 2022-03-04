@@ -317,6 +317,8 @@ class _Login2State extends State<Login2> {
     localStorage.setString('email', globals.emailLogin!);
     localStorage.setString('password', globals.passwordLogin!);
 
+
+    Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     Navigator.pushNamed(cont, '/Library');
   }
 
@@ -329,6 +331,8 @@ class _Login2State extends State<Login2> {
       globals.passwordLogin = "";
     });
 
+
+    Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     Navigator.pushNamed(cont, '/Library');
   }
 
