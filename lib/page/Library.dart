@@ -614,7 +614,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(
-        context, '/login', (route) => false);
+        context, '/intro_page', (route) => false);
   }
 
 // _columnChecker(int val, int nb) {
