@@ -78,68 +78,61 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         backgroundColor: globals.white,
         body: Builder(
           builder: (context) => Responsive(
-            mobile: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    reverse: false,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            height: 435,
-                            width: 270,
-                            child: CreateTable(
-                              height: double.parse(
-                                  (415 + distAnimation.value).toString()),
-                              width: double.parse(
-                                  (250 + distAnimation.value).toString()),
-                              onTap: () {
-                                _createTable();
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Wrap(
-                                  children: [
-                                    load == true
-                                        ? Center(
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'Assets/krowl_logo.gif'),
-                                              fit: BoxFit.cover,
-                                              height: 150,
-                                              width: 150,
-                                            ),
-                                          )
-                                        : Column(
-                                            children: children.toList(),
-                                          )
-                                  ],
-                                ),
-                                SizedBox(width: 20),
-                              ]),
-                        ],
+            mobile: SingleChildScrollView(
+              reverse: false,
+              child: Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 435,
+                      width: 270,
+                      child: CreateTable(
+                        height: double.parse(
+                            (415 + distAnimation.value).toString()),
+                        width: double.parse(
+                            (250 + distAnimation.value).toString()),
+                        onTap: () {
+                          _createTable();
+                        },
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Wrap(
+                            children: [
+                              load == true
+                                  ? Center(
+                                      child: Image(
+                                        image: AssetImage(
+                                            'Assets/krowl_logo.gif'),
+                                        fit: BoxFit.cover,
+                                        height: 150,
+                                        width: 150,
+                                      ),
+                                    )
+                                  : Column(
+                                      children: children.toList(),
+                                    )
+                            ],
+                          ),
+                          SizedBox(width: 20),
+                        ]),
+                  ],
                 ),
-              ],
+              ),
             ),
             tablet: Stack(
               children: [
