@@ -127,7 +127,7 @@ List<LogicalKeyboardKey> keys = [];
                         color: globals.blue1,
                         icon: Icons.arrow_back,
                         onTap: () {
-                          Navigator.pop(context, '/intro_page');
+                            Navigator.pop(context, '/intro_page');
                         },
                       ),
                     ),
