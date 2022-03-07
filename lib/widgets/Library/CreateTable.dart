@@ -126,9 +126,27 @@ class _NextButtonState extends State<CreateTable> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                      width: 88, child: TableButton(text: "Quiet", index: '3')),
+                      width: 88,
+                      child: TableButton(
+                        text: "Quiet",
+                        isSilent: false,
+                        onPressed: () {
+                          setState(() {
+                            globals.isSilent = false;
+                          });
+                        },
+                      )),
                   Container(
-                      width: 95, child: TableButton(text: "Silent", index: '3'))
+                      width: 95,
+                      child: TableButton(
+                        text: "Silent",
+                        isSilent: true,
+                        onPressed: () {
+                          setState(() {
+                            globals.isSilent = true;
+                          });
+                        },
+                      ))
                 ],
               ),
               SizedBox(
@@ -149,24 +167,24 @@ class _NextButtonState extends State<CreateTable> {
                 children: [
                   SizedBox(
                     width: 95,
-                    child: TableButton(
+                    child: TableButton2(
                       text: "Public",
-                      index: '1',
+                      isPrivet: false,
                       onPressed: () {
                         setState(() {
-                          globals.selectedPublicPrivet = '1';
+                          globals.isPrivet = false;
                         });
                       },
                     ),
                   ),
                   SizedBox(
                     width: 95,
-                    child: TableButton(
+                    child: TableButton2(
                       text: "Private",
-                      index: '2',
+                      isPrivet: true,
                       onPressed: () {
                         setState(() {
-                          globals.selectedPublicPrivet = '2';
+                          globals.isPrivet = true;
                         });
                       },
                     ),
@@ -185,9 +203,9 @@ class _NextButtonState extends State<CreateTable> {
                   },
                   style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(globals.blue1),
+                          MaterialStateProperty.all<Color>(globals.blue1),
                       shadowColor:
-                      MaterialStateProperty.all<Color>(Colors.blueGrey),
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
@@ -210,8 +228,8 @@ class _NextButtonState extends State<CreateTable> {
 
   Future<void> _createTable() async {
     if (globals.loadCreateTableLibrary == false) {
-      while (globals.loadLibrary == true ||
-          globals.loadJoinTableLibrary == true) {
+      while (
+          globals.loadLibrary == true || globals.loadJoinTableLibrary == true) {
         await Future.delayed(Duration(seconds: 1));
         print(
             '=========>>======================================================>>==================================================>>=========');
@@ -229,12 +247,26 @@ class _NextButtonState extends State<CreateTable> {
         print(TextInput1().toString());
 
         String table_type;
-        (globals.selectedPublicPrivet == '1')
-            ? table_type = '1'
-            : ((globals.selectedPublicPrivet == '2')
-            ? table_type = '2'
-            : table_type = '');
-        print(table_type);
+        if (globals.isPrivet == false) {
+          // Public
+          table_type = '1';
+        } else if (globals.isPrivet == true) {
+          table_type = '2';
+        } else {
+          table_type = '';
+        }
+        print('table_type: ' + table_type);
+
+        String table_type2;
+        if (globals.isSilent == false) {
+          // Quite
+          table_type2 = '1';
+        } else if (globals.isSilent == true) {
+          table_type2 = '2';
+        } else {
+          table_type2 = '';
+        }
+        print('table_type2: ' + table_type2);
 
         var data = {
           'version': globals.version,
@@ -243,6 +275,7 @@ class _NextButtonState extends State<CreateTable> {
           'table_name': globals.tableName.toString(),
           'seats': '8',
           'table_type': table_type,
+          'table_type2': table_type2,
         };
 
         var res = await CallApi().postData(data, '(Control)createTable.php');
