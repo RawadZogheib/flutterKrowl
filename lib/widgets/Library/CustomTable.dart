@@ -22,7 +22,7 @@ class CustomTable extends StatefulWidget {
   var id;
   var nb = 0;
   bool hiddenBool = true;
-  bool status = false;
+  bool quitSilent = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<dynamic> getIds; // Users ids
   List<dynamic> getUsers; // Users names
