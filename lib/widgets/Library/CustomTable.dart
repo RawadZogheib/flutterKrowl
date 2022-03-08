@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomTable extends StatefulWidget {
   var children;
   var table_name;
-  var table_type;
+  //var table_type;
   var height;
   var width;
   var color;
@@ -21,8 +21,9 @@ class CustomTable extends StatefulWidget {
   var seats;
   var id;
   var nb = 0;
-  bool hiddenBool = true;
-  bool status = false;
+  // bool hiddenBool = true;
+  bool isSilent = false;
+  bool isPrivet = false;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<dynamic> getIds; // Users ids
   List<dynamic> getUsers; // Users names
@@ -33,12 +34,13 @@ class CustomTable extends StatefulWidget {
   CustomTable(
       {this.children,
       required this.table_name,
-      required this.table_type,
       required this.color,
       required this.getIds,
       required this.getUsers,
       required this.getPos,
       required this.getImgs,
+      required this.isSilent,
+      required this.isPrivet,
       this.id,
       this.icon,
       this.height,
@@ -111,7 +113,8 @@ class _CustomContainerState extends State<CustomTable>
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.table_type + " Table",
+                    Text(
+                        widget.isSilent==false?'Quit Table':'Silent Table',
                         style: TextStyle(
                             color: Colors.grey.shade600, fontFamily: 'Rubik')),
                     Text(

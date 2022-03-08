@@ -102,7 +102,8 @@ bool loadCreateTableLibrary = false;
 
 //Createtable
 var tableName;
-var selectedPublicPrivet = '1';
+bool isSilent = false;
+bool isPrivet = false;
 
 //Chat
 var children2 = <ChatUsers>[];
