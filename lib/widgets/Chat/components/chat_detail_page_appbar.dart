@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidget{
+  var username;
+  var status;
+  ChatDetailPageAppBar({
+   required this.username,
+    required this.status,
+});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -31,9 +37,9 @@ class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidge
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Jane Russel",style: TextStyle(fontWeight: FontWeight.w600),),
+                    Text(username ,style: TextStyle(fontWeight: FontWeight.w600),),
                     SizedBox(height: 6,),
-                    Text("Online",style: TextStyle(color: globals.blue1,fontSize: 12),),
+                    Text(status,style: TextStyle(color: globals.blue1,fontSize: 12),),
                   ],
                 ),
               ),

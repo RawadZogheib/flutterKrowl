@@ -14,6 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/MyDrawer.dart';
+
 class ReplyPage extends StatefulWidget {
   String id;
   String question;
@@ -98,170 +100,199 @@ class _ReplyPageState extends State<ReplyPage>
     } else {
       animationController!.reverse();
     }
-    return AnimatedBuilder(
-        animation: animationController!,
-        builder: (BuildContext context, Widget) {
-          return Scaffold(
-            body: Stack(
-              children: [
-                Column(children: [
-                  SizedBox(
-                    height: 130,
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: AnimatedBuilder(
+          animation: animationController!,
+          builder: (BuildContext context, Widget) {
+            return Scaffold(
+              drawer: MyDrawer(),
+              resizeToAvoidBottomInset: true,
+              appBar: MediaQuery.of(context).size.width < 700
+                  ? AppBar(
+                backgroundColor: globals.blue1,
+                title: Center(
+                  child: Text('Krowl'),
+                ),
+                leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      _back();
+                    }),
+                actions: [
+                  Builder(
+                    builder: (context) => IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      icon: Icon(Icons.menu),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
                   ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                ],
+              )
+                  : null,
+              body: Stack(
+                children: [
+                  Column(children: [
+                    SizedBox(
+                      height: 130,
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Wrap(
+                                    direction: Axis.vertical,
+                                    children: children2.toList(), // My Children
+                                  ),
+
+                                  // DetailedReplyContainer(
+                                  //   id: widget.id,
+                                  //   question: widget.question,
+                                  //   subject: widget.subject,
+                                  //   username: widget.username,
+                                  //   val: widget.val,
+                                  //   color: widget.color,
+                                  //   color2: widget.color2,
+                                  //   contextQuestion: widget.contextQuestion,
+                                  //   date: widget.date,
+                                  //   onTap: (id, date) => _addReply(id, date),
+                                  // ),
+
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 110.0, bottom: 15),
+                                      child: _load == true
+                                          ? Text("Replies (Loading...)",
+                                              // this is the number of replies
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black))
+                                          : Text("Replies ($_totalReplies)",
+                                              // this is the number of replies
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black)),
+                                    ),
+                                  ),
+                                  _load == true
+                                      ? Center(
+                                          child: Image(
+                                            image: AssetImage(
+                                                'Assets/krowl_logo.gif'),
+                                            fit: BoxFit.cover,
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        )
+                                      : Wrap(
+                                          direction: Axis.vertical,
+                                          children:
+                                              children.toList(), // My Children
+                                        ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.35,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: _load == true
+                                        ? null
+                                        : NumberPaginator(
+                                            numberPages: _totalPages,
+                                            onPageChange: (int index) {
+                                              setState(() {
+                                                _currentPage = index + 1;
+                                                print(index + 1);
+                                              });
+                                              _loadNewPage();
+                                            },
+                                            // initially selected index
+                                            initialPage: _currentPage - 1,
+                                            // default height is 48
+                                            buttonShape: BeveledRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            buttonSelectedForegroundColor:
+                                                globals.blue2,
+                                            buttonUnselectedForegroundColor:
+                                                globals.blue1,
+                                            buttonUnselectedBackgroundColor:
+                                                globals.blue2,
+                                            buttonSelectedBackgroundColor:
+                                                globals.blue1,
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 385,
+                            child: Row(
                               children: [
-                                Wrap(
-                                  direction: Axis.vertical,
-                                  children: children2.toList(), // My Children
-                                ),
-
-                                // DetailedReplyContainer(
-                                //   id: widget.id,
-                                //   question: widget.question,
-                                //   subject: widget.subject,
-                                //   username: widget.username,
-                                //   val: widget.val,
-                                //   color: widget.color,
-                                //   color2: widget.color2,
-                                //   contextQuestion: widget.contextQuestion,
-                                //   date: widget.date,
-                                //   onTap: (id, date) => _addReply(id, date),
-                                // ),
-
                                 SizedBox(
-                                  height: 30,
+                                  width: 15,
                                 ),
                                 SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 110.0, bottom: 15),
-                                    child: _load == true
-                                        ? Text("Replies (Loading...)",
-                                            // this is the number of replies
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black))
-                                        : Text("Replies ($_totalReplies)",
-                                            // this is the number of replies
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black)),
-                                  ),
-                                ),
-                                _load == true
-                                    ? Center(
-                                        child: Image(
-                                          image: AssetImage(
-                                              'Assets/krowl_logo.gif'),
-                                          fit: BoxFit.cover,
-                                          height: 150,
-                                          width: 150,
-                                        ),
-                                      )
-                                    : Wrap(
-                                        direction: Axis.vertical,
-                                        children:
-                                            children.toList(), // My Children
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
                                       ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: _load == true
-                                      ? null
-                                      : NumberPaginator(
-                                          numberPages: _totalPages,
-                                          onPageChange: (int index) {
-                                            setState(() {
-                                              _currentPage = index + 1;
-                                              print(index + 1);
-                                            });
-                                            _loadNewPage();
-                                          },
-                                          // initially selected index
-                                          initialPage: _currentPage - 1,
-                                          // default height is 48
-                                          buttonShape: BeveledRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          buttonSelectedForegroundColor:
-                                              globals.blue2,
-                                          buttonUnselectedForegroundColor:
-                                              globals.blue1,
-                                          buttonUnselectedBackgroundColor:
-                                              globals.blue2,
-                                          buttonSelectedBackgroundColor:
-                                              globals.blue1,
-                                        ),
+                                      Contributors(
+                                        height: double.parse(
+                                            (220 + distAnimation.value).toString()),
+                                        width: double.parse(
+                                            (350 + distAnimation.value).toString()),
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                      // SizedBox(
+                                      //   height: 20,
+                                      // ),
+                                      UnansweredQuestions(
+                                        username: 'idotalia',
+                                        question:
+                                            ' Anyone here have experience with Pytorch?',
+                                        contextofquestion:
+                                            'dsngujbnuydfvhngysdnbvugfndugn',
+                                        NbrReplies: 1,
+                                        height: double.parse(
+                                            (270 + distAnimation.value).toString()),
+                                        width: double.parse(
+                                            (350 + distAnimation.value).toString()),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 385,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 15,
-                              ),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    Contributors(
-                                      height: double.parse(
-                                          (220 + distAnimation.value).toString()),
-                                      width: double.parse(
-                                          (350 + distAnimation.value).toString()),
-                                    ),
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    // SizedBox(
-                                    //   height: 20,
-                                    // ),
-                                    UnansweredQuestions(
-                                      username: 'idotalia',
-                                      question:
-                                          ' Anyone here have experience with Pytorch?',
-                                      contextofquestion:
-                                          'dsngujbnuydfvhngysdnbvugfndugn',
-                                      NbrReplies: 1,
-                                      height: double.parse(
-                                          (270 + distAnimation.value).toString()),
-                                      width: double.parse(
-                                          (350 + distAnimation.value).toString()),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
-                CustomTabBar(),
-              ],
-            ),
-          );
-        });
+                  ]),
+                  CustomTabBar(),
+                ],
+              ),
+            );
+          }),
+    );
   }
 
   _loadReplies() async {
@@ -526,5 +557,10 @@ class _ReplyPageState extends State<ReplyPage>
         print('$_animationDuration Second');
       });
     });
+  }
+  _back() {
+    //Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Library', (route) => false);
   }
 }

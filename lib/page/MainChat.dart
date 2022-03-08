@@ -94,7 +94,6 @@ class _MainChatState extends State<MainChat> {
                       ),
                     ),
             ),
-            CustomTabBar(),
           ],
         ));
   }

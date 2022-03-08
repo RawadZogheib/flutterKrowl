@@ -5,22 +5,36 @@ import 'package:simple_tooltip/simple_tooltip.dart';
 
 
 
-class EditTextInput extends StatefulWidget {
+class NotificationContainer extends StatefulWidget {
 
-  EditTextInput ({ this.onChanged, });
+  NotificationContainer ({ this.onChanged, });
 
   var onChanged;
 
   @override
-  State<EditTextInput> createState() => _EditTextInputState();
+  State<NotificationContainer> createState() => _NotificationContainerState();
 }
 
-class _EditTextInputState extends State<EditTextInput> {
+class _NotificationContainerState extends State<NotificationContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.65,
+      height: 100,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey.shade400,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(2),
+      ),
       child: Column(
-        children: [],
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar( backgroundImage: AssetImage("Assets/userImage1.jpeg"),
+            maxRadius: 30,)
+        ],
       ),
     );
   }
