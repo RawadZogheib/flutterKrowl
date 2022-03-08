@@ -41,7 +41,7 @@ class CustomTable extends StatefulWidget {
       required this.getImgs,
       required this.isSilent,
       required this.isPrivet,
-      this.id,
+      required this.id,
       this.icon,
       this.height,
       this.width,

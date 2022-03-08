@@ -24,6 +24,7 @@ class Library extends StatefulWidget {
 }
 
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
+  bool _isPrivet = false;
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
@@ -98,61 +99,139 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               : null,
           backgroundColor: globals.white,
           body: Responsive(
-            mobile: SingleChildScrollView(
-              reverse: false,
-              child: Container(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 20,
+            mobile: Stack(
+              children: [
+                SingleChildScrollView(
+                  reverse: false,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 435,
+                          width: 270,
+                          child: CreateTable(
+                            height: double.parse(
+                                (415 + distAnimation.value).toString()),
+                            width: double.parse(
+                                (250 + distAnimation.value).toString()),
+                            onTap: (thisId) {
+                              _createTable(thisId);
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Wrap(
+                                children: [
+                                  load == true
+                                      ? Center(
+                                          child: Image(
+                                            image:
+                                                AssetImage('Assets/krowl_logo.gif'),
+                                            fit: BoxFit.cover,
+                                            height: 150,
+                                            width: 150,
+                                          ),
+                                        )
+                                      : Column(
+                                          children: children.toList(),
+                                        )
+                                ],
+                              ),
+                              SizedBox(width: 20),
+                            ]),
+                      ],
                     ),
-                    SizedBox(
-                      height: 435,
-                      width: 270,
-                      child: CreateTable(
-                        height:
-                            double.parse((415 + distAnimation.value).toString()),
-                        width:
-                            double.parse((250 + distAnimation.value).toString()),
-                        onTap: () {
-                          _createTable();
-                        },
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        _isPrivet = !_isPrivet;
+                      });
+                      if (_isPrivet == true) {
+                        print('Privet Mode');
+                      } else {
+                        print('Public Mode');
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: globals.blue1,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(22.0),
+                          bottomRight: Radius.circular(22.0),
+                        ),
+                      ),
+                      child: _isPrivet == true
+                          ? SizedBox(
+                        width: 85,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.private_connectivity,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Privet',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                          : SizedBox(
+                        width: 85,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.public,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Public',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Wrap(
-                            children: [
-                              load == true
-                                  ? Center(
-                                      child: Image(
-                                        image:
-                                            AssetImage('Assets/krowl_logo.gif'),
-                                        fit: BoxFit.cover,
-                                        height: 150,
-                                        width: 150,
-                                      ),
-                                    )
-                                  : Column(
-                                      children: children.toList(),
-                                    )
-                            ],
-                          ),
-                          SizedBox(width: 20),
-                        ]),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
             tablet: Stack(
               children: [
@@ -162,7 +241,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 130,
+                        height: 165,
                       ),
                       Expanded(
                         child: Row(
@@ -188,8 +267,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                         width: double.parse(
                                             (250 + distAnimation.value)
                                                 .toString()),
-                                        onTap: () {
-                                          _createTable();
+                                        onTap: (thisId) {
+                                          _createTable(thisId);
                                         },
                                       ),
                                     ),
@@ -252,6 +331,82 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ],
                   ),
                 ),
+                Positioned(
+                  top: 113.5,
+                  right: 10,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        _isPrivet = !_isPrivet;
+                      });
+                      if (_isPrivet == true) {
+                        print('Privet Mode');
+                        _loadNewPage();
+                      } else {
+                        print('Public Mode');
+                        _loadNewPage();
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: globals.blue1,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(22.0),
+                          bottomRight: Radius.circular(22.0),
+                        ),
+                      ),
+                      child: _isPrivet == true
+                          ? SizedBox(
+                        width: 85,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.private_connectivity,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Privet',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                          : SizedBox(
+                        width: 85,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.public,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Public',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 CustomTabBar(),
               ],
             ),
@@ -259,7 +414,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               children: [
                 Column(children: [
                   SizedBox(
-                    height: 130,
+                    height: 165,
                   ),
                   load == true
                       ? Row(
@@ -284,8 +439,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                         width: double.parse(
                                             (250 + distAnimation.value)
                                                 .toString()),
-                                        onTap: () {
-                                          _createTable();
+                                        onTap: (thisId) {
+                                          _createTable(thisId);
                                         },
                                       ),
                                     ),
@@ -296,10 +451,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.68,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.68,
                                   child: Center(
                                     child: Image(
-                                      image: AssetImage('Assets/krowl_logo.gif'),
+                                      image:
+                                          AssetImage('Assets/krowl_logo.gif'),
                                       fit: BoxFit.cover,
                                       height: 150,
                                       width: 150,
@@ -315,8 +472,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.05),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.05),
                                 SingleChildScrollView(
                                   child: Column(
                                     children: [
@@ -333,8 +490,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                           width: double.parse(
                                               (250 + distAnimation.value)
                                                   .toString()),
-                                          onTap: () {
-                                            _createTable();
+                                          onTap: (thisId) {
+                                            _createTable(thisId);
                                           },
                                         ),
                                       ),
@@ -374,7 +531,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                               // initially selected index
                                               initialPage: _currentPage - 1,
                                               // default height is 48
-                                              buttonShape: BeveledRectangleBorder(
+                                              buttonShape:
+                                                  BeveledRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                               ),
@@ -394,6 +552,80 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ]),
                         ),
                 ]),
+                Positioned(
+                  top: 113.5,
+                  right: 10,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        _isPrivet = !_isPrivet;
+                      });
+                      if (_isPrivet == true) {
+                        print('Privet Mode');
+                      } else {
+                        print('Public Mode');
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: globals.blue1,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(22.0),
+                          bottomRight: Radius.circular(22.0),
+                        ),
+                      ),
+                      child: _isPrivet == true
+                          ? SizedBox(
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.private_connectivity,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Privet',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SizedBox(
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.public,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Public',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
                 CustomTabBar(),
               ],
             ),
@@ -437,6 +669,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           'account_Id': account_Id,
           'currentPage': _currentPage,
           'user_uni': user_uni,
+          'isPrivet': _isPrivet==true?'2':'1',
         };
 
         var res = await CallApi().postData(data, '(Control)loadTables.php');
@@ -470,14 +703,14 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             ];
             List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
-            for (int j = 0; j < body[2][i][5].length; j++) {
-              _userId[int.parse(body[2][i][5][j][2]) - 1] =
-                  body[2][i][5][j][0]; // userId
-              _userName[int.parse(body[2][i][5][j][2]) - 1] =
-                  body[2][i][5][j][1]; // userName
-              _userPosition[int.parse(body[2][i][5][j][2]) - 1] =
-                  body[2][i][5][j][2]; // userPosition
-              _userImgUrl[int.parse(body[2][i][5][j][2]) - 1] =
+            for (int j = 0; j < body[2][i][4].length; j++) {
+              _userId[int.parse(body[2][i][4][j][2]) - 1] =
+                  body[2][i][4][j][0]; // userId
+              _userName[int.parse(body[2][i][4][j][2]) - 1] =
+                  body[2][i][4][j][1]; // userName
+              _userPosition[int.parse(body[2][i][4][j][2]) - 1] =
+                  body[2][i][4][j][2]; // userPosition
+              _userImgUrl[int.parse(body[2][i][4][j][2]) - 1] =
                   'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
               // userImgUrl
             }
@@ -489,7 +722,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 table_name: body[2][i][1],
                 seats: body[2][i][2],
                 isSilent: body[2][i][3],
-                isPrivet: body[2][i][4],
+                isPrivet: _isPrivet,
                 color: Colors.green,
                 getIds: _userId,
                 getUsers: _userName,
@@ -572,7 +805,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     });
   }
 
-  _createTable() {
+  _createTable(String id) {
     if (mounted) {
       setState(() {
         _totalTables++;
@@ -585,6 +818,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           children.insert(
               0,
               CustomTable(
+                id: id,
                 table_name: globals.tableName,
                 getIds: [],
                 getUsers: [],
@@ -615,8 +849,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
   _back() {
     //Navigator.pop(context);
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/intro_page', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
   }
 
 // _columnChecker(int val, int nb) {

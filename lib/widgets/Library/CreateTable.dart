@@ -283,7 +283,7 @@ class _NextButtonState extends State<CreateTable> {
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
-          widget.onTap();
+          widget.onTap(body[1]);
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
