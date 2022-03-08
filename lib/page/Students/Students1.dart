@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
@@ -11,6 +12,8 @@ import 'package:flutter_app_backend/widgets/Students/StudentCard.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widgets/MyDrawer.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Students1()));
@@ -47,34 +50,99 @@ class _Students1State extends State<Students1>
 
   Widget build(BuildContext context) {
     //Size _size = MediaQuery.of(context).size;
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: globals.white,
-        body: Responsive(
-          mobile: SingleChildScrollView(
-            reverse: false,
-            child: Column(
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+          drawer: MyDrawer(),
+          resizeToAvoidBottomInset: true,
+          appBar: MediaQuery.of(context).size.width < 700
+              ? AppBar(
+            backgroundColor: globals.blue1,
+            title: Center(
+              child: Text('Krowl'),
+            ),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: () {
+                  _back();
+                }),
+            actions: [
+              Builder(
+                builder: (context) => IconButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  icon: Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+              ),
+            ],
+          )
+              : null,
+          backgroundColor: globals.white,
+          body: Responsive(
+            mobile: SingleChildScrollView(
+              reverse: false,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SearchBar(hintText: "Search for students..."),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Wrap(
+                    direction: Axis.vertical,
+                    children: children, // My Children
+                  ),
+                ],
+              ),
+            ),
+            tablet: Stack(
               children: [
-                SizedBox(
-                  height: 20,
+                SingleChildScrollView(
+                  reverse: false,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 130,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 130,
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              SearchBar(hintText: "Search for students..."),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Wrap(
+                                direction: Axis.vertical,
+                                children: children, // My Children
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                SearchBar(hintText: "Search for students..."),
-                SizedBox(
-                  height: 20,
-                ),
-                Wrap(
-                  direction: Axis.vertical,
-                  children: children, // My Children
-                ),
+                CustomTabBar(),
               ],
             ),
-          ),
-          tablet: Stack(
-            children: [
-              SingleChildScrollView(
-                reverse: false,
-                child: Column(
-                  children: [
+            desktop: Stack(
+              children: [
+                SingleChildScrollView(
+                  reverse: false,
+                  child: Column(children: [
                     SizedBox(
                       height: 130,
                     ),
@@ -82,9 +150,6 @@ class _Students1State extends State<Students1>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 130,
-                        ),
                         Column(
                           children: [
                             SizedBox(
@@ -92,112 +157,78 @@ class _Students1State extends State<Students1>
                             ),
                             SearchBar(hintText: "Search for students..."),
                             SizedBox(
-                              height: 20,
+                              height: 30,
                             ),
-                            Wrap(
-                              direction: Axis.vertical,
-                              children: children, // My Children
-                            ),
+                            _load == true
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.57,
+                                            child: Center(
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'Assets/krowl_logo.gif'),
+                                                fit: BoxFit.cover,
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            )),
+                                        SizedBox(width: 20),
+                                      ])
+                                : Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Wrap(children: children.toList()),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: NumberPaginator(
+                                            numberPages: _totalPages,
+                                            onPageChange: (int index) {
+                                              if (mounted) {
+                                                setState(() {
+                                                  _currentPage = index + 1;
+                                                  _loadNewPage();
+                                                  print(index + 1);
+                                                });
+                                              }
+                                            },
+                                            // initially selected index
+                                            initialPage: _currentPage - 1,
+                                            // default height is 48
+                                            buttonShape: BeveledRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            buttonSelectedForegroundColor:
+                                                globals.blue2,
+                                            buttonUnselectedForegroundColor:
+                                                globals.blue1,
+                                            buttonUnselectedBackgroundColor:
+                                                globals.blue2,
+                                            buttonSelectedBackgroundColor:
+                                                globals.blue1,
+                                          ),
+                                        ),
+                                      ],
+                                    )),
                           ],
                         ),
                       ],
                     ),
-                  ],
+                  ]),
                 ),
-              ),
-              CustomTabBar(),
-            ],
-          ),
-          desktop: Stack(
-            children: [
-              SingleChildScrollView(
-                reverse: false,
-                child: Column(children: [
-                  SizedBox(
-                    height: 130,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          SearchBar(hintText: "Search for students..."),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          _load == true
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.57,
-                                          child: Center(
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'Assets/krowl_logo.gif'),
-                                              fit: BoxFit.cover,
-                                              height: 150,
-                                              width: 150,
-                                            ),
-                                          )),
-                                      SizedBox(width: 20),
-                                    ])
-                              : Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Wrap(children: children.toList()),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: NumberPaginator(
-                                          numberPages: _totalPages,
-                                          onPageChange: (int index) {
-                                            if (mounted) {
-                                              setState(() {
-                                                _currentPage = index + 1;
-                                                _loadNewPage();
-                                                print(index + 1);
-                                              });
-                                            }
-                                          },
-                                          // initially selected index
-                                          initialPage: _currentPage - 1,
-                                          // default height is 48
-                                          buttonShape: BeveledRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          buttonSelectedForegroundColor:
-                                              globals.blue2,
-                                          buttonUnselectedForegroundColor:
-                                              globals.blue1,
-                                          buttonUnselectedBackgroundColor:
-                                              globals.blue2,
-                                          buttonSelectedBackgroundColor:
-                                              globals.blue1,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                        ],
-                      ),
-                    ],
-                  ),
-                ]),
-              ),
-              CustomTabBar(),
-            ],
-          ),
-        ));
+                CustomTabBar(),
+              ],
+            ),
+          )),
+    );
   }
 
   _loadStudents() async {
@@ -330,5 +361,10 @@ class _Students1State extends State<Students1>
         _loadStudents();
       }
     });
+  }
+  _back() {
+    //Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Library', (route) => false);
   }
 }

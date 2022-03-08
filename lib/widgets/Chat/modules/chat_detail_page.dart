@@ -87,7 +87,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChatDetailPageAppBar(),
+      appBar: ChatDetailPageAppBar(username: "Username",status: "online",),
       body: Stack(
         children: <Widget>[
           ListView.builder(

@@ -12,6 +12,8 @@ import 'package:flutter_app_backend/widgets/Students/StudentProfile/StudentDetai
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../widgets/MyDrawer.dart';
+
 class StudentProfile extends StatefulWidget {
   String userId;
   String username;
@@ -64,51 +66,81 @@ class _StudentProfileState extends State<StudentProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            controller: ScrollController(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 130,
-                    ),
-                    StudentDetailedProfile(
-                      userId: widget.userId,
-                      username: widget.username,
-                      universityName: widget.universityName,
-                      description: widget.description,
-                      isFriend: widget.isFriend,
-                      nbrOfFriends: widget.nbrOfFriends,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    StudentQuestionsReplies(
-                      children1: children1,
-                      children2: children2,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    )
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [],
-                )
-              ],
-            ),
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+        drawer: MyDrawer(),
+        resizeToAvoidBottomInset: true,
+        appBar: MediaQuery.of(context).size.width < 700
+            ? AppBar(
+          backgroundColor: globals.blue1,
+          title: Center(
+            child: Text('Krowl'),
           ),
-          CustomTabBar(),
-        ],
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                _back();
+              }),
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                icon: Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+            ),
+          ],
+        )
+            : null,
+        backgroundColor: globals.white,
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: ScrollController(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 130,
+                      ),
+                      StudentDetailedProfile(
+                        userId: widget.userId,
+                        username: widget.username,
+                        universityName: widget.universityName,
+                        description: widget.description,
+                        isFriend: widget.isFriend,
+                        nbrOfFriends: widget.nbrOfFriends,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      StudentQuestionsReplies(
+                        children1: children1,
+                        children2: children2,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      )
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [],
+                  )
+                ],
+              ),
+            ),
+            CustomTabBar(),
+          ],
+        ),
       ),
     );
   }
@@ -263,5 +295,10 @@ class _StudentProfileState extends State<StudentProfile> {
         _loadProfile();
       }
     });
+  }
+  _back() {
+    //Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Library', (route) => false);
   }
 }
