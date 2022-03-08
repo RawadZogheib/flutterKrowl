@@ -340,13 +340,12 @@ class _CustomContainerState extends State<CustomTable>
             });
           }
           if (!await launch(
-            globals.jaasUrl + table_name + '&account=' + username.toString() +
-                '&type=silent',
+            globals.jaasUrl + table_name + '&account=' + username.toString(),
             forceSafariVC: false,
             forceWebView: true,
             headers: <String, String>{'my_header_key': 'my_header_value'},
           )) {
-            throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' +
+            throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "_") + '&user=' +
                 username.toString()}';
           }
         } else if (body[0] == "errorVersion") {
