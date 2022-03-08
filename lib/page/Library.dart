@@ -109,7 +109,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 20,
+                          height: 60,
                         ),
                         SizedBox(
                           height: 435,
@@ -139,8 +139,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   load == true
                                       ? Center(
                                           child: Image(
-                                            image:
-                                                AssetImage('Assets/krowl_logo.gif'),
+                                            image: AssetImage(
+                                                'Assets/krowl_logo.gif'),
                                             fit: BoxFit.cover,
                                             height: 150,
                                             width: 150,
@@ -168,6 +168,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       setState(() {
                         _isPrivet = !_isPrivet;
                       });
+                      _loadNewPage();
                       if (_isPrivet == true) {
                         print('Privet Mode');
                       } else {
@@ -185,49 +186,49 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       ),
                       child: _isPrivet == true
                           ? SizedBox(
-                        width: 85,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.private_connectivity,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Privet',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.private_connectivity,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Privet',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      )
+                            )
                           : SizedBox(
-                        width: 85,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.public,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Public',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.public,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Public',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -342,12 +343,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       setState(() {
                         _isPrivet = !_isPrivet;
                       });
+                      _loadNewPage();
                       if (_isPrivet == true) {
                         print('Privet Mode');
-                        _loadNewPage();
                       } else {
                         print('Public Mode');
-                        _loadNewPage();
                       }
                     },
                     child: Container(
@@ -361,49 +361,49 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       ),
                       child: _isPrivet == true
                           ? SizedBox(
-                        width: 85,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.private_connectivity,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Privet',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.private_connectivity,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Privet',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      )
+                            )
                           : SizedBox(
-                        width: 85,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.public,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Public',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                              width: 85,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.public,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'Public',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -563,6 +563,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       setState(() {
                         _isPrivet = !_isPrivet;
                       });
+                      _loadNewPage();
                       if (_isPrivet == true) {
                         print('Privet Mode');
                       } else {
@@ -669,7 +670,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           'account_Id': account_Id,
           'currentPage': _currentPage,
           'user_uni': user_uni,
-          'isPrivet': _isPrivet==true?'2':'1',
+          'isPrivet': _isPrivet == true ? '2' : '1',
         };
 
         var res = await CallApi().postData(data, '(Control)loadTables.php');
@@ -703,16 +704,50 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             ];
             List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
-            for (int j = 0; j < body[2][i][4].length; j++) {
-              _userId[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][0]; // userId
-              _userName[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][1]; // userName
-              _userPosition[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][2]; // userPosition
-              _userImgUrl[int.parse(body[2][i][4][j][2]) - 1] =
-                  'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
-              // userImgUrl
+            if (_isPrivet == true) {
+              List<dynamic> _userIdPrivet = ['', '', '', '', '', '', '', ''];
+              List<dynamic> _userNamePrivet = ['', '', '', '', '', '', '', ''];
+              List<dynamic> _userImgUrlPrivet = [
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                ''
+              ];
+
+              for (int j = 0; j < body[2][i][4].length; j++) {
+                _userIdPrivet[j] = body[2][i][4][j][0]; // userId
+                _userNamePrivet[j] = body[2][i][4][j][1]; // userName
+                _userImgUrlPrivet[j] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][2]
+                // userImgUrl
+              }
+              for (int j = 0; j < body[2][i][5].length; j++) {
+                _userId[int.parse(body[2][i][5][j][2]) - 1] =
+                    body[2][i][5][j][0]; // userId
+                _userName[int.parse(body[2][i][5][j][2]) - 1] =
+                    body[2][i][5][j][1]; // userName
+                _userPosition[int.parse(body[2][i][5][j][2]) - 1] =
+                    body[2][i][5][j][2]; // userPosition
+                _userImgUrl[int.parse(body[2][i][5][j][2]) - 1] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
+                // userImgUrl
+              }
+            } else {
+              for (int j = 0; j < body[2][i][4].length; j++) {
+                _userId[int.parse(body[2][i][4][j][2]) - 1] =
+                    body[2][i][4][j][0]; // userId
+                _userName[int.parse(body[2][i][4][j][2]) - 1] =
+                    body[2][i][4][j][1]; // userName
+                _userPosition[int.parse(body[2][i][4][j][2]) - 1] =
+                    body[2][i][4][j][2]; // userPosition
+                _userImgUrl[int.parse(body[2][i][4][j][2]) - 1] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
+                // userImgUrl
+              }
             }
             //localStorage.setString('contrat_Id', value)
             //globals.occupenTable.add('0');// Initiate table (All table are Off)
