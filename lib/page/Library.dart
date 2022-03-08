@@ -470,14 +470,14 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             ];
             List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
 
-            for (int j = 0; j < body[2][i][4].length; j++) {
-              _userId[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][0]; // userId
-              _userName[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][1]; // userName
-              _userPosition[int.parse(body[2][i][4][j][2]) - 1] =
-                  body[2][i][4][j][2]; // userPosition
-              _userImgUrl[int.parse(body[2][i][4][j][2]) - 1] =
+            for (int j = 0; j < body[2][i][5].length; j++) {
+              _userId[int.parse(body[2][i][5][j][2]) - 1] =
+                  body[2][i][5][j][0]; // userId
+              _userName[int.parse(body[2][i][5][j][2]) - 1] =
+                  body[2][i][5][j][1]; // userName
+              _userPosition[int.parse(body[2][i][5][j][2]) - 1] =
+                  body[2][i][5][j][2]; // userPosition
+              _userImgUrl[int.parse(body[2][i][5][j][2]) - 1] =
                   'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
               // userImgUrl
             }
@@ -485,11 +485,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             //globals.occupenTable.add('0');// Initiate table (All table are Off)
             children.add(
               new CustomTable(
-                id: i,
-                table_name: body[2][i][0],
-                seats: body[2][i][1],
-                isSilent: body[2][i][2],
-                isPrivet: body[2][i][3],
+                id: body[2][i][0],
+                table_name: body[2][i][1],
+                seats: body[2][i][2],
+                isSilent: body[2][i][3],
+                isPrivet: body[2][i][4],
                 color: Colors.green,
                 getIds: _userId,
                 getUsers: _userName,
