@@ -44,70 +44,70 @@ class _MainChatState extends State<MainChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     await initChat();
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => StreamExample(
-      //           client: client,
-      //           channel: channel,
-      //         ),
-      //       ),
-      //     );
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: const Icon(Icons.navigation),
-      // ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blue.shade900,
-        unselectedItemColor: Colors.grey.shade400,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Chats",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: "Friends",
-          ),
-        ],
-      ),
-      drawer: MyDrawer(),
-      appBar: MediaQuery.of(context).size.width < 700
-          ? AppBar(
-              backgroundColor: globals.blue1,
-              title: Center(
-                child: Text('Krowl'),
-              ),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    _back();
-                  }),
-              actions: [
-                Builder(
-                  builder: (context) => IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    icon: Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
+    return WillPopScope(
+      onWillPop: () async => _back(),
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () async {
+        //     await initChat();
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => StreamExample(
+        //           client: client,
+        //           channel: channel,
+        //         ),
+        //       ),
+        //     );
+        //   },
+        //   backgroundColor: Colors.green,
+        //   child: const Icon(Icons.navigation),
+        // ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.blue.shade900,
+          unselectedItemColor: Colors.grey.shade400,
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.message),
+              label: "Chats",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: "Friends",
+            ),
+          ],
+        ),
+        drawer: MyDrawer(),
+        appBar: MediaQuery.of(context).size.width < 700
+            ? AppBar(
+                backgroundColor: globals.blue1,
+                title: Center(
+                  child: Text('Krowl'),
                 ),
-              ],
-            )
-          : null,
-      body: WillPopScope(
-        onWillPop: () async => _back(),
-        child: Responsive(
+                leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      _back();
+                    }),
+                actions: [
+                  Builder(
+                    builder: (context) => IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      icon: Icon(Icons.menu),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
+                  ),
+                ],
+              )
+            : null,
+        body: Responsive(
           mobile: Center(
             child: initBool == true
                 ? _widgetOptions.elementAt(_selectedIndex)
