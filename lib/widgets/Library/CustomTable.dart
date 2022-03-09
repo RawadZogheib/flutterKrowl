@@ -7,12 +7,14 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
 import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
   var table_name;
+
   //var table_type;
   var height;
   var width;
@@ -21,6 +23,7 @@ class CustomTable extends StatefulWidget {
   var seats;
   var id;
   var nb = 0;
+
   // bool hiddenBool = true;
   bool isSilent = false;
   bool isPrivet = false;
@@ -30,6 +33,10 @@ class CustomTable extends StatefulWidget {
   List<dynamic> getPos; // Users imgs
   List<dynamic> getImgs; // Users imgs
   List<dynamic> imgs = ['', '', '', '', '', '', '', ''];
+  //privet
+  List<dynamic> getIdsPrivet = [];
+  List<dynamic> getUsersPrivet = [];
+  List<dynamic> getImgsPrivet = [];
 
   CustomTable(
       {this.children,
@@ -41,6 +48,9 @@ class CustomTable extends StatefulWidget {
       required this.getImgs,
       required this.isSilent,
       required this.isPrivet,
+      required this.getIdsPrivet,
+      required this.getUsersPrivet,
+      required this.getImgsPrivet,
       required this.id,
       this.icon,
       this.height,
@@ -53,18 +63,29 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
+  bool _iconIsClicked = false;
   late Timer timer;
   var tableStatus;
+
+  AnimationController? animationController;
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     _loadOccupants();
+    animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Animation<double> opacityAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(animationController!);
+    if (_iconIsClicked)
+      animationController!.forward();
+    else
+      animationController!.reverse();
     return Container(
       width: 350,
       margin: EdgeInsets.only(bottom: 5),
@@ -114,7 +135,9 @@ class _CustomContainerState extends State<CustomTable>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        widget.isSilent==false?'Quit Table':'Silent Table',
+                        widget.isSilent == false
+                            ? 'Quit Table'
+                            : 'Silent Table',
                         style: TextStyle(
                             color: Colors.grey.shade600, fontFamily: 'Rubik')),
                     Text(
@@ -293,6 +316,60 @@ class _CustomContainerState extends State<CustomTable>
           //     },
           //   ),
           // ),
+
+          IgnorePointer(
+            ignoring: !_iconIsClicked,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(22.0)),
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    child: Row(
+                      children: [
+                        Expanded(child: SizedBox()),
+                        FadeTransition(
+                          opacity: opacityAnimation,
+                          child: ShapedWidget2(
+                              getIdsPrivet: widget.getIdsPrivet,
+                              getUsersPrivet: widget.getUsersPrivet,
+                              getImgsPrivet: widget.getImgsPrivet,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          widget.isPrivet == true
+              ? Positioned(
+                  top: 17,
+                  right: 25,
+                  child: InkWell(
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        _iconIsClicked = !_iconIsClicked;
+                      });
+                    },
+                    child: Icon(
+                      Icons.supervisor_account,
+                      color: globals.blue1,
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -334,19 +411,21 @@ class _CustomContainerState extends State<CustomTable>
             setState(() {
               widget.nb++;
               widget.imgs[position - 1] =
-              'https://picsum.photos/50/50/?${position -
-                  1}'; //get img from server body[1]
+                  'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
               widget.enablee[position - 1] = true;
             });
           }
           if (!await launch(
-            globals.jaasUrl + table_name + '&account=' + username.toString(),
+            globals.jaasUrl +
+                table_name +
+                '&account=' +
+                username.toString() +
+                '&type=silent',
             forceSafariVC: false,
             forceWebView: true,
             headers: <String, String>{'my_header_key': 'my_header_value'},
           )) {
-            throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "_") + '&user=' +
-                username.toString()}';
+            throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
           }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -362,8 +441,7 @@ class _CustomContainerState extends State<CustomTable>
           if (mounted) {
             setState(() {
               widget.imgs[position - 1] =
-              'https://picsum.photos/50/50/?${position -
-                  1}'; //get img from server body[1]
+                  'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
               widget.enablee[position - 1] = true;
             });
           }
@@ -383,7 +461,6 @@ class _CustomContainerState extends State<CustomTable>
       print('load joinTable end!!!');
       print(
           '=========<<======================================================<<==================================================<<=========');
-
     }
   }
 
@@ -556,195 +633,195 @@ class _CustomContainerState extends State<CustomTable>
     }
   }
 
-  // loadOccupants() async {
-  //   widget.imgs = ['','','','','','','',''];
-  //   try {
-  //     SharedPreferences localStorage = await SharedPreferences.getInstance();
-  //     String account_Id = localStorage.getString('account_Id').toString();
-  //     print('fdsfdsfsdf id: ' + account_Id);
-  //     //deload all
-  //     for (int i = 7; i >= 0; i--) {
-  //       if (widget.enablee[i] == false) continue;
-  //       await Future.delayed(const Duration(milliseconds: 100), () {
-  //         setState(() {
-  //           widget.enablee[i] = false;
-  //         });
-  //       });
-  //     }
-  //
-  //     //load all
-  //     for (int i = 0; i < 8; i++) {
-  //       await Future.delayed(const Duration(milliseconds: 100), () {
-  //         setState(() {
-  //           widget.imgs[i] = '';
-  //           widget.enablee[i] = true;
-  //         });
-  //       });
-  //     }
-  //
-  //     var data = {
-  //       'version': globals.version,
-  //       'account_Id': account_Id,
-  //       'table_name': widget.table_name,
-  //     };
-  //
-  //     var res = await CallApi().postData(data, '(Control)loadOccupants.php');
-  //     print(res.body);
-  //     List<dynamic> body = json.decode(res.body);
-  //
-  //     if (body[0] == "success") {
-  //       // for (int i = 0; i < widget.imgs.length; i++) {
-  //       //   widget.imgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
-  //       // }
-  //       setState(() {
-  //         widget.nb = body[1].length.toString();
-  //       });
-  //
-  //       //deload
-  //       int j = body[1].length - 1;
-  //       for (int i = 7; i >= 0; i--) {
-  //         // print('i: ' + i.toString());
-  //         // print('j: ' + j.toString());
-  //         // print('nb: ' + body[2].length.toString());
-  //         await Future.delayed(const Duration(milliseconds: 100), () {
-  //           if (i == (int.parse(body[1][j][2]) - 1)) {
-  //             setState(() {
-  //               widget.imgs[int.parse(body[1][j][2]) - 1] =
-  //                   'https://picsum.photos/50/50/?${Random().nextInt(1000)}';
-  //             });
-  //             if (j > 0) {
-  //               j--;
-  //             }
-  //           } else {
-  //             setState(() {
-  //               widget.enablee[i] = false;
-  //             });
-  //           }
-  //         });
-  //       }
-  //     } else if (body[0] == "empty") {
-  //       setState(() {
-  //         widget.nb = '0';
-  //       });
-  //
-  //       //deload
-  //       //int j = body[1].length - 1;
-  //       for (int i = 7; i >= 0; i--) {
-  //         // print('i: ' + i.toString());
-  //         // print('j: ' + j.toString());
-  //         // print('nb: ' + body[2].length.toString());
-  //         await Future.delayed(const Duration(milliseconds: 100), () {
-  //           setState(() {
-  //             widget.enablee[i] = false;
-  //           });
-  //         });
-  //       }
-  //       // showDialog<String>(
-  //       //   context: context,
-  //       //   builder: (BuildContext context) => AlertDialog(
-  //       //     title: const Text('Error'),
-  //       //     content: const Text(globals.errorEmptyTable),
-  //       //     actions: <Widget>[
-  //       //       TextButton(
-  //       //         onPressed: () => Navigator.pop(context, 'OK'),
-  //       //         child: const Text('OK'),
-  //       //       ),
-  //       //     ],
-  //       //   ),
-  //       // );
-  //     } else if (body[0] == "errorVersion") {
-  //       showDialog<String>(
-  //         context: context,
-  //         builder: (BuildContext context) => AlertDialog(
-  //           title: const Text('Error'),
-  //           content: const Text("Your version: " +
-  //               globals.version +
-  //               "\n" +
-  //               globals.errorVersion),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () => Navigator.pop(context, 'OK'),
-  //               child: const Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     } else if (body[0] == "errorToken") {
-  //       showDialog<String>(
-  //         context: context,
-  //         builder: (BuildContext context) => AlertDialog(
-  //           title: const Text('Error'),
-  //           content: const Text(globals.errorToken),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () => Navigator.pop(context, 'OK'),
-  //               child: const Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     } else if (body[0] == "error4") {
-  //       showDialog<String>(
-  //         context: context,
-  //         builder: (BuildContext context) => AlertDialog(
-  //           title: const Text('Error'),
-  //           content: const Text(globals.error7),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () => Navigator.pop(context, 'OK'),
-  //               child: const Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     } else {
-  //       showDialog<String>(
-  //         context: context,
-  //         builder: (BuildContext context) => AlertDialog(
-  //           title: const Text('Error'),
-  //           content: const Text(globals.errorElse),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () => Navigator.pop(context, 'OK'),
-  //               child: const Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print("Exeption: " + e.toString());
-  //   }
-  //   //globals.occupenTable[widget.id] = '0'; // Table is On
-  // }
+// loadOccupants() async {
+//   widget.imgs = ['','','','','','','',''];
+//   try {
+//     SharedPreferences localStorage = await SharedPreferences.getInstance();
+//     String account_Id = localStorage.getString('account_Id').toString();
+//     print('fdsfdsfsdf id: ' + account_Id);
+//     //deload all
+//     for (int i = 7; i >= 0; i--) {
+//       if (widget.enablee[i] == false) continue;
+//       await Future.delayed(const Duration(milliseconds: 100), () {
+//         setState(() {
+//           widget.enablee[i] = false;
+//         });
+//       });
+//     }
+//
+//     //load all
+//     for (int i = 0; i < 8; i++) {
+//       await Future.delayed(const Duration(milliseconds: 100), () {
+//         setState(() {
+//           widget.imgs[i] = '';
+//           widget.enablee[i] = true;
+//         });
+//       });
+//     }
+//
+//     var data = {
+//       'version': globals.version,
+//       'account_Id': account_Id,
+//       'table_name': widget.table_name,
+//     };
+//
+//     var res = await CallApi().postData(data, '(Control)loadOccupants.php');
+//     print(res.body);
+//     List<dynamic> body = json.decode(res.body);
+//
+//     if (body[0] == "success") {
+//       // for (int i = 0; i < widget.imgs.length; i++) {
+//       //   widget.imgs[i] = 'https://i.picsum.photos/id/572/500/500?$i';
+//       // }
+//       setState(() {
+//         widget.nb = body[1].length.toString();
+//       });
+//
+//       //deload
+//       int j = body[1].length - 1;
+//       for (int i = 7; i >= 0; i--) {
+//         // print('i: ' + i.toString());
+//         // print('j: ' + j.toString());
+//         // print('nb: ' + body[2].length.toString());
+//         await Future.delayed(const Duration(milliseconds: 100), () {
+//           if (i == (int.parse(body[1][j][2]) - 1)) {
+//             setState(() {
+//               widget.imgs[int.parse(body[1][j][2]) - 1] =
+//                   'https://picsum.photos/50/50/?${Random().nextInt(1000)}';
+//             });
+//             if (j > 0) {
+//               j--;
+//             }
+//           } else {
+//             setState(() {
+//               widget.enablee[i] = false;
+//             });
+//           }
+//         });
+//       }
+//     } else if (body[0] == "empty") {
+//       setState(() {
+//         widget.nb = '0';
+//       });
+//
+//       //deload
+//       //int j = body[1].length - 1;
+//       for (int i = 7; i >= 0; i--) {
+//         // print('i: ' + i.toString());
+//         // print('j: ' + j.toString());
+//         // print('nb: ' + body[2].length.toString());
+//         await Future.delayed(const Duration(milliseconds: 100), () {
+//           setState(() {
+//             widget.enablee[i] = false;
+//           });
+//         });
+//       }
+//       // showDialog<String>(
+//       //   context: context,
+//       //   builder: (BuildContext context) => AlertDialog(
+//       //     title: const Text('Error'),
+//       //     content: const Text(globals.errorEmptyTable),
+//       //     actions: <Widget>[
+//       //       TextButton(
+//       //         onPressed: () => Navigator.pop(context, 'OK'),
+//       //         child: const Text('OK'),
+//       //       ),
+//       //     ],
+//       //   ),
+//       // );
+//     } else if (body[0] == "errorVersion") {
+//       showDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => AlertDialog(
+//           title: const Text('Error'),
+//           content: const Text("Your version: " +
+//               globals.version +
+//               "\n" +
+//               globals.errorVersion),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () => Navigator.pop(context, 'OK'),
+//               child: const Text('OK'),
+//             ),
+//           ],
+//         ),
+//       );
+//     } else if (body[0] == "errorToken") {
+//       showDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => AlertDialog(
+//           title: const Text('Error'),
+//           content: const Text(globals.errorToken),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () => Navigator.pop(context, 'OK'),
+//               child: const Text('OK'),
+//             ),
+//           ],
+//         ),
+//       );
+//     } else if (body[0] == "error4") {
+//       showDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => AlertDialog(
+//           title: const Text('Error'),
+//           content: const Text(globals.error7),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () => Navigator.pop(context, 'OK'),
+//               child: const Text('OK'),
+//             ),
+//           ],
+//         ),
+//       );
+//     } else {
+//       showDialog<String>(
+//         context: context,
+//         builder: (BuildContext context) => AlertDialog(
+//           title: const Text('Error'),
+//           content: const Text(globals.errorElse),
+//           actions: <Widget>[
+//             TextButton(
+//               onPressed: () => Navigator.pop(context, 'OK'),
+//               child: const Text('OK'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   } catch (e) {
+//     print("Exeption: " + e.toString());
+//   }
+//   //globals.occupenTable[widget.id] = '0'; // Table is On
+// }
 
-  // _startTimer() async {
-  //   // if(timer.isActive) {
-  //   //   timer.cancel();
-  //   // }
-  //   timer = await Timer(const Duration(seconds: 30), () {
-  //     print('Time Out!!!!!!!!!!!!!');
-  //     //print('time!!!!!!!!!!!!!: ' + (i).toString());
-  //     //globals.occupenTable[widget.id] = '0';
-  //     if (mounted) {
-  //       setState(() {
-  //         widget.status = false;
-  //         //globals.tmpid = null;
-  //         widget.hiddenBool = true;
-  //         widget.imgs = ['', '', '', '', '', '', '', ''];
-  //         widget.enablee = [
-  //           false,
-  //           false,
-  //           false,
-  //           false,
-  //           false,
-  //           false,
-  //           false,
-  //           false
-  //         ];
-  //         widget.nb = 0;
-  //       });
-  //     }
-  //   });
-  // }
+// _startTimer() async {
+//   // if(timer.isActive) {
+//   //   timer.cancel();
+//   // }
+//   timer = await Timer(const Duration(seconds: 30), () {
+//     print('Time Out!!!!!!!!!!!!!');
+//     //print('time!!!!!!!!!!!!!: ' + (i).toString());
+//     //globals.occupenTable[widget.id] = '0';
+//     if (mounted) {
+//       setState(() {
+//         widget.status = false;
+//         //globals.tmpid = null;
+//         widget.hiddenBool = true;
+//         widget.imgs = ['', '', '', '', '', '', '', ''];
+//         widget.enablee = [
+//           false,
+//           false,
+//           false,
+//           false,
+//           false,
+//           false,
+//           false,
+//           false
+//         ];
+//         widget.nb = 0;
+//       });
+//     }
+//   });
+// }
 }

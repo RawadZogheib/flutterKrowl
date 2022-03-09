@@ -239,7 +239,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 Container(
                   alignment: Alignment.center,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         height: 165,
@@ -285,30 +284,22 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               Column(
                                 children: [
                                   load == true
-                                      ? Column(
-                                          children: [
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.2,
-                                            ),
-                                            SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.5,
-                                                child: Center(
-                                                  child: Image(
-                                                    image: AssetImage(
-                                                        'Assets/krowl_logo.gif'),
-                                                    fit: BoxFit.cover,
-                                                    height: 150,
-                                                    width: 150,
-                                                  ),
-                                                )),
-                                          ],
-                                        )
+                                      ? Expanded(
+                                        child: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            child: Center(
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'Assets/krowl_logo.gif'),
+                                                fit: BoxFit.cover,
+                                                height: 150,
+                                                width: 150,
+                                              ),
+                                            )),
+                                      )
                                       : Expanded(
                                           child: SingleChildScrollView(
                                             controller: ScrollController(),
@@ -417,55 +408,58 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     height: 165,
                   ),
                   load == true
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    SizedBox(
-                                      height: 435,
-                                      width: 270,
-                                      child: CreateTable(
-                                        height: double.parse(
-                                            (415 + distAnimation.value)
-                                                .toString()),
-                                        width: double.parse(
-                                            (250 + distAnimation.value)
-                                                .toString()),
-                                        onTap: (thisId) {
-                                          _createTable(thisId);
-                                        },
+                      ? Expanded(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.05),
+                                SingleChildScrollView(
+                                  controller: ScrollController(),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: distAnimation.value,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 435,
+                                        width: 270,
+                                        child: CreateTable(
+                                          height: double.parse(
+                                              (415 + distAnimation.value)
+                                                  .toString()),
+                                          width: double.parse(
+                                              (250 + distAnimation.value)
+                                                  .toString()),
+                                          onTap: (thisId) {
+                                            _createTable(thisId);
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.68,
-                                  child: Center(
-                                    child: Image(
-                                      image:
-                                          AssetImage('Assets/krowl_logo.gif'),
-                                      fit: BoxFit.cover,
-                                      height: 150,
-                                      width: 150,
-                                    ),
-                                  )),
-                              SizedBox(
-                                width: 20,
-                              ),
-                            ])
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.68,
+                                    child: Center(
+                                      child: Image(
+                                        image:
+                                            AssetImage('Assets/krowl_logo.gif'),
+                                        fit: BoxFit.cover,
+                                        height: 150,
+                                        width: 150,
+                                      ),
+                                    )),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                              ]),
+                      )
                       : Expanded(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -703,26 +697,15 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               '-1'
             ];
             List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
-
+            //privet
+            List<dynamic> _userIdPrivet = [];
+            List<dynamic> _userNamePrivet = [];
+            List<dynamic> _userImgUrlPrivet = [];
             if (_isPrivet == true) {
-              List<dynamic> _userIdPrivet = ['', '', '', '', '', '', '', ''];
-              List<dynamic> _userNamePrivet = ['', '', '', '', '', '', '', ''];
-              List<dynamic> _userImgUrlPrivet = [
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                ''
-              ];
-
               for (int j = 0; j < body[2][i][4].length; j++) {
-                _userIdPrivet[j] = body[2][i][4][j][0]; // userId
-                _userNamePrivet[j] = body[2][i][4][j][1]; // userName
-                _userImgUrlPrivet[j] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][2]
+                _userIdPrivet.add(body[2][i][4][j][0]); // userId
+                _userNamePrivet.add(body[2][i][4][j][1]); // userName
+                _userImgUrlPrivet.add('https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
               for (int j = 0; j < body[2][i][5].length; j++) {
@@ -751,6 +734,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             }
             //localStorage.setString('contrat_Id', value)
             //globals.occupenTable.add('0');// Initiate table (All table are Off)
+
             children.add(
               new CustomTable(
                 id: body[2][i][0],
@@ -763,6 +747,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 getUsers: _userName,
                 getPos: _userPosition,
                 getImgs: _userImgUrl,
+                getIdsPrivet: _userIdPrivet,
+                getUsersPrivet: _userNamePrivet,
+                getImgsPrivet: _userImgUrlPrivet,
               ),
             );
             print(_userId);
@@ -843,29 +830,34 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   _createTable(String id) {
     if (mounted) {
       setState(() {
-        _totalTables++;
-        _totalPages = (_totalTables / _maxTables).ceil();
-        if (_currentPage != 1) {
-          _currentPage = 1;
-          _loadNewPage();
-        } else {
-          if (children.length == _maxTables) children.removeLast();
-          children.insert(
-              0,
-              CustomTable(
-                id: id,
-                table_name: globals.tableName,
-                getIds: [],
-                getUsers: [],
-                getPos: [],
-                getImgs: [],
-                isSilent: globals.isSilent,
-                isPrivet: globals.isPrivet,
-                color: Colors.green,
-              ));
-        }
+        if(globals.isPrivet==_isPrivet) {
+          _totalTables++;
+          _totalPages = (_totalTables / _maxTables).ceil();
+          if (_currentPage != 1) {
+            _currentPage = 1;
+            _loadNewPage();
+          } else {
+            if (children.length == _maxTables) children.removeLast();
+            children.insert(
+                0,
+                CustomTable(
+                  id: id,
+                  table_name: globals.tableName,
+                  getIds: [],
+                  getUsers: [],
+                  getPos: [],
+                  getImgs: [],
+                  isSilent: globals.isSilent,
+                  isPrivet: globals.isPrivet,
+                  color: Colors.green,
+                  getIdsPrivet: ['', '', '', '', '', '', '', ''],
+                  getUsersPrivet: ['', '', '', '', '', '', '', ''],
+                  getImgsPrivet: ['', '', '', '', '', '', '', ''],
+                ));
+          }
 
-        //globals.occupenTable.add('0');
+          //globals.occupenTable.add('0');
+        }
       });
     }
   }
