@@ -212,6 +212,20 @@ class HomeScreen extends StatelessWidget {
                           //           ? Colors.blue.shade900
                           //           : Colors.grey.shade500),
                           // ),
+                          StreamBuilder<ChannelState?>(
+                            stream:
+                            _item.state!.channelStateStream,
+                            initialData: _item.state!.channelState,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(snapshot.data!.channel!.lastMessageAt!.toLocal().day.toString()+"/"+snapshot.data!.channel!.lastMessageAt!.toLocal().month.toString()
+                                    +"/"+snapshot.data!.channel!.lastMessageAt!.toLocal().year.toString()+"  @ "+snapshot.data!.channel!.lastMessageAt!.toLocal().hour.toString()+
+                                    ":"+snapshot.data!.channel!.lastMessageAt!.toLocal().minute.toString());
+                              }
+
+                              return const SizedBox();
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -282,20 +296,28 @@ class _MessageScreenState extends State<MessageScreen> {
     /// To access the current channel, we can use the `.of()` method on
     /// [StreamChannel] to fetch the closest instance.
     final channel = StreamChannel.of(context).channel;
+    var statusUser;
     tmpname = channel.state!.members.first
         .userId; //getting the userid which is the username of the first member
     if (tmpname != null) {
       res = tmpname?.compareTo(channel.client.uid);
       if (res == 0) {
         chname = channel.state!.members.last.userId; //first member
+        statusUser= channel.state!.members.last.user!.online;
       } else {
         chname = tmpname;
+        statusUser= channel.state!.members.first.user!.online;
+      }
+      if(statusUser==true){
+        statusUser="online";
+      }else{
+        statusUser="";
       }
     }
     return Scaffold(
       appBar: ChatDetailPageAppBar(
         username: chname ?? '',
-        status: "online",
+        status:statusUser,
       ),
       // appBar: AppBar(
       //   title: Text(chname ?? ''),
