@@ -83,20 +83,23 @@ class _Students1State extends State<Students1>
           body: Responsive(
             mobile: SingleChildScrollView(
               reverse: false,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SearchBar(hintText: "Search for students..."),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Wrap(
-                    direction: Axis.vertical,
-                    children: children, // My Children
-                  ),
-                ],
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SearchBar(hintText: "Search for students..."),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Wrap(
+                      direction: Axis.vertical,
+                      children: children, // My Children
+                    ),
+                  ],
+                ),
               ),
             ),
             tablet: Stack(

@@ -35,12 +35,9 @@ class _ChatPage2State extends State<ChatPage2> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 130,
-            ),
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Chat/components/streamChatContacts.dart';
+import 'package:flutter_app_backend/widgets/MyDrawer.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
@@ -17,7 +18,6 @@ class MainChat extends StatefulWidget {
 
 class _MainChatState extends State<MainChat> {
   bool initBool = false;
-
 
   @override
   Future<void> dispose() async {
@@ -45,44 +45,71 @@ class _MainChatState extends State<MainChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () async {
-        //     await initChat();
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => StreamExample(
-        //           client: client,
-        //           channel: channel,
-        //         ),
-        //       ),
-        //     );
-        //   },
-        //   backgroundColor: Colors.green,
-        //   child: const Icon(Icons.navigation),
-        // ),
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.blue.shade900,
-          unselectedItemColor: Colors.grey.shade400,
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              label: "Chats",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group),
-              label: "Friends",
-            ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            Center(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     await initChat();
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => StreamExample(
+      //           client: client,
+      //           channel: channel,
+      //         ),
+      //       ),
+      //     );
+      //   },
+      //   backgroundColor: Colors.green,
+      //   child: const Icon(Icons.navigation),
+      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue.shade900,
+        unselectedItemColor: Colors.grey.shade400,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: "Chats",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: "Friends",
+          ),
+        ],
+      ),
+      drawer: MyDrawer(),
+      appBar: MediaQuery.of(context).size.width < 700
+          ? AppBar(
+              backgroundColor: globals.blue1,
+              title: Center(
+                child: Text('Krowl'),
+              ),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    _back();
+                  }),
+              actions: [
+                Builder(
+                  builder: (context) => IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    icon: Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
+                ),
+              ],
+            )
+          : null,
+      body: WillPopScope(
+        onWillPop: () async => _back(),
+        child: Responsive(
+          mobile: Expanded(
+            child: Center(
               child: initBool == true
                   ? _widgetOptions.elementAt(_selectedIndex)
                   : Center(
@@ -94,8 +121,66 @@ class _MainChatState extends State<MainChat> {
                       ),
                     ),
             ),
-          ],
-        ));
+          ),
+          tablet: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: initBool == true
+                          ? _widgetOptions.elementAt(_selectedIndex)
+                          : Center(
+                              child: Image(
+                                image: AssetImage('Assets/krowl_logo.gif'),
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+              CustomTabBar(
+                color: globals.blue1,
+              ),
+            ],
+          ),
+          desktop: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: initBool == true
+                          ? _widgetOptions.elementAt(_selectedIndex)
+                          : Center(
+                              child: Image(
+                                image: AssetImage('Assets/krowl_logo.gif'),
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+              CustomTabBar(
+                color: globals.blue1,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _onItemTapped(int index) {
@@ -110,15 +195,13 @@ class _MainChatState extends State<MainChat> {
     var userToken = localStorage.getString("userTokenChat");
     print("ddddddddddddddddddddddddd" + userToken.toString());
 
-     await client.connectUser(
-          User(
-            id: usernameChat.toString(),
-              extraData: {
-                "name": usernameChat,
-                // image:
-                // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-              }
-          ),
+    await client
+        .connectUser(
+          User(id: usernameChat.toString(), extraData: {
+            "name": usernameChat,
+            // image:
+            // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+          }),
           userToken.toString(),
         )
         .then((value) => {
@@ -126,5 +209,10 @@ class _MainChatState extends State<MainChat> {
                 initBool = true;
               })
             });
+  }
+
+  _back() {
+    //Navigator.pop(context);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 }
