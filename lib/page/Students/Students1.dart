@@ -135,7 +135,7 @@ class _Students1State extends State<Students1>
                     ],
                   ),
                 ),
-                CustomTabBar(),
+                CustomTabBar(color: globals.blue1,),
               ],
             ),
             desktop: Stack(
@@ -224,7 +224,7 @@ class _Students1State extends State<Students1>
                     ),
                   ]),
                 ),
-                CustomTabBar(),
+                CustomTabBar(color: globals.blue1,),
               ],
             ),
           )),

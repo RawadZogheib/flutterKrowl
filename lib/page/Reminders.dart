@@ -17,7 +17,7 @@ class Reminders extends StatefulWidget {
 
 class _RemindersState extends State<Reminders>
     with SingleTickerProviderStateMixin {
-  FocusNode _focusNode = FocusNode();
+  //FocusNode _focusNode = FocusNode();
   int thisTabBar = 0;
   List<ReminderWidget> _children1 = [];
   List<ReminderWidget> _children2 = [];
@@ -122,8 +122,8 @@ class _RemindersState extends State<Reminders>
     'minutes',
     'hours',
   ];
-  double _value1 = 1;
-  double _value2 = 1;
+  // double _value1 = 1;
+  // double _value2 = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -291,7 +291,7 @@ class _RemindersState extends State<Reminders>
               ],
             ),
           ),
-          CustomTabBar(),
+          CustomTabBar(color: globals.blue1,),
         ],
       ),
     );

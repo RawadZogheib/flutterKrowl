@@ -291,7 +291,7 @@ class _ReplyPageState extends State<ReplyPage>
                       ),
                     ),
                   ]),
-                  CustomTabBar(),
+                  CustomTabBar(color: globals.blue1,),
                 ],
               ),
             );

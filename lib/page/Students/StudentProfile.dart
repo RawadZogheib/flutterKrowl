@@ -138,7 +138,7 @@ class _StudentProfileState extends State<StudentProfile> {
                 ],
               ),
             ),
-            CustomTabBar(),
+            CustomTabBar(color: globals.blue1,),
           ],
         ),
       ),

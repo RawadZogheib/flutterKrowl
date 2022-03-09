@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
 
 class CustomTabBar extends StatefulWidget {
-  CustomTabBar({
-    this.text,
-  });
+  Color color;
 
-  var text;
+  CustomTabBar({
+    required this.color,
+  });
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -43,7 +42,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           decoration: BoxDecoration(
             color: globals.blue2,
             border: Border(
-              bottom: BorderSide(width: 4, color: globals.blue1),
+              bottom: BorderSide(width: 4, color: widget.color),
             ),
           ),
           child: Row(

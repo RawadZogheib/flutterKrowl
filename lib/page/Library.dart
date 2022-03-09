@@ -398,7 +398,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                CustomTabBar(),
+                CustomTabBar(color: globals.blue1,),
               ],
             ),
             desktop: Stack(
@@ -410,6 +410,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   load == true
                       ? Expanded(
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                 SizedBox(
@@ -443,17 +444,17 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
+                                Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.68,
-                                    child: Center(
-                                      child: Image(
-                                        image:
-                                            AssetImage('Assets/krowl_logo.gif'),
-                                        fit: BoxFit.cover,
-                                        height: 150,
-                                        width: 150,
-                                      ),
+                                    alignment: Alignment.topCenter,
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Image(
+                                      image:
+                                          AssetImage('Assets/krowl_logo.gif',),
+                                      fit: BoxFit.cover,
+                                      height: 150,
+                                      width: 150,
                                     )),
                                 SizedBox(
                                   width: 20,
@@ -621,7 +622,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                CustomTabBar(),
+                CustomTabBar(color: globals.blue1,),
               ],
             ),
           ),

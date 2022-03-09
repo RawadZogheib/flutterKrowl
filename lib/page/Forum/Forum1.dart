@@ -244,7 +244,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      CustomTabBar(),
+                      CustomTabBar(color: globals.blue1,),
                     ],
                   ),
                   desktop: Stack(
@@ -362,7 +362,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           ),
                         ]),
                       ),
-                      CustomTabBar(),
+                      CustomTabBar(color: globals.blue1,),
                     ],
                   ),
                 )),

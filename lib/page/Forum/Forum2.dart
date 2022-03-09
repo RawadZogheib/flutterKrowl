@@ -7,6 +7,7 @@ import 'package:flutter_app_backend/api/my_api.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
 import 'package:flutter_app_backend/widgets/Forum/Forum2/Dropdown2.dart';
+import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter_app_backend/widgets/TextInput1.dart';
@@ -77,44 +78,29 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
               ],
             )
                 : null,
-            backgroundColor: globals.white,
+            backgroundColor: globals.blue1,
             body: Responsive(
               mobile: SingleChildScrollView(
                 controller: ScrollController(),
                 reverse: true,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Column(),
-                ),
-              ),
-              tablet: SingleChildScrollView(
-                controller: ScrollController(),
-                reverse: true,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Column(),
-                ),
-              ),
-              desktop: Stack(
-                children: [
-                  SingleChildScrollView(
-                    controller: ScrollController(),
-                    reverse: true,
-                    child: Column(children: [
-                      SizedBox(
-                        height: 100,
-                      ),
-                      Container(
-                        height: 800,
-                        color: globals.blue1.withOpacity(0.98),
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(children: [
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    height: 800,
+                    color: globals.blue1.withOpacity(0.98),
+                    alignment: Alignment.center,
+                    child: ScrollConfiguration(
+                      behavior: MyCustomScrollBehavior(),
+                      child: SingleChildScrollView(
+                        controller: ScrollController(),
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
                           children: [
                             Container(
                               width: 450,
-                              height: 550,
+                              height: 230,
                               child: Stack(children: [
                                 DefaultTextStyle(
                                   style: const TextStyle(
@@ -234,9 +220,310 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                           ],
                         ),
                       ),
+                    ),
+                  ),
+                ]),
+              ),
+              tablet: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: ScrollController(),
+                    reverse: true,
+                    child: Column(children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Container(
+                        height: 800,
+                        color: globals.blue1.withOpacity(0.98),
+                        alignment: Alignment.center,
+                        child: ScrollConfiguration(
+                          behavior: MyCustomScrollBehavior(),
+                          child: SingleChildScrollView(
+                            controller: ScrollController(),
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 450,
+                                  height: 550,
+                                  child: Stack(children: [
+                                    DefaultTextStyle(
+                                      style: const TextStyle(
+                                        fontSize: 30.0,
+                                        fontFamily: 'Rubik',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                      child: AnimatedTextKit(
+                                        totalRepeatCount: 5,
+                                        animatedTexts: [
+                                          WavyAnimatedText('Ask a question ?'),
+                                        ],
+                                        isRepeatingAnimation: true,
+                                        onTap: () {
+                                          print("Tap Event");
+                                        },
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 45,
+                                      child: Text(
+                                        "If you are stuck on anything here's your chance to ask a\nquestion about many different subjects.\n\nKrowl has a forum section that is accessible by every\nstudents. This is a great way of getting answers from your\npeers and get help.",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'Rubik',
+                                            color: Colors.white),
+                                      ),
+                                    )
+                                  ]),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 20),
+                                  padding: EdgeInsets.only(left: 20, top: 45),
+                                  width: 520,
+                                  height: 520,
+                                  decoration: BoxDecoration(
+                                    color: globals.blue2,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Subject *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Dropdown2(),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text("Question *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                          width: 450,
+                                          height: 40,
+                                          child: TextInput1(
+                                            fillColor: Colors.white,
+                                            hintText: 'Enter your question here',
+                                            onChanged: (val) {
+                                              globals.question = val;
+                                              print(globals.question.toString());
+                                            },
+                                          )),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text("Context of question *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                          width: 450,
+                                          child: TextInput1(
+                                              fillColor: Colors.white,
+                                              hintText: 'Give some context...',
+                                              onChanged: (val) {
+                                                globals.context_question = val;
+                                                print(
+                                                    globals.context_question.toString());
+                                              })),
+                                      SizedBox(
+                                        height: 100,
+                                      ),
+                                      Container(
+                                        width: 170,
+                                        height: 50,
+                                        child: AskQuestionButton(
+                                          color1: globals.blue1,
+                                          color2: Colors.blueGrey,
+                                          text: 'Create post',
+                                          onPressed: () {
+                                            _createPost();
+                                            Navigator.pushNamedAndRemoveUntil(
+                                                context, '/Forum1', (route) => false);
+                                          },
+                                          textcolor: globals.blue2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ]),
                   ),
-                  CustomTabBar(),
+                  CustomTabBar(color: Colors.white,),
+                ],
+              ),
+              desktop: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: ScrollController(),
+                    reverse: true,
+                    child: Column(children: [
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Container(
+                        height: 800,
+                        color: globals.blue1.withOpacity(0.98),
+                        alignment: Alignment.center,
+                        child: ScrollConfiguration(
+                          behavior: MyCustomScrollBehavior(),
+                          child: SingleChildScrollView(
+                            controller: ScrollController(),
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 450,
+                                  height: 550,
+                                  child: Stack(children: [
+                                    DefaultTextStyle(
+                                      style: const TextStyle(
+                                        fontSize: 30.0,
+                                        fontFamily: 'Rubik',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                      child: AnimatedTextKit(
+                                        totalRepeatCount: 5,
+                                        animatedTexts: [
+                                          WavyAnimatedText('Ask a question ?'),
+                                        ],
+                                        isRepeatingAnimation: true,
+                                        onTap: () {
+                                          print("Tap Event");
+                                        },
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 45,
+                                      child: Text(
+                                        "If you are stuck on anything here's your chance to ask a\nquestion about many different subjects.\n\nKrowl has a forum section that is accessible by every\nstudents. This is a great way of getting answers from your\npeers and get help.",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'Rubik',
+                                            color: Colors.white),
+                                      ),
+                                    )
+                                  ]),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 20),
+                                  padding: EdgeInsets.only(left: 20, top: 45),
+                                  width: 520,
+                                  height: 520,
+                                  decoration: BoxDecoration(
+                                    color: globals.blue2,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Subject *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Dropdown2(),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text("Question *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                          width: 450,
+                                          height: 40,
+                                          child: TextInput1(
+                                            fillColor: Colors.white,
+                                            hintText: 'Enter your question here',
+                                            onChanged: (val) {
+                                              globals.question = val;
+                                              print(globals.question.toString());
+                                            },
+                                          )),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text("Context of question *",
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.black)),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                          width: 450,
+                                          child: TextInput1(
+                                              fillColor: Colors.white,
+                                              hintText: 'Give some context...',
+                                              onChanged: (val) {
+                                                globals.context_question = val;
+                                                print(
+                                                    globals.context_question.toString());
+                                              })),
+                                      SizedBox(
+                                        height: 100,
+                                      ),
+                                      Container(
+                                        width: 170,
+                                        height: 50,
+                                        child: AskQuestionButton(
+                                          color1: globals.blue1,
+                                          color2: Colors.blueGrey,
+                                          text: 'Create post',
+                                          onPressed: () {
+                                            _createPost();
+                                            Navigator.pushNamedAndRemoveUntil(
+                                                context, '/Forum1', (route) => false);
+                                          },
+                                          textcolor: globals.blue2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  CustomTabBar(color: Colors.white,),
                 ],
               ),
             )),
