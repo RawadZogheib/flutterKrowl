@@ -305,11 +305,7 @@ class ShapedWidget3 extends StatelessWidget {
                                     text:
                                         'Krowl.io/addToTable/code=' + tableId))
                                 .then((value) {
-                              SuccessPopup(
-                                  context,
-                                  'Krowl.io/addToTable/code=' +
-                                      tableId +
-                                      ' \nwas copied successfully');
+                              SuccessPopup(context, 'Link copied successfully.');
                               print('copy');
                             });
                           },
