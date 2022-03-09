@@ -57,27 +57,27 @@ class _Students1State extends State<Students1>
           resizeToAvoidBottomInset: true,
           appBar: MediaQuery.of(context).size.width < 700
               ? AppBar(
-            backgroundColor: globals.blue1,
-            title: Center(
-              child: Text('Krowl'),
-            ),
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  _back();
-                }),
-            actions: [
-              Builder(
-                builder: (context) => IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
-              ),
-            ],
-          )
+                  backgroundColor: globals.blue1,
+                  title: Center(
+                    child: Text('Krowl'),
+                  ),
+                  leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        _back();
+                      }),
+                  actions: [
+                    Builder(
+                      builder: (context) => IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        icon: Icon(Icons.menu),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
+                    ),
+                  ],
+                )
               : null,
           backgroundColor: globals.white,
           body: Responsive(
@@ -138,7 +138,9 @@ class _Students1State extends State<Students1>
                     ],
                   ),
                 ),
-                CustomTabBar(color: globals.blue1,),
+                CustomTabBar(
+                  color: globals.blue1,
+                ),
               ],
             ),
             desktop: Stack(
@@ -186,7 +188,8 @@ class _Students1State extends State<Students1>
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Wrap(children: children.toList()),
                                         Padding(
@@ -227,7 +230,9 @@ class _Students1State extends State<Students1>
                     ),
                   ]),
                 ),
-                CustomTabBar(color: globals.blue1,),
+                CustomTabBar(
+                  color: globals.blue1,
+                ),
               ],
             ),
           )),
@@ -365,9 +370,9 @@ class _Students1State extends State<Students1>
       }
     });
   }
+
   _back() {
     //Navigator.pop(context);
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 }
