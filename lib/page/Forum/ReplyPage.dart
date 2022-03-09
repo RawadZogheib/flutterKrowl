@@ -110,27 +110,27 @@ class _ReplyPageState extends State<ReplyPage>
               resizeToAvoidBottomInset: true,
               appBar: MediaQuery.of(context).size.width < 700
                   ? AppBar(
-                backgroundColor: globals.blue1,
-                title: Center(
-                  child: Text('Krowl'),
-                ),
-                leading: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      _back();
-                    }),
-                actions: [
-                  Builder(
-                    builder: (context) => IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    ),
-                  ),
-                ],
-              )
+                      backgroundColor: globals.blue1,
+                      title: Center(
+                        child: Text('Krowl'),
+                      ),
+                      leading: IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            _back();
+                          }),
+                      actions: [
+                        Builder(
+                          builder: (context) => IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            icon: Icon(Icons.menu),
+                            onPressed: () => Scaffold.of(context).openDrawer(),
+                          ),
+                        ),
+                      ],
+                    )
                   : null,
               body: Stack(
                 children: [
@@ -205,8 +205,8 @@ class _ReplyPageState extends State<ReplyPage>
                                               children.toList(), // My Children
                                         ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.35,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
                                     padding: const EdgeInsets.all(8.0),
                                     child: _load == true
                                         ? null
@@ -255,9 +255,11 @@ class _ReplyPageState extends State<ReplyPage>
                                       ),
                                       Contributors(
                                         height: double.parse(
-                                            (220 + distAnimation.value).toString()),
+                                            (220 + distAnimation.value)
+                                                .toString()),
                                         width: double.parse(
-                                            (350 + distAnimation.value).toString()),
+                                            (350 + distAnimation.value)
+                                                .toString()),
                                       ),
                                       SizedBox(
                                         height: distAnimation.value,
@@ -273,9 +275,11 @@ class _ReplyPageState extends State<ReplyPage>
                                             'dsngujbnuydfvhngysdnbvugfndugn',
                                         NbrReplies: 1,
                                         height: double.parse(
-                                            (270 + distAnimation.value).toString()),
+                                            (270 + distAnimation.value)
+                                                .toString()),
                                         width: double.parse(
-                                            (350 + distAnimation.value).toString()),
+                                            (350 + distAnimation.value)
+                                                .toString()),
                                       )
                                     ],
                                   ),
@@ -456,7 +460,6 @@ class _ReplyPageState extends State<ReplyPage>
         print('load replyPage end!!!');
         print(
             '=========<<======================================================<<==================================================<<=========');
-
       } catch (e) {
         print(e);
         globals.loadReplyPage = false;
@@ -469,7 +472,7 @@ class _ReplyPageState extends State<ReplyPage>
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
-      }
+    }
   }
 
   _loadNewPage() {
@@ -558,9 +561,9 @@ class _ReplyPageState extends State<ReplyPage>
       });
     });
   }
+
   _back() {
     //Navigator.pop(context);
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 }
