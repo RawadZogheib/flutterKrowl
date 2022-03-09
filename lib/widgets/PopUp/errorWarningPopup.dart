@@ -1,4 +1,5 @@
 //import 'package:flutter/cupertino.dart'; //CupertinoIcons.checkmark_alt_circle,//Success Icon
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:motion_toast/motion_toast.dart';
@@ -59,6 +60,26 @@ WarningPopup(BuildContext context, String? text) {
     ),
     description: Text(
       text != null ? text : 'Unexpected Warning.',
+    ),
+    position: MOTION_TOAST_POSITION.bottom,
+    animationType: ANIMATION.fromRight,
+    height: 100,
+  ).show(context);
+}
+
+SuccessPopup(BuildContext context, String? text) {
+  MotionToast(
+    icon: CupertinoIcons.checkmark_alt_circle,
+    primaryColor: globals.green2,
+    secondaryColor: globals.green1,
+    toastDuration: const Duration(seconds: 3),
+    backgroundType: BACKGROUND_TYPE.solid,
+    title: const Text(
+      'Success',
+      style: TextStyle(fontWeight: FontWeight.bold),
+    ),
+    description: Text(
+      text != null ? text : 'Unexpected Success.',
     ),
     position: MOTION_TOAST_POSITION.bottom,
     animationType: ANIMATION.fromRight,

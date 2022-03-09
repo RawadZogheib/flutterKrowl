@@ -22,6 +22,8 @@ Color red1 = Colors.red.shade900;
 Color red2 = Colors.red.shade50;
 Color yellow1 = Colors.yellow.shade900;
 Color yellow2 = Colors.yellow.shade50;
+Color green1 = Colors.green.shade700;
+Color green2 = Colors.green.shade50;
 
 //Errors
 const String warning1 = "No Spaces Allowed.";

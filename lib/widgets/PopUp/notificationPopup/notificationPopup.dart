@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
+import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
 
 class ShapedWidget extends StatelessWidget {
@@ -269,8 +270,7 @@ class ShapedWidget3 extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Clipboard.setData(ClipboardData(
-                                        text: tableId))
+                                Clipboard.setData(ClipboardData(text: tableId))
                                     .then((value) {
                                   print('copy');
                                 });
@@ -305,6 +305,11 @@ class ShapedWidget3 extends StatelessWidget {
                                     text:
                                         'Krowl.io/addToTable/code=' + tableId))
                                 .then((value) {
+                              SuccessPopup(
+                                  context,
+                                  'Krowl.io/addToTable/code=' +
+                                      tableId +
+                                      'copied successfully');
                               print('copy');
                             });
                           },
