@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter_app_backend/widgets/Reminders/AddWidget.dart';
 import 'package:flutter_app_backend/widgets/Reminders/ReminderWidget.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
@@ -130,7 +131,12 @@ class _RemindersState extends State<Reminders>
     return Scaffold(
       body: Stack(
         children: [
-          SingleChildScrollView(
+          ScrollConfiguration(
+          behavior: MyCustomScrollBehavior()
+          .copyWith(scrollbars: false),
+          child:SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: ScrollController(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -290,8 +296,7 @@ class _RemindersState extends State<Reminders>
                 ),
               ],
             ),
-          ),
-          CustomTabBar(color: globals.blue1,),
+          ),),
         ],
       ),
     );
