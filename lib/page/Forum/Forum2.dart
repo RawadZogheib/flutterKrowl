@@ -56,27 +56,27 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
             resizeToAvoidBottomInset: true,
             appBar: MediaQuery.of(context).size.width < 700
                 ? AppBar(
-              backgroundColor: globals.blue1,
-              title: Center(
-                child: Text('Krowl'),
-              ),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    _back();
-                  }),
-              actions: [
-                Builder(
-                  builder: (context) => IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    icon: Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                ),
-              ],
-            )
+                    backgroundColor: globals.blue1,
+                    title: Center(
+                      child: Text('Krowl'),
+                    ),
+                    leading: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          _back();
+                        }),
+                    actions: [
+                      Builder(
+                        builder: (context) => IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: Icon(Icons.menu),
+                          onPressed: () => Scaffold.of(context).openDrawer(),
+                        ),
+                      ),
+                    ],
+                  )
                 : null,
             backgroundColor: globals.blue1,
             body: Responsive(
@@ -193,8 +193,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                           hintText: 'Give some context...',
                                           onChanged: (val) {
                                             globals.context_question = val;
-                                            print(
-                                                globals.context_question.toString());
+                                            print(globals.context_question
+                                                .toString());
                                           })),
                                   SizedBox(
                                     height: 100,
@@ -209,7 +209,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                       onPressed: () {
                                         _createPost();
                                         Navigator.pushNamedAndRemoveUntil(
-                                            context, '/Forum1', (route) => false);
+                                            context,
+                                            '/Forum1',
+                                            (route) => false);
                                       },
                                       textcolor: globals.blue2,
                                     ),
@@ -290,7 +292,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text("Subject *",
                                           style: GoogleFonts.nunito(
@@ -317,10 +320,12 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                           height: 40,
                                           child: TextInput1(
                                             fillColor: Colors.white,
-                                            hintText: 'Enter your question here',
+                                            hintText:
+                                                'Enter your question here',
                                             onChanged: (val) {
                                               globals.question = val;
-                                              print(globals.question.toString());
+                                              print(
+                                                  globals.question.toString());
                                             },
                                           )),
                                       SizedBox(
@@ -341,8 +346,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                               hintText: 'Give some context...',
                                               onChanged: (val) {
                                                 globals.context_question = val;
-                                                print(
-                                                    globals.context_question.toString());
+                                                print(globals.context_question
+                                                    .toString());
                                               })),
                                       SizedBox(
                                         height: 100,
@@ -357,7 +362,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                           onPressed: () {
                                             _createPost();
                                             Navigator.pushNamedAndRemoveUntil(
-                                                context, '/Forum1', (route) => false);
+                                                context,
+                                                '/Forum1',
+                                                (route) => false);
                                           },
                                           textcolor: globals.blue2,
                                         ),
@@ -372,7 +379,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ),
                     ]),
                   ),
-                  CustomTabBar(color: Colors.white,),
+                  CustomTabBar(
+                    color: Colors.white,
+                  ),
                 ],
               ),
               desktop: Stack(
@@ -441,7 +450,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text("Subject *",
                                           style: GoogleFonts.nunito(
@@ -468,10 +478,12 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                           height: 40,
                                           child: TextInput1(
                                             fillColor: Colors.white,
-                                            hintText: 'Enter your question here',
+                                            hintText:
+                                                'Enter your question here',
                                             onChanged: (val) {
                                               globals.question = val;
-                                              print(globals.question.toString());
+                                              print(
+                                                  globals.question.toString());
                                             },
                                           )),
                                       SizedBox(
@@ -492,8 +504,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                               hintText: 'Give some context...',
                                               onChanged: (val) {
                                                 globals.context_question = val;
-                                                print(
-                                                    globals.context_question.toString());
+                                                print(globals.context_question
+                                                    .toString());
                                               })),
                                       SizedBox(
                                         height: 100,
@@ -508,7 +520,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                           onPressed: () {
                                             _createPost();
                                             Navigator.pushNamedAndRemoveUntil(
-                                                context, '/Forum1', (route) => false);
+                                                context,
+                                                '/Forum1',
+                                                (route) => false);
                                           },
                                           textcolor: globals.blue2,
                                         ),
@@ -523,7 +537,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ),
                     ]),
                   ),
-                  CustomTabBar(color: Colors.white,),
+                  CustomTabBar(
+                    color: Colors.white,
+                  ),
                 ],
               ),
             )),
@@ -565,9 +581,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
       ErrorPopup(context, globals.errorException);
     }
   }
+
   _back() {
     //Navigator.pop(context);
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 }
