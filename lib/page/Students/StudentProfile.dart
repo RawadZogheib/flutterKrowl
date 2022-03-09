@@ -73,27 +73,27 @@ class _StudentProfileState extends State<StudentProfile> {
         resizeToAvoidBottomInset: true,
         appBar: MediaQuery.of(context).size.width < 700
             ? AppBar(
-          backgroundColor: globals.blue1,
-          title: Center(
-            child: Text('Krowl'),
-          ),
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                _back();
-              }),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                icon: Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-            ),
-          ],
-        )
+                backgroundColor: globals.blue1,
+                title: Center(
+                  child: Text('Krowl'),
+                ),
+                leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      _back();
+                    }),
+                actions: [
+                  Builder(
+                    builder: (context) => IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      icon: Icon(Icons.menu),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
+                  ),
+                ],
+              )
             : null,
         backgroundColor: globals.white,
         body: Stack(
@@ -138,7 +138,9 @@ class _StudentProfileState extends State<StudentProfile> {
                 ],
               ),
             ),
-            CustomTabBar(color: globals.blue1,),
+            CustomTabBar(
+              color: globals.blue1,
+            ),
           ],
         ),
       ),
@@ -157,127 +159,126 @@ class _StudentProfileState extends State<StudentProfile> {
             '=========<<======================================================<<==================================================<<=========');
       }
 
-      try{
-      print('load studentPage');
-      //globals.occupenTable.clear();
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+      try {
+        print('load studentPage');
+        //globals.occupenTable.clear();
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var account_Id = localStorage.getString("account_Id");
 
-      var data = {
-        'version': globals.version,
-        'account_Id': account_Id,
-        'userId': widget.userId,
-      };
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'userId': widget.userId,
+        };
 
-      var res = await CallApi().postData(data, '(Control)loadProfiles.php');
-      print(res.body);
-      List<dynamic> body = json.decode(res.body);
+        var res = await CallApi().postData(data, '(Control)loadProfiles.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
 
-      if (body[0] == "success") {
-        if (mounted) {
+        if (body[0] == "success") {
+          if (mounted) {
+            setState(() {
+              widget.username = body[1][0] + ' ' + body[1][1];
+              widget.universityName = body[1][2];
+              widget.description = body[1][3];
+              widget.nbrOfFriends = int.parse(body[1][4]);
+              widget.isFriend = body[1][5];
 
-          setState(() {
-            widget.username = body[1][0] + ' ' + body[1][1];
-            widget.universityName = body[1][2];
-            widget.description = body[1][3];
-            widget.nbrOfFriends = int.parse(body[1][4]);
-            widget.isFriend = body[1][5];
-
-            children1.clear();
-            for (int i = 0; i < body[2].length; i++) {
-              Color _color;
-              Color _color2;
-              if (int.parse(body[2][i][4]) == 0) {
-                _color = Colors.grey.shade600;
-                _color2 = Colors.grey.shade600;
-              } else if (int.parse(body[2][i][4]) == 1) {
-                _color = globals.blue1;
-                _color2 = Colors.grey.shade600;
-              } else if (int.parse(body[2][i][4]) == -1) {
-                _color = Colors.grey.shade600;
-                _color2 = globals.blue1;
-              } else {
-                _color = Colors.transparent;
-                _color2 = Colors.transparent;
-              }
-              children1.add(
-                ProfileQuestions(
-                  Id: body[2][i][0],
-                  firstLastName: body[2][i][1],
-                  Post_tag: body[2][i][2],
-                  Post_val: int.parse(body[2][i][3]),
-                  color: _color,
-                  color2: _color2,
-                  TheQuestion: body[2][i][5],
-                  contextQuestion: body[2][i][6],
-                  nbrOfReplies: body[2][i][7],
-                  dateOfQuestion: 'on ' + body[2][i][8],
-                ),
-              );
-            }
-
-            children2.clear();
-            for (int j = 0; j < body[3].length; j++) {
-              Color _color;
-              Color _color2;
-              if (int.parse(body[3][j][5]) == 0) {
-                _color = Colors.grey.shade600;
-                _color2 = Colors.grey.shade600;
-              } else if (int.parse(body[3][j][5]) == 1) {
-                _color = globals.blue1;
-                _color2 = Colors.grey.shade600;
-              } else if (int.parse(body[3][j][5]) == -1) {
-                _color = Colors.grey.shade600;
-                _color2 = globals.blue1;
-              } else {
-                _color = Colors.transparent;
-                _color2 = Colors.transparent;
+              children1.clear();
+              for (int i = 0; i < body[2].length; i++) {
+                Color _color;
+                Color _color2;
+                if (int.parse(body[2][i][4]) == 0) {
+                  _color = Colors.grey.shade600;
+                  _color2 = Colors.grey.shade600;
+                } else if (int.parse(body[2][i][4]) == 1) {
+                  _color = globals.blue1;
+                  _color2 = Colors.grey.shade600;
+                } else if (int.parse(body[2][i][4]) == -1) {
+                  _color = Colors.grey.shade600;
+                  _color2 = globals.blue1;
+                } else {
+                  _color = Colors.transparent;
+                  _color2 = Colors.transparent;
+                }
+                children1.add(
+                  ProfileQuestions(
+                    Id: body[2][i][0],
+                    firstLastName: body[2][i][1],
+                    Post_tag: body[2][i][2],
+                    Post_val: int.parse(body[2][i][3]),
+                    color: _color,
+                    color2: _color2,
+                    TheQuestion: body[2][i][5],
+                    contextQuestion: body[2][i][6],
+                    nbrOfReplies: body[2][i][7],
+                    dateOfQuestion: 'on ' + body[2][i][8],
+                  ),
+                );
               }
 
-              children2.add(
-                ProfileReplies(
-                  postId:body[3][j][0],
-                  Id: body[3][j][1],
-                  userName: body[3][j][2],
-                  firstLastName: body[1][0] + ' ' + body[1][1],
-                  Post_tag: body[3][j][3],
-                  Post_val: int.parse(body[3][j][4]),
-                  color: _color,
-                  color2: _color2,
-                  TheAskedQuestion: body[3][j][6],
-                  Post_context: body[3][j][7],
-                  post_date: body[3][j][8],
-                  reply: body[3][j][9],
-                  DateOfReply: 'on ' +  body[3][j][10],
-                ),
-              );
-            }
-          });
+              children2.clear();
+              for (int j = 0; j < body[3].length; j++) {
+                Color _color;
+                Color _color2;
+                if (int.parse(body[3][j][5]) == 0) {
+                  _color = Colors.grey.shade600;
+                  _color2 = Colors.grey.shade600;
+                } else if (int.parse(body[3][j][5]) == 1) {
+                  _color = globals.blue1;
+                  _color2 = Colors.grey.shade600;
+                } else if (int.parse(body[3][j][5]) == -1) {
+                  _color = Colors.grey.shade600;
+                  _color2 = globals.blue1;
+                } else {
+                  _color = Colors.transparent;
+                  _color2 = Colors.transparent;
+                }
+
+                children2.add(
+                  ProfileReplies(
+                    postId: body[3][j][0],
+                    Id: body[3][j][1],
+                    userName: body[3][j][2],
+                    firstLastName: body[1][0] + ' ' + body[1][1],
+                    Post_tag: body[3][j][3],
+                    Post_val: int.parse(body[3][j][4]),
+                    color: _color,
+                    color2: _color2,
+                    TheAskedQuestion: body[3][j][6],
+                    Post_context: body[3][j][7],
+                    post_date: body[3][j][8],
+                    reply: body[3][j][9],
+                    DateOfReply: 'on ' + body[3][j][10],
+                  ),
+                );
+              }
+            });
+          }
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          globals.loadStudentProfile = false;
+          ErrorPopup(context, globals.errorElse);
         }
-      } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
-      } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
-      } else if (body[0] == "error4") {
-        ErrorPopup(context, globals.error4);
-      } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
-      } else {
-        globals.loadStudentProfile = false;
-        ErrorPopup(context, globals.errorElse);
-      }
 
-      globals.loadStudentProfile = false;
-      print('load studentPage end!!!');
-      print(
-          '=========<<======================================================<<==================================================<<=========');
-    } catch (e) {
-      print(e);
-      globals.loadStudentProfile = false;
-      ErrorPopup(context, globals.errorException);
-      print(
-          '=========<<======================================================<<==================================================<<=========');
-    }
+        globals.loadStudentProfile = false;
+        print('load studentPage end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      } catch (e) {
+        print(e);
+        globals.loadStudentProfile = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
     }
   }
 
@@ -296,9 +297,9 @@ class _StudentProfileState extends State<StudentProfile> {
       }
     });
   }
+
   _back() {
     //Navigator.pop(context);
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 }

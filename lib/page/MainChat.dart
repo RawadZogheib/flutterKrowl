@@ -108,19 +108,17 @@ class _MainChatState extends State<MainChat> {
       body: WillPopScope(
         onWillPop: () async => _back(),
         child: Responsive(
-          mobile: Expanded(
-            child: Center(
-              child: initBool == true
-                  ? _widgetOptions.elementAt(_selectedIndex)
-                  : Center(
-                      child: Image(
-                        image: AssetImage('Assets/krowl_logo.gif'),
-                        fit: BoxFit.cover,
-                        height: 150,
-                        width: 150,
-                      ),
+          mobile: Center(
+            child: initBool == true
+                ? _widgetOptions.elementAt(_selectedIndex)
+                : Center(
+                    child: Image(
+                      image: AssetImage('Assets/krowl_logo.gif'),
+                      fit: BoxFit.cover,
+                      height: 150,
+                      width: 150,
                     ),
-            ),
+                  ),
           ),
           tablet: Stack(
             children: [
