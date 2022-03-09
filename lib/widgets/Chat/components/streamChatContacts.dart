@@ -311,7 +311,7 @@ class _MessageScreenState extends State<MessageScreen> {
       if(statusUser==true){
         statusUser="online";
       }else{
-        statusUser="";
+        statusUser="offline";
       }
     }
     return Scaffold(
