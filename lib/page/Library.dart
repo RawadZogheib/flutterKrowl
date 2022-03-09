@@ -191,7 +191,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       ),
                       child: _isPrivet == true
                           ? SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
@@ -213,7 +213,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                             )
                           : SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
@@ -368,7 +368,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       ),
                       child: _isPrivet == true
                           ? SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
@@ -390,7 +390,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                             )
                           : SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
@@ -606,7 +606,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                       ),
                       child: _isPrivet == true
                           ? SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
@@ -628,7 +628,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               ),
                             )
                           : SizedBox(
-                              width: 85,
+                              width: 90,
                               child: Row(
                                 children: [
                                   Icon(
