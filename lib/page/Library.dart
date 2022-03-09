@@ -8,6 +8,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/page/Responsive.dart';
 import 'package:flutter_app_backend/widgets/Library/CreateTable.dart';
 import 'package:flutter_app_backend/widgets/Library/CustomTable.dart';
+import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter_app_backend/widgets/MyDrawer.dart';
 import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
@@ -251,32 +252,40 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               SizedBox(
                                 width: 20,
                               ),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                    SizedBox(
-                                      height: 435,
-                                      width: 270,
-                                      child: CreateTable(
-                                        height: double.parse(
-                                            (415 + distAnimation.value)
-                                                .toString()),
-                                        width: double.parse(
-                                            (250 + distAnimation.value)
-                                                .toString()),
-                                        onTap: (thisId) {
-                                          _createTable(thisId);
-                                        },
+                              Builder(
+                                builder: (context) {
+                                  return ScrollConfiguration(
+                                    behavior: MyCustomScrollBehavior()
+                                        .copyWith(scrollbars: false),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: distAnimation.value,
+                                          ),
+                                          SizedBox(
+                                            height: 435,
+                                            width: 270,
+                                            child: CreateTable(
+                                              height: double.parse(
+                                                  (415 + distAnimation.value)
+                                                      .toString()),
+                                              width: double.parse(
+                                                  (250 + distAnimation.value)
+                                                      .toString()),
+                                              onTap: (thisId) {
+                                                _createTable(thisId);
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: distAnimation.value,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: distAnimation.value,
-                                    ),
-                                  ],
-                                ),
+                                  );
+                                }
                               ),
                               SizedBox(
                                 width: 20,
@@ -285,21 +294,21 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 children: [
                                   load == true
                                       ? Expanded(
-                                        child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Center(
-                                              child: Image(
-                                                image: AssetImage(
-                                                    'Assets/krowl_logo.gif'),
-                                                fit: BoxFit.cover,
-                                                height: 150,
-                                                width: 150,
-                                              ),
-                                            )),
-                                      )
+                                          child: SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              child: Center(
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      'Assets/krowl_logo.gif'),
+                                                  fit: BoxFit.cover,
+                                                  height: 150,
+                                                  width: 150,
+                                                ),
+                                              )),
+                                        )
                                       : Expanded(
                                           child: SingleChildScrollView(
                                             controller: ScrollController(),
@@ -398,7 +407,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                CustomTabBar(color: globals.blue1,),
+                CustomTabBar(
+                  color: globals.blue1,
+                ),
               ],
             ),
             desktop: Stack(
@@ -409,49 +420,54 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   ),
                   load == true
                       ? Expanded(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
                                 SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.05),
-                                SingleChildScrollView(
-                                  controller: ScrollController(),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                      SizedBox(
-                                        height: 435,
-                                        width: 270,
-                                        child: CreateTable(
-                                          height: double.parse(
-                                              (415 + distAnimation.value)
-                                                  .toString()),
-                                          width: double.parse(
-                                              (250 + distAnimation.value)
-                                                  .toString()),
-                                          onTap: (thisId) {
-                                            _createTable(thisId);
-                                          },
+                                    width: MediaQuery.of(context).size.width *
+                                        0.05),
+                                ScrollConfiguration(
+                                  behavior: MyCustomScrollBehavior()
+                                      .copyWith(scrollbars: false),
+                                  child: SingleChildScrollView(
+                                    controller: ScrollController(),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: distAnimation.value,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 435,
+                                          width: 270,
+                                          child: CreateTable(
+                                            height: double.parse(
+                                                (415 + distAnimation.value)
+                                                    .toString()),
+                                            width: double.parse(
+                                                (250 + distAnimation.value)
+                                                    .toString()),
+                                            onTap: (thisId) {
+                                              _createTable(thisId);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: distAnimation.value,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.68,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.68,
                                     alignment: Alignment.topCenter,
                                     margin: EdgeInsets.only(top: 10),
                                     child: Image(
-                                      image:
-                                          AssetImage('Assets/krowl_logo.gif',),
+                                      image: AssetImage(
+                                        'Assets/krowl_logo.gif',
+                                      ),
                                       fit: BoxFit.cover,
                                       height: 150,
                                       width: 150,
@@ -460,7 +476,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   width: 20,
                                 ),
                               ]),
-                      )
+                        )
                       : Expanded(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -469,31 +485,35 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.05),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                      SizedBox(
-                                        height: 435,
-                                        width: 270,
-                                        child: CreateTable(
-                                          height: double.parse(
-                                              (415 + distAnimation.value)
-                                                  .toString()),
-                                          width: double.parse(
-                                              (250 + distAnimation.value)
-                                                  .toString()),
-                                          onTap: (thisId) {
-                                            _createTable(thisId);
-                                          },
+                                ScrollConfiguration(
+                                  behavior: MyCustomScrollBehavior()
+                                      .copyWith(scrollbars: false),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: distAnimation.value,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: distAnimation.value,
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 435,
+                                          width: 270,
+                                          child: CreateTable(
+                                            height: double.parse(
+                                                (415 + distAnimation.value)
+                                                    .toString()),
+                                            width: double.parse(
+                                                (250 + distAnimation.value)
+                                                    .toString()),
+                                            onTap: (thisId) {
+                                              _createTable(thisId);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: distAnimation.value,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -622,7 +642,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                CustomTabBar(color: globals.blue1,),
+                CustomTabBar(
+                  color: globals.blue1,
+                ),
               ],
             ),
           ),
@@ -706,7 +728,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               for (int j = 0; j < body[2][i][4].length; j++) {
                 _userIdPrivet.add(body[2][i][4][j][0]); // userId
                 _userNamePrivet.add(body[2][i][4][j][1]); // userName
-                _userImgUrlPrivet.add('https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
+                _userImgUrlPrivet.add(
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
               for (int j = 0; j < body[2][i][5].length; j++) {
@@ -831,7 +854,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   _createTable(String id) {
     if (mounted) {
       setState(() {
-        if(globals.isPrivet==_isPrivet) {
+        if (globals.isPrivet == _isPrivet) {
           _totalTables++;
           _totalPages = (_totalTables / _maxTables).ceil();
           if (_currentPage != 1) {
