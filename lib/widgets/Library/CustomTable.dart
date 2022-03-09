@@ -419,8 +419,8 @@ class _CustomContainerState extends State<CustomTable>
             globals.jaasUrl +
                 table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "") +
                 '&account=' +
-                username.toString() +
-                '&type=silent',
+                username.toString(),
+
             forceSafariVC: false,
             forceWebView: true,
             headers: <String, String>{'my_header_key': 'my_header_value'},
