@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
+import 'package:flutter_app_backend/widgets/MyDrawer.dart';
 import 'package:flutter_app_backend/widgets/Reminders/AddWidget.dart';
 import 'package:flutter_app_backend/widgets/Reminders/ReminderWidget.dart';
 import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
@@ -132,6 +133,7 @@ class _RemindersState extends State<Reminders>
     return WillPopScope(
       onWillPop: () async => _back(),
       child: Scaffold(
+        drawer: MyDrawer(),
         appBar: MediaQuery.of(context).size.width < 700
             ? AppBar(
                 backgroundColor: globals.blue1,
@@ -183,7 +185,9 @@ class _RemindersState extends State<Reminders>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(width: 30,),
+                              SizedBox(
+                                width: 30,
+                              ),
                               Container(
                                 width: 355,
                                 height: 550,
@@ -257,10 +261,12 @@ class _RemindersState extends State<Reminders>
                                     [
                                       Expanded(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(32),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
                                           child: SingleChildScrollView(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(15.0),
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -271,8 +277,8 @@ class _RemindersState extends State<Reminders>
                                                   _children1 == 0
                                                       ? Text(
                                                           "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",
-                                                          style:
-                                                              GoogleFonts.nunito(
+                                                          style: GoogleFonts
+                                                              .nunito(
                                                                   fontSize: 17,
                                                                   color: Colors
                                                                       .grey
@@ -292,10 +298,12 @@ class _RemindersState extends State<Reminders>
                                       ),
                                       Expanded(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(32),
+                                          borderRadius:
+                                              BorderRadius.circular(32),
                                           child: SingleChildScrollView(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(15.0),
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -306,8 +314,8 @@ class _RemindersState extends State<Reminders>
                                                   _children2.length == 0
                                                       ? Text(
                                                           "You don't have any enabled reminders. Create one by clicking on the add button above, or check your disabled reminders.",
-                                                          style:
-                                                              GoogleFonts.nunito(
+                                                          style: GoogleFonts
+                                                              .nunito(
                                                                   fontSize: 17,
                                                                   color: Colors
                                                                       .grey
@@ -336,9 +344,10 @@ class _RemindersState extends State<Reminders>
               ),
             ),
             MediaQuery.of(context).size.width > 700
-                ?CustomTabBar(
-              color: globals.blue1,
-            ):Container(),
+                ? CustomTabBar(
+                    color: globals.blue1,
+                  )
+                : Container(),
           ],
         ),
       ),
