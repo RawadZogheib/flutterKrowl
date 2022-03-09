@@ -309,7 +309,7 @@ class ShapedWidget3 extends StatelessWidget {
                                   context,
                                   'Krowl.io/addToTable/code=' +
                                       tableId +
-                                      'copied successfully');
+                                      ' was copied successfully');
                               print('copy');
                             });
                           },
