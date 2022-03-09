@@ -174,7 +174,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         });
                         await _loadNewPage();
                         if (_isPrivet == true) {
-                          print('Privet Mode');
+                          print('Private Mode');
                         } else {
                           print('Public Mode');
                         }
@@ -202,7 +202,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     width: 5,
                                   ),
                                   Text(
-                                    'Privet',
+                                    'Private',
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -351,7 +351,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         });
                         await _loadNewPage();
                         if (_isPrivet == true) {
-                          print('Privet Mode');
+                          print('Private Mode');
                         } else {
                           print('Public Mode');
                         }
@@ -379,7 +379,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     width: 5,
                                   ),
                                   Text(
-                                    'Privet',
+                                    'Private',
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -589,7 +589,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                         });
                         await _loadNewPage();
                         if (_isPrivet == true) {
-                          print('Privet Mode');
+                          print('Private Mode');
                         } else {
                           print('Public Mode');
                         }
@@ -617,7 +617,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     width: 5,
                                   ),
                                   Text(
-                                    'Privet',
+                                    'Private',
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
