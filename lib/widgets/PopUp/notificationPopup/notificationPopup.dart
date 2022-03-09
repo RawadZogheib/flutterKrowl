@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_backend/globals/globals.dart' as globals;
 import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
@@ -28,7 +29,8 @@ class ShapedWidget extends StatelessWidget {
                 width: 250.0,
                 height: 400.0,
                 child: ScrollConfiguration(
-                  behavior: MyCustomScrollBehavior().copyWith(scrollbars: false),
+                  behavior:
+                      MyCustomScrollBehavior().copyWith(scrollbars: false),
                   child: ListView(
                     controller: ScrollController(),
                     children: [
@@ -170,50 +172,179 @@ class Member extends StatelessWidget {
       onTap: () {
         print('aaaaaa');
       }, // onTapUp
-      child: Padding(
+      child: Container(
+        height: 80,
         padding: const EdgeInsets.all(4.0),
-        child: Container(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  CircleAvatar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Center(
+                  child: CircleAvatar(
                     backgroundColor: globals.blue1,
                     backgroundImage: NetworkImage(imgsPrivet),
                     maxRadius: 22,
                   ),
-                  index == 0
-                      ? Positioned(
-                          top: -18,
-                          left: -1,
-                          child: RotationTransition(
-                            turns: new AlwaysStoppedAnimation(-10 / 360),
-                            child: Image.asset(
-                              'Assets/crown.PNG',
-                              height: 30,
-                              width: 30,
+                ),
+                index == 0
+                    ? Positioned(
+                        top: -5,
+                        left: 0,
+                        child: RotationTransition(
+                          turns: new AlwaysStoppedAnimation(-10 / 360),
+                          child: Image.asset(
+                            'Assets/crown.PNG',
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              usersPrivet,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ShapedWidget3 extends StatelessWidget {
+  final double padding = 4.0;
+  String tableId;
+
+  ShapedWidget3({
+    required this.tableId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            child: Material(
+                clipBehavior: Clip.antiAlias,
+                elevation: 4.0,
+                child: Container(
+                  width: 315,
+                  height: 200,
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: globals.blue1),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  child: ScrollConfiguration(
+                    behavior:
+                        MyCustomScrollBehavior().copyWith(scrollbars: false),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Table Id: ',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: globals.blue1,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Clipboard.setData(ClipboardData(
+                                        text: tableId))
+                                    .then((value) {
+                                  print('copy');
+                                });
+                              },
+                              child: Text(
+                                tableId,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'or',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Clipboard.setData(ClipboardData(
+                                    text:
+                                        'Krowl.io/addToTable/code=' + tableId))
+                                .then((value) {
+                              print('copy');
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                                color: globals.blue2,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(22.0))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Link: ',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: globals.blue1,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Krowl.io/addToTable/code=' + tableId,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        )
-                      : Container(),
-                ],
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  usersPrivet,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )),
           ),
-        ),
+          SizedBox(
+            width: 10,
+          ),
+        ],
       ),
     );
   }

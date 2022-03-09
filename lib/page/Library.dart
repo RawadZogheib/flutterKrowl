@@ -26,6 +26,7 @@ class Library extends StatefulWidget {
 
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   bool _isPrivet = false;
+  bool _isPrivetLoad = true;
   List<CustomTable> children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
@@ -165,15 +166,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        _isPrivet = !_isPrivet;
-                      });
-                      _loadNewPage();
-                      if (_isPrivet == true) {
-                        print('Privet Mode');
-                      } else {
-                        print('Public Mode');
+                    onTap: () async {
+                      if(_isPrivetLoad == false) {
+                        _isPrivetLoad = true;
+                        setState(() {
+                          _isPrivet = !_isPrivet;
+                        });
+                        await _loadNewPage();
+                        if (_isPrivet == true) {
+                          print('Privet Mode');
+                        } else {
+                          print('Public Mode');
+                        }
                       }
                     },
                     child: Container(
@@ -339,15 +343,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        _isPrivet = !_isPrivet;
-                      });
-                      _loadNewPage();
-                      if (_isPrivet == true) {
-                        print('Privet Mode');
-                      } else {
-                        print('Public Mode');
+                    onTap: () async {
+                      if(_isPrivetLoad == false) {
+                        _isPrivetLoad = true;
+                        setState(() {
+                          _isPrivet = !_isPrivet;
+                        });
+                        await _loadNewPage();
+                        if (_isPrivet == true) {
+                          print('Privet Mode');
+                        } else {
+                          print('Public Mode');
+                        }
                       }
                     },
                     child: Container(
@@ -574,15 +581,18 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        _isPrivet = !_isPrivet;
-                      });
-                      _loadNewPage();
-                      if (_isPrivet == true) {
-                        print('Privet Mode');
-                      } else {
-                        print('Public Mode');
+                    onTap: () async {
+                      if(_isPrivetLoad == false) {
+                        _isPrivetLoad = true;
+                        setState(() {
+                          _isPrivet = !_isPrivet;
+                        });
+                        await _loadNewPage();
+                        if (_isPrivet == true) {
+                          print('Privet Mode');
+                        } else {
+                          print('Public Mode');
+                        }
                       }
                     },
                     child: Container(
@@ -725,13 +735,25 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             List<dynamic> _userNamePrivet = [];
             List<dynamic> _userImgUrlPrivet = [];
             if (_isPrivet == true) {
-              for (int j = 0; j < body[2][i][4].length; j++) {
-                _userIdPrivet.add(body[2][i][4][j][0]); // userId
-                _userNamePrivet.add(body[2][i][4][j][1]); // userName
+              for (int j = 0; j < body[2][i][5].length; j++) {
+                _userIdPrivet.add(body[2][i][5][j][0]); // userId
+                _userNamePrivet.add(body[2][i][5][j][1]); // userName
                 _userImgUrlPrivet.add(
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
+              for (int j = 0; j < body[2][i][6].length; j++) {
+                _userId[int.parse(body[2][i][6][j][2]) - 1] =
+                    body[2][i][6][j][0]; // userId
+                _userName[int.parse(body[2][i][6][j][2]) - 1] =
+                    body[2][i][6][j][1]; // userName
+                _userPosition[int.parse(body[2][i][6][j][2]) - 1] =
+                    body[2][i][6][j][2]; // userPosition
+                _userImgUrl[int.parse(body[2][i][6][j][2]) - 1] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
+                // userImgUrl
+              }
+            } else {
               for (int j = 0; j < body[2][i][5].length; j++) {
                 _userId[int.parse(body[2][i][5][j][2]) - 1] =
                     body[2][i][5][j][0]; // userId
@@ -740,18 +762,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 _userPosition[int.parse(body[2][i][5][j][2]) - 1] =
                     body[2][i][5][j][2]; // userPosition
                 _userImgUrl[int.parse(body[2][i][5][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
-                // userImgUrl
-              }
-            } else {
-              for (int j = 0; j < body[2][i][4].length; j++) {
-                _userId[int.parse(body[2][i][4][j][2]) - 1] =
-                    body[2][i][4][j][0]; // userId
-                _userName[int.parse(body[2][i][4][j][2]) - 1] =
-                    body[2][i][4][j][1]; // userName
-                _userPosition[int.parse(body[2][i][4][j][2]) - 1] =
-                    body[2][i][4][j][2]; // userPosition
-                _userImgUrl[int.parse(body[2][i][4][j][2]) - 1] =
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
                 // userImgUrl
               }
@@ -762,9 +772,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             children.add(
               new CustomTable(
                 id: body[2][i][0],
-                table_name: body[2][i][1],
-                seats: body[2][i][2],
-                isSilent: body[2][i][3],
+                tableAdminId: body[2][i][1],
+                table_name: body[2][i][2],
+                seats: body[2][i][3],
+                isSilent: body[2][i][4],
                 isPrivet: _isPrivet,
                 color: Colors.green,
                 getIds: _userId,
@@ -826,6 +837,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
+    _isPrivetLoad = false;
   }
 
   _loadNewPage() {
@@ -866,6 +878,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 0,
                 CustomTable(
                   id: id,
+                  tableAdminId: true,
                   table_name: globals.tableName,
                   getIds: [],
                   getUsers: [],

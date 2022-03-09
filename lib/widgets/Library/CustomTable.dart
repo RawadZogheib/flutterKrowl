@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
+  bool tableAdminId;
   var table_name;
 
   //var table_type;
@@ -33,6 +34,7 @@ class CustomTable extends StatefulWidget {
   List<dynamic> getPos; // Users imgs
   List<dynamic> getImgs; // Users imgs
   List<dynamic> imgs = ['', '', '', '', '', '', '', ''];
+
   //privet
   List<dynamic> getIdsPrivet = [];
   List<dynamic> getUsersPrivet = [];
@@ -40,6 +42,7 @@ class CustomTable extends StatefulWidget {
 
   CustomTable(
       {this.children,
+      required this.tableAdminId,
       required this.table_name,
       required this.color,
       required this.getIds,
@@ -64,16 +67,20 @@ class CustomTable extends StatefulWidget {
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   bool _iconIsClicked = false;
+  bool _iconIsClicked2 = false;
   late Timer timer;
   var tableStatus;
 
   AnimationController? animationController;
+  AnimationController? animationController2;
 
   @override
   void initState() {
     // TODO: implement initState
     _loadOccupants();
     animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animationController2 =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
   }
@@ -86,6 +93,13 @@ class _CustomContainerState extends State<CustomTable>
       animationController!.forward();
     else
       animationController!.reverse();
+
+    Animation<double> opacityAnimation2 =
+        Tween(begin: 0.0, end: 1.0).animate(animationController2!);
+    if (_iconIsClicked2)
+      animationController2!.forward();
+    else
+      animationController2!.reverse();
     return Container(
       width: 350,
       margin: EdgeInsets.only(bottom: 5),
@@ -317,7 +331,8 @@ class _CustomContainerState extends State<CustomTable>
           //   ),
           // ),
 
-          IgnorePointer(
+          //Check Members
+          widget.isPrivet == true? IgnorePointer(
             ignoring: !_iconIsClicked,
             child: Column(
               children: [
@@ -334,9 +349,9 @@ class _CustomContainerState extends State<CustomTable>
                         FadeTransition(
                           opacity: opacityAnimation,
                           child: ShapedWidget2(
-                              getIdsPrivet: widget.getIdsPrivet,
-                              getUsersPrivet: widget.getUsersPrivet,
-                              getImgsPrivet: widget.getImgsPrivet,
+                            getIdsPrivet: widget.getIdsPrivet,
+                            getUsersPrivet: widget.getUsersPrivet,
+                            getImgsPrivet: widget.getImgsPrivet,
                           ),
                         ),
                         SizedBox(
@@ -348,7 +363,7 @@ class _CustomContainerState extends State<CustomTable>
                 ),
               ],
             ),
-          ),
+          ):Container(),
 
           widget.isPrivet == true
               ? Positioned(
@@ -360,11 +375,67 @@ class _CustomContainerState extends State<CustomTable>
                     splashColor: Colors.transparent,
                     onTap: () {
                       setState(() {
+                        if (_iconIsClicked2 == true) _iconIsClicked2 = false;
                         _iconIsClicked = !_iconIsClicked;
                       });
                     },
                     child: Icon(
-                      Icons.supervisor_account,
+                      Icons.group_outlined,
+                      color: globals.blue1,
+                    ),
+                  ),
+                )
+              : Container(),
+          //Add Members
+          widget.isPrivet == true
+              ? IgnorePointer(
+                  ignoring: !_iconIsClicked2,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(22.0)),
+                        child: SingleChildScrollView(
+                          controller: ScrollController(),
+                          child: Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              FadeTransition(
+                                opacity: opacityAnimation2,
+                                child: ShapedWidget3(
+                                  tableId: widget.id,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 12,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Container(),
+
+          widget.tableAdminId == true && widget.isPrivet == true
+              ? Positioned(
+                  top: 17,
+                  right: 60,
+                  child: InkWell(
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      setState(() {
+                        if (_iconIsClicked == true) _iconIsClicked = false;
+                        _iconIsClicked2 = !_iconIsClicked2;
+                      });
+                    },
+                    child: Icon(
+                      Icons.person_add_outlined,
                       color: globals.blue1,
                     ),
                   ),
@@ -420,7 +491,6 @@ class _CustomContainerState extends State<CustomTable>
                 table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
                 '&account=' +
                 username.toString(),
-
             forceSafariVC: false,
             forceWebView: true,
             headers: <String, String>{'my_header_key': 'my_header_value'},
