@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Reminders/EditTextInput.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Reminders/EditTextInput.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddWidget1 extends StatefulWidget {

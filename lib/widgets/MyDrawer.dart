@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/hexColor/hexColor.dart';
-import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/hexColor/hexColor.dart';
+import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 
 class MyDrawer extends StatelessWidget {
   @override

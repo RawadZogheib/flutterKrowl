@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter_app_backend/api/my_api.dart';
+import 'package:Krowl/api/my_api.dart';
 import 'package:flutter/material.dart';
 import "package:stream_chat/stream_chat.dart";
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:Krowl/globals/globals.dart' as globals;
 String? chname;
 String? tmpname;
 int? res;

@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Chat/components/chat_bubble.dart';
-import 'package:flutter_app_backend/widgets/Chat/components/chat_detail_page_appbar.dart';
-import 'package:flutter_app_backend/widgets/Chat/models/chat_message.dart';
-import 'package:flutter_app_backend/widgets/Chat/models/send_menu_items.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Chat/components/chat_bubble.dart';
+import 'package:Krowl/widgets/Chat/components/chat_detail_page_appbar.dart';
+import 'package:Krowl/widgets/Chat/models/chat_message.dart';
+import 'package:Krowl/widgets/Chat/models/send_menu_items.dart';
 enum MessageType{
   Sender,
   Receiver,

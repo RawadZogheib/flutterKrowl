@@ -1,11 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/MyCustomScrollBehavior.dart';
-import 'package:flutter_app_backend/widgets/MyDrawer.dart';
-import 'package:flutter_app_backend/widgets/Reminders/AddWidget.dart';
-import 'package:flutter_app_backend/widgets/Reminders/ReminderWidget.dart';
-import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
+import 'package:Krowl/widgets/MyDrawer.dart';
+import 'package:Krowl/widgets/Reminders/AddWidget.dart';
+import 'package:Krowl/widgets/Reminders/ReminderWidget.dart';
+import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() =>

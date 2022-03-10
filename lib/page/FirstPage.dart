@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstPage extends StatefulWidget {

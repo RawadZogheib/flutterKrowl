@@ -1,11 +1,10 @@
 import 'dart:ui';
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter/cupertino.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter_app_backend/widgets/Buttons/LoginButton.dart';
-import 'package:flutter_app_backend/widgets/Buttons/SignupButton.dart';
+import 'package:Krowl/widgets/Buttons/LoginButton.dart';
+import 'package:Krowl/widgets/Buttons/SignupButton.dart';
 
 var passL;
 

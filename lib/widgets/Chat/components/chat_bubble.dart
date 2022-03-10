@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/Chat/models/chat_message.dart';
-import 'package:flutter_app_backend/widgets/Chat/modules/chat_detail_page.dart';
+import 'package:Krowl/widgets/Chat/models/chat_message.dart';
+import 'package:Krowl/widgets/Chat/modules/chat_detail_page.dart';
 
 class ChatBubble extends StatefulWidget{
   ChatMessage chatMessage;

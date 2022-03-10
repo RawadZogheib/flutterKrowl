@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileQuestions&Replies.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileQuestions.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileReplies.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/StudentDetailedProfileContainer.dart';
-import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:Krowl/api/my_api.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/ProfileQuestions&Replies.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/ProfileQuestions.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/ProfileReplies.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/StudentDetailedProfileContainer.dart';
+import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/MyDrawer.dart';

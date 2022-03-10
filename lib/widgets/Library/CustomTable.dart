@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Library/Chairs.dart';
-import 'package:flutter_app_backend/widgets/Library/Chairs2.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:Krowl/api/my_api.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Library/Chairs.dart';
+import 'package:Krowl/widgets/Library/Chairs2.dart';
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 

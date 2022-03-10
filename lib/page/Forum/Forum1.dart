@@ -3,16 +3,16 @@ import 'dart:convert';
 
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/page/Responsive.dart';
-import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
-import 'package:flutter_app_backend/widgets/Forum/Forum1/QuestionContainer.dart';
-import 'package:flutter_app_backend/widgets/Forum/Forum1/SearchBar.dart';
-import 'package:flutter_app_backend/widgets/Forum/Forum2/Contributors.dart';
-import 'package:flutter_app_backend/widgets/MyDrawer.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_app_backend/widgets/TabBar/CustomTabBar.dart';
+import 'package:Krowl/api/my_api.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/page/Responsive.dart';
+import 'package:Krowl/widgets/Forum/Forum1/AskQuestionButton.dart';
+import 'package:Krowl/widgets/Forum/Forum1/QuestionContainer.dart';
+import 'package:Krowl/widgets/Forum/Forum1/SearchBar.dart';
+import 'package:Krowl/widgets/Forum/Forum2/Contributors.dart';
+import 'package:Krowl/widgets/MyDrawer.dart';
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:Krowl/globals/globals.dart' as globals;
 
 class Dropdown2 extends StatefulWidget {
 
