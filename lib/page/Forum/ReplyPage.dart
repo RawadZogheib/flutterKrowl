@@ -144,6 +144,7 @@ class _ReplyPageState extends State<ReplyPage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SingleChildScrollView(
+                            controller: ScrollController(),
                             child: Padding(
                               padding: const EdgeInsets.only(right: 12.0),
                               child: Column(
@@ -171,6 +172,7 @@ class _ReplyPageState extends State<ReplyPage>
                                     height: 30,
                                   ),
                                   SingleChildScrollView(
+                                    controller: ScrollController(),
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           right: 110.0, bottom: 15),
@@ -248,6 +250,7 @@ class _ReplyPageState extends State<ReplyPage>
                                   width: 15,
                                 ),
                                 SingleChildScrollView(
+                                  controller: ScrollController(),
                                   child: Column(
                                     children: [
                                       SizedBox(

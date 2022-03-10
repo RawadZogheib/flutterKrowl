@@ -4,7 +4,7 @@ import 'package:flutter_app_backend/globals/globals.dart' as globals;
 
 class AskQuestionButton extends StatelessWidget {
   var text;
-  final onPressed;
+  var onPressed;
 
   AskQuestionButton(
       {required this.text,
@@ -26,9 +26,7 @@ class AskQuestionButton extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
         onPressed: () {
-          // onPressed();
-          Navigator.pushNamed(
-              context, '/Forum2');
+          onPressed();
         },
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(color1),
