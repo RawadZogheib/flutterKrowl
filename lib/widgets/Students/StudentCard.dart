@@ -173,7 +173,7 @@ class _StudentCardState extends State<StudentCard> {
                                         child: StudentButton(
                                           fontSize: 12.0,
                                           height: 25,
-                                          text: "Requetsed",
+                                          text: "Requested",
                                           textcolor: globals.blue1,
                                           color1: globals.blue2,
                                           color2: Colors.blueGrey,
