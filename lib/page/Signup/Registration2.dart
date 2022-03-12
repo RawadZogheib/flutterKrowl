@@ -186,6 +186,7 @@ class _Registration2State extends State<Registration2> {
   Widget buildCity() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
           autofocus: true,
+          onEditingComplete: (){},
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),
@@ -218,6 +219,7 @@ class _Registration2State extends State<Registration2> {
   Widget buildCity2() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
           autofocus: true,
+          onEditingComplete: (){},
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),
@@ -250,6 +252,7 @@ class _Registration2State extends State<Registration2> {
   Widget buildCity3() => TypeAheadFormField<dynamic>(
         textFieldConfiguration: TextFieldConfiguration(
           autofocus: true,
+          onEditingComplete: (){},
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue.shade50),

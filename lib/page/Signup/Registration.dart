@@ -170,6 +170,7 @@ class _RegistrationState extends State<Registration> {
                             globals.lName = value;
                             //print("" + globals.lName);
                           },
+                          onEditingComplete: (){},
                         ),
                       ),
                       SizedBox(
@@ -201,6 +202,7 @@ class _RegistrationState extends State<Registration> {
                             globals.userName = value;
                             //print("" + globals.userName);
                           },
+                          onEditingComplete: (){},
                         ),
                       ),
                       SizedBox(
@@ -220,6 +222,7 @@ class _RegistrationState extends State<Registration> {
                               _selectDate(context);
                             });
                           },
+                          onEditingComplete: (){},
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:

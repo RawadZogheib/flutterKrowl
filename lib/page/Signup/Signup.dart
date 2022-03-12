@@ -111,6 +111,7 @@ class _SignupState extends State<Signup> {
                         //globals.val = value;
                         //print("" + globals.email);
                       },
+                      onEditingComplete: (){},
                     ),
                   ),
                   Padding(

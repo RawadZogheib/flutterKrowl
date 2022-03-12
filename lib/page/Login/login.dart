@@ -109,6 +109,8 @@ List<LogicalKeyboardKey> keys = [];
                       globals.emailLogin = value;
                       //print("" + globals.email);
                     },
+                    onEditingComplete: (){
+                    },
                   ),
                 ),
                 Padding(

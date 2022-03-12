@@ -98,6 +98,7 @@ class _Registration3State extends State<Registration3> {
                       globals.password = value;
                       //print("" + globals.password);
                     },
+                    onEditingComplete: (){},
                   ),
                 ),
                 SizedBox(
@@ -128,6 +129,7 @@ class _Registration3State extends State<Registration3> {
                       globals.repassword = value;
                       //print("" + globals.repassword);
                     },
+                    onEditingComplete: (){},
                     textInputAction: TextInputAction.done,
                   ),
                 ),
