@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileQuestions.dart';
-import 'package:flutter_app_backend/widgets/Students/StudentProfile/ProfileReplies.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/ProfileQuestions.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/ProfileReplies.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StudentQuestionsReplies extends StatefulWidget {

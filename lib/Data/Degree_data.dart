@@ -1,5 +1,5 @@
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/page/Signup/Registration2.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/page/Signup/Registration2.dart';
 
 class CityData2 {
 

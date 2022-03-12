@@ -1,6 +1,6 @@
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/Buttons/NextButton.dart';
+import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:sizer/sizer.dart';
 
 void main() =>

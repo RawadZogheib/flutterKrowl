@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
 
 class CustomTabBar extends StatefulWidget {
   Color color;

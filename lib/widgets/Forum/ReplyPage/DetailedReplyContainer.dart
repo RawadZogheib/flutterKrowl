@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/api/my_api.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Forum/Forum1/AskQuestionButton.dart';
-import 'package:flutter_app_backend/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_app_backend/widgets/TextInput1.dart';
+import 'package:Krowl/api/my_api.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Forum/Forum1/AskQuestionButton.dart';
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:Krowl/widgets/TextInput1.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/page/Forum/ReplyPage.dart';
-import 'package:flutter_app_backend/page/Responsive.dart';
+import 'package:Krowl/page/Forum/ReplyPage.dart';
+import 'package:Krowl/page/Responsive.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileQuestions extends StatefulWidget {

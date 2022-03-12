@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
-import 'package:flutter_app_backend/widgets/Chat/components/chat_detail_page_appbar.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Chat/components/chat_detail_page_appbar.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 String? chname;

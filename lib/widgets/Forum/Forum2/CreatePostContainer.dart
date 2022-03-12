@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/widgets/Forum/Forum2/Dropdown2.dart';
-import 'package:flutter_app_backend/widgets/TextInput1.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/Forum/Forum2/Dropdown2.dart';
+import 'package:Krowl/widgets/TextInput1.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 

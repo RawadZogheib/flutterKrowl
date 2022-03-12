@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_backend/globals/globals.dart' as globals;
+import 'package:Krowl/globals/globals.dart' as globals;
 
 class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidget{
   var username;
