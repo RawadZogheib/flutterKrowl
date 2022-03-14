@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Library/Chairs.dart';
 import 'package:Krowl/widgets/Library/Chairs2.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
+
   var children;
   bool tableAdminId;
   var table_name;
@@ -40,25 +41,26 @@ class CustomTable extends StatefulWidget {
   List<dynamic> getUsersPrivet = [];
   List<dynamic> getImgsPrivet = [];
 
-  CustomTable(
-      {this.children,
-      required this.tableAdminId,
-      required this.table_name,
-      required this.color,
-      required this.getIds,
-      required this.getUsers,
-      required this.getPos,
-      required this.getImgs,
-      required this.isSilent,
-      required this.isPrivet,
-      required this.getIdsPrivet,
-      required this.getUsersPrivet,
-      required this.getImgsPrivet,
-      required this.id,
-      this.icon,
-      this.height,
-      this.width,
-      this.seats});
+  CustomTable({
+    this.children,
+    required this.tableAdminId,
+    required this.table_name,
+    required this.color,
+    required this.getIds,
+    required this.getUsers,
+    required this.getPos,
+    required this.getImgs,
+    required this.isSilent,
+    required this.isPrivet,
+    required this.getIdsPrivet,
+    required this.getUsersPrivet,
+    required this.getImgsPrivet,
+    required this.id,
+    this.icon,
+    this.height,
+    this.width,
+    this.seats,
+  });
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
@@ -332,38 +334,40 @@ class _CustomContainerState extends State<CustomTable>
           // ),
 
           //Check Members
-          widget.isPrivet == true? IgnorePointer(
-            ignoring: !_iconIsClicked,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(22.0)),
-                  child: SingleChildScrollView(
-                    controller: ScrollController(),
-                    child: Row(
-                      children: [
-                        Expanded(child: SizedBox()),
-                        FadeTransition(
-                          opacity: opacityAnimation,
-                          child: ShapedWidget2(
-                            getIdsPrivet: widget.getIdsPrivet,
-                            getUsersPrivet: widget.getUsersPrivet,
-                            getImgsPrivet: widget.getImgsPrivet,
+          widget.isPrivet == true
+              ? IgnorePointer(
+                  ignoring: !_iconIsClicked,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(22.0)),
+                        child: SingleChildScrollView(
+                          controller: ScrollController(),
+                          child: Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              FadeTransition(
+                                opacity: opacityAnimation,
+                                child: ShapedWidget2(
+                                  getIdsPrivet: widget.getIdsPrivet,
+                                  getUsersPrivet: widget.getUsersPrivet,
+                                  getImgsPrivet: widget.getImgsPrivet,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 12,
+                              )
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          width: 12,
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ):Container(),
+                )
+              : Container(),
 
           widget.isPrivet == true
               ? Positioned(

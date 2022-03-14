@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/page/Responsive.dart';
@@ -12,6 +11,7 @@ import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter/material.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +27,7 @@ class Library extends StatefulWidget {
 class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   bool _isPrivet = false;
   bool _isPrivetLoad = true;
-  List<CustomTable> children = <CustomTable>[];
+  List<CustomTable> _children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
   int _totalPages = 999;
@@ -149,7 +149,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                           ),
                                         )
                                       : Column(
-                                          children: children.toList(),
+                                          children: _children.toList(),
                                         )
                                 ],
                               ),
@@ -167,7 +167,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () async {
-                      if(_isPrivetLoad == false) {
+                      if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
                         setState(() {
                           _isPrivet = !_isPrivet;
@@ -256,41 +256,39 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                               SizedBox(
                                 width: 20,
                               ),
-                              Builder(
-                                builder: (context) {
-                                  return ScrollConfiguration(
-                                    behavior: MyCustomScrollBehavior()
-                                        .copyWith(scrollbars: false),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: distAnimation.value,
+                              Builder(builder: (context) {
+                                return ScrollConfiguration(
+                                  behavior: MyCustomScrollBehavior()
+                                      .copyWith(scrollbars: false),
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: distAnimation.value,
+                                        ),
+                                        SizedBox(
+                                          height: 435,
+                                          width: 270,
+                                          child: CreateTable(
+                                            height: double.parse(
+                                                (415 + distAnimation.value)
+                                                    .toString()),
+                                            width: double.parse(
+                                                (250 + distAnimation.value)
+                                                    .toString()),
+                                            onTap: (thisId) {
+                                              _createTable(thisId);
+                                            },
                                           ),
-                                          SizedBox(
-                                            height: 435,
-                                            width: 270,
-                                            child: CreateTable(
-                                              height: double.parse(
-                                                  (415 + distAnimation.value)
-                                                      .toString()),
-                                              width: double.parse(
-                                                  (250 + distAnimation.value)
-                                                      .toString()),
-                                              onTap: (thisId) {
-                                                _createTable(thisId);
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: distAnimation.value,
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        SizedBox(
+                                          height: distAnimation.value,
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                }
-                              ),
+                                  ),
+                                );
+                              }),
                               SizedBox(
                                 width: 20,
                               ),
@@ -323,7 +321,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                                       .width *
                                                   0.5,
                                               child: Wrap(
-                                                children: children.toList(),
+                                                children: _children.toList(),
                                               ),
                                             ),
                                           ),
@@ -344,7 +342,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () async {
-                      if(_isPrivetLoad == false) {
+                      if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
                         setState(() {
                           _isPrivet = !_isPrivet;
@@ -538,7 +536,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Wrap(children: children.toList()),
+                                          Wrap(children: _children.toList()),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: NumberPaginator(
@@ -582,7 +580,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () async {
-                      if(_isPrivetLoad == false) {
+                      if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
                         setState(() {
                           _isPrivet = !_isPrivet;
@@ -679,12 +677,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         print('load library');
 
         ///// To be removed ////
-        if (mounted) {
-          setState(() {
-            children.clear();
-            load = true;
-          });
-        }
+        // if (mounted) {
+        //   setState(() {
+        //     _children.clear();
+        //     load = true;
+        //   });
+        // }
         ///////////////////////
 
         //globals.occupenTable.clear();
@@ -710,6 +708,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           });
         }
         if (body[0] == "success") {
+          _children.clear();
           if (mounted) {
             setState(() {
               _totalTables = int.parse(body[1]);
@@ -769,7 +768,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             //localStorage.setString('contrat_Id', value)
             //globals.occupenTable.add('0');// Initiate table (All table are Off)
 
-            children.add(
+            _children.add(
               new CustomTable(
                 id: body[2][i][0],
                 tableAdminId: body[2][i][1],
@@ -795,7 +794,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
           if (mounted) {
             setState(() {
-              children;
+              _children;
             });
           }
         } else if (body[0] == "empty") {
@@ -873,8 +872,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             _currentPage = 1;
             _loadNewPage();
           } else {
-            if (children.length == _maxTables) children.removeLast();
-            children.insert(
+            if (_children.length == _maxTables) _children.removeLast();
+            _children.insert(
                 0,
                 CustomTable(
                   id: id,
