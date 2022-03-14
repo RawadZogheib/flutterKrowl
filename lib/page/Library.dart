@@ -704,11 +704,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
         if (mounted) {
           setState(() {
+            _children.clear();
             load = false;
           });
         }
         if (body[0] == "success") {
-          _children.clear();
           if (mounted) {
             setState(() {
               _totalTables = int.parse(body[1]);

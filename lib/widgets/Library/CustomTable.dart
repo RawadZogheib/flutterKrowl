@@ -80,6 +80,11 @@ class _CustomContainerState extends State<CustomTable>
   void initState() {
     // TODO: implement initState
     _loadOccupants();
+    Timer.periodic(const Duration(seconds: 30), (Timer t) {
+      if (mounted) {
+        _loadOccupants();
+      }
+    });
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animationController2 =
