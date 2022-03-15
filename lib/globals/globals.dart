@@ -1,4 +1,4 @@
-library flutterKrowl.globals;
+library Krowl.globals;
 
 import 'dart:async';
 
