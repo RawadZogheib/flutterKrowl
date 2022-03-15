@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Krowl',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,
