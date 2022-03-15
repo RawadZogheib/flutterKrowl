@@ -35,6 +35,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   int _maxTables = 12;
   bool load = true;
 
+  int _key = 0;
+
   Timer? timer2;
   AnimationController? animationController;
   final int _animationDuration = 4;
@@ -704,10 +706,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
         if (mounted) {
           setState(() {
-            _children.clear();
             load = false;
           });
         }
+
+        _children.clear();
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
@@ -768,8 +771,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             //localStorage.setString('contrat_Id', value)
             //globals.occupenTable.add('0');// Initiate table (All table are Off)
 
+            print('_key: ' + _key.toString());
             _children.add(
               new CustomTable(
+                key: ValueKey(_key++),
                 id: body[2][i][0],
                 tableAdminId: body[2][i][1],
                 table_name: body[2][i][2],

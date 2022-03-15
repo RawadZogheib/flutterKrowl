@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
-
   var children;
   bool tableAdminId;
   var table_name;
@@ -42,6 +41,7 @@ class CustomTable extends StatefulWidget {
   List<dynamic> getImgsPrivet = [];
 
   CustomTable({
+    Key? key,
     this.children,
     required this.tableAdminId,
     required this.table_name,
@@ -60,7 +60,7 @@ class CustomTable extends StatefulWidget {
     this.height,
     this.width,
     this.seats,
-  });
+  }) : super(key: key);
 
   @override
   State<CustomTable> createState() => _CustomContainerState();
@@ -80,11 +80,11 @@ class _CustomContainerState extends State<CustomTable>
   void initState() {
     // TODO: implement initState
     _loadOccupants();
-    Timer.periodic(const Duration(seconds: 30), (Timer t) {
-      if (mounted) {
-        _loadOccupants();
-      }
-    });
+    // Timer.periodic(const Duration(seconds: 30), (Timer t) {
+    //   if (mounted) {
+    //     _loadOccupants();
+    //   }
+    // });
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animationController2 =
