@@ -13,6 +13,7 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 late BuildContext cont;
 var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
+var arg;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -34,8 +35,10 @@ class _CodeState extends State<Code> {
 
   @override
   Widget build(BuildContext context) {
+    arg= ModalRoute.of(context)!.settings.arguments;
     cont = context;
     Size _size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -302,7 +305,7 @@ class _CodeState extends State<Code> {
           );
 
           Navigator.pushNamedAndRemoveUntil(
-              cont, '/intro_page2', (route) => false);
+              cont, '/intro_page2', (route) => false,arguments: arg);
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {

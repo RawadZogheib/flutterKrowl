@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 late BuildContext cont;
-
+var arg;
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -39,6 +39,7 @@ class _Login2State extends State<Login2> {
 
   @override
   Widget build(BuildContext context) {
+    arg= ModalRoute.of(context)!.settings.arguments;
     cont = context;
     Size _size = MediaQuery.of(context).size;
 
@@ -236,17 +237,28 @@ class _Login2State extends State<Login2> {
   }
 
   _login() async {
+    var data;
     LoadingPopUp(context);
     try {
       if (globals.emailLogin != null && globals.passwordLogin != null) {
         if (globals.emailLogin!.isNotEmpty &&
             globals.passwordLogin!.isNotEmpty) {
-          var data = {
-            'version': globals.version,
-            'email': globals.emailLogin,
-            'password': globals.passwordLogin
-          };
-
+          if(arg != null){
+            if(arg.toString().isNotEmpty){
+               data = {
+                'version': globals.version,
+                'email': globals.emailLogin,
+                'password': globals.passwordLogin,
+                'private':arg
+              };
+            }
+          }else{
+            data = {
+              'version': globals.version,
+              'email': globals.emailLogin,
+              'password': globals.passwordLogin
+            };
+          }
           var res = await CallApi().postData(data, '(Control)login.php');
           print(res.body);
           List<dynamic> body = json.decode(res.body);

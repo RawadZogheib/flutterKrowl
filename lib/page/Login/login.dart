@@ -28,7 +28,9 @@ class _LoginState extends State<Login> {
 List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
+    var arg= ModalRoute.of(context)!.settings.arguments;
     Size _size = MediaQuery.of(context).size;
+
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
@@ -38,7 +40,7 @@ List<LogicalKeyboardKey> keys = [];
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (globals.emailLogin != null) {
               if (globals.emailLogin!.isNotEmpty) {
-                Navigator.pushNamed(context, '/login2');
+                Navigator.pushNamed(context, '/login2',arguments: arg);
               } else {
                 WarningPopup(context, globals.warning1);
               }
