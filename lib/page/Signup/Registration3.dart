@@ -21,6 +21,8 @@ Color col2 = Colors.blue.shade50;
 Color col2_1 = Colors.blue.shade900;
 Color col2_2 = Colors.blue.shade900.withOpacity(0.5);
 
+var arg;
+
 RegExp exp = new RegExp(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&:,?_-]).{8,}$");
 
 
@@ -38,7 +40,9 @@ class _Registration3State extends State<Registration3> {
   List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
+    arg= ModalRoute.of(context)!.settings.arguments;
     Size _size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(
@@ -319,7 +323,7 @@ _testpass() {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "success") {
            _saveLogin();
-           Navigator.pushNamed(context, '/Code');
+           Navigator.pushNamed(context, '/Code',arguments: arg);
 
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);

@@ -33,6 +33,8 @@ Color col4 = Colors.blue.shade50;
 Color col4_1 = Colors.blue.shade900;
 Color col4_2 = Colors.blue.shade900.withOpacity(0.5);
 
+var arg;
+
 RegExp exp = new RegExp(r"^[a-zA-Z0-9_\.]*$", caseSensitive: false);
 
 void main() => runApp(MaterialApp(
@@ -83,7 +85,9 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+    arg= ModalRoute.of(context)!.settings.arguments;
     Size _size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(
@@ -446,7 +450,7 @@ class _RegistrationState extends State<Registration> {
               col1_1 = Colors.blue.shade900;
               col1_2 = Colors.blue.shade900.withOpacity(0.5);
             });
-            Navigator.pushNamed(context, '/Registration2');
+            Navigator.pushNamed(context, '/Registration2',arguments: arg);
           } else if (body[0] == "errorVersion") {
             ErrorPopup(context, globals.errorVersion);
           } else if (body[0] == "errorToken") {

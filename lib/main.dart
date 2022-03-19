@@ -1,3 +1,4 @@
+import 'package:Krowl/page/addTable.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/page/Reminders.dart';
 import 'package:Krowl/page/Students/Students1.dart';
@@ -22,11 +23,14 @@ import 'package:Krowl/page/videoConference.dart';
 import 'package:Krowl/page/videoConference2.dart';
 import 'package:Krowl/page/FirstPage.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_strategy/url_strategy.dart';
+
 
 void main() {
+  setPathUrlStrategy();
   runApp(MyApp());
 }
-
+var arg =Uri.base.queryParameters["private"];
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -43,6 +47,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/FirstPage',
           routes: {
             '/FirstPage': (context) => FirstPage(),
+            '/addTable?private='+arg.toString(): (context) => addTable(),
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
             '/login2': (context) => Login2(),

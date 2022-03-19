@@ -7,7 +7,7 @@ import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
+var arg;
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -28,7 +28,10 @@ class _LoginState extends State<Login> {
 List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
+
     Size _size = MediaQuery.of(context).size;
+    arg= ModalRoute.of(context)!.settings.arguments;
+
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
@@ -38,7 +41,7 @@ List<LogicalKeyboardKey> keys = [];
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (globals.emailLogin != null) {
               if (globals.emailLogin!.isNotEmpty) {
-                Navigator.pushNamed(context, '/login2');
+                Navigator.pushNamed(context, '/login2',arguments:arg);
               } else {
                 WarningPopup(context, globals.warning1);
               }
@@ -145,7 +148,7 @@ List<LogicalKeyboardKey> keys = [];
                             onTap: () {
                               if (globals.emailLogin != null) {
                                 if (globals.emailLogin!.isNotEmpty) {
-                                  Navigator.pushNamed(context, '/login2');
+                                  Navigator.pushNamed(context, '/login2',arguments:arg);
                                 } else {
                                   WarningPopup(context, globals.warning1);
                                 }

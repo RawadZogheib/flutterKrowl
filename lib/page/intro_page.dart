@@ -21,6 +21,7 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
+    var arg= ModalRoute.of(context)!.settings.arguments;
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -53,7 +54,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 130,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/login',arguments:arg);
                     }, ),
                   ),
                 ),
@@ -66,7 +67,7 @@ class _IntroState extends State<Intro> {
                     width: 140,
                     padding: EdgeInsets.only(left: 10.0),
                     child: NoButton( onTap: () {
-                      Navigator.pushNamed(context, '/Signup');
+                      Navigator.pushNamed(context, '/Signup',arguments:arg);
                     },),
                   ),
 

@@ -13,7 +13,7 @@ import 'package:sizer/sizer.dart';
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
 Color col1_2 = Colors.blue.shade900.withOpacity(0.5);
-
+var arg;
 RegExp exp = new RegExp(r"[^@\s]+@[^@\s]+");
 
 void main() => runApp(MaterialApp(
@@ -31,7 +31,9 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
+     arg= ModalRoute.of(context)!.settings.arguments;
     Size _size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(
@@ -246,7 +248,7 @@ class _SignupState extends State<Signup> {
                 col1_1 = Colors.blue.shade900;
                 col1_2 = Colors.blue.shade900.withOpacity(0.5);
               });
-              Navigator.pushNamed(context, '/Registration');
+              Navigator.pushNamed(context, '/Registration',arguments: arg);
             } else if (body[0] == "errorVersion") {
               ErrorPopup(context, globals.errorVersion);
             } else if (body[0] == "errorToken") {
