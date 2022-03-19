@@ -510,6 +510,8 @@ class _CustomContainerState extends State<CustomTable>
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
           ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error401") {
+          ErrorPopup(context, globals.error401);
         } else if (body[0] == "error4") {
           ErrorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
