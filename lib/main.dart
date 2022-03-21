@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/FirstPage',
           routes: {
             '/FirstPage': (context) => FirstPage(),
-            '/addTable?private='+arg.toString(): (context) => addTable(),
+            '/addTable?private='+arg.toString(): (context) => AddTable(),
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
             '/login2': (context) => Login2(),

@@ -7,12 +7,12 @@ import 'package:Krowl/globals/globals.dart' as globals;
 
 ///it's the FirstPage but edited so we can get "private" parameter from the url
 
-class addTable extends StatefulWidget {
+class AddTable extends StatefulWidget {
   @override
-  _FirstPage createState() => _FirstPage();
+  State<AddTable> createState() => _AddTableState();
 }
 
-class _FirstPage extends State<addTable> {
+class _AddTableState extends State<AddTable> {
   @override
   void initState() {
     // TODO: implement initState
