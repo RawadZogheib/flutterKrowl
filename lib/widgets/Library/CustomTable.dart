@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
-  bool tableAdminId;
+  String tableCode;
   var table_name;
 
   //var table_type;
@@ -43,7 +43,7 @@ class CustomTable extends StatefulWidget {
   CustomTable({
     Key? key,
     this.children,
-    required this.tableAdminId,
+    required this.tableCode,
     required this.table_name,
     required this.color,
     required this.getIds,
@@ -414,7 +414,7 @@ class _CustomContainerState extends State<CustomTable>
                               FadeTransition(
                                 opacity: opacityAnimation2,
                                 child: ShapedWidget3(
-                                  tableId: widget.id,
+                                  tableCode: widget.tableCode,
                                 ),
                               ),
                               SizedBox(
@@ -429,7 +429,7 @@ class _CustomContainerState extends State<CustomTable>
                 )
               : Container(),
 
-          widget.tableAdminId == true && widget.isPrivet == true
+          widget.tableCode.isNotEmpty && widget.isPrivet == true
               ? Positioned(
                   top: 17,
                   right: 60,

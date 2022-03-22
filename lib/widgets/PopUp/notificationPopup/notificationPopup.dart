@@ -174,14 +174,11 @@ class Member extends StatelessWidget {
         print('aaaaaa');
       }, // onTapUp
       child: Container(
-        height: 80,
+        height: 60,
         padding: const EdgeInsets.all(4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 10,
-            ),
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -189,19 +186,19 @@ class Member extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: globals.blue1,
                     backgroundImage: NetworkImage(imgsPrivet),
-                    maxRadius: 22,
+                    maxRadius: 20,
                   ),
                 ),
                 index == 0
                     ? Positioned(
-                        top: -5,
+                        top: 0,
                         left: 0,
                         child: RotationTransition(
                           turns: new AlwaysStoppedAnimation(-10 / 360),
                           child: Image.asset(
                             'Assets/crown.PNG',
-                            height: 30,
-                            width: 30,
+                            height: 25,
+                            width: 25,
                           ),
                         ),
                       )
@@ -214,7 +211,7 @@ class Member extends StatelessWidget {
             Text(
               usersPrivet,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 15),
             ),
           ],
         ),
@@ -225,10 +222,10 @@ class Member extends StatelessWidget {
 
 class ShapedWidget3 extends StatelessWidget {
   final double padding = 4.0;
-  String tableId;
+  String tableCode;
 
   ShapedWidget3({
-    required this.tableId,
+    required this.tableCode,
   });
 
   @override
@@ -270,13 +267,13 @@ class ShapedWidget3 extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: tableId))
+                                Clipboard.setData(ClipboardData(text: tableCode))
                                     .then((value) {
                                   print('copy');
                                 });
                               },
                               child: Text(
-                                tableId,
+                                tableCode,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black,
@@ -303,7 +300,7 @@ class ShapedWidget3 extends StatelessWidget {
                           onTap: () {
                             Clipboard.setData(ClipboardData(
                                     text:
-                                        'Krowl.io/addToTable/code=' + tableId))
+                                        'Krowl.io/addToTable/code=' + tableCode))
                                 .then((value) {
                               SuccessPopup(context, 'Link copied successfully.');
                               print('copy');
@@ -327,9 +324,9 @@ class ShapedWidget3 extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'Krowl.io/addToTable/code=' + tableId,
+                                  'Krowl.io/addToTable/code=' + tableCode,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     color: Colors.black,
                                   ),
                                 ),
