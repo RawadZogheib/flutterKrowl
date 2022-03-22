@@ -13,10 +13,6 @@ const String version = "v1.0";
 const String myIP = "https://KwikCode.net";
 // const String myIP = "http://127.0.0.1";
 const String jaasUrl = "https://KwikCode.net/krowlphp/jit/?table=";
-// const String myIP = "https://krowl.epizy.com";
-// const String jaasUrl = "https://krowl.epizy.com/krowlphp/jit/?table=";
-// const String myIP = "https://krowl.42web.io";
-// const String jaasUrl = "https://krowl.42web.io/krowlphp/jit/?table=";
 
 //Colors
 Color white = Colors.white;
