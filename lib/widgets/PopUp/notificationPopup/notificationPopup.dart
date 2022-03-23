@@ -191,10 +191,10 @@ class Member extends StatelessWidget {
                 ),
                 index == 0
                     ? Positioned(
-                        top: 0,
+                        top: -9.5,
                         left: 0,
                         child: RotationTransition(
-                          turns: new AlwaysStoppedAnimation(-10 / 360),
+                          turns: new AlwaysStoppedAnimation(-12 / 360),
                           child: Image.asset(
                             'Assets/crown.PNG',
                             height: 25,
