@@ -56,7 +56,7 @@ const String rememberMe =
     "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 
 
-const String error401 = "You are already on a table.";
+const String error410 = "You are already on a table.";
 //List of Universities
 List<dynamic> univercitiesName = [];
 //List of Majors
