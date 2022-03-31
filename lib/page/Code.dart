@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -293,16 +292,16 @@ class _CodeState extends State<Code> {
         var res = await CallApi().postData(data, '(Control)getVCode.php');
         List<dynamic> body = json.decode(res.body);
         print(body[0]);
-        if (body[0] == "success") {
+        if (body[0] == "true") {
           //var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
-          await client.connectUser(
-            User(id: globals.userName!, extraData: {
-              "name": globals.userName!,
-              // image:
-              // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-            }),
-            body[1],
-          );
+          // await client.connectUser(
+          //   User(id: globals.userName!, extraData: {
+          //     "name": globals.userName!,
+          //     // image:
+          //     // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+          //   }),
+          //   body[1],
+          // );
 
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false,arguments: arg);

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -297,6 +296,7 @@ _testpass() {
           'university_ids': (globals.univercitiesName.indexOf(globals.uniId) + 1).toString(),
           'major_degree_ids': (globals.degrees.indexOf(globals.majorId) + 1).toString(),
           'minor_degree_ids': (globals.degrees.indexOf(globals.minorId) + 1).toString(),
+          'isRegistered': globals.isRegistered,
         };
 
         // print('version: '+ globals.version);
@@ -321,7 +321,7 @@ _testpass() {
             data, '(Control)registration3.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
-        if (body[0] == "success") {
+        if (body[0] == "true") {
            _saveLogin();
            Navigator.pushNamed(context, '/Code',arguments: arg);
 

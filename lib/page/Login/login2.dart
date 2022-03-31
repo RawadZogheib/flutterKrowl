@@ -224,6 +224,12 @@ class _Login2State extends State<Login2> {
                             },
                           )),
                         ),
+                        InkWell(
+                          onTap: () => null,
+                          child: Text("Forget Password",style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),),
+                        )
                       ],
                     ),
                   ],
@@ -268,38 +274,42 @@ class _Login2State extends State<Login2> {
           });
 
           if (body[0] == "true") {
-            SharedPreferences localStorage =
-            await SharedPreferences.getInstance();
-            // print("fffffffffffffff: ${body[1]}");
-            // print("fffffffffffffff: ${body[2]}");
-            // print("fffffffffffffff: ${body[3]}");
-            // print("fffffffffffffff: ${body[4]}");
-            print("CHATTTfffffffffffffff: ${body[6]}");
-            localStorage.setString('token', body[1]);
-            localStorage.setString('account_Id', body[2]);
-            localStorage.setString('username', body[3]);
-            localStorage.setString('user_uni', body[4]);
-            localStorage.setString('photo', body[5]);
-            localStorage.setString('userTokenChat', body[6]);
+            if(body[1] == 1) {
+              SharedPreferences localStorage =
+              await SharedPreferences.getInstance();
+              // print("fffffffffffffff: ${body[1]}");
+              // print("fffffffffffffff: ${body[2]}");
+              // print("fffffffffffffff: ${body[3]}");
+              // print("fffffffffffffff: ${body[4]}");
+              print("CHATTTfffffffffffffff: ${body[6]}");
+              localStorage.setString('token', body[1]);
+              localStorage.setString('account_Id', body[2]);
+              localStorage.setString('username', body[3]);
+              localStorage.setString('user_uni', body[4]);
+              localStorage.setString('photo', body[5]);
+              localStorage.setString('userTokenChat', body[6]);
 
-            showDialog<String>(
-              context: context,
-              builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: const Text('Remember Me'),
-                    content: const Text(globals.rememberMe),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => _yesRemember(),
-                        child: const Text('Yes'),
-                      ),
-                      TextButton(
-                        onPressed: () => _noRemember(),
-                        child: const Text('No'),
-                      ),
-                    ],
-                  ),
-            );
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertDialog(
+                      title: const Text('Remember Me'),
+                      content: const Text(globals.rememberMe),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => _yesRemember(),
+                          child: const Text('Yes'),
+                        ),
+                        TextButton(
+                          onPressed: () => _noRemember(),
+                          child: const Text('No'),
+                        ),
+                      ],
+                    ),
+              );
+            }else{
+              Navigator.pushNamedAndRemoveUntil(context, "/Code", (route) => false);
+            }
           } else if (body[0] == "errorToken") {
             ErrorPopup(context, globals.errorToken);
           } else if (body[0] == "errorVersion") {

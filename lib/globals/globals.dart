@@ -10,11 +10,11 @@ import 'package:Krowl/widgets/Students/StudentCard.dart';
 const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
-//const String myIP = "https://KwikCode.net";
+const String myIP = "https://KwikCode.net";
 // const String myIP = "http://127.0.0.1";
-// const String jaasUrl = "https://KwikCode.net/krowlphp/jit/?table=";
-const String myIP = "https://krowl.epizy.com";
-const String jaasUrl = "https://krowl.epizy.com/krowlphp/jit/?table=";
+const String jaasUrl = "https://KwikCode.net/krowlphp/jit/?table=";
+// const String myIP = "https://krowl.epizy.com";
+// const String jaasUrl = "https://krowl.epizy.com/krowlphp/jit/?table=";
 // const String myIP = "https://krowl.42web.io";
 // const String jaasUrl = "https://krowl.42web.io/krowlphp/jit/?table=";
 
@@ -59,6 +59,8 @@ const String errorVersion = "New version available.";
 const String rememberMe =
     "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 
+
+int isRegistered = 0; // 0 -> false -> not registered
 
 const String error401 = "You are already on a table.";
 //List of Universities
