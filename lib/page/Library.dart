@@ -123,8 +123,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 (415 + distAnimation.value).toString()),
                             width: double.parse(
                                 (250 + distAnimation.value).toString()),
-                            onTap: (thisId) {
-                              _createTable(thisId);
+                            onTap: (thisId,thisTableCode) {
+                              _createTable(thisId,thisTableCode);
                             },
                           ),
                         ),
@@ -278,8 +278,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId) {
-                                              _createTable(thisId);
+                                            onTap: (thisId,thisTableCode) {
+                                              _createTable(thisId,thisTableCode);
                                             },
                                           ),
                                         ),
@@ -454,8 +454,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId) {
-                                              _createTable(thisId);
+                                            onTap: (thisId,thisTableCode) {
+                                              _createTable(thisId,thisTableCode);
                                             },
                                           ),
                                         ),
@@ -511,8 +511,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId) {
-                                              _createTable(thisId);
+                                            onTap: (thisId,thisTableCode) {
+                                              _createTable(thisId,thisTableCode);
                                             },
                                           ),
                                         ),
@@ -776,7 +776,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               new CustomTable(
                 key: ValueKey(_key++),
                 id: body[2][i][0],
-                tableAdminId: body[2][i][1],
+                tableCode: body[2][i][1],
                 table_name: body[2][i][2],
                 seats: body[2][i][3],
                 isSilent: body[2][i][4],
@@ -867,7 +867,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     });
   }
 
-  _createTable(String id) {
+  _createTable(String id, String tableCode) {
     if (mounted) {
       setState(() {
         if (globals.isPrivet == _isPrivet) {
@@ -882,7 +882,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 0,
                 CustomTable(
                   id: id,
-                  tableAdminId: true,
+                  tableCode: tableCode,
                   table_name: globals.tableName,
                   getIds: [],
                   getUsers: [],

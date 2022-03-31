@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
@@ -7,13 +8,15 @@ import 'package:Krowl/widgets/Library/Chairs.dart';
 import 'package:Krowl/widgets/Library/Chairs2.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
   var children;
-  bool tableAdminId;
+  String tableCode;
   var table_name;
 
   //var table_type;
@@ -43,7 +46,7 @@ class CustomTable extends StatefulWidget {
   CustomTable({
     Key? key,
     this.children,
-    required this.tableAdminId,
+    required this.tableCode,
     required this.table_name,
     required this.color,
     required this.getIds,
@@ -414,7 +417,7 @@ class _CustomContainerState extends State<CustomTable>
                               FadeTransition(
                                 opacity: opacityAnimation2,
                                 child: ShapedWidget3(
-                                  tableId: widget.id,
+                                  tableCode: widget.tableCode,
                                 ),
                               ),
                               SizedBox(
@@ -429,7 +432,7 @@ class _CustomContainerState extends State<CustomTable>
                 )
               : Container(),
 
-          widget.tableAdminId == true && widget.isPrivet == true
+          widget.tableCode.isNotEmpty && widget.isPrivet == true
               ? Positioned(
                   top: 17,
                   right: 60,
@@ -495,23 +498,71 @@ class _CustomContainerState extends State<CustomTable>
               widget.enablee[position - 1] = true;
             });
           }
-          if (!await launch(
-            globals.jaasUrl +
+
+          if (kIsWeb) {
+            print('isWeb');
+            // if (!await canLaunch(globals.jaasUrl +
+            //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+            //     '&account=' +
+            //     username.toString())) {
+            try {
+              await launch(
+                  globals.jaasUrl +
+                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+                      '&account=' +
+                      username.toString(),
+                  forceSafariVC: false,
+                  forceWebView: false,
+                  headers: <String, String>{
+                    'my_header_key': 'my_header_value'
+                  });
+
+            } catch (e) {
+              print(
+                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+            }
+            // } else {
+            //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
+            // }
+          } else if (Platform.isWindows ||
+              Platform.isLinux ||
+              Platform.isMacOS) {
+            print('is' + Platform.operatingSystem);
+            final webview = await WebviewWindow.create(configuration: CreateConfiguration(
+                titleBarHeight:0,
+            ));
+            webview.launch(globals.jaasUrl +
                 table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
                 '&account=' +
-                username.toString(),
-            forceSafariVC: false,
-            forceWebView: true,
-            headers: <String, String>{'my_header_key': 'my_header_value'},
-          )) {
-            throw 'Could not launch ${globals.jaasUrl + table_name + '&user=' + username.toString()}';
+                username.toString());
+            webview.onClose.whenComplete(() {
+              _leftOccupant();
+            });
+          } else {
+            print('is' + Platform.operatingSystem);
+            try {
+              await launch(
+                  globals.jaasUrl +
+                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+                      '&account=' +
+                      username.toString(),
+                  forceSafariVC: false,
+                  forceWebView: false,
+                  headers: <String, String>{
+                    'my_header_key': 'my_header_value'
+                  });
+              await closeWebView().then((value) => _leftOccupant());
+            } catch (e) {
+              print(
+                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+            }
           }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
           ErrorPopup(context, globals.errorToken);
-        } else if (body[0] == "error401") {
-          ErrorPopup(context, globals.error401);
+        } else if (body[0] == "error410") {
+          ErrorPopup(context, globals.error410);
         } else if (body[0] == "error4") {
           ErrorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
@@ -543,6 +594,10 @@ class _CustomContainerState extends State<CustomTable>
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
+  }
+
+  void _leftOccupant() {
+    print('Occupent left!!');
   }
 
   // hiddenFunction() {
