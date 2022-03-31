@@ -13,6 +13,7 @@ const String version = "v1.0";
 const String myIP = "https://KwikCode.net";
 // const String myIP = "http://127.0.0.1";
 const String jaasUrl = "https://KwikCode.net/krowlphp/jit/?table=";
+
 // const String myIP = "https://krowl.epizy.com";
 // const String jaasUrl = "https://krowl.epizy.com/krowlphp/jit/?table=";
 // const String myIP = "https://krowl.42web.io";
@@ -60,9 +61,13 @@ const String rememberMe =
     "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 
 
+
 int isRegistered = 0; // 0 -> false -> not registered
 
 const String error401 = "You are already on a table.";
+
+const String error410 = "You are already on a table.";
+
 //List of Universities
 List<dynamic> univercitiesName = [];
 //List of Majors
