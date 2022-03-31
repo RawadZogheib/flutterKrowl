@@ -63,6 +63,7 @@ dependencies:
   motion_toast: ^2.1.1
   simple_tooltip: ^1.0.0
   url_strategy: ^0.2.0
+  desktop_webview_window: ^0.1.6
 
 
 
