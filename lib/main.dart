@@ -1,3 +1,5 @@
+import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
+import 'package:Krowl/page/ForgetPassword/forgetPassword2.dart';
 import 'package:Krowl/page/addTable.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,9 @@ class MyApp extends StatelessWidget {
             '/Forum1': (context) => Forum1(),
             '/Forum2': (context) => Forum2(),
             '/Students1': (context) => Students1(),
-            '/Reminders': (context) => Reminders()
+            '/Reminders': (context) => Reminders(),
+            '/forgetPass': (context) => forgetPass(),
+            '/forgetPass2': (context) => forgetPass2(),
             //'/ReplyPage': (context) => ReplyPage(),
           });
     });

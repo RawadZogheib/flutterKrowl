@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
+import 'package:Krowl/widgets/ForgetPassword/codeDialogForgetPass.dart';
 import 'package:Krowl/widgets/PopUp/Loading/LoadingPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
@@ -225,7 +227,7 @@ class _Login2State extends State<Login2> {
                           )),
                         ),
                         InkWell(
-                          onTap: () => null,
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/forgetPass', (route) => false),
                           child: Text(
                             "Forget Password",
                             style: TextStyle(

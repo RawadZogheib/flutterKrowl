@@ -30,6 +30,17 @@ Color yellow2 = Colors.yellow.shade50;
 Color green1 = Colors.green.shade700;
 Color green2 = Colors.green.shade50;
 
+final Color blue = Colors.blue.shade50;
+final Color blue_1 = Colors.blue.shade900;
+final Color blue_2 = Colors.blue.shade900.withOpacity(0.5);
+final Color red = Colors.red.shade50;
+final Color red_1 = Colors.red.shade900;
+final Color red_2 = Colors.red.shade900.withOpacity(0.5);
+final Color transparent = Colors.transparent;
+
+//for 6 digit code
+String? sixCodeNb;
+
 //Errors
 const String warning1 = "No Spaces Allowed.";
 const String warning2_1 = "Your username must contain at least 8 characters.";
@@ -48,6 +59,8 @@ const String warning7 = "Field cannot be empty.";
 const String warning8 = "Full Table";
 const String error9 = "Position Taken";
 const String warning10 = "Table name already taken";
+const String error11 = "This email is not Registered";
+const String error12 = "Incorrect Email sent";
 const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You doesn't have contacts yet";
 const String warningEmptyFriends = "You doesn't have friends yet";
@@ -61,7 +74,8 @@ const String rememberMe =
     "Stay signed in?\n Do this to reduce the number of times you are asked to sign in.";
 
 
-
+const String codeFailed = "your code is incorrect";
+const String codeException = "Oops Something went wrong! please try to login again!";
 
 
 const String error401 = "You are already on a table.";
@@ -94,6 +108,11 @@ String? uniId = null;
 String? majorId = null;
 String? minorId = null;
 int isRegistered = 0; // 0 -> false -> not registered
+
+//email ForgetPassword
+String? emailForgetPass;
+String? newPassword;
+String? newPassword2;
 
 //6 Code  (page[/Code.dart])
 String? code1 = null;
