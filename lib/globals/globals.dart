@@ -62,7 +62,7 @@ const String rememberMe =
 
 
 
-int isRegistered = 0; // 0 -> false -> not registered
+
 
 const String error401 = "You are already on a table.";
 
@@ -93,6 +93,7 @@ String? cropHeight = null;
 String? uniId = null;
 String? majorId = null;
 String? minorId = null;
+int isRegistered = 0; // 0 -> false -> not registered
 
 //6 Code  (page[/Code.dart])
 String? code1 = null;

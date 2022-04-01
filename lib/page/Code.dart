@@ -7,6 +7,7 @@ import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -275,7 +276,9 @@ class _CodeState extends State<Code> {
 
   _sendCode() async {
     try {
-      if (globals.userName != null) {
+
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+
         String? vCode;
         vCode = globals.code1! +
             globals.code2! +
@@ -283,10 +286,11 @@ class _CodeState extends State<Code> {
             globals.code4! +
             globals.code5! +
             globals.code6!;
+
         var data = {
           'version': globals.version,
-          'email': globals.email,
-          'username': globals.userName!,
+          'email': await localStorage.getString("email"),
+          'username': await localStorage.getString("username"),
           'vCode': vCode
         };
         var res = await CallApi().postData(data, '(Control)getVCode.php');
@@ -304,17 +308,18 @@ class _CodeState extends State<Code> {
           // );
 
           Navigator.pushNamedAndRemoveUntil(
-              cont, '/intro_page2', (route) => false,arguments: arg);
+              cont, '/intro_page2', (route) => false, arguments: arg);
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
           ErrorPopup(context, globals.errorToken);
         } else if (body[0] == "false") {
           ErrorPopup(context, 'Wrong Code !');
+        } else if (body[0] == "error7") {
+          ErrorPopup(context, globals.warning7);
         } else {
           ErrorPopup(context, globals.errorElse);
         }
-      }
     } catch (e) {
       ErrorPopup(context, globals.errorException);
     }

@@ -1,18 +1,19 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/PopUp/Loading/LoadingPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 late BuildContext cont;
 var arg;
+
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
@@ -39,7 +40,7 @@ class _Login2State extends State<Login2> {
 
   @override
   Widget build(BuildContext context) {
-    arg= ModalRoute.of(context)!.settings.arguments;
+    arg = ModalRoute.of(context)!.settings.arguments;
     cont = context;
     Size _size = MediaQuery.of(context).size;
 
@@ -146,8 +147,7 @@ class _Login2State extends State<Login2> {
                         globals.passwordLogin = value;
                         //print("" + globals.email);
                       },
-                      onEditingComplete: (){
-                      },
+                      onEditingComplete: () {},
                     )),
                 Padding(
                   padding: EdgeInsets.only(
@@ -226,9 +226,12 @@ class _Login2State extends State<Login2> {
                         ),
                         InkWell(
                           onTap: () => null,
-                          child: Text("Forget Password",style: TextStyle(
-                            decoration: TextDecoration.underline,
-                          ),),
+                          child: Text(
+                            "Forget Password",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -249,16 +252,16 @@ class _Login2State extends State<Login2> {
       if (globals.emailLogin != null && globals.passwordLogin != null) {
         if (globals.emailLogin!.isNotEmpty &&
             globals.passwordLogin!.isNotEmpty) {
-          if(arg != null){
-            if(arg.toString().isNotEmpty){
-               data = {
+          if (arg != null) {
+            if (arg.toString().isNotEmpty) {
+              data = {
                 'version': globals.version,
                 'email': globals.emailLogin,
                 'password': globals.passwordLogin,
-                'private':arg
+                'private': arg
               };
             }
-          }else{
+          } else {
             data = {
               'version': globals.version,
               'email': globals.emailLogin,
@@ -274,41 +277,44 @@ class _Login2State extends State<Login2> {
           });
 
           if (body[0] == "true") {
-            if(body[1] == 1) {
-              SharedPreferences localStorage =
-              await SharedPreferences.getInstance();
-              // print("fffffffffffffff: ${body[1]}");
-              // print("fffffffffffffff: ${body[2]}");
-              // print("fffffffffffffff: ${body[3]}");
-              // print("fffffffffffffff: ${body[4]}");
-              print("CHATTTfffffffffffffff: ${body[6]}");
-              localStorage.setString('token', body[1]);
-              localStorage.setString('account_Id', body[2]);
-              localStorage.setString('username', body[3]);
-              localStorage.setString('user_uni', body[4]);
-              localStorage.setString('photo', body[5]);
-              localStorage.setString('userTokenChat', body[6]);
+            SharedPreferences localStorage =
+                await SharedPreferences.getInstance();
+            // print("fffffffffffffff: ${body[1]}");
+            // print("fffffffffffffff: ${body[2]}");
+            // print("fffffffffffffff: ${body[3]}");
+            // print("fffffffffffffff: ${body[4]}");
+            print("CHATTTfffffffffffffff: ${body[6]}");
+            await localStorage.setString('token', body[1]);
+            await localStorage.setString('account_Id', body[2]);
+            await localStorage.setString('email', globals.emailLogin!);
+            await localStorage.setString('username', body[3]);
+            await localStorage.setString('user_uni', body[4]);
+            await localStorage.setString('photo', body[5]);
+            await localStorage.setString('userTokenChat', body[6]);
 
+            if (body[7] == '1') {
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) =>
-                    AlertDialog(
-                      title: const Text('Remember Me'),
-                      content: const Text(globals.rememberMe),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => _yesRemember(),
-                          child: const Text('Yes'),
-                        ),
-                        TextButton(
-                          onPressed: () => _noRemember(),
-                          child: const Text('No'),
-                        ),
-                      ],
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Remember Me'),
+                  content: const Text(globals.rememberMe),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => _yesRemember(),
+                      child: const Text('Yes'),
                     ),
+                    TextButton(
+                      onPressed: () => _noRemember(),
+                      child: const Text('No'),
+                    ),
+                  ],
+                ),
               );
-            }else{
-              Navigator.pushNamedAndRemoveUntil(context, "/Code", (route) => false);
+            } else if (body[7] == '0') {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "/Code", (route) => false);
+            } else {
+              ErrorPopup(context, globals.errorElse);
             }
           } else if (body[0] == "errorToken") {
             ErrorPopup(context, globals.errorToken);
@@ -328,8 +334,7 @@ class _Login2State extends State<Login2> {
       } else {
         WarningPopup(context, globals.warning7);
       }
-
-    }catch(e){
+    } catch (e) {
       print(e);
       Navigator.pop(context);
       ErrorPopup(context, globals.errorException);
@@ -343,8 +348,7 @@ class _Login2State extends State<Login2> {
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     // Navigator.pushNamed(cont, '/Library');
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 
   _noRemember() async {
@@ -358,8 +362,7 @@ class _Login2State extends State<Login2> {
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     // Navigator.pushNamed(cont, '/Library');
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Library', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 
   _getSaved() async {

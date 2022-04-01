@@ -395,8 +395,12 @@ _testpass() {
     }
   }
  _saveLogin() async{
-    globals.emailLogin = globals.email.toString();
-    globals.passwordLogin = globals.password.toString();
+   globals.emailLogin = globals.email.toString();
+   globals.passwordLogin = globals.password.toString();
+
+   SharedPreferences localStorage = await SharedPreferences.getInstance();
+   await localStorage.setString("username",globals.email!);
+   await localStorage.setString("email",globals.password!);
 
   }
 
