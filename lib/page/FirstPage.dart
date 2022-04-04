@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -60,7 +61,8 @@ class _FirstPage extends State<FirstPage> {
               });
             }else{
               sessionManager.remove("arg");
-              print("Wrong Link, Please retry again");
+              //print("Wrong Link, Please retry again");
+              ErrorPopup(context, "Wrong Link, Please retry again");
             }
         }
       }else {
