@@ -10,11 +10,11 @@ import 'package:Krowl/widgets/PopUp/Loading/LoadingPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 late BuildContext cont;
-var arg;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -42,7 +42,6 @@ class _Login2State extends State<Login2> {
 
   @override
   Widget build(BuildContext context) {
-    arg = ModalRoute.of(context)!.settings.arguments;
     cont = context;
 
     return RawKeyboardListener(
@@ -250,16 +249,19 @@ class _Login2State extends State<Login2> {
     var data;
     LoadingPopUp(context);
     try {
+      var sessionManager = SessionManager();
+      var arg = await sessionManager.get("arg");
       if (globals.emailLogin != null && globals.passwordLogin != null) {
         if (globals.emailLogin!.isNotEmpty &&
             globals.passwordLogin!.isNotEmpty) {
-          if (arg != null) {
-            if (arg.toString().isNotEmpty) {
+          print("LOGIN2 ARGUMENT = "+arg.toString());
+          if(arg != null){
+            if(arg.toString().isNotEmpty){
               data = {
                 'version': globals.version,
                 'email': globals.emailLogin,
                 'password': globals.passwordLogin,
-                'private': arg
+                'private':arg.toString()
               };
             }
           } else {
@@ -278,6 +280,7 @@ class _Login2State extends State<Login2> {
           });
 
           if (body[0] == "true") {
+            //sessionManager.remove("arg");
             SharedPreferences localStorage =
                 await SharedPreferences.getInstance();
             // print("fffffffffffffff: ${body[1]}");

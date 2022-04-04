@@ -15,7 +15,6 @@ class Intro2 extends StatefulWidget {
 class _Intro2State extends State<Intro2> {
   @override
   Widget build(BuildContext context) {
-    var arg= ModalRoute.of(context)!.settings.arguments;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -135,7 +134,7 @@ class _Intro2State extends State<Intro2> {
                           icon: Icons.arrow_forward,
                           onTap: () {
                             Navigator.pushNamedAndRemoveUntil(
-                                context, '/intro_page', (route) => false,arguments: arg);
+                                context, '/intro_page', (route) => false);
                           },
                         )),
                       ),

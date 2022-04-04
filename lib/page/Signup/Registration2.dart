@@ -22,7 +22,7 @@ class Registration2 extends StatefulWidget {
   @override
   State<Registration2> createState() => _Registration2State();
 }
-var arg;
+
 class _Registration2State extends State<Registration2> {
   final controllerCity = TextEditingController();
   final controllerCity1 = TextEditingController();
@@ -37,8 +37,6 @@ class _Registration2State extends State<Registration2> {
   List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
-    arg= ModalRoute.of(context)!.settings.arguments;
-
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(
@@ -122,7 +120,7 @@ class _Registration2State extends State<Registration2> {
                               if (globals.uniId != null &&
                                   globals.majorId != null &&
                                   globals.minorId != null) {
-                                Navigator.pushNamed(context, '/Registration3',arguments: arg);
+                                Navigator.pushNamed(context, '/Registration3');
                               } else {
                                 WarningPopup(context, globals.warning7);
                               }

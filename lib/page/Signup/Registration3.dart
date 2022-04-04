@@ -20,8 +20,6 @@ Color col2 = Colors.blue.shade50;
 Color col2_1 = Colors.blue.shade900;
 Color col2_2 = Colors.blue.shade900.withOpacity(0.5);
 
-var arg;
-
 RegExp exp = new RegExp(r"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@#$%^&:,?_-]).{8,}$");
 
 
@@ -39,8 +37,6 @@ class _Registration3State extends State<Registration3> {
   List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
-    arg= ModalRoute.of(context)!.settings.arguments;
-
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(
@@ -322,7 +318,7 @@ _testpass() {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
            _saveLogin();
-           Navigator.pushNamed(context, '/Code',arguments: arg);
+           Navigator.pushNamed(context, '/Code');
 
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -398,8 +394,8 @@ _testpass() {
    globals.passwordLogin = globals.password.toString();
 
    SharedPreferences localStorage = await SharedPreferences.getInstance();
-   await localStorage.setString("username",globals.email!);
-   await localStorage.setString("email",globals.password!);
+   await localStorage.setString("email",globals.email!);
+   await localStorage.setString("username",globals.userName!);
 
   }
 

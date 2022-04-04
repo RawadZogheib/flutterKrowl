@@ -13,7 +13,6 @@ import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 late BuildContext cont;
 var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
-var arg;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -35,7 +34,6 @@ class _CodeState extends State<Code> {
 
   @override
   Widget build(BuildContext context) {
-    arg= ModalRoute.of(context)!.settings.arguments;
     cont = context;
     Size _size = MediaQuery.of(context).size;
 
@@ -293,6 +291,7 @@ class _CodeState extends State<Code> {
           'username': await localStorage.getString("username"),
           'vCode': vCode
         };
+        print(data);
         var res = await CallApi().postData(data, '(Control)getVCode.php');
         List<dynamic> body = json.decode(res.body);
         print(body[0]);
@@ -308,7 +307,7 @@ class _CodeState extends State<Code> {
           // );
 
           Navigator.pushNamedAndRemoveUntil(
-              cont, '/intro_page2', (route) => false, arguments: arg);
+              cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {

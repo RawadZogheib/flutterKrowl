@@ -18,7 +18,6 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
-    var arg= ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[900],
@@ -50,7 +49,7 @@ class _IntroState extends State<Intro> {
                     alignment: Alignment.center,
                     width: 130,
                     child: YesButton( onTap: () {
-                      Navigator.pushNamed(context, '/login',arguments:arg);
+                      Navigator.pushNamed(context, '/login');
                     }, ),
                   ),
                 ),
@@ -63,7 +62,7 @@ class _IntroState extends State<Intro> {
                     width: 140,
                     padding: EdgeInsets.only(left: 10.0),
                     child: NoButton( onTap: () {
-                      Navigator.pushNamed(context, '/Signup',arguments:arg);
+                      Navigator.pushNamed(context, '/Signup');
                     },),
                   ),
 

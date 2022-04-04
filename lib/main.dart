@@ -1,6 +1,7 @@
+import 'dart:html';
+
 import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
 import 'package:Krowl/page/ForgetPassword/forgetPassword2.dart';
-import 'package:Krowl/page/addTable.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/page/Reminders.dart';
@@ -25,20 +26,36 @@ import 'package:Krowl/page/intro_page2.dart';
 import 'package:Krowl/page/videoConference.dart';
 import 'package:Krowl/page/videoConference2.dart';
 import 'package:Krowl/page/FirstPage.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_strategy/url_strategy.dart';
 
+
+String? arg;//initial value
 
 void main(List<String> args) {
   debugPrint('args: $args');
   if (runWebViewTitleBarWidget(args)) {
     return;
   }
-  //setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+  load();
   runApp(MyApp());
 }
-var arg =Uri.base.queryParameters["private"];
+
+load() async {
+  var uri = Uri.dataFromString(window.location.href);
+  Map<String, String> params =uri.queryParameters;
+
+  if(params["private"] != null){
+    arg=params["private"].toString();
+    print("ARG NOT EMPTY"+arg!);
+    var sessionManager = SessionManager();
+    sessionManager.remove("arg");
+    await sessionManager.set("arg",arg);
+
+  }
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -55,7 +72,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/FirstPage',
           routes: {
             '/FirstPage': (context) => FirstPage(),
-            '/addTable?private='+arg.toString(): (context) => AddTable(),
+            '/?private='+arg.toString(): (context) => FirstPage(),
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
             '/login2': (context) => Login2(),
