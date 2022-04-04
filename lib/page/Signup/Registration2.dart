@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/Data/Degree_data.dart';
@@ -40,7 +37,6 @@ class _Registration2State extends State<Registration2> {
   List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     arg= ModalRoute.of(context)!.settings.arguments;
 
     return WillPopScope(

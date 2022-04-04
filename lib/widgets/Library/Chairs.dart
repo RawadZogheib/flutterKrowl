@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:hovering/hovering.dart';
 
 

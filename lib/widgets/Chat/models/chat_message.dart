@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:Krowl/widgets/Chat/modules/chat_detail_page.dart';
 
 class ChatMessage{

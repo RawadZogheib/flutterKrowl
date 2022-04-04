@@ -1,6 +1,3 @@
-import 'dart:ui';
-import 'package:desktop_window/desktop_window.dart';
-import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:Krowl/widgets/Buttons/LoginButton.dart';
@@ -22,7 +19,6 @@ class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
     var arg= ModalRoute.of(context)!.settings.arguments;
-    Size _size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[900],

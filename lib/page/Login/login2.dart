@@ -44,7 +44,6 @@ class _Login2State extends State<Login2> {
   Widget build(BuildContext context) {
     arg = ModalRoute.of(context)!.settings.arguments;
     cont = context;
-    Size _size = MediaQuery.of(context).size;
 
     return RawKeyboardListener(
       autofocus: true,

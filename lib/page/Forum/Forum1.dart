@@ -53,7 +53,6 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
         CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
     if (_k % 2 == 0) {

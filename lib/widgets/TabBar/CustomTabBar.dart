@@ -28,7 +28,6 @@ class _CustomTabBarState extends State<CustomTabBar>
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     Animation<double> opacityAnimation =
         Tween(begin: 0.0, end: 1.0).animate(animationController!);
     if (_menuShown)

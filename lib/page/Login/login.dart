@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
@@ -28,8 +28,6 @@ class _LoginState extends State<Login> {
 List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
-
-    Size _size = MediaQuery.of(context).size;
     arg= ModalRoute.of(context)!.settings.arguments;
 
     return RawKeyboardListener(

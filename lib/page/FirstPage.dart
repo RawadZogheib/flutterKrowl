@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
-import 'package:shared_preferences/shared_preferences.dart';
-
 class FirstPage extends StatefulWidget {
   @override
   _FirstPage createState() => _FirstPage();
@@ -19,8 +17,6 @@ class _FirstPage extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    var height;
     return Scaffold(
       backgroundColor: globals.blue2,
       body: Container(

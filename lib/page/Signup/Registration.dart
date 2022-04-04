@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -49,11 +47,10 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   DateTime _date = DateTime.now();
-  TextEditingController _datecontroller = new TextEditingController();
 
   var myFormat = DateFormat('d-MM-yyyy');
 
-  Future<Null?> _selectDate(BuildContext context) async {
+  Future<Null> _selectDate(BuildContext context) async {
     DateTime? _datePicker = await showDatePicker(
       context: context,
       firstDate: DateTime(1947),
@@ -86,7 +83,6 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     arg= ModalRoute.of(context)!.settings.arguments;
-    Size _size = MediaQuery.of(context).size;
 
     return WillPopScope(
       onWillPop: () async => _back(),

@@ -1,11 +1,8 @@
 library Krowl.globals;
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:Krowl/widgets/Chat/models/chat_users.dart';
 import 'package:Krowl/widgets/Forum/ReplyPage/RepliesWidget.dart';
-import 'package:Krowl/widgets/Students/StudentCard.dart';
 
 const String version = "v1.0";
 

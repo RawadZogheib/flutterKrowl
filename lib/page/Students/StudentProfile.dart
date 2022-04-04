@@ -54,7 +54,6 @@ class _StudentProfileState extends State<StudentProfile> {
   // List<String> reply = [];
   // List<String> DateOfReply = [];
   //int repliesNbr = 0;
-  FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {

@@ -1,5 +1,4 @@
 import 'package:Krowl/globals/globals.dart' as globals;
-import 'package:Krowl/page/Signup/Registration2.dart';
 
 class CityData2 {
 

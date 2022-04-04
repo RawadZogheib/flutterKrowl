@@ -60,7 +60,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
 
     Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
         CurvedAnimation(parent: animationController!, curve: Curves.easeIn));

@@ -111,7 +111,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                                 ),
                                 PopupMenuButton<int>(
                                     tooltip: '',
-                                    splashRadius: 0.1,
+                                    //splashRadius: 0.1,
                                     onSelected: (item) =>
                                         onSelected(context, item),
                                     itemBuilder: (context) => [
@@ -145,7 +145,7 @@ class _ReminderWidgetState extends State<ReminderWidget> {
                                 ),
                                 PopupMenuButton<int>(
                                     tooltip: '',
-                                    splashRadius: 0.1,
+                                    //splashRadius: 0.1,
                                     onSelected: (item) =>
                                         onSelected(context, item),
                                     itemBuilder: (context) => [

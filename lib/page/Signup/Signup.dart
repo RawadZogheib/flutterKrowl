@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -32,7 +30,6 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
      arg= ModalRoute.of(context)!.settings.arguments;
-    Size _size = MediaQuery.of(context).size;
 
     return WillPopScope(
       onWillPop: () async => _back(),

@@ -31,7 +31,6 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async => _back(),
       child: RawKeyboardListener(

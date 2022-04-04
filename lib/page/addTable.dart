@@ -22,8 +22,6 @@ class _AddTableState extends State<AddTable> {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    var height;
     return Scaffold(
       backgroundColor: globals.blue2,
       body: Container(

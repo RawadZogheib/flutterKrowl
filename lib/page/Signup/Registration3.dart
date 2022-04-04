@@ -6,11 +6,11 @@ import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:Krowl/widgets/Stack.dart';
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Color col1 = Colors.blue.shade50;
 Color col1_1 = Colors.blue.shade900;
@@ -40,7 +40,6 @@ class _Registration3State extends State<Registration3> {
   @override
   Widget build(BuildContext context) {
     arg= ModalRoute.of(context)!.settings.arguments;
-    Size _size = MediaQuery.of(context).size;
 
     return WillPopScope(
       onWillPop: () async => _back(),
