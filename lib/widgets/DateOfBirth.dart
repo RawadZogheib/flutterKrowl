@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
 
 
 
@@ -27,12 +28,13 @@ class DateOfBirth extends StatelessWidget {
     }
   }
 
-  DateOfBirth ({this.onTap, this.text, this.color,  });
+  DateOfBirth ({this.onTap, this.text, this.color, this.fillColor });
 
   var onTap;
   var text;
   var color;
   var setState;
+  var fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +49,10 @@ class DateOfBirth extends StatelessWidget {
       },
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue.shade50),
-            borderRadius: BorderRadius.circular(10)),
+            borderSide: BorderSide(color: globals.blue1),
+            borderRadius: BorderRadius.circular(5)),
         filled: true,
-        fillColor: Colors.blue.shade50,
+        fillColor: fillColor,
         labelText: "Date of birth",
         labelStyle: TextStyle( color: Colors.blue.shade900.withOpacity(0.5)),
         hintText: ('${myFormat.format(_date)}'),
@@ -60,7 +62,7 @@ class DateOfBirth extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue.shade900, width: 2.0),
-            borderRadius: BorderRadius.circular(10)
+            borderRadius: BorderRadius.circular(5)
         ),
       ),
     );

@@ -24,10 +24,12 @@ class _EditTextInputState extends State<EditTextInput> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(fontSize: 14),
       controller: widget.controller,
       onChanged: widget.onChanged,
       cursorColor: widget.cursorColor,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
         suffixIcon: widget.suffixIcon,
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: widget.BorderColor),

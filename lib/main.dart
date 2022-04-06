@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
 import 'package:Krowl/page/ForgetPassword/forgetPassword2.dart';
+import 'package:Krowl/page/Settings.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/page/Reminders.dart';
@@ -94,6 +95,7 @@ class MyApp extends StatelessWidget {
             '/Reminders': (context) => Reminders(),
             '/forgetPass': (context) => forgetPass(),
             '/forgetPass2': (context) => forgetPass2(),
+            '/Settings': (context) => Settings(),
             //'/ReplyPage': (context) => ReplyPage(),
           });
     });
