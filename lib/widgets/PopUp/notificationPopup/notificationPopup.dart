@@ -300,7 +300,7 @@ class ShapedWidget3 extends StatelessWidget {
                           onTap: () {
                             Clipboard.setData(ClipboardData(
                                     text:
-                                        'Krowl.io/addToTable/code=' + tableCode))
+                                        'krowl.dataflow.com.lb:8070/code=' + tableCode))
                                 .then((value) {
                               SuccessPopup(context, 'Link copied successfully.');
                               print('copy');
@@ -318,15 +318,15 @@ class ShapedWidget3 extends StatelessWidget {
                                 Text(
                                   'Link: ',
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 15,
                                     color: globals.blue1,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
-                                  'Krowl.io/addToTable/code=' + tableCode,
+                                  'krowl.dataflow.com.lb:8070/code=' + tableCode,
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     color: Colors.black,
                                   ),
                                 ),

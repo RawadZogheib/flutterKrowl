@@ -29,8 +29,9 @@ class CustomTable extends StatefulWidget {
   var nb = 0;
 
   // bool hiddenBool = true;
-  bool isSilent = false;
-  bool isPrivet = false;
+  bool isSilent;
+  bool isPrivet;
+  bool isNew;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<dynamic> getIds; // Users ids
   List<dynamic> getUsers; // Users names
@@ -55,6 +56,7 @@ class CustomTable extends StatefulWidget {
     required this.getImgs,
     required this.isSilent,
     required this.isPrivet,
+    required this.isNew,
     required this.getIdsPrivet,
     required this.getUsersPrivet,
     required this.getImgsPrivet,
@@ -451,6 +453,13 @@ class _CustomContainerState extends State<CustomTable>
                       color: globals.blue1,
                     ),
                   ),
+                )
+              : Container(),
+
+          widget.isNew == true
+              ? Text(
+                  "New!!",
+                  style: TextStyle(fontSize: 22),
                 )
               : Container(),
         ],
