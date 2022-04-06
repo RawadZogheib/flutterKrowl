@@ -120,8 +120,8 @@ String? code5 = null;
 String? code6 = null;
 
 //login  (page[/login.dart /login2.dart])
-String? emailLogin = "";
-String? passwordLogin = "";
+// String? emailLogin = "";
+// String? passwordLogin = "";
 
 //global
 String? currentPage = "Library"; // Library Chat Forum Students Reminders

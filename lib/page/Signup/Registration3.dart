@@ -6,6 +6,7 @@ import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:Krowl/widgets/Stack.dart';
@@ -390,12 +391,12 @@ _testpass() {
     }
   }
  _saveLogin() async{
-   globals.emailLogin = globals.email.toString();
-   globals.passwordLogin = globals.password.toString();
+   // globals.emailLogin = globals.email.toString();
+   // globals.passwordLogin = globals.password.toString();
 
-   SharedPreferences localStorage = await SharedPreferences.getInstance();
-   await localStorage.setString("email",globals.email!);
-   await localStorage.setString("username",globals.userName!);
+   await SessionManager().set("email",globals.email!);
+   await SessionManager().set("username",globals.userName!);
+   await SessionManager().set("password",globals.password!);
 
   }
 

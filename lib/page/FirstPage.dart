@@ -41,8 +41,7 @@ class _FirstPage extends State<FirstPage> {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     // await localStorage.clear();
     try{
-      var sessionManager = SessionManager();
-      var arg = await sessionManager.get("arg");
+      var arg = await SessionManager().get("arg");
       if(arg != null){
         if (arg.toString().isNotEmpty){
           var data = {
@@ -60,7 +59,7 @@ class _FirstPage extends State<FirstPage> {
                     context, '/intro_page', (route) => false);
               });
             }else{
-              sessionManager.remove("arg");
+              await SessionManager().remove("arg");
               //print("Wrong Link, Please retry again");
               ErrorPopup(context, "Wrong Link, Please retry again");
             }

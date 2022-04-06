@@ -1,11 +1,10 @@
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
@@ -19,24 +18,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String? _email = "";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getSaved();
   }
-List<LogicalKeyboardKey> keys = [];
+
+  List<LogicalKeyboardKey> keys = [];
+
   @override
   Widget build(BuildContext context) {
     return RawKeyboardListener(
       autofocus: true,
       focusNode: FocusNode(),
-      onKey: (event){
+      onKey: (event) {
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-            if (globals.emailLogin != null) {
-              if (globals.emailLogin!.isNotEmpty) {
+            if (_email != null) {
+              if (_email!.isNotEmpty) {
                 Navigator.pushNamed(context, '/login2');
               } else {
                 WarningPopup(context, globals.warning1);
@@ -46,8 +49,7 @@ List<LogicalKeyboardKey> keys = [];
             }
           }
           setState(() => keys.add(key));
-        }
-        else{
+        } else {
           setState(() => keys.remove(key));
         }
       },
@@ -81,8 +83,8 @@ List<LogicalKeyboardKey> keys = [];
                   width: 500,
                   child: TextFormField(
                     autofocus: true,
-                    key: Key(globals.emailLogin.toString()),
-                    initialValue: globals.emailLogin.toString(),
+                    key: Key(_email.toString()),
+                    initialValue: _email.toString(),
                     inputFormatters: [
                       FilteringTextInputFormatter.deny(RegExp(r"\s")),
                     ],
@@ -105,11 +107,10 @@ List<LogicalKeyboardKey> keys = [];
                       border: InputBorder.none,
                     ),
                     onChanged: (value) {
-                      globals.emailLogin = value;
+                      _email = value;
                       //print("" + globals.email);
                     },
-                    onEditingComplete: (){
-                    },
+                    onEditingComplete: () {},
                   ),
                 ),
                 Padding(
@@ -128,7 +129,7 @@ List<LogicalKeyboardKey> keys = [];
                         color: globals.blue1,
                         icon: Icons.arrow_back,
                         onTap: () {
-                            Navigator.pop(context, '/intro_page');
+                          Navigator.pop(context, '/intro_page');
                         },
                       ),
                     ),
@@ -142,9 +143,10 @@ List<LogicalKeyboardKey> keys = [];
                             color: globals.blue1,
                             icon: Icons.arrow_forward,
                             onTap: () {
-                              if (globals.emailLogin != null) {
-                                if (globals.emailLogin!.isNotEmpty) {
-                                  Navigator.pushNamed(context, '/login2');
+                              if (_email != null) {
+                                if (_email!.isNotEmpty) {
+                                  Navigator.pushNamed(context, '/login2',
+                                      arguments: _email);
                                 } else {
                                   WarningPopup(context, globals.warning1);
                                 }
@@ -167,13 +169,11 @@ List<LogicalKeyboardKey> keys = [];
   }
 
   _getSaved() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var e = localStorage.getString("email");
-    print(e);
-
-    if (e != null) {
+    if (await SessionManager().containsKey('email')) {
+      String e = (await SessionManager().get('email')).toString();
+      print(e);
       setState(() {
-        globals.emailLogin = e;
+        _email = e;
       });
     }
   }
