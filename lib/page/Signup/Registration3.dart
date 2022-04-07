@@ -6,7 +6,6 @@ import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:Krowl/widgets/Stack.dart';
@@ -318,7 +317,7 @@ _testpass() {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
-           _saveLogin();
+           //_saveLogin();
            Navigator.pushNamed(context, '/Code');
 
         } else if (body[0] == "errorVersion") {
@@ -390,15 +389,15 @@ _testpass() {
       WarningPopup(context, globals.warning7);
     }
   }
- _saveLogin() async{
-   // globals.emailLogin = globals.email.toString();
-   // globals.passwordLogin = globals.password.toString();
-
-   await SessionManager().set("email",globals.email!);
-   await SessionManager().set("username",globals.userName!);
-   await SessionManager().set("password",globals.password!);
-
-  }
+ // _saveLogin() async{
+ //   // globals.emailLogin = globals.email.toString();
+ //   // globals.passwordLogin = globals.password.toString();
+ //
+ //   await SessionManager().set("email",globals.email!);
+ //   await SessionManager().set("username",globals.userName!);
+ //   await SessionManager().set("password",globals.password!);
+ //
+ //  }
 
   _back() {
     globals.password = null;

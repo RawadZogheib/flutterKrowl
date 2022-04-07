@@ -7,6 +7,7 @@ import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
@@ -305,7 +306,7 @@ class _CodeState extends State<Code> {
           //   }),
           //   body[1],
           // );
-
+          _saveLogin();
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
@@ -322,5 +323,15 @@ class _CodeState extends State<Code> {
     } catch (e) {
       ErrorPopup(context, globals.errorException);
     }
+  }
+
+  _saveLogin() async{
+    // globals.emailLogin = globals.email.toString();
+    // globals.passwordLogin = globals.password.toString();
+
+    await SessionManager().set("email",globals.email!);
+    await SessionManager().set("username",globals.userName!);
+    await SessionManager().set("password",globals.password!);
+
   }
 }
