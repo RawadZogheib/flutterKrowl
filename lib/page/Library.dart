@@ -12,6 +12,7 @@ import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,14 +54,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
-    globals.currentPage = 'Library';
     _distAnimation();
-    _loadNewPage();
+    _onInitState();
+    super.initState();
   }
 
   Widget build(BuildContext context) {
-
     Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
         CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
     if (_k % 2 == 0) {
@@ -122,8 +121,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 (415 + distAnimation.value).toString()),
                             width: double.parse(
                                 (250 + distAnimation.value).toString()),
-                            onTap: (thisId,thisTableCode) {
-                              _createTable(thisId,thisTableCode);
+                            onTap: (thisId, thisTableCode) {
+                              _createTable(thisId, thisTableCode);
                             },
                           ),
                         ),
@@ -170,9 +169,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     onTap: () async {
                       if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
-                        setState(() {
-                          _isPrivet = !_isPrivet;
-                        });
+                        if (mounted) {
+                          setState(() {
+                            _isPrivet = !_isPrivet;
+                          });
+                        }
                         await _loadNewPage();
                         if (_isPrivet == true) {
                           print('Private Mode');
@@ -277,8 +278,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId,thisTableCode) {
-                                              _createTable(thisId,thisTableCode);
+                                            onTap: (thisId, thisTableCode) {
+                                              _createTable(
+                                                  thisId, thisTableCode);
                                             },
                                           ),
                                         ),
@@ -345,9 +347,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     onTap: () async {
                       if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
-                        setState(() {
-                          _isPrivet = !_isPrivet;
-                        });
+                        if (mounted) {
+                          setState(() {
+                            _isPrivet = !_isPrivet;
+                          });
+                        }
                         await _loadNewPage();
                         if (_isPrivet == true) {
                           print('Private Mode');
@@ -453,8 +457,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId,thisTableCode) {
-                                              _createTable(thisId,thisTableCode);
+                                            onTap: (thisId, thisTableCode) {
+                                              _createTable(
+                                                  thisId, thisTableCode);
                                             },
                                           ),
                                         ),
@@ -510,8 +515,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId,thisTableCode) {
-                                              _createTable(thisId,thisTableCode);
+                                            onTap: (thisId, thisTableCode) {
+                                              _createTable(
+                                                  thisId, thisTableCode);
                                             },
                                           ),
                                         ),
@@ -543,11 +549,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             child: NumberPaginator(
                                               numberPages: _totalPages,
                                               onPageChange: (int index) {
-                                                setState(() {
-                                                  _currentPage = index + 1;
-                                                  _loadNewPage();
-                                                  print(index + 1);
-                                                });
+                                                if (mounted) {
+                                                  setState(() {
+                                                    _currentPage = index + 1;
+                                                    _loadNewPage();
+                                                    print(index + 1);
+                                                  });
+                                                }
                                               },
                                               // initially selected index
                                               initialPage: _currentPage - 1,
@@ -583,9 +591,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                     onTap: () async {
                       if (_isPrivetLoad == false) {
                         _isPrivetLoad = true;
-                        setState(() {
-                          _isPrivet = !_isPrivet;
-                        });
+                        if (mounted) {
+                          setState(() {
+                            _isPrivet = !_isPrivet;
+                          });
+                        }
                         await _loadNewPage();
                         if (_isPrivet == true) {
                           print('Private Mode');
@@ -788,7 +798,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 getIdsPrivet: _userIdPrivet,
                 getUsersPrivet: _userNamePrivet,
                 getImgsPrivet: _userImgUrlPrivet,
-                isNew:body[2][i][5],
+                isNew: body[2][i][5],
               ),
             );
             print(_userId);
@@ -909,17 +919,30 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         vsync: this, duration: Duration(seconds: _animationDuration));
     timer2 =
         Timer.periodic(Duration(seconds: _animationDuration), (Timer t) async {
-      setState(() {
-        _k++;
-        print('$_animationDuration Second');
-      });
+      if (mounted) {
+        setState(() {
+          _k++;
+          print('$_animationDuration Second');
+        });
+      }
     });
+  }
+
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Library';
+      _loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
   }
 
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
   }
+
 
 // _columnChecker(int val, int nb) {
 //   if (val == 0) {

@@ -10,6 +10,7 @@ import 'package:Krowl/widgets/Students/StudentProfile/ProfileQuestions.dart';
 import 'package:Krowl/widgets/Students/StudentProfile/ProfileReplies.dart';
 import 'package:Krowl/widgets/Students/StudentProfile/StudentDetailedProfileContainer.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/MyDrawer.dart';
@@ -58,8 +59,7 @@ class _StudentProfileState extends State<StudentProfile> {
   @override
   void initState() {
     // TODO: implement initState
-    globals.currentPage = 'StudentProfile';
-    _loadNewPage();
+    _onInitState();
     super.initState();
   }
 
@@ -300,5 +300,15 @@ class _StudentProfileState extends State<StudentProfile> {
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
+  }
+
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'StudentProfile';
+      _loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
   }
 }

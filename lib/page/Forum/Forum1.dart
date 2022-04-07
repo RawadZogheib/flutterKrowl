@@ -13,6 +13,7 @@ import 'package:Krowl/widgets/Forum/Forum2/Contributors.dart';
 import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() =>
@@ -46,9 +47,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    globals.currentPage = 'Forum';
-    _loadNewPage();
     _distAnimation();
+    _onInitState();
     super.initState();
   }
 
@@ -531,8 +531,19 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     });
   }
 
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Forum';
+      _loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
+  }
+
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
+
 }

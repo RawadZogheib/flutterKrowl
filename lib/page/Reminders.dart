@@ -6,6 +6,7 @@ import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/Reminders/AddWidget.dart';
 import 'package:Krowl/widgets/Reminders/ReminderWidget.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() =>
@@ -38,72 +39,8 @@ class _RemindersState extends State<Reminders>
 
   @override
   void initState() {
-    globals.currentPage = 'Reminders';
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_handleTabSelection);
-    setState(() {
-      _children1.addAll([
-        ReminderWidget(
-            enabled: true,
-            ReminderContent: "Something very important",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-        ReminderWidget(
-            enabled: true,
-            ReminderContent: "HELOOOOOOO",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-        ReminderWidget(
-          enabled: true,
-          ReminderContent: "Something very important",
-          dropdownValue: 'in',
-          //in/every
-          hoursValue: 0,
-          minutesValue: 2,
-        ),
-        ReminderWidget(
-            enabled: true,
-            ReminderContent: "HELOOOOOOO",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-        ReminderWidget(
-            enabled: true,
-            ReminderContent: "Something very important",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-        ReminderWidget(
-            enabled: true,
-            ReminderContent: "HELOOOOOOO",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-      ]);
-      _children2.addAll([
-        ReminderWidget(
-            enabled: false,
-            ReminderContent: "Something very important",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-        ReminderWidget(
-            enabled: false,
-            ReminderContent: "HELOOOOOOO",
-            dropdownValue: 'in',
-            //in/every
-            hoursValue: 0,
-            minutesValue: 2),
-      ]);
-    });
+    _onInitState();
     super.initState();
   }
 
@@ -354,8 +291,82 @@ class _RemindersState extends State<Reminders>
     );
   }
 
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Reminders';
+      _tabController.addListener(_handleTabSelection);
+      setState(() {
+        _children1.addAll([
+          ReminderWidget(
+              enabled: true,
+              ReminderContent: "Something very important",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+          ReminderWidget(
+              enabled: true,
+              ReminderContent: "HELOOOOOOO",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+          ReminderWidget(
+            enabled: true,
+            ReminderContent: "Something very important",
+            dropdownValue: 'in',
+            //in/every
+            hoursValue: 0,
+            minutesValue: 2,
+          ),
+          ReminderWidget(
+              enabled: true,
+              ReminderContent: "HELOOOOOOO",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+          ReminderWidget(
+              enabled: true,
+              ReminderContent: "Something very important",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+          ReminderWidget(
+              enabled: true,
+              ReminderContent: "HELOOOOOOO",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+        ]);
+        _children2.addAll([
+          ReminderWidget(
+              enabled: false,
+              ReminderContent: "Something very important",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+          ReminderWidget(
+              enabled: false,
+              ReminderContent: "HELOOOOOOO",
+              dropdownValue: 'in',
+              //in/every
+              hoursValue: 0,
+              minutesValue: 2),
+        ]);
+      });
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
+  }
+
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
+
 }

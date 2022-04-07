@@ -8,6 +8,7 @@ import 'package:Krowl/widgets/Forum/Forum1/SearchBar.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Students/StudentCard.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,9 +42,8 @@ class _Students1State extends State<Students1>
 
   @override
   void initState() {
+    _onInitState();
     super.initState();
-    globals.currentPage = 'Students';
-    _loadNewPage();
   }
 
   Widget build(BuildContext context) {
@@ -372,5 +372,15 @@ class _Students1State extends State<Students1>
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
+  }
+
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Students';
+      _loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
   }
 }
