@@ -312,7 +312,7 @@ class _Login2State extends State<Login2> {
               );
             } else if (body[7] == '0') {
               Navigator.pushNamedAndRemoveUntil(
-                  context, "/Code", (route) => false);
+                  context, "/CodeLog", (route) => false);
             } else {
               ErrorPopup(context, globals.errorElse);
             }

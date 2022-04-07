@@ -318,7 +318,7 @@ _testpass() {
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
            //_saveLogin();
-           Navigator.pushNamed(context, '/Code');
+           Navigator.pushNamed(context, '/CodeReg');
 
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);

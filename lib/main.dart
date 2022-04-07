@@ -1,6 +1,7 @@
 //import 'dart:html';
 
-import 'package:Krowl/page/Code.dart';
+import 'package:Krowl/page/CodeLog.dart';
+import 'package:Krowl/page/CodeReg.dart';
 import 'package:Krowl/page/FirstPage.dart';
 import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
 import 'package:Krowl/page/ForgetPassword/forgetPassword2.dart';
@@ -71,7 +72,8 @@ class MyApp extends StatelessWidget {
             '/intro_page': (context) => Intro(),
             '/login': (context) => Login(),
             '/login2': (context) => Login2(),
-            '/Code': (context) => Code(),
+            '/CodeReg': (context) => CodeReg(),
+            '/CodeLog': (context) => CodeLog(),
             '/intro_page2': (context) => Intro2(),
             '/Signup': (context) => Signup(),
             '/Signup2': (context) => Signup2(),

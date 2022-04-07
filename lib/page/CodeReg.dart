@@ -19,13 +19,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Code extends StatefulWidget {
+class CodeReg extends StatefulWidget {
   // This widget is the root of your application.
   @override
-  State<Code> createState() => _CodeState();
+  State<CodeReg> createState() => _CodeRegState();
 }
 
-class _CodeState extends State<Code> {
+class _CodeRegState extends State<CodeReg> {
 
   Future<void> dispose() async {
     // TODO: implement dispose
