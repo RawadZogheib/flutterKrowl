@@ -2,19 +2,14 @@ import 'dart:convert';
 
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
-import 'package:Krowl/page/ForgetPassword/forgetPassword.dart';
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
-import 'package:Krowl/widgets/ForgetPassword/codeDialogForgetPass.dart';
 import 'package:Krowl/widgets/PopUp/Loading/LoadingPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
-late BuildContext cont;
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -27,6 +22,8 @@ class Login2 extends StatefulWidget {
 }
 
 class _Login2State extends State<Login2> {
+  var _email;
+  String? _password = "";
   var blue1;
   var blue2;
   var white;
@@ -34,15 +31,16 @@ class _Login2State extends State<Login2> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     _getSaved();
+    super.initState();
   }
 
   List<LogicalKeyboardKey> keys = [];
 
   @override
   Widget build(BuildContext context) {
-    cont = context;
+    _email = ModalRoute.of(context)!.settings.arguments;
+    print('email: $_email');
 
     return RawKeyboardListener(
       autofocus: true,
@@ -51,13 +49,13 @@ class _Login2State extends State<Login2> {
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-            if (globals.passwordLogin != null) {
-              if (globals.passwordLogin!.isNotEmpty)
+            if (_password != null) {
+              if (_password!.isNotEmpty)
                 try {
                   _login();
                 } catch (e) {
                   showDialog<String>(
-                    context: cont,
+                    context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: const Text('Error'),
                       content: const Text(globals.errorException),
@@ -121,8 +119,8 @@ class _Login2State extends State<Login2> {
                     width: 600,
                     child: TextFormField(
                       autofocus: true,
-                      key: Key(globals.passwordLogin.toString()),
-                      initialValue: globals.passwordLogin.toString(),
+                      key: Key(_password.toString()),
+                      initialValue: _password.toString(),
                       obscureText: true,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
@@ -144,7 +142,7 @@ class _Login2State extends State<Login2> {
                         border: InputBorder.none,
                       ),
                       onChanged: (value) {
-                        globals.passwordLogin = value;
+                        _password = value;
                         //print("" + globals.email);
                       },
                       onEditingComplete: () {},
@@ -181,13 +179,13 @@ class _Login2State extends State<Login2> {
                             color: globals.blue1,
                             icon: Icons.arrow_forward,
                             onTap: () {
-                              if (globals.passwordLogin != null) {
-                                if (globals.passwordLogin!.isNotEmpty)
+                              if (_password != null) {
+                                if (_password!.isNotEmpty)
                                   try {
                                     _login();
                                   } catch (e) {
                                     showDialog<String>(
-                                      context: cont,
+                                      context: context,
                                       builder: (BuildContext context) =>
                                           AlertDialog(
                                         title: const Text('Error'),
@@ -225,7 +223,8 @@ class _Login2State extends State<Login2> {
                           )),
                         ),
                         InkWell(
-                          onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/forgetPass', (route) => false),
+                          onTap: () => Navigator.pushNamedAndRemoveUntil(
+                              context, '/forgetPass', (route) => false),
                           child: Text(
                             "Forget Password",
                             style: TextStyle(
@@ -249,26 +248,26 @@ class _Login2State extends State<Login2> {
     var data;
     LoadingPopUp(context);
     try {
-      var sessionManager = SessionManager();
-      var arg = await sessionManager.get("arg");
-      if (globals.emailLogin != null && globals.passwordLogin != null) {
-        if (globals.emailLogin!.isNotEmpty &&
-            globals.passwordLogin!.isNotEmpty) {
-          print("LOGIN2 ARGUMENT = "+arg.toString());
-          if(arg != null){
-            if(arg.toString().isNotEmpty){
+      var arg = await SessionManager().get("arg");
+      //_email = await SessionManager().get("email");
+      //_password = await SessionManager().get("password");
+      if (_email != null && _password != null) {
+        if (_email.isNotEmpty && _password!.isNotEmpty) {
+          print("LOGIN2 ARGUMENT = " + arg.toString());
+          if (arg != null) {
+            if (arg.toString().isNotEmpty) {
               data = {
                 'version': globals.version,
-                'email': globals.emailLogin,
-                'password': globals.passwordLogin,
-                'private':arg.toString()
+                'email': _email,
+                'password': _password,
+                'private': arg.toString()
               };
             }
           } else {
             data = {
               'version': globals.version,
-              'email': globals.emailLogin,
-              'password': globals.passwordLogin
+              'email': _email,
+              'password': _password
             };
           }
           var res = await CallApi().postData(data, '(Control)login.php');
@@ -281,20 +280,17 @@ class _Login2State extends State<Login2> {
 
           if (body[0] == "true") {
             //sessionManager.remove("arg");
-            SharedPreferences localStorage =
-                await SharedPreferences.getInstance();
-            // print("fffffffffffffff: ${body[1]}");
-            // print("fffffffffffffff: ${body[2]}");
-            // print("fffffffffffffff: ${body[3]}");
-            // print("fffffffffffffff: ${body[4]}");
+
             print("CHATTTfffffffffffffff: ${body[6]}");
-            await localStorage.setString('token', body[1]);
-            await localStorage.setString('account_Id', body[2]);
-            await localStorage.setString('email', globals.emailLogin!);
-            await localStorage.setString('username', body[3]);
-            await localStorage.setString('user_uni', body[4]);
-            await localStorage.setString('photo', body[5]);
-            await localStorage.setString('userTokenChat', body[6]);
+            await SessionManager().set('token', body[1]);
+            await SessionManager().set('account_Id', body[2]);
+            await SessionManager().set('email', _email.toString());
+            await SessionManager().set('password', _password!);
+            await SessionManager().set('username', body[3]);
+            await SessionManager().set('user_uni', body[4]);
+            await SessionManager().set('photo', body[5]);
+            await SessionManager().set('userTokenChat', body[6]);
+            await SessionManager().set('isLoggedIn', true);
 
             if (body[7] == '1') {
               showDialog<String>(
@@ -316,7 +312,7 @@ class _Login2State extends State<Login2> {
               );
             } else if (body[7] == '0') {
               Navigator.pushNamedAndRemoveUntil(
-                  context, "/Code", (route) => false);
+                  context, "/CodeLog", (route) => false);
             } else {
               ErrorPopup(context, globals.errorElse);
             }
@@ -334,9 +330,11 @@ class _Login2State extends State<Login2> {
           }
         } else {
           WarningPopup(context, globals.warning7);
+          Navigator.pop(context);
         }
       } else {
         WarningPopup(context, globals.warning7);
+        Navigator.pop(context);
       }
     } catch (e) {
       print(e);
@@ -346,9 +344,8 @@ class _Login2State extends State<Login2> {
   }
 
   _yesRemember() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.setString('email', globals.emailLogin!);
-    localStorage.setString('password', globals.passwordLogin!);
+    await SessionManager().set('email', _email);
+    await SessionManager().set('password', _password);
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     // Navigator.pushNamed(cont, '/Library');
@@ -356,12 +353,11 @@ class _Login2State extends State<Login2> {
   }
 
   _noRemember() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.remove("email");
-    localStorage.remove("password");
+    await SessionManager().remove("email");
+    await SessionManager().remove("password");
     setState(() {
-      globals.emailLogin = "";
-      globals.passwordLogin = "";
+      _email = "";
+      _password = "";
     });
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
@@ -370,13 +366,11 @@ class _Login2State extends State<Login2> {
   }
 
   _getSaved() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var p = localStorage.getString("password");
-    print(p);
-
-    if (p != null) {
+    if (await SessionManager().containsKey('password')) {
+      String p = (await SessionManager().get('password')).toString();
+      print(p);
       setState(() {
-        globals.passwordLogin = p;
+        _password = p;
       });
     }
   }

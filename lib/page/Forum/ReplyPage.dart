@@ -10,6 +10,7 @@ import 'package:Krowl/widgets/Forum/ReplyPage/RepliesWidget.dart';
 import 'package:Krowl/widgets/Forum/ReplyPage/UnansweredQuestions.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,23 +72,8 @@ class _ReplyPageState extends State<ReplyPage>
   @override
   void initState() {
     // TODO: implement initState
-    globals.currentPage = 'ForumReply';
-    children2.add(
-      DetailedReplyContainer(
-        id: widget.id,
-        question: widget.question,
-        subject: widget.subject,
-        username: widget.username,
-        val: widget.val,
-        color: widget.color,
-        color2: widget.color2,
-        contextQuestion: widget.contextQuestion,
-        date: widget.date,
-        onTap: (id, date) => _addReply(id, date),
-      ),
-    );
     _distAnimation();
-    _loadNewPage();
+    _onInitState();
     super.initState();
   }
 
@@ -565,8 +551,33 @@ class _ReplyPageState extends State<ReplyPage>
     });
   }
 
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'ForumReply';
+      children2.add(
+        DetailedReplyContainer(
+          id: widget.id,
+          question: widget.question,
+          subject: widget.subject,
+          username: widget.username,
+          val: widget.val,
+          color: widget.color,
+          color2: widget.color2,
+          contextQuestion: widget.contextQuestion,
+          date: widget.date,
+          onTap: (id, date) => _addReply(id, date),
+        ),
+      );
+      _loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
+  }
+
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
+
 }

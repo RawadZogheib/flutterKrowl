@@ -4,6 +4,7 @@ import 'package:Krowl/page/Responsive.dart';
 import 'package:Krowl/widgets/Chat/components/streamChatContacts.dart';
 import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -29,9 +30,8 @@ class _MainChatState extends State<MainChat> {
   @override
   void initState() {
     // TODO: implement initState
+    _onInitState();
     super.initState();
-    initChat();
-    globals.currentPage = 'Chat';
   }
 
   int _selectedIndex = 0;
@@ -209,8 +209,19 @@ class _MainChatState extends State<MainChat> {
             });
   }
 
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Chat';
+      initChat();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
+  }
+
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
+
 }

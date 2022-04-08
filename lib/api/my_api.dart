@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
@@ -33,8 +34,7 @@ class CallApi{
   };
 
   _getToken() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
+    var token = await SessionManager().get('token');
     return '?token=$token';
   }
 

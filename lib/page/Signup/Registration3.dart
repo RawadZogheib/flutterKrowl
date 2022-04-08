@@ -317,8 +317,8 @@ _testpass() {
         print(res.body);
         List<dynamic> body = json.decode(res.body);
         if (body[0] == "true") {
-           _saveLogin();
-           Navigator.pushNamed(context, '/Code');
+           //_saveLogin();
+           Navigator.pushNamed(context, '/CodeReg');
 
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -389,15 +389,15 @@ _testpass() {
       WarningPopup(context, globals.warning7);
     }
   }
- _saveLogin() async{
-   globals.emailLogin = globals.email.toString();
-   globals.passwordLogin = globals.password.toString();
-
-   SharedPreferences localStorage = await SharedPreferences.getInstance();
-   await localStorage.setString("email",globals.email!);
-   await localStorage.setString("username",globals.userName!);
-
-  }
+ // _saveLogin() async{
+ //   // globals.emailLogin = globals.email.toString();
+ //   // globals.passwordLogin = globals.password.toString();
+ //
+ //   await SessionManager().set("email",globals.email!);
+ //   await SessionManager().set("username",globals.userName!);
+ //   await SessionManager().set("password",globals.password!);
+ //
+ //  }
 
   _back() {
     globals.password = null;

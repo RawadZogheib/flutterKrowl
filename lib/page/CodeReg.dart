@@ -7,6 +7,7 @@ import 'package:Krowl/globals/globals.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
@@ -18,13 +19,13 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
     ));
 
-class Code extends StatefulWidget {
+class CodeReg extends StatefulWidget {
   // This widget is the root of your application.
   @override
-  State<Code> createState() => _CodeState();
+  State<CodeReg> createState() => _CodeRegState();
 }
 
-class _CodeState extends State<Code> {
+class _CodeRegState extends State<CodeReg> {
 
   Future<void> dispose() async {
     // TODO: implement dispose
@@ -296,16 +297,16 @@ class _CodeState extends State<Code> {
         List<dynamic> body = json.decode(res.body);
         print(body[0]);
         if (body[0] == "true") {
-          //var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
-          // await client.connectUser(
-          //   User(id: globals.userName!, extraData: {
-          //     "name": globals.userName!,
-          //     // image:
-          //     // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
-          //   }),
-          //   body[1],
-          // );
-
+          var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
+          await client.connectUser(
+            User(id: globals.userName!, extraData: {
+              "name": globals.userName!,
+              // image:
+              // 'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+            }),
+            body[1],
+          );
+          _saveLogin();
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
@@ -322,5 +323,15 @@ class _CodeState extends State<Code> {
     } catch (e) {
       ErrorPopup(context, globals.errorException);
     }
+  }
+
+  _saveLogin() async{
+    // globals.emailLogin = globals.email.toString();
+    // globals.passwordLogin = globals.password.toString();
+
+    await SessionManager().set("email",globals.email!);
+    await SessionManager().set("username",globals.userName!);
+    await SessionManager().set("password",globals.password!);
+
   }
 }

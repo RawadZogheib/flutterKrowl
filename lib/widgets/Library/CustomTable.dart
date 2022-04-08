@@ -118,11 +118,10 @@ class _CustomContainerState extends State<CustomTable>
       child: Stack(
         children: [
           Positioned(
-            top: 5,
-            left: 25,
             height: 50,
-            width: 250,
+            width: 340,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.table_name,
