@@ -290,7 +290,6 @@ class _Login2State extends State<Login2> {
             await SessionManager().set('user_uni', body[4]);
             await SessionManager().set('photo', body[5]);
             await SessionManager().set('userTokenChat', body[6]);
-            await SessionManager().set('isLoggedIn', true);
 
             if (body[7] == '1') {
               showDialog<String>(
@@ -311,9 +310,11 @@ class _Login2State extends State<Login2> {
                 ),
               );
             } else if (body[7] == '0') {
+              await SessionManager().set('isLoggedIn', false);
               Navigator.pushNamedAndRemoveUntil(
                   context, "/CodeLog", (route) => false);
             } else {
+              await SessionManager().set('isLoggedIn', false);
               ErrorPopup(context, globals.errorElse);
             }
           } else if (body[0] == "errorToken") {
@@ -346,6 +347,7 @@ class _Login2State extends State<Login2> {
   _yesRemember() async {
     await SessionManager().set('email', _email);
     await SessionManager().set('password', _password);
+    await SessionManager().set('isLoggedIn', true);
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
     // Navigator.pushNamed(cont, '/Library');
@@ -355,6 +357,7 @@ class _Login2State extends State<Login2> {
   _noRemember() async {
     await SessionManager().remove("email");
     await SessionManager().remove("password");
+    await SessionManager().set('isLoggedIn', false);
     setState(() {
       _email = "";
       _password = "";

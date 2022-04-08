@@ -29,6 +29,12 @@ class _CodeLogState extends State<CodeLog> {
   String? username;
   String? email;
 
+  @override
+  void initState() {
+    _notLoggedIn();
+    // TODO: implement initState
+    super.initState();
+  }
 
   Future<void> dispose() async {
     // TODO: implement dispose
@@ -313,7 +319,7 @@ class _CodeLogState extends State<CodeLog> {
         );
         localStorage.remove('username');
         localStorage.remove('email');
-        //_saveLogin();
+        await _saveLogin();
         Navigator.pushNamedAndRemoveUntil(
             cont, '/intro_page2', (route) => false);
 
@@ -334,12 +340,10 @@ class _CodeLogState extends State<CodeLog> {
     }
   }
 
-  _getLogin() async{
-    // globals.emailLogin = globals.email.toString();
-    // globals.passwordLogin = globals.password.toString();
-    username=await SessionManager().get("email");
-    email=await SessionManager().get("username");
+  Future<void> _saveLogin() async{
+    await SessionManager().set('isLoggedIn', true);
+  }
 
-
+  Future<void> _notLoggedIn() async {
   }
 }

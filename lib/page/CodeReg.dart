@@ -306,6 +306,7 @@ class _CodeRegState extends State<CodeReg> {
             }),
             body[1],
           );
+          //await _saveLogin();
           _saveLogin();
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
@@ -325,7 +326,7 @@ class _CodeRegState extends State<CodeReg> {
     }
   }
 
-  _saveLogin() async{
+  Future<void> _saveLogin() async{
     // globals.emailLogin = globals.email.toString();
     // globals.passwordLogin = globals.password.toString();
 
