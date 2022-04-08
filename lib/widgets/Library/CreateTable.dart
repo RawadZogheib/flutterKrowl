@@ -9,6 +9,9 @@ import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TextInput1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+RegExp expTable = new RegExp(r"([A-Za-z0-9-_]+)*\s?([A-Za-z0-9-_]+)$"); //no space in the start or in the end, Upper, Lower, characters:_ -, we cna have only one space between 2 words
+RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
+
 class CreateTable extends StatefulWidget {
   var height;
   var width;
@@ -94,8 +97,23 @@ class _NextButtonState extends State<CreateTable> {
                   height: 40,
                   child: TextInput1(
                     onChanged: (val) {
-                      globals.tableName = val;
-                      print(globals.tableName.toString());
+                      //check if there's a second space so i can trim
+                      // if(expSpace.hasMatch(val)){
+                      //   print("space should be removed");
+                      //   setState(() {
+                      //     val=val.trim();
+                      //   });
+                      //   globals.tableName=val.trim();
+                      //   print("After removing space"+globals.tableName+"hhdhhdddhdhd");
+                      // }else{
+                      //   globals.tableName=val;
+                      // }
+                      //
+                      // print(globals.tableName.toString());
+                      setState(() {
+                          globals.tableName=val;
+                       });
+                      //globals.tableName = val;
                     },
                   )),
               SizedBox(
@@ -198,8 +216,7 @@ class _NextButtonState extends State<CreateTable> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    _createTable();
-                  },
+                    _tablename();},
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(globals.blue1),
@@ -224,6 +241,17 @@ class _NextButtonState extends State<CreateTable> {
       ],
     );
   }
+  _tablename(){
+        if (globals.tableName.toString().length <= 15) {
+          if (expTable.hasMatch(globals.tableName.toString())) {
+            _createTable();
+          } else {
+            ErrorPopup(context, globals.error14);
+          }
+        } else {
+          ErrorPopup(context, globals.error13);
+        }
+      }
 
   Future<void> _createTable() async {
     if (globals.loadCreateTableLibrary == false) {
@@ -239,7 +267,6 @@ class _NextButtonState extends State<CreateTable> {
       try {
         print('load createReplyPage');
         globals.loadCreateTableLibrary = true;
-
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
         var user_uni = localStorage.getString("user_uni");

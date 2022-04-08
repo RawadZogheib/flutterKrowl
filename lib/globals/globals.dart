@@ -8,7 +8,7 @@ const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
 const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphpTest/";
-// const String myIP = "http://127.0.0.1";
+//const String myIP = "http://127.0.0.1:8080/krowi/";
 const String jaasUrl = "${myIP}jit/?table=";
 
 // const String myIP = "https://krowl.epizy.com";
@@ -58,6 +58,8 @@ const String error9 = "Position Taken";
 const String warning10 = "Table name already taken";
 const String error11 = "This email is not Registered";
 const String error12 = "Incorrect Email sent";
+const String error13 = "Table Name can contain max 15 Characters";
+const String error14 = "Table Name can contain lowercase and uppercase characters and special characters( _,-)";
 const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You doesn't have contacts yet";
 const String warningEmptyFriends = "You doesn't have friends yet";
