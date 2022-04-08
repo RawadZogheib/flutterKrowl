@@ -311,9 +311,13 @@ class _CodeLogState extends State<CodeLog> {
           }),
           body[1],
         );
+        localStorage.remove('username');
+        localStorage.remove('email');
         //_saveLogin();
         Navigator.pushNamedAndRemoveUntil(
             cont, '/intro_page2', (route) => false);
+
+
       } else if (body[0] == "errorVersion") {
         ErrorPopup(context, globals.errorVersion);
       } else if (body[0] == "errorToken") {
