@@ -103,59 +103,62 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           body: Responsive(
             mobile: Stack(
               children: [
-                SingleChildScrollView(
-                  reverse: false,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 60,
-                        ),
-                        SizedBox(
-                          height: 435,
-                          width: 270,
-                          child: CreateTable(
-                            height: double.parse(
-                                (415 + distAnimation.value).toString()),
-                            width: double.parse(
-                                (250 + distAnimation.value).toString()),
-                            onTap: (thisId, thisTableCode) {
-                              _createTable(thisId, thisTableCode);
-                            },
+                ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    reverse: false,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 60,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Wrap(
-                                children: [
-                                  load == true
-                                      ? Center(
-                                          child: Image(
-                                            image: AssetImage(
-                                                'Assets/krowl_logo.gif'),
-                                            fit: BoxFit.cover,
-                                            height: 150,
-                                            width: 150,
-                                          ),
-                                        )
-                                      : Column(
-                                          children: _children.toList(),
-                                        )
-                                ],
-                              ),
-                              SizedBox(width: 20),
-                            ]),
-                      ],
+                          SizedBox(
+                            height: 435,
+                            width: 270,
+                            child: CreateTable(
+                              height: double.parse(
+                                  (415 + distAnimation.value).toString()),
+                              width: double.parse(
+                                  (250 + distAnimation.value).toString()),
+                              onTap: (thisId, thisTableCode) {
+                                _createTable(thisId, thisTableCode);
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Wrap(
+                                  children: [
+                                    load == true
+                                        ? Center(
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'Assets/krowl_logo.gif'),
+                                              fit: BoxFit.cover,
+                                              height: 150,
+                                              width: 150,
+                                            ),
+                                          )
+                                        : Column(
+                                            children: _children.toList(),
+                                          )
+                                  ],
+                                ),
+                                SizedBox(width: 20),
+                              ]),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -315,16 +318,19 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                               )),
                                         )
                                       : Expanded(
-                                          child: SingleChildScrollView(
-                                            controller: ScrollController(),
-                                            reverse: false,
-                                            child: SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5,
-                                              child: Wrap(
-                                                children: _children.toList(),
+                                          child: ScrollConfiguration(
+                                            behavior: MyCustomScrollBehavior(),
+                                            child: SingleChildScrollView(
+                                              controller: ScrollController(),
+                                              reverse: false,
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                child: Wrap(
+                                                  children: _children.toList(),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -531,52 +537,55 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                 SizedBox(
                                   width: 20,
                                 ),
-                                SingleChildScrollView(
-                                  controller: ScrollController(),
-                                  reverse: false,
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.68,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Wrap(children: _children.toList()),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: NumberPaginator(
-                                              numberPages: _totalPages,
-                                              onPageChange: (int index) {
-                                                if (mounted) {
-                                                  setState(() {
-                                                    _currentPage = index + 1;
-                                                    _loadNewPage();
-                                                    print(index + 1);
-                                                  });
-                                                }
-                                              },
-                                              // initially selected index
-                                              initialPage: _currentPage - 1,
-                                              // default height is 48
-                                              buttonShape:
-                                                  BeveledRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
+                                ScrollConfiguration(
+                                  behavior: MyCustomScrollBehavior(),
+                                  child: SingleChildScrollView(
+                                    controller: ScrollController(),
+                                    reverse: false,
+                                    child: Container(
+                                        width: MediaQuery.of(context).size.width *
+                                            0.68,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Wrap(children: _children.toList()),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: NumberPaginator(
+                                                numberPages: _totalPages,
+                                                onPageChange: (int index) {
+                                                  if (mounted) {
+                                                    setState(() {
+                                                      _currentPage = index + 1;
+                                                      _loadNewPage();
+                                                      print(index + 1);
+                                                    });
+                                                  }
+                                                },
+                                                // initially selected index
+                                                initialPage: _currentPage - 1,
+                                                // default height is 48
+                                                buttonShape:
+                                                    BeveledRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                buttonSelectedForegroundColor:
+                                                    globals.blue2,
+                                                buttonUnselectedForegroundColor:
+                                                    globals.blue1,
+                                                buttonUnselectedBackgroundColor:
+                                                    globals.blue2,
+                                                buttonSelectedBackgroundColor:
+                                                    globals.blue1,
                                               ),
-                                              buttonSelectedForegroundColor:
-                                                  globals.blue2,
-                                              buttonUnselectedForegroundColor:
-                                                  globals.blue1,
-                                              buttonUnselectedBackgroundColor:
-                                                  globals.blue2,
-                                              buttonSelectedBackgroundColor:
-                                                  globals.blue1,
                                             ),
-                                          ),
-                                        ],
-                                      )),
+                                          ],
+                                        )),
+                                  ),
                                 ),
                               ]),
                         ),

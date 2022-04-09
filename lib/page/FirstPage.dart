@@ -40,7 +40,7 @@ class _FirstPage extends State<FirstPage> {
   }
 
   _timer() async {
-    //await SessionManager().destroy();
+    await SessionManager().destroy();
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     // await localStorage.clear();
     Future.delayed(const Duration(seconds: 3), () {
