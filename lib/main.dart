@@ -1,4 +1,4 @@
-//import 'dart:html';
+//import 'dart:html'; // add for web
 
 import 'package:Krowl/page/CodeLog.dart';
 import 'package:Krowl/page/CodeReg.dart';
@@ -31,27 +31,27 @@ import 'package:sizer/sizer.dart';
 
 String? arg; //initial value
 
-void main(List<String> args) {
-  debugPrint('args: $args');
-  if (runWebViewTitleBarWidget(args)) {
-    return;
-  }
-  WidgetsFlutterBinding.ensureInitialized();
-  //load();
+void main(List<String> args) { // remove for web 'List<String> args'
+  debugPrint('args: $args'); // remove for web
+  if (runWebViewTitleBarWidget(args)) { // remove for web
+    return; // remove for web
+  } // remove for web
+  WidgetsFlutterBinding.ensureInitialized(); // remove for web
+  //load(); // add for web
   runApp(MyApp());
 }
 
-// load() async {
-//   var uri = Uri.dataFromString(window.location.href);
-//   Map<String, String> params = uri.queryParameters;
+// load() async { // add for web
+//   var uri = Uri.dataFromString(window.location.href); // add for web
+//   Map<String, String> params = uri.queryParameters; // add for web
 //
-//   if (params["private"] != null) {
-//     arg = params["private"].toString();
-//     print("ARG NOT EMPTY" + arg!);
-//     SessionManager().remove("arg");
-//     await SessionManager().set("arg", arg);
-//   }
-// }
+//   if (params["private"] != null) { // add for web
+//     arg = params["private"].toString(); // add for web
+//     print("ARG NOT EMPTY" + arg!); // add for web
+//     SessionManager().remove("arg"); // add for web
+//     await SessionManager().set("arg", arg); // add for web
+//   } // add for web
+// } // add for web
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
