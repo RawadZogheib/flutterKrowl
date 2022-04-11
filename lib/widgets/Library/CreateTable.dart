@@ -97,24 +97,12 @@ class _NextButtonState extends State<CreateTable> {
                   height: 40,
                   child: TextInput1(
                     spaceAllowed: false,
-                    onChanged: (val) {
-                      //check if there's a second space so i can trim
-                      // if(expSpace.hasMatch(val)){
-                      //   print("space should be removed");
-                      //   setState(() {
-                      //     val=val.trim();
-                      //   });
-                      //   globals.tableName=val.trim();
-                      //   print("After removing space"+globals.tableName+"hhdhhdddhdhd");
-                      // }else{
-                      //   globals.tableName=val;
-                      // }
-                      //
-                      // print(globals.tableName.toString());
+                      maxLength:15,
+                      onChanged: (val) {
                       setState(() {
                           globals.tableName=val;
                        });
-                      //globals.tableName = val;
+                      print(globals.tableName.toString().trim()+"ooooooooooooooooooooooo");
                     },
                   )),
               SizedBox(

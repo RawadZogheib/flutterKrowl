@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
+//RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
+RegExp expSpace1 = new RegExp(r"(?<=\s\S*\s).*"); //catch if the expression have a second space or two or more space with each other
+RegExp expSpace2 = new RegExp(r"^\s*");
 
 class TextInput1 extends StatefulWidget {
 
-  TextInput1 ({ required this.spaceAllowed, this.onChanged,this.controller, this.fillColor, this.hintText, this.cursorColor, this.focusColor });
+  TextInput1 ({required this.spaceAllowed,this.maxLength, this.onChanged,this.controller, this.fillColor, this.hintText, this.cursorColor, this.focusColor });
 
   var onChanged;
   var fillColor;
@@ -14,6 +16,7 @@ class TextInput1 extends StatefulWidget {
   var focusColor;
   var controller;
   bool spaceAllowed = true;
+  var maxLength;
 
   @override
   State<TextInput1> createState() => _TextInput1State();
@@ -23,6 +26,7 @@ class _TextInput1State extends State<TextInput1> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLength: widget.maxLength,
       controller: widget.controller,
       onChanged: widget.onChanged,
       cursorColor: widget.cursorColor,
@@ -42,7 +46,11 @@ class _TextInput1State extends State<TextInput1> {
       textInputAction: TextInputAction.done,
       inputFormatters: [
         if (widget.spaceAllowed == false)
-          FilteringTextInputFormatter.deny(expSpace)
+          FilteringTextInputFormatter.deny(expSpace1),
+        if (widget.spaceAllowed == false)
+          FilteringTextInputFormatter.deny(expSpace2),
+         //if (widget.spaceAllowed == false)
+         //   FilteringTextInputFormatter.deny(expSpace3),
       ],
     );
   }
