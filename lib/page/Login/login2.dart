@@ -357,7 +357,7 @@ class _Login2State extends State<Login2> {
   _noRemember() async {
     await SessionManager().remove("email");
     await SessionManager().remove("password");
-    await SessionManager().set('isLoggedIn', false);
+    await SessionManager().set('isLoggedIn', true);
     setState(() {
       _email = "";
       _password = "";
