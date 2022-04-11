@@ -286,7 +286,7 @@ class _NextButtonState extends State<CreateTable> {
 
         String table_type2;
         if (globals.isSilent == false) {
-          // Quite
+          // Quiet
           table_type2 = '1';
         } else if (globals.isSilent == true) {
           table_type2 = '2';

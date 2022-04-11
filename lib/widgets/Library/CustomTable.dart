@@ -161,7 +161,7 @@ class _CustomContainerState extends State<CustomTable>
                   children: [
                     Text(
                         widget.isSilent == false
-                            ? 'Quite Table'
+                            ? 'Quiet Table'
                             : 'Silent Table',
                         style: TextStyle(
                             color: Colors.grey.shade600, fontFamily: 'Rubik')),
