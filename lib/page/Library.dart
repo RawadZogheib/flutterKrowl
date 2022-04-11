@@ -947,8 +947,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     }
   }
 
-  _back() {
+  _back() async {
     //Navigator.pop(context);
+    await SessionManager().set('isLoggedIn', false);
     Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
   }
 
