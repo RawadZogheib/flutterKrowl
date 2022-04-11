@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
@@ -97,44 +98,47 @@ class _StudentProfileState extends State<StudentProfile> {
         backgroundColor: globals.white,
         body: Stack(
           children: [
-            SingleChildScrollView(
-              controller: ScrollController(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 130,
-                      ),
-                      StudentDetailedProfile(
-                        userId: widget.userId,
-                        username: widget.username,
-                        universityName: widget.universityName,
-                        description: widget.description,
-                        isFriend: widget.isFriend,
-                        nbrOfFriends: widget.nbrOfFriends,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      StudentQuestionsReplies(
-                        children1: children1,
-                        children2: children2,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      )
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [],
-                  )
-                ],
+            ScrollConfiguration(
+              behavior: MyCustomScrollBehavior(),
+              child: SingleChildScrollView(
+                controller: ScrollController(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 130,
+                        ),
+                        StudentDetailedProfile(
+                          userId: widget.userId,
+                          username: widget.username,
+                          universityName: widget.universityName,
+                          description: widget.description,
+                          isFriend: widget.isFriend,
+                          nbrOfFriends: widget.nbrOfFriends,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        StudentQuestionsReplies(
+                          children1: children1,
+                          children2: children2,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [],
+                    )
+                  ],
+                ),
               ),
             ),
             CustomTabBar(

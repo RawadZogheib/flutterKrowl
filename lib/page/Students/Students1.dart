@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
@@ -79,61 +80,67 @@ class _Students1State extends State<Students1>
               : null,
           backgroundColor: globals.white,
           body: Responsive(
-            mobile: SingleChildScrollView(
-              reverse: false,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SearchBar(hintText: "Search for students..."),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Wrap(
-                      direction: Axis.vertical,
-                      children: children, // My Children
-                    ),
-                  ],
+            mobile: ScrollConfiguration(
+              behavior: MyCustomScrollBehavior(),
+              child: SingleChildScrollView(
+                reverse: false,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SearchBar(hintText: "Search for students..."),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Wrap(
+                        direction: Axis.vertical,
+                        children: children, // My Children
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             tablet: Stack(
               children: [
-                SingleChildScrollView(
-                  reverse: false,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 130,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 130,
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              SearchBar(hintText: "Search for students..."),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Wrap(
-                                direction: Axis.vertical,
-                                children: children, // My Children
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    reverse: false,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 130,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 130,
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                SearchBar(hintText: "Search for students..."),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Wrap(
+                                  direction: Axis.vertical,
+                                  children: children, // My Children
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 CustomTabBar(
@@ -143,90 +150,93 @@ class _Students1State extends State<Students1>
             ),
             desktop: Stack(
               children: [
-                SingleChildScrollView(
-                  reverse: false,
-                  child: Column(children: [
-                    SizedBox(
-                      height: 130,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SearchBar(hintText: "Search for students..."),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            _load == true
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                        SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.57,
-                                            child: Center(
-                                              child: Image(
-                                                image: AssetImage(
-                                                    'Assets/krowl_logo.gif'),
-                                                fit: BoxFit.cover,
-                                                height: 150,
-                                                width: 150,
-                                              ),
-                                            )),
-                                        SizedBox(width: 20),
-                                      ])
-                                : Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    reverse: false,
+                    child: Column(children: [
+                      SizedBox(
+                        height: 130,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              SearchBar(hintText: "Search for students..."),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              _load == true
+                                  ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Wrap(children: children.toList()),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: NumberPaginator(
-                                            numberPages: _totalPages,
-                                            onPageChange: (int index) {
-                                              if (mounted) {
-                                                setState(() {
-                                                  _currentPage = index + 1;
-                                                  _loadNewPage();
-                                                  print(index + 1);
-                                                });
-                                              }
-                                            },
-                                            // initially selected index
-                                            initialPage: _currentPage - 1,
-                                            // default height is 48
-                                            buttonShape: BeveledRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                          SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.57,
+                                              child: Center(
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      'Assets/krowl_logo.gif'),
+                                                  fit: BoxFit.cover,
+                                                  height: 150,
+                                                  width: 150,
+                                                ),
+                                              )),
+                                          SizedBox(width: 20),
+                                        ])
+                                  : Container(
+                                      width:
+                                          MediaQuery.of(context).size.width * 0.8,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Wrap(children: children.toList()),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: NumberPaginator(
+                                              numberPages: _totalPages,
+                                              onPageChange: (int index) {
+                                                if (mounted) {
+                                                  setState(() {
+                                                    _currentPage = index + 1;
+                                                    _loadNewPage();
+                                                    print(index + 1);
+                                                  });
+                                                }
+                                              },
+                                              // initially selected index
+                                              initialPage: _currentPage - 1,
+                                              // default height is 48
+                                              buttonShape: BeveledRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              buttonSelectedForegroundColor:
+                                                  globals.blue2,
+                                              buttonUnselectedForegroundColor:
+                                                  globals.blue1,
+                                              buttonUnselectedBackgroundColor:
+                                                  globals.blue2,
+                                              buttonSelectedBackgroundColor:
+                                                  globals.blue1,
                                             ),
-                                            buttonSelectedForegroundColor:
-                                                globals.blue2,
-                                            buttonUnselectedForegroundColor:
-                                                globals.blue1,
-                                            buttonUnselectedBackgroundColor:
-                                                globals.blue2,
-                                            buttonSelectedBackgroundColor:
-                                                globals.blue1,
                                           ),
-                                        ),
-                                      ],
-                                    )),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ]),
+                                        ],
+                                      )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ]),
+                  ),
                 ),
                 CustomTabBar(
                   color: globals.blue1,

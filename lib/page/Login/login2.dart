@@ -50,7 +50,7 @@ class _Login2State extends State<Login2> {
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (_password != null) {
-              if (_password!.isNotEmpty)
+              if (_password!.isNotEmpty && _password != "")
                 try {
                   _login();
                 } catch (e) {
@@ -180,7 +180,7 @@ class _Login2State extends State<Login2> {
                             icon: Icons.arrow_forward,
                             onTap: () {
                               if (_password != null) {
-                                if (_password!.isNotEmpty)
+                                if (_password!.isNotEmpty && _password != "")
                                   try {
                                     _login();
                                   } catch (e) {

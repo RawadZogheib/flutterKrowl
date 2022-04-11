@@ -39,8 +39,9 @@ class _LoginState extends State<Login> {
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (_email != null) {
-              if (_email!.isNotEmpty) {
-                Navigator.pushNamed(context, '/login2');
+              if (_email!.isNotEmpty && _email != "") {
+                Navigator.pushNamed(context, '/login2',
+                    arguments: _email);
               } else {
                 WarningPopup(context, globals.warning1);
               }
@@ -144,7 +145,7 @@ class _LoginState extends State<Login> {
                             icon: Icons.arrow_forward,
                             onTap: () {
                               if (_email != null) {
-                                if (_email!.isNotEmpty) {
+                                if (_email!.isNotEmpty && _email != "") {
                                   Navigator.pushNamed(context, '/login2',
                                       arguments: _email);
                                 } else {
