@@ -67,7 +67,7 @@ class _CreatePostState extends State<CreatePost> {
                 child: Container(
                   width: 450,
                     height: 40,
-                    child: TextInput1(fillColor: Colors.white,)),
+                    child: TextInput1(spaceAllowed: true,fillColor: Colors.white,)),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),

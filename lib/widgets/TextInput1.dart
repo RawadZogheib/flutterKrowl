@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-
+RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
 
 class TextInput1 extends StatefulWidget {
 
-  TextInput1 ({ this.onChanged,this.controller, this.fillColor, this.hintText, this.cursorColor, this.focusColor });
+  TextInput1 ({ required this.spaceAllowed, this.onChanged,this.controller, this.fillColor, this.hintText, this.cursorColor, this.focusColor });
 
   var onChanged;
   var fillColor;
@@ -12,6 +13,7 @@ class TextInput1 extends StatefulWidget {
   var cursorColor;
   var focusColor;
   var controller;
+  bool spaceAllowed = true;
 
   @override
   State<TextInput1> createState() => _TextInput1State();
@@ -38,6 +40,11 @@ class _TextInput1State extends State<TextInput1> {
             borderSide: BorderSide(color: Colors.blue.shade900)),
       ),
       textInputAction: TextInputAction.done,
+      inputFormatters: [
+        if (widget.spaceAllowed == false)
+          FilteringTextInputFormatter.deny(expSpace)
+      ],
     );
   }
-}
+  }
+

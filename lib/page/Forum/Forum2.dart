@@ -177,6 +177,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                         width: 450,
                                         height: 40,
                                         child: TextInput1(
+                                          spaceAllowed: true,
                                           fillColor: Colors.white,
                                           hintText: 'Enter your question here',
                                           onChanged: (val) {
@@ -198,6 +199,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                     Container(
                                         width: 450,
                                         child: TextInput1(
+                                            spaceAllowed: true,
                                             fillColor: Colors.white,
                                             hintText: 'Give some context...',
                                             onChanged: (val) {
@@ -331,6 +333,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                             width: 450,
                                             height: 40,
                                             child: TextInput1(
+                                              spaceAllowed: true,
                                               fillColor: Colors.white,
                                               hintText:
                                                   'Enter your question here',
@@ -354,6 +357,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                         Container(
                                             width: 450,
                                             child: TextInput1(
+                                                spaceAllowed: true,
                                                 fillColor: Colors.white,
                                                 hintText: 'Give some context...',
                                                 onChanged: (val) {
@@ -492,6 +496,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                             width: 450,
                                             height: 40,
                                             child: TextInput1(
+                                              spaceAllowed: true,
                                               fillColor: Colors.white,
                                               hintText:
                                                   'Enter your question here',
@@ -515,6 +520,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                         Container(
                                             width: 450,
                                             child: TextInput1(
+                                                spaceAllowed: true,
                                                 fillColor: Colors.white,
                                                 hintText: 'Give some context...',
                                                 onChanged: (val) {

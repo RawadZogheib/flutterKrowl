@@ -96,6 +96,7 @@ class _NextButtonState extends State<CreateTable> {
                   width: 220,
                   height: 40,
                   child: TextInput1(
+                    spaceAllowed: false,
                     onChanged: (val) {
                       //check if there's a second space so i can trim
                       // if(expSpace.hasMatch(val)){
@@ -270,7 +271,7 @@ class _NextButtonState extends State<CreateTable> {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
         var user_uni = localStorage.getString("user_uni");
-        print(TextInput1().toString());
+        print(TextInput1(spaceAllowed: false,).toString());
 
         String table_type;
         if (globals.isPrivet == false) {

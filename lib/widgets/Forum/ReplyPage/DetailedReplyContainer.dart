@@ -185,6 +185,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
                 padding: const EdgeInsets.only(left: 8.0, top: 60),
                 child: Container(
                   child: TextInput1(
+                      spaceAllowed: true,
                       controller: nameHolder,
                       fillColor: Colors.white,
                       focusColor: Colors.transparent,
