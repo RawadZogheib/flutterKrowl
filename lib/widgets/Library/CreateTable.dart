@@ -1,16 +1,19 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Buttons/RadioButton.dart';
 import 'package:Krowl/widgets/Dropdown.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TextInput1.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-RegExp expTable = new RegExp(r"([A-Za-z0-9-_]+)*\s?([A-Za-z0-9-_]+)$"); //no space in the start or in the end, Upper, Lower, characters:_ -, we cna have only one space between 2 words
-RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
+RegExp expTable = new RegExp(
+    r"([A-Za-z0-9-_]+)*\s?([A-Za-z0-9-_]+)$"); //no space in the start or in the end, Upper, Lower, characters:_ -, we cna have only one space between 2 words
+RegExp expSpace = new RegExp(
+    r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
 
 class CreateTable extends StatefulWidget {
   var height;
@@ -27,6 +30,8 @@ class CreateTable extends StatefulWidget {
 
 class _NextButtonState extends State<CreateTable> {
   String? dropdownValue;
+  bool _isSpace = false;
+  List<LogicalKeyboardKey> keys = [];
   List gender = ['4', '5', '6', '7', '8'];
 
   @override
@@ -95,20 +100,39 @@ class _NextButtonState extends State<CreateTable> {
               Container(
                   width: 220,
                   height: 40,
-                  child: TextInput1(
-                    spaceAllowed: false,
-                      maxLength:15,
-                      onChanged: (val) {
-                      setState(() {
-                          globals.tableName=val;
-                       });
-                      print(globals.tableName.toString().trim()+"ooooooooooooooooooooooo");
-                    },
-                  )),
+                  child: RawKeyboardListener(
+                      focusNode: FocusNode(),
+                      onKey: (event) {
+                        final key = event.logicalKey;
+                        if (event is RawKeyDownEvent) {
+                          if (event.isKeyPressed(LogicalKeyboardKey.space)) {
+                            _isSpace = true;
+                          }
+                          setState(() => keys.add(key));
+                        } else {
+                          setState(() => keys.remove(key));
+                        }
+                      },
+                      child: TextInput1(
+                        spaceAllowed: false,
+                        maxLength: 15,
+                        onChanged: (val) {
+                          setState(() {
+                            globals.tableName = val;
+                          });
+                          print(globals.tableName.toString().trim() +
+                              "ooooooooooooooooooooooo");
+                        },
+                      ))),
               SizedBox(
                 height: 10,
               ),
-              //Text(globals.warning1,style: TextStyle(color: Colors.red),),
+              _isSpace == true
+                  ? Text(
+                      globals.warning1,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Container(),
               SizedBox(
                 height: 20,
               ),
@@ -209,7 +233,8 @@ class _NextButtonState extends State<CreateTable> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () {
-                    _tablename();},
+                    _tablename();
+                  },
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(globals.blue1),
@@ -234,17 +259,18 @@ class _NextButtonState extends State<CreateTable> {
       ],
     );
   }
-  _tablename(){
-        if (globals.tableName.toString().length <= 15) {
-          if (expTable.hasMatch(globals.tableName.toString())) {
-            _createTable();
-          } else {
-            ErrorPopup(context, globals.error14);
-          }
-        } else {
-          ErrorPopup(context, globals.error13);
-        }
+
+  _tablename() {
+    if (globals.tableName.toString().length <= 15) {
+      if (expTable.hasMatch(globals.tableName.toString())) {
+        _createTable();
+      } else {
+        ErrorPopup(context, globals.error14);
       }
+    } else {
+      ErrorPopup(context, globals.error13);
+    }
+  }
 
   Future<void> _createTable() async {
     if (globals.loadCreateTableLibrary == false) {
@@ -263,7 +289,9 @@ class _NextButtonState extends State<CreateTable> {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         var account_Id = localStorage.getString("account_Id");
         var user_uni = localStorage.getString("user_uni");
-        print(TextInput1(spaceAllowed: false,).toString());
+        print(TextInput1(
+          spaceAllowed: false,
+        ).toString());
 
         String table_type;
         if (globals.isPrivet == false) {
@@ -302,7 +330,11 @@ class _NextButtonState extends State<CreateTable> {
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
-          widget.onTap(body[1],body[2]);
+          setState(() {
+            _isSpace = false;
+          });
+          widget.onTap(body[0], body[1]);
+
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
