@@ -106,6 +106,10 @@ class _NextButtonState extends State<CreateTable> {
                     },
                   )),
               SizedBox(
+                height: 10,
+              ),
+              //Text(globals.warning1,style: TextStyle(color: Colors.red),),
+              SizedBox(
                 height: 20,
               ),
               Row(

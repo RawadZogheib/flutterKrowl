@@ -2,21 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
-RegExp expSpace1 = new RegExp(r"(?<=\s\S*\s).*"); //catch if the expression have a second space or two or more space with each other
+RegExp expSpace1 = new RegExp(
+    r"(?<=\s\S*\s).*"); //catch if the expression have a second space or two or more space with each other
 RegExp expSpace2 = new RegExp(r"^\s*");
 
 class TextInput1 extends StatefulWidget {
-
-  TextInput1 ({required this.spaceAllowed,this.maxLength, this.onChanged,this.controller, this.fillColor, this.hintText, this.cursorColor, this.focusColor });
-
   var onChanged;
   var fillColor;
   var hintText;
   var cursorColor;
   var focusColor;
   var controller;
-  bool spaceAllowed = true;
+  bool spaceAllowed;
   var maxLength;
+
+  TextInput1(
+      {
+      this.spaceAllowed = true,
+      this.maxLength,
+      this.onChanged,
+      this.controller,
+      this.fillColor,
+      this.hintText,
+      this.cursorColor,
+      this.focusColor});
+
 
   @override
   State<TextInput1> createState() => _TextInput1State();
@@ -31,6 +41,7 @@ class _TextInput1State extends State<TextInput1> {
       onChanged: widget.onChanged,
       cursorColor: widget.cursorColor,
       decoration: InputDecoration(
+        counterText: "",
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade400),
             borderRadius: BorderRadius.circular(5)),
@@ -45,14 +56,18 @@ class _TextInput1State extends State<TextInput1> {
       ),
       textInputAction: TextInputAction.done,
       inputFormatters: [
+        // if (widget.spaceAllowed == false)
+        //   FilteringTextInputFormatter.deny(expSpace1),
+        // if (widget.spaceAllowed == false)
+        //   FilteringTextInputFormatter.deny(expSpace2),
+        // //if (widget.spaceAllowed == false)
+        //   FilteringTextInputFormatter.deny(expSpace3),
+
         if (widget.spaceAllowed == false)
-          FilteringTextInputFormatter.deny(expSpace1),
+          FilteringTextInputFormatter.deny(RegExp(r"\s")),
         if (widget.spaceAllowed == false)
-          FilteringTextInputFormatter.deny(expSpace2),
-         //if (widget.spaceAllowed == false)
-         //   FilteringTextInputFormatter.deny(expSpace3),
+          FilteringTextInputFormatter.deny(RegExp(r"\n")),
       ],
     );
   }
-  }
-
+}
