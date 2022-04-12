@@ -300,7 +300,7 @@ class ShapedWidget3 extends StatelessWidget {
                           onTap: () {
                             Clipboard.setData(ClipboardData(
                                     text:
-                                        'krowl.dataflow.com.lb:8070/private=' + tableCode))
+                                        'krowl.dataflow.com.lb:8070/#/?private=' + tableCode))
                                 .then((value) {
                               SuccessPopup(context, 'Link copied successfully.');
                               print('copy');
@@ -324,7 +324,7 @@ class ShapedWidget3 extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'krowl.dataflow.com.lb:8070/private=' + tableCode,
+                                  'krowl.dataflow.com.lb:8070/#/?private=' + tableCode,
                                   style: TextStyle(
                                     fontSize: 10,
                                     color: Colors.black,
