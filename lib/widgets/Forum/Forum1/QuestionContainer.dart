@@ -6,6 +6,7 @@ import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/page/Forum/ReplyPage.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -193,8 +194,7 @@ class _QuestionState extends State<Question> {
       print('Sending like to server...');
 
       //send to server
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+      var account_Id = await SessionManager().get('account_Id');
 
       var data = {
         'version': globals.version,
@@ -295,8 +295,7 @@ class _QuestionState extends State<Question> {
           '=========>>======================================================>>==================================================>>=========');
       print('Sending dislike to server...');
       //send to server
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+      var account_Id = await SessionManager().get('account_Id');
 
       var data = {
         'version': globals.version,

@@ -14,7 +14,6 @@ import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:number_paginator/number_paginator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Library()));
@@ -31,7 +30,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> _children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
-  int _totalPages = 999;
+  int _totalPages = 9999999999;
   int _totalTables = 11988;
   int _maxTables = 12;
   bool load = true;
@@ -543,8 +542,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                     controller: ScrollController(),
                                     reverse: false,
                                     child: Container(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.68,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.68,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -552,37 +552,73 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Wrap(children: _children.toList()),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: NumberPaginator(
-                                                numberPages: _totalPages,
-                                                onPageChange: (int index) {
-                                                  if (mounted) {
-                                                    setState(() {
-                                                      _currentPage = index + 1;
-                                                      _loadNewPage();
-                                                      print(index + 1);
-                                                    });
-                                                  }
-                                                },
-                                                // initially selected index
-                                                initialPage: _currentPage - 1,
-                                                // default height is 48
-                                                buttonShape:
-                                                    BeveledRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                buttonSelectedForegroundColor:
-                                                    globals.blue2,
-                                                buttonUnselectedForegroundColor:
-                                                    globals.blue1,
-                                                buttonUnselectedBackgroundColor:
-                                                    globals.blue2,
-                                                buttonSelectedBackgroundColor:
-                                                    globals.blue1,
-                                              ),
-                                            ),
+                                            _totalPages != 9999999999
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: NumberPaginator(
+                                                      numberPages: _totalPages,
+                                                      onPageChange:
+                                                          (int index) {
+                                                        if (mounted) {
+                                                          setState(() {
+                                                            _currentPage =
+                                                                index + 1;
+                                                            _loadNewPage();
+                                                            print(index + 1);
+                                                          });
+                                                        }
+                                                      },
+                                                      // initially selected index
+                                                      initialPage:
+                                                          _currentPage - 1,
+                                                      // default height is 48
+                                                      buttonShape:
+                                                          BeveledRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      buttonSelectedForegroundColor:
+                                                          globals.blue2,
+                                                      buttonUnselectedForegroundColor:
+                                                          globals.blue1,
+                                                      buttonUnselectedBackgroundColor:
+                                                          globals.blue2,
+                                                      buttonSelectedBackgroundColor:
+                                                          globals.blue1,
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.75,
+                                                    alignment: Alignment.center,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Image(
+                                                          image: AssetImage(
+                                                            'Assets/krowl_logo.gif',
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                          height: 250,
+                                                          width: 250,
+                                                        ),
+                                                        Text(
+                                                          globals
+                                                              .warningEmptyLibrary,
+                                                          style: TextStyle(
+                                                              fontSize: 32),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                           ],
                                         )),
                                   ),
@@ -706,9 +742,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         ///////////////////////
 
         //globals.occupenTable.clear();
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
-        var user_uni = localStorage.getString("user_uni");
+        var account_Id = await SessionManager().get('account_Id');
+        var user_uni = await SessionManager().get('user_uni');
 
         var data = {
           'version': globals.version,
@@ -828,7 +863,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               _loadNewPage();
             });
           } else {
-            WarningPopup(context, globals.warningEmptyLibrary);
+            setState(() {
+              _totalTables = 9999999999;
+            });
+            //WarningPopup(context, globals.warningEmptyLibrary);
           }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -952,7 +990,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     await SessionManager().set('isLoggedIn', false);
     Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
   }
-
 
 // _columnChecker(int val, int nb) {
 //   if (val == 0) {

@@ -6,6 +6,7 @@ import 'package:Krowl/widgets/Chat/components/chat.dart';
 import 'package:Krowl/widgets/Chat/components/streamChatFriends.dart';
 import 'package:Krowl/widgets/Chat/models/chat_users.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stream_chat/stream_chat.dart';
 
@@ -123,9 +124,7 @@ class _ChatPage2State extends State<ChatPage2> {
 
   _loadFriends() async {
     globals.children2.clear();
-
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var account_Id = localStorage.getString("account_Id");
+    var account_Id = await SessionManager().get('account_Id');
 
     var data = {
       'version': globals.version,
@@ -180,9 +179,8 @@ class _ChatPage2State extends State<ChatPage2> {
   }
 
   initChat(var channelId,var channelName) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var usernameChat = localStorage.getString("username");
-    var userToken = localStorage.getString("userTokenChat");
+    var usernameChat = await SessionManager().get('username');
+    var userToken = await SessionManager().get('userTokenChat');
     print("ddddddddddddddddddddddddd" + userToken.toString());
 
     client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);

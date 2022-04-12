@@ -11,6 +11,7 @@ import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -481,10 +482,8 @@ class _CustomContainerState extends State<CustomTable>
 
       try {
         print('load joinTable');
-
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
-        var username = localStorage.getString("username");
+        var account_Id = await SessionManager().get('account_Id');
+        var username = await SessionManager().get('username');
 
         var data = {
           'version': globals.version,

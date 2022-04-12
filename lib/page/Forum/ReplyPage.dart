@@ -319,8 +319,7 @@ class _ReplyPageState extends State<ReplyPage>
         //   });
         // }
 
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
+        var account_Id = await SessionManager().get('account_Id');
 
         var data = {
           'version': globals.version,
@@ -499,8 +498,8 @@ class _ReplyPageState extends State<ReplyPage>
 
   _addReply(id, date) async {
     print(id);
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    String? username = localStorage.getString('username');
+
+    String? username = await SessionManager().get('username');
 
     if (mounted) {
       setState(() {

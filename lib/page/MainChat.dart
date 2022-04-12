@@ -188,9 +188,8 @@ class _MainChatState extends State<MainChat> {
   }
 
   initChat() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var usernameChat = localStorage.getString("username");
-    var userToken = localStorage.getString("userTokenChat");
+    var usernameChat = await SessionManager().get('username');
+    var userToken = await SessionManager().get('userTokenChat');
     print("ddddddddddddddddddddddddd" + userToken.toString());
 
     await client

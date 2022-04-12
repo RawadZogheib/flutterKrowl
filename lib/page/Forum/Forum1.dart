@@ -402,9 +402,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
       try {
         print('load forum1');
 
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
-        var user_uni = localStorage.getString("user_uni");
+        var account_Id = await SessionManager().get('account_Id');
+        var user_uni = await SessionManager().get('user_uni');
 
         var data = {
           'version': globals.version,

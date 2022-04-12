@@ -6,6 +6,7 @@ import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Forum/Forum1/AskQuestionButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TextInput1.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -233,8 +234,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       try {
         print('load createReplyPage');
 
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
+        var account_Id = await SessionManager().get('account_Id');
         var date = DateTime.now().toString();
 
         var data = {
@@ -297,8 +297,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       print('Sending like to server...');
 
       //send to server
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+      var account_Id = await SessionManager().get('account_Id');
 
       var data = {
         'version': globals.version,
@@ -374,8 +373,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           '=========>>======================================================>>==================================================>>=========');
       print('Sending dislike to server...');
       //send to server
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var account_Id = localStorage.getString("account_Id");
+      var account_Id = await SessionManager().get('account_Id');
 
       var data = {
         'version': globals.version,

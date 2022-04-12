@@ -268,8 +268,7 @@ class _Students1State extends State<Students1>
         }
 
         //globals.occupenTable.clear();
-        SharedPreferences localStorage = await SharedPreferences.getInstance();
-        var account_Id = localStorage.getString("account_Id");
+        var account_Id = await SessionManager().get('account_Id');
 
         var data = {
           'version': globals.version,
