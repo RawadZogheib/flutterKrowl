@@ -6,7 +6,7 @@ import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
 
 class ShapedWidget extends StatelessWidget {
-  ShapedWidget();
+  //ShapedWidget();
 
   final double padding = 4.0;
 

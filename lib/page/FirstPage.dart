@@ -5,6 +5,7 @@ import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/my_api.dart';
 
@@ -57,8 +58,7 @@ class _FirstPage extends State<FirstPage> {
           print(res.body);
           List<dynamic> body = json.decode(res.body);
           if (body[0] == 'success') {
-            if (await SessionManager().containsKey("email") &&
-                await SessionManager().containsKey("password")) {
+            if (await SessionManager().get("rememberMe") == true) {
               _login();
             } else {
               while (_threeSecondPassed == false) {
@@ -75,8 +75,7 @@ class _FirstPage extends State<FirstPage> {
         }
       } else {
         print("NO ARGUMENT FOR PRIVATE TABLE AVAILABLE");
-        if (await SessionManager().containsKey("email") &&
-            await SessionManager().containsKey("password")) {
+        if (await SessionManager().get("rememberMe") == true) {
           _login();
         } else {
           while (_threeSecondPassed == false) {
@@ -94,104 +93,114 @@ class _FirstPage extends State<FirstPage> {
   _login() async {
     var data;
     try {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      String _email = (await localStorage.getString("email")).toString();
+      String _password = (await localStorage.getString("password")).toString();
+
       var arg = await SessionManager().get("arg");
-      String _email = (await SessionManager().get("email")).toString();
-      String _password = (await SessionManager().get("password")).toString();
+      // String _email = (await SessionManager().get("email")).toString();
+      // String _password = (await SessionManager().get("password")).toString();
       //_email = await SessionManager().get("email");
       //_password = await SessionManager().get("password");
-      if (_email != null && _password != null) {
+      if (await SessionManager().get("rememberMe") == true) {
         if (_email.isNotEmpty && _password.isNotEmpty) {
-          print("LOGIN2 ARGUMENT = " + arg.toString());
-          if (arg != null) {
-            if (arg.toString().isNotEmpty) {
+          if (_email != '' && _password != '') {
+            print("LOGIN2 ARGUMENT = " + arg.toString());
+            if (arg != null) {
+              if (arg.toString().isNotEmpty) {
+                data = {
+                  'version': globals.version,
+                  'email': _email,
+                  'password': _password,
+                  'private': arg.toString()
+                };
+              }
+            } else {
               data = {
                 'version': globals.version,
                 'email': _email,
-                'password': _password,
-                'private': arg.toString()
+                'password': _password
               };
             }
-          } else {
-            data = {
-              'version': globals.version,
-              'email': _email,
-              'password': _password
-            };
-          }
-          var res = await CallApi().postData(data, '(Control)login.php');
-          print(res.body);
-          List<dynamic> body = json.decode(res.body);
+            var res = await CallApi().postData(data, '(Control)login.php');
+            print(res.body);
+            List<dynamic> body = json.decode(res.body);
 
-          if (body[0] == "true") {
-            //sessionManager.remove("arg");
+            if (body[0] == "true") {
+              //sessionManager.remove("arg");
 
-            print("CHATTTfffffffffffffff: ${body[6]}");
-            await SessionManager().set('token', body[1]);
-            await SessionManager().set('account_Id', body[2]);
-            // await SessionManager().set('email', _email.toString());
-            // await SessionManager().set('password', _password!);
-            await SessionManager().set('username', body[3]);
-            await SessionManager().set('user_uni', body[4]);
-            await SessionManager().set('photo', body[5]);
-            await SessionManager().set('userTokenChat', body[6]);
-            await SessionManager().set('isLoggedIn', true);
+              print("CHATTTfffffffffffffff: ${body[6]}");
+              await SessionManager().set('token', body[1]);
+              await SessionManager().set('account_Id', body[2]);
+              await SessionManager().set('username', body[3]);
+              await SessionManager().set('user_uni', body[4]);
+              await SessionManager().set('photo', body[5]);
+              await SessionManager().set('userTokenChat', body[6]);
+              await SessionManager().set('isLoggedIn', true);
 
-            if (body[7] == '1') {
-              while (_threeSecondPassed == false) {
-                await Future.delayed(Duration(seconds: 1));
+              if (body[7] == '1') {
+                while (_threeSecondPassed == false) {
+                  await Future.delayed(Duration(seconds: 1));
+                }
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Library', (route) => false);
+              } else if (body[7] == '0') {
+                while (_threeSecondPassed == false) {
+                  await Future.delayed(Duration(seconds: 1));
+                }
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/Code", (route) => false);
+              } else {
+                while (_threeSecondPassed == false) {
+                  await Future.delayed(Duration(seconds: 1));
+                }
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/intro_page', (route) => false);
+                print('errorElse');
               }
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/Library', (route) => false);
-            } else if (body[7] == '0') {
+            } else if (body[0] == "errorToken") {
               while (_threeSecondPassed == false) {
-                await Future.delayed(Duration(seconds: 1));
-              }
-              Navigator.pushNamedAndRemoveUntil(
-                  context, "/Code", (route) => false);
-            } else {
-              while (_threeSecondPassed == false) {
-                ;
                 await Future.delayed(Duration(seconds: 1));
               }
               Navigator.pushNamedAndRemoveUntil(
                   context, '/intro_page', (route) => false);
-              ErrorPopup(context, globals.errorElse);
+              print('errorToken');
+            } else if (body[0] == "errorVersion") {
+              while (_threeSecondPassed == false) {
+                await Future.delayed(Duration(seconds: 1));
+              }
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/intro_page', (route) => false);
+              print('errorVersion');
+            } else if (body[0] == "false") {
+              while (_threeSecondPassed == false) {
+                await Future.delayed(Duration(seconds: 1));
+              }
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/intro_page', (route) => false);
+              print('Invalid username or password.');
+            } else if (body[0] == "error7") {
+              while (_threeSecondPassed == false) {
+                await Future.delayed(Duration(seconds: 1));
+              }
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/intro_page', (route) => false);
+              print('error7');
+            } else {
+              while (_threeSecondPassed == false) {
+                await Future.delayed(Duration(seconds: 1));
+              }
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/intro_page', (route) => false);
+              print('errorElse');
             }
-          } else if (body[0] == "errorToken") {
-            while (_threeSecondPassed == false) {
-              await Future.delayed(Duration(seconds: 1));
-            }
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/intro_page', (route) => false);
-            ErrorPopup(context, globals.errorToken);
-          } else if (body[0] == "errorVersion") {
-            while (_threeSecondPassed == false) {
-              await Future.delayed(Duration(seconds: 1));
-            }
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/intro_page', (route) => false);
-            ErrorPopup(context, globals.errorToken);
-          } else if (body[0] == "false") {
-            while (_threeSecondPassed == false) {
-              await Future.delayed(Duration(seconds: 1));
-            }
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/intro_page', (route) => false);
-            WarningPopup(context, 'Invalid username or password.');
-          } else if (body[0] == "error7") {
-            while (_threeSecondPassed == false) {
-              await Future.delayed(Duration(seconds: 1));
-            }
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/intro_page', (route) => false);
-            WarningPopup(context, globals.warning7);
           } else {
             while (_threeSecondPassed == false) {
               await Future.delayed(Duration(seconds: 1));
             }
             Navigator.pushNamedAndRemoveUntil(
                 context, '/intro_page', (route) => false);
-            ErrorPopup(context, globals.errorElse);
+            print('error7');
           }
         } else {
           while (_threeSecondPassed == false) {
@@ -199,7 +208,7 @@ class _FirstPage extends State<FirstPage> {
           }
           Navigator.pushNamedAndRemoveUntil(
               context, '/intro_page', (route) => false);
-          WarningPopup(context, globals.warning7);
+          print('error7');
         }
       } else {
         while (_threeSecondPassed == false) {
@@ -207,7 +216,7 @@ class _FirstPage extends State<FirstPage> {
         }
         Navigator.pushNamedAndRemoveUntil(
             context, '/intro_page', (route) => false);
-        WarningPopup(context, globals.warning7);
+        print('rememberMe==false');
       }
     } catch (e) {
       print(e);
@@ -216,7 +225,7 @@ class _FirstPage extends State<FirstPage> {
       }
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);
-      ErrorPopup(context, globals.errorException);
+      print('errorException');
     }
   }
 }

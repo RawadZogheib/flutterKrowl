@@ -1,7 +1,7 @@
-
-import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
+import 'package:Krowl/widgets/PopUp/ProfilePopUp.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
   Color color;
@@ -15,13 +15,17 @@ class CustomTabBar extends StatefulWidget {
 }
 
 class _CustomTabBarState extends State<CustomTabBar>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   AnimationController? animationController;
+  AnimationController? animationController2;
   bool _menuShown = false;
+  bool _profileIsClicked = false;
 
   @override
   void initState() {
     animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animationController2 =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
   }
@@ -34,6 +38,13 @@ class _CustomTabBarState extends State<CustomTabBar>
       animationController!.forward();
     else
       animationController!.reverse();
+
+    Animation<double> opacityAnimation2 =
+        Tween(begin: 0.0, end: 1.0).animate(animationController2!);
+    if (_profileIsClicked)
+      animationController2!.forward();
+    else
+      animationController2!.reverse();
     return Stack(
       // clipBehavior: Clip.none,
       children: [
@@ -171,14 +182,24 @@ class _CustomTabBarState extends State<CustomTabBar>
                       ),
                       onPressed: () {
                         setState(() {
+                          if (_profileIsClicked == true)
+                            _profileIsClicked = false;
                           _menuShown = !_menuShown;
                         });
                       }),
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('Assets/userImage6.jpeg'),
-                      maxRadius: 20,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          if (_menuShown == true) _menuShown = false;
+                          _profileIsClicked = !_profileIsClicked;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('Assets/userImage6.jpeg'),
+                        maxRadius: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -196,6 +217,24 @@ class _CustomTabBarState extends State<CustomTabBar>
                 FadeTransition(
                   opacity: opacityAnimation,
                   child: ShapedWidget(),
+                ),
+                SizedBox(
+                  width: 12,
+                )
+              ],
+            ),
+          ),
+        ),
+        IgnorePointer(
+          ignoring: !_profileIsClicked,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 83.0),
+            child: Row(
+              children: [
+                Expanded(child: SizedBox()),
+                FadeTransition(
+                  opacity: opacityAnimation2,
+                  child: ShapedWidgetProfile(),
                 ),
                 SizedBox(
                   width: 12,

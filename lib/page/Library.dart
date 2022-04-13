@@ -979,6 +979,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Library';
       _loadNewPage();
+      if(await SessionManager().containsKey("arg")){
+        setState(() {
+          _isPrivet = true;
+        });
+        await SessionManager().remove('arg');
+      }
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);

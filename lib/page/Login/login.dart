@@ -4,7 +4,7 @@ import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
@@ -40,8 +40,7 @@ class _LoginState extends State<Login> {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             if (_email != null) {
               if (_email!.isNotEmpty && _email != "") {
-                Navigator.pushNamed(context, '/login2',
-                    arguments: _email);
+                Navigator.pushNamed(context, '/login2', arguments: _email);
               } else {
                 WarningPopup(context, globals.warning1);
               }
@@ -170,8 +169,9 @@ class _LoginState extends State<Login> {
   }
 
   _getSaved() async {
-    if (await SessionManager().containsKey('email')) {
-      String e = (await SessionManager().get('email')).toString();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    if (await localStorage.containsKey('email')) {
+      String e = (await localStorage.getString("email")).toString();
       print(e);
       setState(() {
         _email = e;

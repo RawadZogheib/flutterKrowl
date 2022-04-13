@@ -9,6 +9,7 @@ import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
@@ -23,7 +24,7 @@ class Login2 extends StatefulWidget {
 
 class _Login2State extends State<Login2> {
   var _email;
-  String? _password = "";
+  String _password = "";
   var blue1;
   var blue2;
   var white;
@@ -49,8 +50,8 @@ class _Login2State extends State<Login2> {
         final key = event.logicalKey;
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-            if (_password != null) {
-              if (_password!.isNotEmpty && _password != "")
+            //if (_password != null) {
+              if (_password.isNotEmpty && _password != ""){
                 try {
                   _login();
                 } catch (e) {
@@ -251,7 +252,7 @@ class _Login2State extends State<Login2> {
       var arg = await SessionManager().get("arg");
       //_email = await SessionManager().get("email");
       //_password = await SessionManager().get("password");
-      if (_email != null && _password != null) {
+      if (_email != null) {
         if (_email.isNotEmpty && _password!.isNotEmpty) {
           print("LOGIN2 ARGUMENT = " + arg.toString());
           if (arg != null) {
@@ -285,7 +286,6 @@ class _Login2State extends State<Login2> {
             await SessionManager().set('token', body[1]);
             await SessionManager().set('account_Id', body[2]);
             await SessionManager().set('email', _email.toString());
-            await SessionManager().set('password', _password!);
             await SessionManager().set('username', body[3]);
             await SessionManager().set('user_uni', body[4]);
             await SessionManager().set('photo', body[5]);
@@ -345,8 +345,10 @@ class _Login2State extends State<Login2> {
   }
 
   _yesRemember() async {
-    await SessionManager().set('email', _email);
-    await SessionManager().set('password', _password);
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.setString('email', _email);
+    await localStorage.setString('password', _password);
+    await SessionManager().set('rememberMe', true);
     await SessionManager().set('isLoggedIn', true);
 
     // Navigator.popUntil(context, ModalRoute.withName('/intro_page'));
@@ -355,8 +357,10 @@ class _Login2State extends State<Login2> {
   }
 
   _noRemember() async {
-    await SessionManager().remove("email");
-    await SessionManager().remove("password");
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.remove('email');
+    await localStorage.remove('password');
+    await SessionManager().set('rememberMe', false);
     await SessionManager().set('isLoggedIn', true);
     setState(() {
       _email = "";
@@ -369,8 +373,9 @@ class _Login2State extends State<Login2> {
   }
 
   _getSaved() async {
-    if (await SessionManager().containsKey('password')) {
-      String p = (await SessionManager().get('password')).toString();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    if (await localStorage.containsKey('password')) {
+      String p = (await localStorage.getString("password")).toString();
       print(p);
       setState(() {
         _password = p;
