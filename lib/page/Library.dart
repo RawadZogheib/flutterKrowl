@@ -865,6 +865,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
           } else {
             setState(() {
               _totalTables = 0;
+              _totalPages = 0;
             });
             //WarningPopup(context, globals.warningEmptyLibrary);
           }
