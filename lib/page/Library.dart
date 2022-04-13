@@ -30,8 +30,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   List<CustomTable> _children = <CustomTable>[];
   Timer? timer;
   int _currentPage = 1;
-  int _totalPages = 9999999999;
-  int _totalTables = 11988;
+  int _totalPages = 0;
+  int _totalTables = 0;
   int _maxTables = 12;
   bool load = true;
 
@@ -552,7 +552,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Wrap(children: _children.toList()),
-                                            _totalPages != 9999999999
+                                            _totalPages != 0
                                                 ? Padding(
                                                     padding:
                                                         const EdgeInsets.all(
