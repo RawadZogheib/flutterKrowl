@@ -56,6 +56,7 @@ const String warning7 = "Field cannot be empty.";
 const String warning8 = "Full Table";
 const String error9 = "Position Taken";
 const String warning10 = "Table name already taken";
+const String warning11 = "[ a-zA-Z0-9_- ] Allowed";
 const String error11 = "This email is not Registered";
 const String error12 = "Incorrect Email sent";
 const String error13 = "Table Name can contain max 15 Characters";

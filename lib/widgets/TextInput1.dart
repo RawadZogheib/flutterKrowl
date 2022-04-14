@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //RegExp expSpace = new RegExp(r"^[ ]+|^[ ]*[^ ]+([ ]{2,})+|(([^ ]+[ ]+[^ ]+)[ ])+"); //catch if the expression have a second space or two or more space with each other
-RegExp expSpace1 = new RegExp(
-    r"(?<=\s\S*\s).*"); //catch if the expression have a second space or two or more space with each other
-RegExp expSpace2 = new RegExp(r"^\s*");
+
 
 class TextInput1 extends StatefulWidget {
   var onChanged;
@@ -62,11 +60,12 @@ class _TextInput1State extends State<TextInput1> {
         //   FilteringTextInputFormatter.deny(expSpace2),
         // //if (widget.spaceAllowed == false)
         //   FilteringTextInputFormatter.deny(expSpace3),
-
         if (widget.spaceAllowed == false)
-          FilteringTextInputFormatter.deny(RegExp(r"\s")),
-        if (widget.spaceAllowed == false)
-          FilteringTextInputFormatter.deny(RegExp(r"\n")),
+          FilteringTextInputFormatter.deny(RegExp(r"((?![a-zA-Z0-9_-]).)*")),
+        // if (widget.spaceAllowed == false)
+        //   FilteringTextInputFormatter.deny(RegExp(r"\s")),
+        // if (widget.spaceAllowed == false)
+        //   FilteringTextInputFormatter.deny(RegExp(r"\n")),
       ],
     );
   }

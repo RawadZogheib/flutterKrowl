@@ -129,7 +129,7 @@ class _NextButtonState extends State<CreateTable> {
               ),
               _isSpace == true
                   ? Text(
-                      globals.warning1,
+                      globals.warning11,
                       style: TextStyle(color: Colors.red),
                     )
                   : Container(),
