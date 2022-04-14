@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/hexColor/hexColor.dart';
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -89,6 +91,12 @@ class MyDrawer extends StatelessWidget {
                               color: globals.white,
                               onClicked: () => selectedItem(context, 6),
                             ),
+                            MenuItem(
+                              text: 'Logout',
+                              icon: Icons.logout,
+                              color: globals.white,
+                              onClicked: () => selectedItem(context, 5),
+                            ),
                           ],
                         ),
                       ),
@@ -141,13 +149,43 @@ class MyDrawer extends StatelessWidget {
         // }
         break;
       case 6: // Settings
-        // if (globals.currentPage != 'Settings') {
-        //   Navigator.pushNamedAndRemoveUntil(
-        //       context, '/Settings', (route) => false);
-        // }
+        if (globals.currentPage != 'Settings') {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/Settings', (route) => false);
+        }
+        print('6');
+        break;
+      case 7: // Logout
+        _logout();
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/intro_page', (route) => false);
+        print('7');
         break;
     }
   }
+
+  Future<void> _logout() async {
+    if (await SessionManager().get('rememberMe') == true) {
+      SharedPreferences localStorage =
+      await SharedPreferences.getInstance();
+      String _email = (await localStorage.getString('email')).toString();
+      String _password =
+      (await localStorage.getString('password')).toString();
+
+      await SessionManager().destroy();
+
+      if (_email.toUpperCase() != 'NULL' &&
+          _password.toUpperCase() != 'NULL') {
+        SharedPreferences localStorage =
+        await SharedPreferences.getInstance();
+        await localStorage.setString('email', _email);
+        await localStorage.setString('password', _password);
+      }
+    } else {
+      await SessionManager().destroy();
+    }
+  }
+
 }
 
 class MenuItem extends StatelessWidget {
