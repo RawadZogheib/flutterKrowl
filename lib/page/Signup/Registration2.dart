@@ -146,7 +146,7 @@ class _Registration2State extends State<Registration2> {
     var res = await CallApi().postData(data, '(Control)registration2.php');
 
     List<dynamic> body = json.decode(res.body);
-    print(body[0]);
+    print(body);
     print("sdfsdfsdf");
     //print(body[0][0]);
 
