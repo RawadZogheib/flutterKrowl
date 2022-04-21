@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/hexColor/hexColor.dart';
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
+import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.of(context).size.width > 700 &&
         Scaffold.of(context).isDrawerOpen) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Scaffold.of(context).closeDrawer();
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        //Scaffold.of(context).closeDrawer();
       });
     }
     return MediaQuery.of(context).size.width < 700
