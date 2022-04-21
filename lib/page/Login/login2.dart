@@ -181,7 +181,7 @@ class _Login2State extends State<Login2> {
                             icon: Icons.arrow_forward,
                             onTap: () {
                               if (_password != null) {
-                                if (_password!.isNotEmpty && _password != "")
+                                if (_password.isNotEmpty && _password != "")
                                   try {
                                     _login();
                                   } catch (e) {
@@ -253,7 +253,7 @@ class _Login2State extends State<Login2> {
       //_email = await SessionManager().get("email");
       //_password = await SessionManager().get("password");
       if (_email != null) {
-        if (_email.isNotEmpty && _password!.isNotEmpty) {
+        if (_email.isNotEmpty && _password.isNotEmpty) {
           print("LOGIN2 ARGUMENT = " + arg.toString());
           if (arg != null) {
             if (arg.toString().isNotEmpty) {
