@@ -32,6 +32,7 @@ class CustomTable extends StatefulWidget {
   bool isSilent;
   bool isPrivet;
   bool isNew;
+  bool isControlPanel;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<dynamic> getIds; // Users ids
   List<dynamic> getUsers; // Users names
@@ -57,6 +58,7 @@ class CustomTable extends StatefulWidget {
     required this.isSilent,
     required this.isPrivet,
     required this.isNew,
+    required this.isControlPanel,
     required this.getIdsPrivet,
     required this.getUsersPrivet,
     required this.getImgsPrivet,
@@ -75,7 +77,6 @@ class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
   bool _iconIsClicked = false;
   bool _iconIsClicked2 = false;
-  bool _isSit = false;
   late Timer timer;
   var tableStatus;
 
@@ -119,7 +120,7 @@ class _CustomContainerState extends State<CustomTable>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _isSit == true
+          widget.isControlPanel == true
               ? Container(
                   height: 35,
                   decoration: BoxDecoration(
@@ -161,7 +162,7 @@ class _CustomContainerState extends State<CustomTable>
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         onTap: () => setState(() {
-                          _isSit = false;
+                          widget.isControlPanel = false;
                         }),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -537,7 +538,7 @@ class _CustomContainerState extends State<CustomTable>
 
   Future<void> _sitOnChair(String table_name, int position) async {
     setState(() {
-      _isSit = true;
+      widget.isControlPanel = true;
     });
   }
 

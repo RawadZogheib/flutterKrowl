@@ -785,18 +785,31 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               '-1'
             ];
             List<dynamic> _userImgUrl = ['', '', '', '', '', '', '', ''];
+            List<dynamic> _userJitBool = ['', '', '', '', '', '', '', ''];
             //privet
             List<dynamic> _userIdPrivet = [];
             List<dynamic> _userNamePrivet = [];
             List<dynamic> _userImgUrlPrivet = [];
             if (_isPrivet == true) {
-              for (int j = 0; j < body[2][i][6].length; j++) {
-                _userIdPrivet.add(body[2][i][6][j][0]); // userId
-                _userNamePrivet.add(body[2][i][6][j][1]); // userName
+              for (int j = 0; j < body[2][i][7].length; j++) {
+                _userIdPrivet.add(body[2][i][7][j][0]); // userId
+                _userNamePrivet.add(body[2][i][7][j][1]); // userName
                 _userImgUrlPrivet.add(
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
+              for (int j = 0; j < body[2][i][8].length; j++) {
+                _userId[int.parse(body[2][i][8][j][2]) - 1] =
+                    body[2][i][8][j][0]; // userId
+                _userName[int.parse(body[2][i][8][j][2]) - 1] =
+                    body[2][i][8][j][1]; // userName
+                _userPosition[int.parse(body[2][i][7][j][2]) - 1] =
+                    body[2][i][8][j][2]; // userPosition
+                _userImgUrl[int.parse(body[2][i][8][j][2]) - 1] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
+                // userImgUrl
+              }
+            } else {
               for (int j = 0; j < body[2][i][7].length; j++) {
                 _userId[int.parse(body[2][i][7][j][2]) - 1] =
                     body[2][i][7][j][0]; // userId
@@ -805,18 +818,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 _userPosition[int.parse(body[2][i][7][j][2]) - 1] =
                     body[2][i][7][j][2]; // userPosition
                 _userImgUrl[int.parse(body[2][i][7][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
-                // userImgUrl
-              }
-            } else {
-              for (int j = 0; j < body[2][i][6].length; j++) {
-                _userId[int.parse(body[2][i][6][j][2]) - 1] =
-                    body[2][i][6][j][0]; // userId
-                _userName[int.parse(body[2][i][6][j][2]) - 1] =
-                    body[2][i][6][j][1]; // userName
-                _userPosition[int.parse(body[2][i][6][j][2]) - 1] =
-                    body[2][i][6][j][2]; // userPosition
-                _userImgUrl[int.parse(body[2][i][6][j][2]) - 1] =
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
                 // userImgUrl
               }
@@ -843,6 +844,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 getUsersPrivet: _userNamePrivet,
                 getImgsPrivet: _userImgUrlPrivet,
                 isNew: body[2][i][5],
+                isControlPanel: body[2][i][6],
               ),
             );
             print(_userId);
@@ -953,6 +955,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   getUsersPrivet: ['', '', '', '', '', '', '', ''],
                   getImgsPrivet: ['', '', '', '', '', '', '', ''],
                   isNew: true,
+                  isControlPanel: false,
                 ));
           }
 
