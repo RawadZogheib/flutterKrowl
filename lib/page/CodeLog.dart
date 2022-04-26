@@ -308,7 +308,6 @@ class _CodeLogState extends State<CodeLog> {
       List<dynamic> body = json.decode(res.body);
       print(body[0]);
       if (body[0] == "true") {
-        var client = StreamChatClient(globals.apiKey, logLevel: Level.INFO);
         await client.connectUser(
           User(id: username!, extraData: {
             "name": username!,
