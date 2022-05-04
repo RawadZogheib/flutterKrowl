@@ -791,43 +791,44 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             List<dynamic> _userNamePrivet = [];
             List<dynamic> _userImgUrlPrivet = [];
             if (_isPrivet == true) {
-              for (int j = 0; j < body[2][i][7].length; j++) {
-                _userIdPrivet.add(body[2][i][7][j][0]); // userId
-                _userNamePrivet.add(body[2][i][7][j][1]); // userName
+              for (int j = 0; j < body[2][i][8].length; j++) {
+                _userIdPrivet.add(body[2][i][8][j][0]); // userId
+                _userNamePrivet.add(body[2][i][8][j][1]); // userName
                 _userImgUrlPrivet.add(
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
+              for (int j = 0; j < body[2][i][9].length; j++) {
+                _userId[int.parse(body[2][i][9][j][2]) - 1] =
+                    body[2][i][9][j][0]; // userId
+                _userName[int.parse(body[2][i][9][j][2]) - 1] =
+                    body[2][i][9][j][1]; // userName
+                _userPosition[int.parse(body[2][i][9][j][2]) - 1] =
+                    body[2][i][9][j][2]; // userPosition
+                _userImgUrl[int.parse(body[2][i][9][j][2]) - 1] =
+                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
+                // userImgUrl
+              }
+            } else {
               for (int j = 0; j < body[2][i][8].length; j++) {
                 _userId[int.parse(body[2][i][8][j][2]) - 1] =
                     body[2][i][8][j][0]; // userId
                 _userName[int.parse(body[2][i][8][j][2]) - 1] =
                     body[2][i][8][j][1]; // userName
-                _userPosition[int.parse(body[2][i][7][j][2]) - 1] =
+                _userPosition[int.parse(body[2][i][8][j][2]) - 1] =
                     body[2][i][8][j][2]; // userPosition
                 _userImgUrl[int.parse(body[2][i][8][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
-                // userImgUrl
-              }
-            } else {
-              for (int j = 0; j < body[2][i][7].length; j++) {
-                _userId[int.parse(body[2][i][7][j][2]) - 1] =
-                    body[2][i][7][j][0]; // userId
-                _userName[int.parse(body[2][i][7][j][2]) - 1] =
-                    body[2][i][7][j][1]; // userName
-                _userPosition[int.parse(body[2][i][7][j][2]) - 1] =
-                    body[2][i][7][j][2]; // userPosition
-                _userImgUrl[int.parse(body[2][i][7][j][2]) - 1] =
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
                 // userImgUrl
               }
             }
-            //localStorage.setString('contrat_Id', value)
-            //globals.occupenTable.add('0');// Initiate table (All table are Off)
+            // localStorage.setString('contrat_Id', value)
+            // globals.occupenTable.add('0');// Initiate table (All table are Off)
 
-            print('_key: ' + _key.toString());
+            // print('_key: ' + _key.toString());
             _children.add(
               new CustomTable(
+                account_Id: account_Id,
                 key: ValueKey(_key++),
                 id: body[2][i][0],
                 tableCode: body[2][i][1],
@@ -845,12 +846,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 getImgsPrivet: _userImgUrlPrivet,
                 isNew: body[2][i][5],
                 isControlPanel: body[2][i][6],
+                isAdmin: body[2][i][7],
               ),
             );
-            print(_userId);
-            print(_userName);
-            print(_userPosition);
-            print(_userImgUrl);
+            // print(_userId);
+            // print(_userName);
+            // print(_userPosition);
+            // print(_userImgUrl);
           }
 
           if (mounted) {
@@ -927,7 +929,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     });
   }
 
-  _createTable(String id, String tableCode) {
+  _createTable(String id, String tableCode) async {
+    var account_Id = await SessionManager().get('account_Id');
     if (mounted) {
       setState(() {
         if (globals.isPrivet == _isPrivet) {
@@ -941,6 +944,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             _children.insert(
                 0,
                 CustomTable(
+                  account_Id: account_Id,
                   id: id,
                   tableCode: tableCode,
                   table_name: globals.tableName,
@@ -956,6 +960,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   getImgsPrivet: ['', '', '', '', '', '', '', ''],
                   isNew: true,
                   isControlPanel: false,
+                  isAdmin: true,
                 ));
           }
 

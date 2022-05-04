@@ -15,6 +15,7 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomTable extends StatefulWidget {
+  int account_Id;
   var children;
   String tableCode;
   var table_name;
@@ -33,6 +34,7 @@ class CustomTable extends StatefulWidget {
   bool isPrivet;
   bool isNew;
   bool isControlPanel;
+  bool isAdmin;
   List<bool> enablee = [false, false, false, false, false, false, false, false];
   List<dynamic> getIds; // Users ids
   List<dynamic> getUsers; // Users names
@@ -47,6 +49,7 @@ class CustomTable extends StatefulWidget {
 
   CustomTable({
     Key? key,
+    required this.account_Id,
     this.children,
     required this.tableCode,
     required this.table_name,
@@ -59,6 +62,7 @@ class CustomTable extends StatefulWidget {
     required this.isPrivet,
     required this.isNew,
     required this.isControlPanel,
+    required this.isAdmin,
     required this.getIdsPrivet,
     required this.getUsersPrivet,
     required this.getImgsPrivet,
@@ -75,10 +79,14 @@ class CustomTable extends StatefulWidget {
 
 class _CustomContainerState extends State<CustomTable>
     with TickerProviderStateMixin {
+  late Webview _webview;
+  int _myPos = -9999;
   bool _iconIsClicked = false;
   bool _iconIsClicked2 = false;
+  bool _edit = false;
   late Timer timer;
   var tableStatus;
+  bool _isInMeeting = false;
 
   AnimationController? animationController;
   AnimationController? animationController2;
@@ -115,7 +123,7 @@ class _CustomContainerState extends State<CustomTable>
     else
       animationController2!.reverse();
     return Container(
-      width: 359,
+      width: 349,
       margin: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,40 +141,64 @@ class _CustomContainerState extends State<CustomTable>
                     ),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       //join video call (jit)
                       InkWell(
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
-                        onTap: () => print('start meeting'),
+                        onTap: () => _startJit(widget.table_name, _myPos),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.play_arrow_outlined),
-                        ),
-                      ),
-                      InkWell(
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () => print('start meeting'),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.play_arrow_outlined),
+                          child: Icon(
+                            Icons.play_arrow_outlined,
+                            color: globals.white,
+                          ),
                         ),
                       ),
                       //leave meeting
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.close,
+                          color: globals.blue1,
+                        ),
+                      ),
+
+                      _isInMeeting == true
+                          ? InkWell(
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onTap: () => _leftOccupant(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.logout,
+                                  color: globals.white,
+                                ),
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.logout,
+                                color: globals.blue1,
+                              ),
+                            ),
+
                       InkWell(
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
-                        onTap: () => setState(() {
-                          widget.isControlPanel = false;
-                        }),
+                        onTap: () => _closeControlPanel(),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.logout),
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.close,
+                            color: globals.white,
+                          ),
                         ),
                       ),
                     ],
@@ -178,28 +210,6 @@ class _CustomContainerState extends State<CustomTable>
             margin: EdgeInsets.only(bottom: 5),
             child: Stack(
               children: [
-                Positioned(
-                  height: 50,
-                  width: 340,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.table_name,
-                        style: TextStyle(
-                            color: globals.blue1,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        " - Choose a seat to join",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 Container(
                   padding:
                       EdgeInsets.only(top: 90, bottom: 70, right: 80, left: 70),
@@ -406,7 +416,7 @@ class _CustomContainerState extends State<CustomTable>
                 // ),
 
                 //Check Members
-                widget.isPrivet == true
+                widget.isAdmin == true && widget.isPrivet == true
                     ? IgnorePointer(
                         ignoring: !_iconIsClicked,
                         child: Column(
@@ -438,29 +448,6 @@ class _CustomContainerState extends State<CustomTable>
                               ),
                             ),
                           ],
-                        ),
-                      )
-                    : Container(),
-
-                widget.isPrivet == true
-                    ? Positioned(
-                        top: 17,
-                        right: 25,
-                        child: InkWell(
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            setState(() {
-                              if (_iconIsClicked2 == true)
-                                _iconIsClicked2 = false;
-                              _iconIsClicked = !_iconIsClicked;
-                            });
-                          },
-                          child: Icon(
-                            Icons.group_outlined,
-                            color: globals.blue1,
-                          ),
                         ),
                       )
                     : Container(),
@@ -499,35 +486,106 @@ class _CustomContainerState extends State<CustomTable>
                       )
                     : Container(),
 
-                widget.tableCode.isNotEmpty && widget.isPrivet == true
-                    ? Positioned(
-                        top: 17,
-                        right: 60,
-                        child: InkWell(
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            setState(() {
-                              if (_iconIsClicked == true)
-                                _iconIsClicked = false;
-                              _iconIsClicked2 = !_iconIsClicked2;
-                            });
-                          },
-                          child: Icon(
-                            Icons.person_add_outlined,
-                            color: globals.blue1,
-                          ),
-                        ),
-                      )
-                    : Container(),
-
                 widget.isNew == true
                     ? Text(
                         "New!!",
                         style: TextStyle(fontSize: 22),
                       )
                     : Container(),
+
+                Positioned(
+                  height: 50,
+                  width: 350,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      Text(
+                        widget.table_name,
+                        style: TextStyle(
+                            color: globals.blue1,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        " - Choose a seat to join",
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                      Expanded(child: SizedBox()),
+                      PopupMenuButton<int>(
+                          tooltip: '',
+                          //splashRadius: 0.1,
+                          onSelected: (val) => _onSelected(val),
+                          color: globals.white,
+                          itemBuilder: (context) => [
+                                widget.isAdmin == true
+                                    ? PopupMenuItem<int>(
+                                        value: 0,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.delete,
+                                              color: globals.blue1,
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text('Delete Table'),
+                                          ],
+                                        ),
+                                      )
+                                    : PopupMenuItem<int>(
+                                        enabled: false,
+                                        child: SizedBox(),
+                                      ),
+                                widget.isPrivet == true
+                                    ? PopupMenuItem<int>(
+                                        value: 1,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.group_outlined,
+                                                color: globals.blue1,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text('Show Participant'),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : PopupMenuItem<int>(
+                                        enabled: false,
+                                        child: SizedBox(),
+                                      ),
+                                widget.isAdmin == true &&
+                                        widget.isPrivet == true
+                                    ? PopupMenuItem<int>(
+                                        value: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.person_add_outlined,
+                                                color: globals.blue1,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text('Add Participant'),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : PopupMenuItem<int>(
+                                        enabled: false,
+                                        child: SizedBox(),
+                                      ),
+                              ]),
+                      SizedBox(width: 10),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -537,12 +595,6 @@ class _CustomContainerState extends State<CustomTable>
   }
 
   Future<void> _sitOnChair(String table_name, int position) async {
-    setState(() {
-      widget.isControlPanel = true;
-    });
-  }
-
-  Future<void> _sitOnChair2(String table_name, int position) async {
     if (globals.loadJoinTableLibrary == false) {
       globals.loadJoinTableLibrary = true;
       while (globals.loadLibrary == true ||
@@ -550,7 +602,7 @@ class _CustomContainerState extends State<CustomTable>
         await Future.delayed(Duration(seconds: 1));
         print(
             '=========>>======================================================>>==================================================>>=========');
-        print("reload createReplyPage");
+        print("reload sitOnChair");
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -558,7 +610,6 @@ class _CustomContainerState extends State<CustomTable>
       try {
         print('load joinTable');
         var account_Id = await SessionManager().get('account_Id');
-        var username = await SessionManager().get('username');
 
         var data = {
           'version': globals.version,
@@ -574,70 +625,13 @@ class _CustomContainerState extends State<CustomTable>
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
+              widget.isControlPanel = true;
+              _myPos = position - 1;
               widget.nb++;
               widget.imgs[position - 1] =
                   'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
               widget.enablee[position - 1] = true;
             });
-          }
-
-          if (kIsWeb) {
-            print('isWeb');
-            // if (!await canLaunch(globals.jaasUrl +
-            //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-            //     '&account=' +
-            //     username.toString())) {
-            try {
-              await launch(
-                  globals.jaasUrl +
-                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                      '&account=' +
-                      username.toString(),
-                  forceSafariVC: false,
-                  forceWebView: false,
-                  headers: <String, String>{
-                    'my_header_key': 'my_header_value'
-                  });
-            } catch (e) {
-              print(
-                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
-            }
-            // } else {
-            //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
-            // }
-          } else if (Platform.isWindows ||
-              Platform.isLinux ||
-              Platform.isMacOS) {
-            print('is' + Platform.operatingSystem);
-            final webview = await WebviewWindow.create(
-                configuration: CreateConfiguration(
-              titleBarHeight: 0,
-            ));
-            webview.launch(globals.jaasUrl +
-                table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                '&account=' +
-                username.toString());
-            webview.onClose.whenComplete(() {
-              _leftOccupant();
-            });
-          } else {
-            print('is' + Platform.operatingSystem);
-            try {
-              await launch(
-                  globals.jaasUrl +
-                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                      '&account=' +
-                      username.toString(),
-                  forceSafariVC: false,
-                  forceWebView: false,
-                  headers: <String, String>{
-                    'my_header_key': 'my_header_value'
-                  });
-              await closeWebView().then((value) => _leftOccupant());
-            } catch (e) {
-              print(
-                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
-            }
           }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -672,14 +666,159 @@ class _CustomContainerState extends State<CustomTable>
             '=========<<======================================================<<==================================================<<=========');
       }
       globals.loadJoinTableLibrary = false;
-      print('load joinTable end!!!');
+      print('load sitOnChair end!!!');
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
   }
 
-  void _leftOccupant() {
-    print('Occupent left!!');
+  Future<void> _startJit(String table_name, int position) async {
+    if (_isInMeeting == false) {
+      setState(() {
+        _isInMeeting = true;
+      });
+      if (globals.loadJoinTableLibrary == false) {
+        globals.loadJoinTableLibrary = true;
+        while (globals.loadLibrary == true ||
+            globals.loadCreateTableLibrary == true) {
+          await Future.delayed(Duration(seconds: 1));
+          print(
+              '=========>>======================================================>>==================================================>>=========');
+          print("reload createReplyPage");
+          print(
+              '=========<<======================================================<<==================================================<<=========');
+        }
+
+        try {
+          print('load joinTable');
+          var username = await SessionManager().get('username');
+          if (kIsWeb) {
+            print('isWeb');
+            // if (!await canLaunch(globals.jaasUrl +
+            //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+            //     '&account=' +
+            //     username.toString())) {
+            try {
+              await launch(
+                  globals.jaasUrl +
+                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+                      '&account=' +
+                      username.toString(),
+                  forceSafariVC: false,
+                  forceWebView: false,
+                  headers: <String, String>{
+                    'my_header_key': 'my_header_value'
+                  });
+            } catch (e) {
+              print(
+                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+            }
+            // } else {
+            //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
+            // }
+          } else if (Platform.isWindows ||
+              Platform.isLinux ||
+              Platform.isMacOS) {
+            print('is' + Platform.operatingSystem);
+            _webview = await WebviewWindow.create(
+                configuration: CreateConfiguration(
+              titleBarHeight: 0,
+            ));
+            _webview.launch(globals.jaasUrl +
+                table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+                '&account=' +
+                username.toString());
+            _webview.onClose.whenComplete(() {
+              _leftOccupant();
+            });
+          } else {
+            print('is' + Platform.operatingSystem);
+            try {
+              await launch(
+                  globals.jaasUrl +
+                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+                      '&account=' +
+                      username.toString(),
+                  forceSafariVC: false,
+                  forceWebView: false,
+                  headers: <String, String>{
+                    'my_header_key': 'my_header_value'
+                  });
+            } catch (e) {
+              print(
+                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+            }
+          }
+        } catch (e) {
+          print(e);
+          globals.loadJoinTableLibrary = false;
+          ErrorPopup(context, globals.errorException);
+          print(
+              '=========<<======================================================<<==================================================<<=========');
+        }
+        globals.loadJoinTableLibrary = false;
+        print('join jit end!!!');
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+    }
+  }
+
+  Future<void> _leftOccupant() async {
+    if (_isInMeeting == true) {
+      try {
+        setState(() {
+          _isInMeeting = false;
+        });
+        print('Occupent left!!');
+        var username = await SessionManager().get('username');
+        if (kIsWeb) {
+          print('isWeb');
+          // if (!await canLaunch(globals.jaasUrl +
+          //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
+          //     '&account=' +
+          //     username.toString())) {
+          try {
+            await closeWebView().then((value) => _leftOccupant());
+          } catch (e) {
+            print('Can\'t close web webview' + e.toString());
+          }
+          // } else {
+          //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
+          // }
+        } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+          try {
+            _webview.close();
+            _webview.onClose.whenComplete(() {
+              _leftOccupant();
+            });
+          } catch (e) {
+            print('Can\'t close web webview' + e.toString());
+          }
+        } else {
+          print('is' + Platform.operatingSystem);
+          try {
+            await closeWebView().then((value) => _leftOccupant());
+          } catch (e) {
+            print('Can\'t close mobile webview' + e.toString());
+          }
+        }
+      } catch (e) {
+        print(e);
+        globals.loadJoinTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+    }
+  }
+
+  void _removeParticipant() {
+    print('Remove occupent!!');
+  }
+
+  void _removeTable() {
+    print('Remove table!!');
   }
 
   // hiddenFunction() {
@@ -753,6 +892,10 @@ class _CustomContainerState extends State<CustomTable>
   _loadOccupants() async {
     widget.imgs = ['', '', '', '', '', '', '', ''];
     try {
+      if (widget.getIds.contains(widget.account_Id.toString())) {
+        _myPos = widget.getIds.indexOf(widget.account_Id.toString());
+        print('_myPos:$_myPos');
+      }
       // SharedPreferences localStorage = await SharedPreferences.getInstance();
       // String account_Id = localStorage.getString('account_Id').toString();
       // print('fdsfdsfsdf id: ' + account_Id);
@@ -821,18 +964,14 @@ class _CustomContainerState extends State<CustomTable>
           });
         }
       } else if (tableStatus == "empty") {
-        if (mounted) {
-          setState(() {
-            widget.nb = 0;
-          });
-        }
-
+        // if (mounted) {
+        //   setState(() {
+        //     widget.nb--;
+        //     widget.nb = 0;
+        //   });
+        // }
         //deload
-        //int j = body[1].length - 1;
         for (int i = 7; i >= 0; i--) {
-          // print('i: ' + i.toString());
-          // print('j: ' + j.toString());
-          // print('nb: ' + body[2].length.toString());
           await Future.delayed(const Duration(milliseconds: 100), () {
             if (mounted) {
               setState(() {
@@ -848,6 +987,42 @@ class _CustomContainerState extends State<CustomTable>
     } catch (e) {
       print("Exeption: " + e.toString());
       ErrorPopup(context, globals.errorException);
+    }
+  }
+
+  _closeControlPanel() {
+    print('Close control panel');
+    setState(() {
+      widget.imgs[_myPos] = '';
+      widget.enablee[_myPos] = false;
+      widget.nb = widget.nb - 1;
+      _myPos = -9999;
+      widget.isControlPanel = false;
+    });
+  }
+
+  _onSelected(int val) {
+    switch (val) {
+      case 0:
+        _removeTable();
+        setState(() {
+          _edit = !_edit;
+        });
+        break;
+      case 1:
+        setState(() {
+          if (_iconIsClicked2 == true) _iconIsClicked2 = false;
+          _iconIsClicked = !_iconIsClicked;
+          _edit = !_edit;
+        });
+        break;
+      case 1:
+        setState(() {
+          if (_iconIsClicked == true) _iconIsClicked = false;
+          _iconIsClicked2 = !_iconIsClicked2;
+          _edit = !_edit;
+        });
+        break;
     }
   }
 
