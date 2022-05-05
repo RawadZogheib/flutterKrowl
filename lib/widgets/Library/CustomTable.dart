@@ -670,7 +670,7 @@ class _CustomContainerState extends State<CustomTable>
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
-  }
+  }// Done
 
   Future<void> _startJit(String table_name, int position) async {
     if (_isInMeeting == false) {
@@ -762,7 +762,7 @@ class _CustomContainerState extends State<CustomTable>
             '=========<<======================================================<<==================================================<<=========');
       }
     }
-  }
+  }// Done
 
   Future<void> _leftOccupant() async {
     if (_isInMeeting == true) {
@@ -804,10 +804,86 @@ class _CustomContainerState extends State<CustomTable>
             '=========<<======================================================<<==================================================<<=========');
       }
     }
-  }
+  }// Done
 
   void _removeParticipant() {
     print('Remove occupent!!');
+
+    //if (globals.loadJoinTableLibrary == false) {
+    //       globals.loadJoinTableLibrary = true;
+    //       while (globals.loadLibrary == true ||
+    //           globals.loadCreateTableLibrary == true) {
+    //         await Future.delayed(Duration(seconds: 1));
+    //         print(
+    //             '=========>>======================================================>>==================================================>>=========');
+    //         print("reload sitOnChair");
+    //         print(
+    //             '=========<<======================================================<<==================================================<<=========');
+    //       }
+    //
+    //       try {
+    //         print('load joinTable');
+    //         var account_Id = await SessionManager().get('account_Id');
+    //
+    //         var data = {
+    //           'version': globals.version,
+    //           'account_Id': account_Id,
+    //           'table_name': table_name,
+    //           'position': position
+    //         };
+    //
+    //         var res = await CallApi().postData(data, '(Control)sitOnChair.php');
+    //         print(res.body);
+    //         List<dynamic> body = json.decode(res.body);
+    //
+    //         if (body[0] == "success") {
+    //           if (mounted) {
+    //             setState(() {
+    //               widget.isControlPanel = true;
+    //               _myPos = position - 1;
+    //               widget.nb++;
+    //               widget.imgs[position - 1] =
+    //                   'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
+    //               widget.enablee[position - 1] = true;
+    //             });
+    //           }
+    //         } else if (body[0] == "errorVersion") {
+    //           ErrorPopup(context, globals.errorVersion);
+    //         } else if (body[0] == "errorToken") {
+    //           ErrorPopup(context, globals.errorToken);
+    //         } else if (body[0] == "error410") {
+    //           ErrorPopup(context, globals.error410);
+    //         } else if (body[0] == "error4") {
+    //           ErrorPopup(context, globals.error4);
+    //         } else if (body[0] == "error7") {
+    //           WarningPopup(context, globals.warning7);
+    //         } else if (body[0] == "error8") {
+    //           WarningPopup(context, globals.warning8);
+    //         } else if (body[0] == "error9") {
+    //           if (mounted) {
+    //             setState(() {
+    //               widget.imgs[position - 1] =
+    //                   'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
+    //               widget.enablee[position - 1] = true;
+    //             });
+    //           }
+    //           ErrorPopup(context, globals.error9);
+    //         } else {
+    //           globals.loadJoinTableLibrary = false;
+    //           ErrorPopup(context, globals.errorElse);
+    //         }
+    //       } catch (e) {
+    //         print(e);
+    //         globals.loadJoinTableLibrary = false;
+    //         ErrorPopup(context, globals.errorException);
+    //         print(
+    //             '=========<<======================================================<<==================================================<<=========');
+    //       }
+    //       globals.loadJoinTableLibrary = false;
+    //       print('load sitOnChair end!!!');
+    //       print(
+    //           '=========<<======================================================<<==================================================<<=========');
+    //     }
   }
 
   void _removeTable() {
@@ -981,7 +1057,7 @@ class _CustomContainerState extends State<CustomTable>
       print("Exeption: " + e.toString());
       ErrorPopup(context, globals.errorException);
     }
-  }
+  }// Done
 
   _closeControlPanel() {
     print('Close control panel');
@@ -1017,7 +1093,7 @@ class _CustomContainerState extends State<CustomTable>
         });
         break;
     }
-  }
+  }// Done
 
 // loadOccupants() async {
 //   widget.imgs = ['','','','','','','',''];
