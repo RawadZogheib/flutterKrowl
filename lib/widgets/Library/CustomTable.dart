@@ -728,9 +728,9 @@ class _CustomContainerState extends State<CustomTable>
                 table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
                 '&account=' +
                 username.toString());
-            _webview.onClose.whenComplete(() {
-              _leftOccupant();
-            });
+            // _webview.onClose.whenComplete(() {
+            //   _leftOccupant();
+            // });
           } else {
             print('is' + Platform.operatingSystem);
             try {
@@ -774,18 +774,11 @@ class _CustomContainerState extends State<CustomTable>
         var username = await SessionManager().get('username');
         if (kIsWeb) {
           print('isWeb');
-          // if (!await canLaunch(globals.jaasUrl +
-          //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-          //     '&account=' +
-          //     username.toString())) {
           try {
-            await closeWebView().then((value) => _leftOccupant());
+            await closeWebView();// .then((value) => _leftOccupant())
           } catch (e) {
             print('Can\'t close web webview' + e.toString());
           }
-          // } else {
-          //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
-          // }
         } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
           try {
             _webview.close();
@@ -798,7 +791,7 @@ class _CustomContainerState extends State<CustomTable>
         } else {
           print('is' + Platform.operatingSystem);
           try {
-            await closeWebView().then((value) => _leftOccupant());
+            await closeWebView();// .then((value) => _leftOccupant())
           } catch (e) {
             print('Can\'t close mobile webview' + e.toString());
           }
