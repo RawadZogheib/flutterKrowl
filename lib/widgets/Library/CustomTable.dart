@@ -811,13 +811,13 @@ class _CustomContainerState extends State<CustomTable>
             await Future.delayed(Duration(seconds: 1));
             print(
                 '=========>>======================================================>>==================================================>>=========');
-            print("reload leftOccupant");
+            print("reload removeParticipant");
             print(
                 '=========<<======================================================<<==================================================<<=========');
           }
 
           try {
-            print('load joinTable');
+            print('load removeParticipant');
             var account_Id = await SessionManager().get('account_Id');
 
             var data = {
@@ -832,7 +832,7 @@ class _CustomContainerState extends State<CustomTable>
             List<dynamic> body = json.decode(res.body);
 
             if (body[0] == "success") {
-              SuccessPopup(context, globals.success411);
+              SuccessPopup(context, globals.success415);
             } else if (body[0] == "errorVersion") {
               ErrorPopup(context, globals.errorVersion);
             } else if (body[0] == "errorToken") {
@@ -853,7 +853,7 @@ class _CustomContainerState extends State<CustomTable>
                 '=========<<======================================================<<==================================================<<=========');
           }
           globals.loadJoinTableLibrary = false;
-          print('load leftOccupant end!!!');
+          print('load removeParticipant end!!!');
           print(
               '=========<<======================================================<<==================================================<<=========');
         }
@@ -887,7 +887,7 @@ class _CustomContainerState extends State<CustomTable>
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
-          SuccessPopup(context, globals.success412);
+          SuccessPopup(context, globals.success416);
           widget.onRemoveTable(widget.id);
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
@@ -1106,10 +1106,7 @@ class _CustomContainerState extends State<CustomTable>
         });
         break;
     }
-  }
-
-
-  // Done
+  }// Done
 
 // hiddenFunction() {
 //   if (widget.hiddenBool == true) {
