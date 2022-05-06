@@ -1050,19 +1050,21 @@ class _CustomContainerState extends State<CustomTable>
           'table_id': widget.id,
         };
 
-        var res = await CallApi().postData(data, '(Control)removeOccupants.php');
+        var res = await CallApi().postData(data, '(Control)removeOccupant.php');
         print(res.body);
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
           print('Occupant removed successfully.');
-          setState(() {
-            widget.imgs[_myPos] = '';
-            widget.enablee[_myPos] = false;
-            widget.nb = widget.nb - 1;
-            _myPos = -9999;
-            widget.isControlPanel = false;
-          });
+          if(mounted){
+            setState(() {
+              widget.imgs[_myPos] = '';
+              widget.enablee[_myPos] = false;
+              widget.nb = widget.nb - 1;
+              _myPos = -9999;
+              widget.isControlPanel = false;
+            });
+          }
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
