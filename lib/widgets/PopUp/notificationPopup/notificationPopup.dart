@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ShapedWidget extends StatelessWidget {
   //ShapedWidget();
@@ -83,12 +83,13 @@ class _ShapedWidgetBorder extends RoundedRectangleBorder {
 
 class ShapedWidget2 extends StatelessWidget {
   final double padding = 4.0;
-
+  bool isAdmin;
   List<dynamic> getIdsPrivet = ['', '', '', '', '', '', '', ''];
   List<dynamic> getUsersPrivet = ['', '', '', '', '', '', '', ''];
   List<dynamic> getImgsPrivet = ['', '', '', '', '', '', '', ''];
 
   ShapedWidget2({
+    required this.isAdmin,
     required this.getIdsPrivet,
     required this.getUsersPrivet,
     required this.getImgsPrivet,
@@ -105,7 +106,7 @@ class ShapedWidget2 extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 elevation: 4.0,
                 child: Container(
-                  width: 170,
+                  width: 220,
                   height: 300,
                   padding: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
@@ -133,6 +134,7 @@ class ShapedWidget2 extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return Member(
                                 index: index,
+                                isAdmin: isAdmin,
                                 idsPrivet: getIdsPrivet[index],
                                 usersPrivet: getUsersPrivet[index],
                                 imgsPrivet: getImgsPrivet[index],
@@ -156,12 +158,14 @@ class ShapedWidget2 extends StatelessWidget {
 
 class Member extends StatelessWidget {
   int index;
+  bool isAdmin;
   String idsPrivet;
   String usersPrivet;
   String imgsPrivet;
 
   Member({
     required this.index,
+    required this.isAdmin,
     required this.idsPrivet,
     required this.usersPrivet,
     required this.imgsPrivet,
@@ -169,52 +173,55 @@ class Member extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print('aaaaaa');
-      }, // onTapUp
-      child: Container(
-        height: 60,
-        padding: const EdgeInsets.all(4.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Center(
-                  child: CircleAvatar(
-                    backgroundColor: globals.blue1,
-                    backgroundImage: NetworkImage(imgsPrivet),
-                    maxRadius: 20,
-                  ),
+    return Container(
+      height: 60,
+      padding: const EdgeInsets.all(4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          isAdmin == true
+              ? Row(
+                  children: [
+                    Icon(Icons.delete),
+                    SizedBox(width: 15),
+                  ],
+                )
+              : SizedBox(),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Center(
+                child: CircleAvatar(
+                  backgroundColor: globals.blue1,
+                  backgroundImage: NetworkImage(imgsPrivet),
+                  maxRadius: 20,
                 ),
-                index == 0
-                    ? Positioned(
-                        top: -9.5,
-                        left: 0,
-                        child: RotationTransition(
-                          turns: new AlwaysStoppedAnimation(-12 / 360),
-                          child: Image.asset(
-                            'Assets/crown.PNG',
-                            height: 25,
-                            width: 25,
-                          ),
+              ),
+              index == 0
+                  ? Positioned(
+                      top: -9.5,
+                      left: 0,
+                      child: RotationTransition(
+                        turns: new AlwaysStoppedAnimation(-12 / 360),
+                        child: Image.asset(
+                          'Assets/crown.PNG',
+                          height: 25,
+                          width: 25,
                         ),
-                      )
-                    : Container(),
-              ],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              usersPrivet,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            usersPrivet,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15),
+          ),
+        ],
       ),
     );
   }
@@ -267,7 +274,8 @@ class ShapedWidget3 extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Clipboard.setData(ClipboardData(text: tableCode))
+                                Clipboard.setData(
+                                        ClipboardData(text: tableCode))
                                     .then((value) {
                                   print('copy');
                                 });
@@ -300,9 +308,11 @@ class ShapedWidget3 extends StatelessWidget {
                           onTap: () {
                             Clipboard.setData(ClipboardData(
                                     text:
-                                        'krowl.dataflow.com.lb:8070/#/?private=' + tableCode))
+                                        'krowl.dataflow.com.lb:8070/#/?private=' +
+                                            tableCode))
                                 .then((value) {
-                              SuccessPopup(context, 'Link copied successfully.');
+                              SuccessPopup(
+                                  context, 'Link copied successfully.');
                               print('copy');
                             });
                           },
@@ -324,7 +334,8 @@ class ShapedWidget3 extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'krowl.dataflow.com.lb:8070/#/?private=' + tableCode,
+                                  'krowl.dataflow.com.lb:8070/#/?private=' +
+                                      tableCode,
                                   style: TextStyle(
                                     fontSize: 10,
                                     color: Colors.black,

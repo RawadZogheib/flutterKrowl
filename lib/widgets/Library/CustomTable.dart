@@ -420,7 +420,7 @@ class _CustomContainerState extends State<CustomTable>
                 // ),
 
                 //Check Members
-                widget.isAdmin == true && widget.isPrivet == true
+                widget.isPrivet == true
                     ? IgnorePointer(
                         ignoring: !_iconIsClicked,
                         child: Column(
@@ -439,6 +439,7 @@ class _CustomContainerState extends State<CustomTable>
                                     FadeTransition(
                                       opacity: opacityAnimation,
                                       child: ShapedWidget2(
+                                        isAdmin: widget.isAdmin,
                                         getIdsPrivet: widget.getIdsPrivet,
                                         getUsersPrivet: widget.getUsersPrivet,
                                         getImgsPrivet: widget.getImgsPrivet,
