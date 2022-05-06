@@ -26,7 +26,7 @@ class CustomTable extends StatefulWidget {
   var color;
   var icon;
   var seats;
-  var id;
+  String id;
   var nb = 0;
 
   // bool hiddenBool = true;
@@ -47,8 +47,11 @@ class CustomTable extends StatefulWidget {
   List<dynamic> getUsersPrivet = [];
   List<dynamic> getImgsPrivet = [];
 
+  var onRemoveTable;
+
   CustomTable({
     Key? key,
+    required this.id,
     required this.account_Id,
     this.children,
     required this.tableCode,
@@ -66,11 +69,11 @@ class CustomTable extends StatefulWidget {
     required this.getIdsPrivet,
     required this.getUsersPrivet,
     required this.getImgsPrivet,
-    required this.id,
     this.icon,
     this.height,
     this.width,
     this.seats,
+    required this.onRemoveTable,
   }) : super(key: key);
 
   @override
@@ -806,159 +809,119 @@ class _CustomContainerState extends State<CustomTable>
     }
   }// Done
 
-  void _removeParticipant() {
-    print('Remove occupent!!');
+  Future<void> _removeParticipant(int participantId) async {
+    if (globals.loadJoinTableLibrary == false) {
+          globals.loadJoinTableLibrary = true;
+          while (globals.loadLibrary == true ||
+              globals.loadCreateTableLibrary == true) {
+            await Future.delayed(Duration(seconds: 1));
+            print(
+                '=========>>======================================================>>==================================================>>=========');
+            print("reload leftOccupant");
+            print(
+                '=========<<======================================================<<==================================================<<=========');
+          }
 
-    //if (globals.loadJoinTableLibrary == false) {
-    //       globals.loadJoinTableLibrary = true;
-    //       while (globals.loadLibrary == true ||
-    //           globals.loadCreateTableLibrary == true) {
-    //         await Future.delayed(Duration(seconds: 1));
-    //         print(
-    //             '=========>>======================================================>>==================================================>>=========');
-    //         print("reload sitOnChair");
-    //         print(
-    //             '=========<<======================================================<<==================================================<<=========');
-    //       }
-    //
-    //       try {
-    //         print('load joinTable');
-    //         var account_Id = await SessionManager().get('account_Id');
-    //
-    //         var data = {
-    //           'version': globals.version,
-    //           'account_Id': account_Id,
-    //           'table_name': table_name,
-    //           'position': position
-    //         };
-    //
-    //         var res = await CallApi().postData(data, '(Control)sitOnChair.php');
-    //         print(res.body);
-    //         List<dynamic> body = json.decode(res.body);
-    //
-    //         if (body[0] == "success") {
-    //           if (mounted) {
-    //             setState(() {
-    //               widget.isControlPanel = true;
-    //               _myPos = position - 1;
-    //               widget.nb++;
-    //               widget.imgs[position - 1] =
-    //                   'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-    //               widget.enablee[position - 1] = true;
-    //             });
-    //           }
-    //         } else if (body[0] == "errorVersion") {
-    //           ErrorPopup(context, globals.errorVersion);
-    //         } else if (body[0] == "errorToken") {
-    //           ErrorPopup(context, globals.errorToken);
-    //         } else if (body[0] == "error410") {
-    //           ErrorPopup(context, globals.error410);
-    //         } else if (body[0] == "error4") {
-    //           ErrorPopup(context, globals.error4);
-    //         } else if (body[0] == "error7") {
-    //           WarningPopup(context, globals.warning7);
-    //         } else if (body[0] == "error8") {
-    //           WarningPopup(context, globals.warning8);
-    //         } else if (body[0] == "error9") {
-    //           if (mounted) {
-    //             setState(() {
-    //               widget.imgs[position - 1] =
-    //                   'https://picsum.photos/50/50/?${position - 1}'; //get img from server body[1]
-    //               widget.enablee[position - 1] = true;
-    //             });
-    //           }
-    //           ErrorPopup(context, globals.error9);
-    //         } else {
-    //           globals.loadJoinTableLibrary = false;
-    //           ErrorPopup(context, globals.errorElse);
-    //         }
-    //       } catch (e) {
-    //         print(e);
-    //         globals.loadJoinTableLibrary = false;
-    //         ErrorPopup(context, globals.errorException);
-    //         print(
-    //             '=========<<======================================================<<==================================================<<=========');
-    //       }
-    //       globals.loadJoinTableLibrary = false;
-    //       print('load sitOnChair end!!!');
-    //       print(
-    //           '=========<<======================================================<<==================================================<<=========');
-    //     }
-  }
+          try {
+            print('load joinTable');
+            var account_Id = await SessionManager().get('account_Id');
 
-  void _removeTable() {
-    print('Remove table!!');
-  }
+            var data = {
+              'version': globals.version,
+              'account_Id': account_Id,
+              'table_id': widget.id,
+              'participant_id': participantId,
+            };
 
-  // hiddenFunction() {
-  //   if (widget.hiddenBool == true) {
-  //     return Container(
-  //       height: 360,
-  //       width: 340,
-  //       color: Colors.black.withOpacity(0.3),
-  //     );
-  //   } else {
-  //     return Container();
-  //   }
-  // }
+            var res = await CallApi().postData(data, '(Control)removeParticipant.php');
+            print(res.body);
+            List<dynamic> body = json.decode(res.body);
 
-  // toggleButton(bool val) {
-  //   // bool test = false;
-  //   //
-  //   // for (int i = 0; i < globals.occupenTable.length; i++) {
-  //   //   // Check all table
-  //   //   if (globals.occupenTable[i] == '1') {
-  //   //     // Table getting token
-  //   //     test = true; // There is table getting token
-  //   //     break;
-  //   //   }
-  //   // }
-  //   //if (test == false) {
-  //   // There is no  table getting token
-  //   if (widget.status == false) {
-  //     setState(() {
-  //       widget.status = !widget.status;
-  //     });
-  //
-  //     //globals.occupenTable[widget.id] = '1'; // Table getting token
-  //     print("stts: 1");
-  //     // Toggle  On
-  //     widget.hiddenBool = false;
-  //     _loadOccupants();
-  //     _startTimer();
-  //   } else {
-  //     // Toggle Off
-  //     setState(() {
-  //       widget.status = !widget.status;
-  //     });
-  //     if (timer.isActive) {
-  //       timer.cancel();
-  //     }
-  //     //globals.occupenTable[widget.id] = '0';
-  //     setState(() {
-  //       //widget.status = false;
-  //       globals.tmpid = null;
-  //       widget.hiddenBool = true;
-  //       widget.imgs = ['','','','','','','',''];
-  //       widget.enablee = [
-  //         false,
-  //         false,
-  //         false,
-  //         false,
-  //         false,
-  //         false,
-  //         false,
-  //         false
-  //       ];
-  //       widget.nb = '0';
-  //     });
-  //   }
-  //   // } else {
-  //   //   // There is table getting token
-  //   // }
-  // }
+            if (body[0] == "success") {
+              SuccessPopup(context, globals.success411);
+            } else if (body[0] == "errorVersion") {
+              ErrorPopup(context, globals.errorVersion);
+            } else if (body[0] == "errorToken") {
+              ErrorPopup(context, globals.errorToken);
+            } else if (body[0] == "error4") {
+              ErrorPopup(context, globals.error4);
+            } else if (body[0] == "error7") {
+              WarningPopup(context, globals.warning7);
+            } else {
+              globals.loadJoinTableLibrary = false;
+              ErrorPopup(context, globals.errorElse);
+            }
+          } catch (e) {
+            print(e);
+            globals.loadJoinTableLibrary = false;
+            ErrorPopup(context, globals.errorException);
+            print(
+                '=========<<======================================================<<==================================================<<=========');
+          }
+          globals.loadJoinTableLibrary = false;
+          print('load leftOccupant end!!!');
+          print(
+              '=========<<======================================================<<==================================================<<=========');
+        }
+  }// ~Done
 
-  _loadOccupants() async {
+  Future<void> _removeTable() async {
+    if (globals.loadJoinTableLibrary == false) {
+      globals.loadJoinTableLibrary = true;
+      while (globals.loadLibrary == true ||
+          globals.loadCreateTableLibrary == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload removeTable");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+
+      try {
+        print('load joinTable');
+        var account_Id = await SessionManager().get('account_Id');
+
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'table_id': widget.id,
+        };
+
+        var res = await CallApi().postData(data, '(Control)removeTable.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          SuccessPopup(context, globals.success412);
+          widget.onRemoveTable(widget.id);
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          globals.loadJoinTableLibrary = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+      } catch (e) {
+        print(e);
+        globals.loadJoinTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      globals.loadJoinTableLibrary = false;
+      print('load removeTable end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+  }// Done
+
+  Future<void> _loadOccupants() async {
     widget.imgs = ['', '', '', '', '', '', '', ''];
     try {
       if (widget.getIds.contains(widget.account_Id.toString())) {
@@ -1059,16 +1022,70 @@ class _CustomContainerState extends State<CustomTable>
     }
   }// Done
 
-  _closeControlPanel() {
-    print('Close control panel');
-    setState(() {
-      widget.imgs[_myPos] = '';
-      widget.enablee[_myPos] = false;
-      widget.nb = widget.nb - 1;
-      _myPos = -9999;
-      widget.isControlPanel = false;
-    });
-  }
+  Future<void> _closeControlPanel() async {
+    if (globals.loadJoinTableLibrary == false) {
+      globals.loadJoinTableLibrary = true;
+      while (globals.loadLibrary == true ||
+          globals.loadCreateTableLibrary == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload controlPanel");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+
+      try {
+        print('load joinTable');
+        var account_Id = await SessionManager().get('account_Id');
+
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'table_id': widget.id,
+        };
+
+        var res = await CallApi().postData(data, '(Control)removeOccupants.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
+
+        if (body[0] == "success") {
+          print('Occupant removed successfully.');
+          setState(() {
+            widget.imgs[_myPos] = '';
+            widget.enablee[_myPos] = false;
+            widget.nb = widget.nb - 1;
+            _myPos = -9999;
+            widget.isControlPanel = false;
+          });
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else {
+          globals.loadJoinTableLibrary = false;
+          ErrorPopup(context, globals.errorElse);
+        }
+      } catch (e) {
+        print(e);
+        globals.loadJoinTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      globals.loadJoinTableLibrary = false;
+      print('load controlPanel end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+
+
+
+  }// Done
 
   _onSelected(int val) {
     switch (val) {
@@ -1094,6 +1111,75 @@ class _CustomContainerState extends State<CustomTable>
         break;
     }
   }// Done
+
+// hiddenFunction() {
+//   if (widget.hiddenBool == true) {
+//     return Container(
+//       height: 360,
+//       width: 340,
+//       color: Colors.black.withOpacity(0.3),
+//     );
+//   } else {
+//     return Container();
+//   }
+// }
+//
+// toggleButton(bool val) {
+//   // bool test = false;
+//   //
+//   // for (int i = 0; i < globals.occupenTable.length; i++) {
+//   //   // Check all table
+//   //   if (globals.occupenTable[i] == '1') {
+//   //     // Table getting token
+//   //     test = true; // There is table getting token
+//   //     break;
+//   //   }
+//   // }
+//   //if (test == false) {
+//   // There is no  table getting token
+//   if (widget.status == false) {
+//     setState(() {
+//       widget.status = !widget.status;
+//     });
+//
+//     //globals.occupenTable[widget.id] = '1'; // Table getting token
+//     print("stts: 1");
+//     // Toggle  On
+//     widget.hiddenBool = false;
+//     _loadOccupants();
+//     _startTimer();
+//   } else {
+//     // Toggle Off
+//     setState(() {
+//       widget.status = !widget.status;
+//     });
+//     if (timer.isActive) {
+//       timer.cancel();
+//     }
+//     //globals.occupenTable[widget.id] = '0';
+//     setState(() {
+//       //widget.status = false;
+//       globals.tmpid = null;
+//       widget.hiddenBool = true;
+//       widget.imgs = ['','','','','','','',''];
+//       widget.enablee = [
+//         false,
+//         false,
+//         false,
+//         false,
+//         false,
+//         false,
+//         false,
+//         false
+//       ];
+//       widget.nb = '0';
+//     });
+//   }
+//   // } else {
+//   //   // There is table getting token
+//   // }
+// }
+
 
 // loadOccupants() async {
 //   widget.imgs = ['','','','','','','',''];

@@ -122,9 +122,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                   (415 + distAnimation.value).toString()),
                               width: double.parse(
                                   (250 + distAnimation.value).toString()),
-                              onTap: (thisId, thisTableCode) {
-                                _createTable(thisId, thisTableCode);
-                              },
+                              onTap: (thisId, thisTableCode) =>
+                                  _createTable(thisId, thisTableCode),
                             ),
                           ),
                           SizedBox(
@@ -280,10 +279,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId, thisTableCode) {
-                                              _createTable(
-                                                  thisId, thisTableCode);
-                                            },
+                                            onTap: (thisId, thisTableCode) =>
+                                                _createTable(
+                                                    thisId, thisTableCode),
                                           ),
                                         ),
                                         SizedBox(
@@ -462,10 +460,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId, thisTableCode) {
-                                              _createTable(
-                                                  thisId, thisTableCode);
-                                            },
+                                            onTap: (thisId, thisTableCode) =>
+                                                _createTable(
+                                                    thisId, thisTableCode),
                                           ),
                                         ),
                                         SizedBox(
@@ -520,10 +517,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                             width: double.parse(
                                                 (250 + distAnimation.value)
                                                     .toString()),
-                                            onTap: (thisId, thisTableCode) {
-                                              _createTable(
-                                                  thisId, thisTableCode);
-                                            },
+                                            onTap: (thisId, thisTableCode) =>
+                                                _createTable(
+                                                    thisId, thisTableCode),
                                           ),
                                         ),
                                         SizedBox(
@@ -830,7 +826,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               new CustomTable(
                 account_Id: account_Id,
                 key: ValueKey(_key++),
-                id: body[2][i][0],
+                id: body[2][i][0].toString(),
                 tableCode: body[2][i][1],
                 table_name: body[2][i][2],
                 seats: body[2][i][3],
@@ -847,6 +843,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 isNew: body[2][i][5],
                 isControlPanel: body[2][i][6],
                 isAdmin: body[2][i][7],
+                onRemoveTable: (tableId) => _onRemoveTable(tableId),
               ),
             );
             // print(_userId);
@@ -961,6 +958,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   isNew: true,
                   isControlPanel: false,
                   isAdmin: true,
+                  onRemoveTable: (tableId) => _onRemoveTable(tableId),
                 ));
           }
 
@@ -988,7 +986,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Library';
       _loadNewPage();
-      if(await SessionManager().containsKey("arg")){
+      if (await SessionManager().containsKey("arg")) {
         setState(() {
           _isPrivet = true;
         });
@@ -997,6 +995,16 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);
+    }
+  }
+
+  _onRemoveTable(String tableId) {
+    _children
+        .removeAt(_children.indexWhere((element) => (element.id == tableId)));
+    if (mounted) {
+      setState(() {
+        _children;
+      });
     }
   }
 

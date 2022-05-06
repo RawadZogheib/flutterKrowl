@@ -333,7 +333,7 @@ class _NextButtonState extends State<CreateTable> {
           setState(() {
             _isSpace = false;
           });
-          widget.onTap(body[0], body[1]);
+          widget.onTap(body[0].toString(), body[1]);
 
         } else if (body[0] == "errorVersion") {
           ErrorPopup(context, globals.errorVersion);

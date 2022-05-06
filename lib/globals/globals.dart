@@ -82,6 +82,8 @@ const String codeException = "Oops Something went wrong! please try to login aga
 const String error401 = "You are already on a table.";
 
 const String error410 = "You are already on a table.";
+const String success411 = 'Participant removed successfully.';
+const String success412 = 'Table removed successfully.';
 
 //List of Universities
 List<dynamic> univercitiesName = [];
