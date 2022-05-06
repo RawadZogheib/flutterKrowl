@@ -696,20 +696,16 @@ class _CustomContainerState extends State<CustomTable>
         try {
           print('load joinTable');
           var username = await SessionManager().get('username');
+          final params = Uri.encodeFull(
+              globals.jaasUrl +
+                  table_name +
+                  '&account=' +
+                  username.toString());
+          String url = params.toString();
+
           if (kIsWeb) {
             print('isWeb');
-            // if (!await canLaunch(globals.jaasUrl +
-            //     table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-            //     '&account=' +
-            //     username.toString())) {
             try {
-              final params = Uri.encodeFull(
-                  globals.jaasUrl +
-                               table_name +
-                             '&account=' +
-                             username.toString());
-
-              String url = params.toString();
               await launch(url,
                   forceSafariVC: false,
                   forceWebView: false,
@@ -719,7 +715,7 @@ class _CustomContainerState extends State<CustomTable>
 
             } catch (e) {
               print(
-                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+                  'Could not launch ${url}');
             }
             // } else {
             //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
@@ -732,21 +728,14 @@ class _CustomContainerState extends State<CustomTable>
                 configuration: CreateConfiguration(
               titleBarHeight: 0,
             ));
-            _webview.launch(globals.jaasUrl +
-                table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                '&account=' +
-                username.toString());
+            _webview.launch(url);
             // _webview.onClose.whenComplete(() {
             //   _leftOccupant();
             // });
           } else {
             print('is' + Platform.operatingSystem);
             try {
-              await launch(
-                  globals.jaasUrl +
-                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                      '&account=' +
-                      username.toString(),
+              await launch(url,
                   forceSafariVC: false,
                   forceWebView: false,
                   headers: <String, String>{
@@ -754,7 +743,7 @@ class _CustomContainerState extends State<CustomTable>
                   });
             } catch (e) {
               print(
-                  'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
+                  'Could not launch ${url}');
             }
           }
         } catch (e) {
@@ -1117,10 +1106,6 @@ class _CustomContainerState extends State<CustomTable>
         });
         break;
     }
-  }
-  static String encodeFull(String uri) {
-    var _Uri;
-    return _Uri._uriEncode(_Uri._encodeFullTable, uri, utf8, false);
   }
 
 
