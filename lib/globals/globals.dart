@@ -56,12 +56,6 @@ const String warning6 = "Email already exist.";
 const String warning7 = "Field cannot be empty.";
 const String warning8 = "Full Table";
 const String error9 = "Position Taken";
-const String warning10 = "Table name already taken";
-const String warning11 = "[ a-zA-Z0-9_- ] Allowed";
-const String error11 = "This email is not Registered";
-const String error12 = "Incorrect Email sent";
-const String error13 = "Table Name can contain max 15 Characters";
-const String error14 = "Table Name can contain lowercase and uppercase characters and special characters( _,-)";
 const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You don't have contacts yet";
 const String warningEmptyFriends = "You don't have friends yet";
@@ -81,9 +75,16 @@ const String codeException = "Oops Something went wrong! please try to login aga
 
 const String error401 = "You are already on a table.";
 
+
+const String warning10 = "Table name already taken";
+const String warning11 = "[ a-zA-Z0-9_- ] Allowed";
+const String error11 = "This email is not Registered";
+const String error12 = "Incorrect Email sent";
+const String error13 = "Table Name can contain max 15 Characters";
+const String error14 = "Table Name can contain lowercase and uppercase characters and special characters( _,-)";
 const String error410 = "You are already on a table.";
-const String success411 = 'Participant removed successfully.';
-const String success412 = 'Table removed successfully.';
+const String success415 = 'Participant removed successfully.';
+const String success416 = 'Table removed successfully.';
 
 //List of Universities
 List<dynamic> univercitiesName = [];
