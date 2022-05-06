@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
 import 'dart:io';
 
 import 'package:Krowl/api/my_api.dart';
@@ -702,16 +703,20 @@ class _CustomContainerState extends State<CustomTable>
             //     '&account=' +
             //     username.toString())) {
             try {
-              await launch(
+              final params = Uri.encodeFull(
                   globals.jaasUrl +
-                      table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") +
-                      '&account=' +
-                      username.toString(),
+                               table_name +
+                             '&account=' +
+                             username.toString());
+
+              String url = params.toString();
+              await launch(url,
                   forceSafariVC: false,
                   forceWebView: false,
                   headers: <String, String>{
                     'my_header_key': 'my_header_value'
                   });
+
             } catch (e) {
               print(
                   'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}');
@@ -1110,7 +1115,14 @@ class _CustomContainerState extends State<CustomTable>
         });
         break;
     }
-  }// Done
+  }
+  static String encodeFull(String uri) {
+    var _Uri;
+    return _Uri._uriEncode(_Uri._encodeFullTable, uri, utf8, false);
+  }
+
+
+  // Done
 
 // hiddenFunction() {
 //   if (widget.hiddenBool == true) {
