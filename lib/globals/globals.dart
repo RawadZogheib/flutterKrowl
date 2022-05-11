@@ -85,6 +85,8 @@ const String error14 = "Table Name can contain lowercase and uppercase character
 const String error410 = "You are already on a table.";
 const String success415 = 'Participant removed successfully.';
 const String success416 = 'Table removed successfully.';
+const String error417 = 'Can\'t remove it. Participant is in a meeting.';
+const String error418 = 'Can\'t remove it. Participants are in a meeting.';
 
 //List of Universities
 List<dynamic> univercitiesName = [];

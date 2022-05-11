@@ -286,14 +286,14 @@ class _CustomContainerState extends State<CustomTable>
                   ),
                 ),
                 Positioned(
-                    top: 65,
+                    top: 66,
                     left: 105,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 1),
                       angle: 0.0,
                     )),
                 Positioned(
-                    top: 65,
+                    top: 66,
                     left: 180,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 2),
@@ -301,14 +301,14 @@ class _CustomContainerState extends State<CustomTable>
                     )),
                 Positioned(
                     top: 140,
-                    left: 259,
+                    left: 255,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 3),
                       angle: -270 * 3.14159265359 / 180,
                     )),
                 Positioned(
                     top: 215,
-                    left: 259,
+                    left: 255,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 4),
                       angle: -270 * 3.14159265359 / 180,
@@ -329,14 +329,14 @@ class _CustomContainerState extends State<CustomTable>
                     )),
                 Positioned(
                     top: 215,
-                    left: 34,
+                    left: 33,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 7),
                       angle: -90 * 3.14159265359 / 180,
                     )),
                 Positioned(
                     top: 140,
-                    left: 34,
+                    left: 33,
                     child: Chair(
                       onTap: () => _sitOnChair(widget.table_name, 8),
                       angle: -90 * 3.14159265359 / 180,
@@ -439,6 +439,8 @@ class _CustomContainerState extends State<CustomTable>
                                     FadeTransition(
                                       opacity: opacityAnimation,
                                       child: ShapedWidget2(
+                                        account_Id: widget.account_Id,
+                                        tableId: widget.id,
                                         isAdmin: widget.isAdmin,
                                         getIdsPrivet: widget.getIdsPrivet,
                                         getUsersPrivet: widget.getUsersPrivet,
@@ -493,7 +495,9 @@ class _CustomContainerState extends State<CustomTable>
 
                 widget.isNew == true
                     ? Text(
-                        "New!!",
+                        '',
+
+                        ///""New!!",
                         style: TextStyle(fontSize: 22),
                       )
                     : Container(),
@@ -519,74 +523,177 @@ class _CustomContainerState extends State<CustomTable>
                         ),
                       ),
                       Expanded(child: SizedBox()),
-                      PopupMenuButton<int>(
-                          tooltip: '',
-                          //splashRadius: 0.1,
-                          onSelected: (val) => _onSelected(val),
-                          color: globals.white,
-                          itemBuilder: (context) => [
-                                widget.isAdmin == true
-                                    ? PopupMenuItem<int>(
-                                        value: 0,
+
+                      widget.isAdmin == true && widget.isPrivet == true
+                          ? PopupMenuButton<int>(
+                              tooltip: '',
+                              //splashRadius: 0.1,
+                              onSelected: (val) => _onSelected(val),
+                              color: globals.white,
+                              itemBuilder: (context) => [
+                                PopupMenuItem<int>(
+                                  value: 0,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.delete,
+                                        color: globals.blue1,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text('Delete Table'),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem<int>(
+                                  value: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.group_outlined,
+                                          color: globals.blue1,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text('Show Participant'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                PopupMenuItem<int>(
+                                  value: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.person_add_outlined,
+                                          color: globals.blue1,
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text('Add Participant'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : widget.isPrivet == true
+                              ? PopupMenuButton<int>(
+                                  tooltip: '',
+                                  //splashRadius: 0.1,
+                                  onSelected: (val) => _onSelected(val),
+                                  color: globals.white,
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem<int>(
+                                      value: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
                                         child: Row(
                                           children: [
                                             Icon(
-                                              Icons.delete,
+                                              Icons.group_outlined,
                                               color: globals.blue1,
                                             ),
                                             SizedBox(width: 5),
-                                            Text('Delete Table'),
+                                            Text('Show Participant'),
                                           ],
                                         ),
-                                      )
-                                    : PopupMenuItem<int>(
-                                        enabled: false,
-                                        child: SizedBox(),
                                       ),
-                                widget.isPrivet == true
-                                    ? PopupMenuItem<int>(
-                                        value: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
+                                    ),
+                                  ],
+                                )
+                              : widget.isAdmin == true
+                                  ? PopupMenuButton<int>(
+                                      tooltip: '',
+                                      //splashRadius: 0.1,
+                                      onSelected: (val) => _onSelected(val),
+                                      color: globals.white,
+                                      itemBuilder: (context) => [
+                                        PopupMenuItem<int>(
+                                          value: 0,
                                           child: Row(
                                             children: [
                                               Icon(
-                                                Icons.group_outlined,
+                                                Icons.delete,
                                                 color: globals.blue1,
                                               ),
                                               SizedBox(width: 5),
-                                              Text('Show Participant'),
+                                              Text('Delete Table'),
                                             ],
                                           ),
                                         ),
-                                      )
-                                    : PopupMenuItem<int>(
-                                        enabled: false,
-                                        child: SizedBox(),
-                                      ),
-                                widget.isAdmin == true &&
-                                        widget.isPrivet == true
-                                    ? PopupMenuItem<int>(
-                                        value: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.person_add_outlined,
-                                                color: globals.blue1,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text('Add Participant'),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    : PopupMenuItem<int>(
-                                        enabled: false,
-                                        child: SizedBox(),
-                                      ),
-                              ]),
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                      //PopupMenuButton<int>(
+                      //                           tooltip: '',
+                      //                           //splashRadius: 0.1,
+                      //                           onSelected: (val) => _onSelected(val),
+                      //                           color: globals.white,
+                      //                           itemBuilder: (context) => [
+                      //                                 widget.isAdmin == true
+                      //                                     ? PopupMenuItem<int>(
+                      //                                         value: 0,
+                      //                                         child: Row(
+                      //                                           children: [
+                      //                                             Icon(
+                      //                                               Icons.delete,
+                      //                                               color: globals.blue1,
+                      //                                             ),
+                      //                                             SizedBox(width: 5),
+                      //                                             Text('Delete Table'),
+                      //                                           ],
+                      //                                         ),
+                      //                                       )
+                      //                                     : PopupMenuItem<int>(
+                      //                                         enabled: false,
+                      //                                         child: SizedBox(),
+                      //                                       ),
+                      //                                 widget.isPrivet == true
+                      //                                     ? PopupMenuItem<int>(
+                      //                                         value: 1,
+                      //                                         child: Padding(
+                      //                                           padding: const EdgeInsets.all(4.0),
+                      //                                           child: Row(
+                      //                                             children: [
+                      //                                               Icon(
+                      //                                                 Icons.group_outlined,
+                      //                                                 color: globals.blue1,
+                      //                                               ),
+                      //                                               SizedBox(width: 5),
+                      //                                               Text('Show Participant'),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       )
+                      //                                     : PopupMenuItem<int>(
+                      //                                         enabled: false,
+                      //                                         child: SizedBox(),
+                      //                                       ),
+                      //                                 widget.isAdmin == true &&
+                      //                                         widget.isPrivet == true
+                      //                                     ? PopupMenuItem<int>(
+                      //                                         value: 2,
+                      //                                         child: Padding(
+                      //                                           padding: const EdgeInsets.all(4.0),
+                      //                                           child: Row(
+                      //                                             children: [
+                      //                                               Icon(
+                      //                                                 Icons.person_add_outlined,
+                      //                                                 color: globals.blue1,
+                      //                                               ),
+                      //                                               SizedBox(width: 5),
+                      //                                               Text('Add Participant'),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       )
+                      //                                     : PopupMenuItem<int>(
+                      //                                         enabled: false,
+                      //                                         child: SizedBox(),
+                      //                                       ),
+                      //                               ]),
                       SizedBox(width: 10),
                     ],
                   ),
@@ -602,15 +709,22 @@ class _CustomContainerState extends State<CustomTable>
   Future<void> _sitOnChair(String table_name, int position) async {
     if (globals.loadJoinTableLibrary == false) {
       globals.loadJoinTableLibrary = true;
-      while (globals.loadLibrary == true ||
+
+      if (globals.loadLibrary == true ||
           globals.loadCreateTableLibrary == true) {
-        await Future.delayed(Duration(seconds: 1));
-        print(
-            '=========>>======================================================>>==================================================>>=========');
-        print("reload sitOnChair");
-        print(
-            '=========<<======================================================<<==================================================<<=========');
+        globals.loadJoinTableLibrary = false;
+        return;
       }
+
+      // while (globals.loadLibrary == true ||
+      //     globals.loadCreateTableLibrary == true) {
+      //   await Future.delayed(Duration(seconds: 1));
+      //   print(
+      //       '=========>>======================================================>>==================================================>>=========');
+      //   print("reload sitOnChair");
+      //   print(
+      //       '=========<<======================================================<<==================================================<<=========');
+      // }
 
       try {
         print('load joinTable');
@@ -675,33 +789,38 @@ class _CustomContainerState extends State<CustomTable>
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
-  }// Done
+  } // Done
 
   Future<void> _startJit(String table_name, int position) async {
     if (_isInMeeting == false) {
-      setState(() {
-        _isInMeeting = true;
-      });
       if (globals.loadJoinTableLibrary == false) {
         globals.loadJoinTableLibrary = true;
-        while (globals.loadLibrary == true ||
+
+        if (globals.loadLibrary == true ||
             globals.loadCreateTableLibrary == true) {
-          await Future.delayed(Duration(seconds: 1));
-          print(
-              '=========>>======================================================>>==================================================>>=========');
-          print("reload createReplyPage");
-          print(
-              '=========<<======================================================<<==================================================<<=========');
+          globals.loadJoinTableLibrary = false;
+          return;
         }
+
+        setState(() {
+          _isInMeeting = true;
+        });
+
+        // while (globals.loadLibrary == true ||
+        //     globals.loadCreateTableLibrary == true) {
+        //   await Future.delayed(Duration(seconds: 1));
+        //   print(
+        //       '=========>>======================================================>>==================================================>>=========');
+        //   print("reload createReplyPage");
+        //   print(
+        //       '=========<<======================================================<<==================================================<<=========');
+        // }
 
         try {
           print('load joinTable');
           var username = await SessionManager().get('username');
           final params = Uri.encodeFull(
-              globals.jaasUrl +
-                  table_name +
-                  '&account=' +
-                  username.toString());
+              globals.jaasUrl + table_name + '&account=' + username.toString() + '/$position');
           String url = params.toString();
 
           if (kIsWeb) {
@@ -713,10 +832,8 @@ class _CustomContainerState extends State<CustomTable>
                   headers: <String, String>{
                     'my_header_key': 'my_header_value'
                   });
-
             } catch (e) {
-              print(
-                  'Could not launch ${url}');
+              print('Could not launch ${url}');
             }
             // } else {
             //   throw 'Could not launch ${globals.jaasUrl + table_name.replaceAll(new RegExp(r"\s+\b|\b\s"), "%20") + '&account=' + username.toString()}';
@@ -731,7 +848,9 @@ class _CustomContainerState extends State<CustomTable>
             ));
             _webview.launch(url);
             // _webview.onClose.whenComplete(() {
-            //   _leftOccupant();
+            //   setState(() {
+            //     _isInMeeting = false;
+            //   });
             // });
           } else {
             print('is' + Platform.operatingSystem);
@@ -743,8 +862,7 @@ class _CustomContainerState extends State<CustomTable>
                     'my_header_key': 'my_header_value'
                   });
             } catch (e) {
-              print(
-                  'Could not launch ${url}');
+              print('Could not launch ${url}');
             }
           }
         } catch (e) {
@@ -754,13 +872,16 @@ class _CustomContainerState extends State<CustomTable>
           print(
               '=========<<======================================================<<==================================================<<=========');
         }
+
+        ///Waiting jit timer start
+        await Future.delayed(const Duration(seconds: 10));
         globals.loadJoinTableLibrary = false;
         print('join jit end!!!');
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
     }
-  }// Done
+  } // Done
 
   Future<void> _leftOccupant() async {
     if (_isInMeeting == true) {
@@ -773,7 +894,7 @@ class _CustomContainerState extends State<CustomTable>
         if (kIsWeb) {
           print('isWeb');
           try {
-            await closeWebView();// .then((value) => _leftOccupant())
+            await closeWebView(); // .then((value) => _leftOccupant())
           } catch (e) {
             print('Can\'t close web webview' + e.toString());
           }
@@ -789,7 +910,7 @@ class _CustomContainerState extends State<CustomTable>
         } else {
           print('is' + Platform.operatingSystem);
           try {
-            await closeWebView();// .then((value) => _leftOccupant())
+            await closeWebView(); // .then((value) => _leftOccupant())
           } catch (e) {
             print('Can\'t close mobile webview' + e.toString());
           }
@@ -802,63 +923,66 @@ class _CustomContainerState extends State<CustomTable>
             '=========<<======================================================<<==================================================<<=========');
       }
     }
-  }// Done
+  } // Done
 
   Future<void> _removeParticipant(int participantId) async {
     if (globals.loadJoinTableLibrary == false) {
-          globals.loadJoinTableLibrary = true;
-          while (globals.loadLibrary == true ||
-              globals.loadCreateTableLibrary == true) {
-            await Future.delayed(Duration(seconds: 1));
-            print(
-                '=========>>======================================================>>==================================================>>=========');
-            print("reload removeParticipant");
-            print(
-                '=========<<======================================================<<==================================================<<=========');
-          }
+      globals.loadJoinTableLibrary = true;
+      while (globals.loadLibrary == true ||
+          globals.loadCreateTableLibrary == true) {
+        await Future.delayed(Duration(seconds: 1));
+        print(
+            '=========>>======================================================>>==================================================>>=========');
+        print("reload removeParticipant");
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
 
-          try {
-            print('load removeParticipant');
-            var account_Id = await SessionManager().get('account_Id');
+      try {
+        print('load removeParticipant');
+        var account_Id = await SessionManager().get('account_Id');
 
-            var data = {
-              'version': globals.version,
-              'account_Id': account_Id,
-              'table_id': widget.id,
-              'participant_id': participantId,
-            };
+        var data = {
+          'version': globals.version,
+          'account_Id': account_Id,
+          'table_id': widget.id,
+          'participant_id': participantId,
+        };
 
-            var res = await CallApi().postData(data, '(Control)removeParticipant.php');
-            print(res.body);
-            List<dynamic> body = json.decode(res.body);
+        var res =
+            await CallApi().postData(data, '(Control)removeParticipant.php');
+        print(res.body);
+        List<dynamic> body = json.decode(res.body);
 
-            if (body[0] == "success") {
-              SuccessPopup(context, globals.success415);
-            } else if (body[0] == "errorVersion") {
-              ErrorPopup(context, globals.errorVersion);
-            } else if (body[0] == "errorToken") {
-              ErrorPopup(context, globals.errorToken);
-            } else if (body[0] == "error4") {
-              ErrorPopup(context, globals.error4);
-            } else if (body[0] == "error7") {
-              WarningPopup(context, globals.warning7);
-            } else {
-              globals.loadJoinTableLibrary = false;
-              ErrorPopup(context, globals.errorElse);
-            }
-          } catch (e) {
-            print(e);
-            globals.loadJoinTableLibrary = false;
-            ErrorPopup(context, globals.errorException);
-            print(
-                '=========<<======================================================<<==================================================<<=========');
-          }
+        if (body[0] == "success") {
+          SuccessPopup(context, globals.success415);
+        } else if (body[0] == "errorVersion") {
+          ErrorPopup(context, globals.errorVersion);
+        } else if (body[0] == "errorToken") {
+          ErrorPopup(context, globals.errorToken);
+        } else if (body[0] == "error4") {
+          ErrorPopup(context, globals.error4);
+        } else if (body[0] == "error7") {
+          WarningPopup(context, globals.warning7);
+        } else if (body[0] == "error417") {
+          ErrorPopup(context, globals.error417);
+        } else {
           globals.loadJoinTableLibrary = false;
-          print('load removeParticipant end!!!');
-          print(
-              '=========<<======================================================<<==================================================<<=========');
+          ErrorPopup(context, globals.errorElse);
         }
-  }// ~Done
+      } catch (e) {
+        print(e);
+        globals.loadJoinTableLibrary = false;
+        ErrorPopup(context, globals.errorException);
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+      globals.loadJoinTableLibrary = false;
+      print('load removeParticipant end!!!');
+      print(
+          '=========<<======================================================<<==================================================<<=========');
+    }
+  } // ~Done
 
   Future<void> _removeTable() async {
     if (globals.loadJoinTableLibrary == false) {
@@ -898,6 +1022,8 @@ class _CustomContainerState extends State<CustomTable>
           ErrorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
           WarningPopup(context, globals.warning7);
+        } else if (body[0] == "error418") {
+          WarningPopup(context, globals.error418);
         } else {
           globals.loadJoinTableLibrary = false;
           ErrorPopup(context, globals.errorElse);
@@ -914,7 +1040,7 @@ class _CustomContainerState extends State<CustomTable>
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
-  }// Done
+  } // Done
 
   Future<void> _loadOccupants() async {
     widget.imgs = ['', '', '', '', '', '', '', ''];
@@ -1015,20 +1141,26 @@ class _CustomContainerState extends State<CustomTable>
       print("Exeption: " + e.toString());
       ErrorPopup(context, globals.errorException);
     }
-  }// Done
+  } // Done
 
   Future<void> _closeControlPanel() async {
     if (globals.loadJoinTableLibrary == false) {
       globals.loadJoinTableLibrary = true;
-      while (globals.loadLibrary == true ||
+
+      if (globals.loadLibrary == true ||
           globals.loadCreateTableLibrary == true) {
-        await Future.delayed(Duration(seconds: 1));
-        print(
-            '=========>>======================================================>>==================================================>>=========');
-        print("reload controlPanel");
-        print(
-            '=========<<======================================================<<==================================================<<=========');
+        globals.loadJoinTableLibrary = false;
+        return;
       }
+      // while (globals.loadLibrary == true ||
+      //     globals.loadCreateTableLibrary == true) {
+      //   await Future.delayed(Duration(seconds: 1));
+      //   print(
+      //       '=========>>======================================================>>==================================================>>=========');
+      //   print("reload controlPanel");
+      //   print(
+      //       '=========<<======================================================<<==================================================<<=========');
+      // }
 
       try {
         print('load joinTable');
@@ -1046,7 +1178,7 @@ class _CustomContainerState extends State<CustomTable>
 
         if (body[0] == "success") {
           print('Occupant removed successfully.');
-          if(mounted){
+          if (mounted) {
             setState(() {
               widget.imgs[_myPos] = '';
               widget.enablee[_myPos] = false;
@@ -1063,6 +1195,8 @@ class _CustomContainerState extends State<CustomTable>
           ErrorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
           WarningPopup(context, globals.warning7);
+        } else if (body[0] == "error417") {
+          ErrorPopup(context, globals.error417);
         } else {
           globals.loadJoinTableLibrary = false;
           ErrorPopup(context, globals.errorElse);
@@ -1079,10 +1213,7 @@ class _CustomContainerState extends State<CustomTable>
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
-
-
-
-  }// Done
+  } // Done
 
   _onSelected(int val) {
     switch (val) {
@@ -1107,7 +1238,7 @@ class _CustomContainerState extends State<CustomTable>
         });
         break;
     }
-  }// Done
+  } // Done
 
 // hiddenFunction() {
 //   if (widget.hiddenBool == true) {
@@ -1176,7 +1307,6 @@ class _CustomContainerState extends State<CustomTable>
 //   //   // There is table getting token
 //   // }
 // }
-
 
 // loadOccupants() async {
 //   widget.imgs = ['','','','','','','',''];
