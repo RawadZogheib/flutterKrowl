@@ -420,7 +420,7 @@ class ShapedWidget3 extends StatelessWidget {
                           onTap: () {
                             Clipboard.setData(ClipboardData(
                                     text:
-                                        'krowl.dataflow.com.lb:8070/?private=' +
+                                        'https://krowl.dataflow.com.lb:8070/?private=' +
                                             tableCode))
                                 .then((value) {
                               SuccessPopup(
@@ -446,7 +446,7 @@ class ShapedWidget3 extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'krowl.dataflow.com.lb:8070/?private=' +
+                                  'https://krowl.dataflow.com.lb:8070/?private=' +
                                       tableCode,
                                   style: TextStyle(
                                     fontSize: 10,
