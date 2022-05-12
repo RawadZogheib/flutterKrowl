@@ -7,8 +7,8 @@ import 'package:Krowl/widgets/Forum/ReplyPage/RepliesWidget.dart';
 const String version = "v1.0";
 
 //Server Ip  (page[/my_api.dart])
-//const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphptest/";
-const String myIP = "https://kwikcode.net/krowlphp/";
+const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphp/";
+//const String myIP = "https://kwikcode.net/krowlphp/";
 //const String myIP = "http://127.0.0.1:8080/krowi/";
 const String jaasUrl = "${myIP}jit/?table=";
 

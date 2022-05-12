@@ -1219,22 +1219,22 @@ class _CustomContainerState extends State<CustomTable>
     switch (val) {
       case 0:
         _removeTable();
-        setState(() {
-          _edit = !_edit;
-        });
+        // setState(() {
+        //   _edit = !_edit;
+        // });
         break;
       case 1:
         setState(() {
           if (_iconIsClicked2 == true) _iconIsClicked2 = false;
           _iconIsClicked = !_iconIsClicked;
-          _edit = !_edit;
+          // _edit = !_edit;
         });
         break;
-      case 1:
+      case 2:
         setState(() {
           if (_iconIsClicked == true) _iconIsClicked = false;
           _iconIsClicked2 = !_iconIsClicked2;
-          _edit = !_edit;
+          // _edit = !_edit;
         });
         break;
     }
