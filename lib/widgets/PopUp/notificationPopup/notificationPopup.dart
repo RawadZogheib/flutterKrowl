@@ -116,8 +116,10 @@ class _ShapedWidgetState extends State<ShapedWidget>
   }
 
   _showMore() {
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/Notifications', (route) => false);
+    if (globals.currentPage != 'Notifications') {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/Notifications', (route) => false);
+    }
   }
 
   void _distAnimation() {
@@ -133,7 +135,8 @@ class _ShapedWidgetState extends State<ShapedWidget>
       }
     });
   }
-}
+
+ }
 
 class _ShapedWidgetBorder extends RoundedRectangleBorder {
   _ShapedWidgetBorder({

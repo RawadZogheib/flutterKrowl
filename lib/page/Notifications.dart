@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import '../widgets/Notification/NotificationContainer.dart';
 import '../widgets/TabBar/CustomTabBar.dart';
+import 'package:Krowl/globals/globals.dart' as globals;
 
 
 void main() =>
@@ -12,8 +14,13 @@ class Notifications extends StatefulWidget {
   State<Notifications> createState() => _NotificationsState();
 }
 
-class _NotificationsState extends State<Notifications>
-    with SingleTickerProviderStateMixin {
+class _NotificationsState extends State<Notifications> {
+
+  @override
+  void initState() {
+    _onInitState();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,5 +55,15 @@ class _NotificationsState extends State<Notifications>
         ],
       ),
     );
+  }
+
+  Future<void> _onInitState() async {
+    if (await SessionManager().get('isLoggedIn') == true) {
+      globals.currentPage = 'Notifications';
+      //_loadNewPage();
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/intro_page', (route) => false);
+    }
   }
 }
