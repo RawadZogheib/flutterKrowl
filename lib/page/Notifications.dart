@@ -33,8 +33,8 @@ class _NotificationsState extends State<Notifications>
                       children: [
                         Column(
                           children: [
-                            NotificationContainer(username: "Michoo",),
-                            NotificationContainer(username: "Michoo",),
+                            NotificationContainer(username: "Michoo"),
+                            NotificationContainer(username: "Michoo"),
                           ],
                         ),
                       ],

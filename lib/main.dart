@@ -11,6 +11,7 @@ import 'package:Krowl/page/Library.dart';
 import 'package:Krowl/page/Login/login.dart';
 import 'package:Krowl/page/Login/login2.dart';
 import 'package:Krowl/page/MainChat.dart';
+import 'package:Krowl/page/Notifications.dart';
 import 'package:Krowl/page/Reminders.dart';
 import 'package:Krowl/page/Settings.dart';
 import 'package:Krowl/page/Signup/Registration.dart';
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
             '/forgetPass': (context) => forgetPass(),
             '/forgetPass2': (context) => forgetPass2(),
             '/Settings': (context) => Settings(),
+            '/Notifications': (context) => Notifications(),
             //'/ReplyPage': (context) => ReplyPage(),
           });
     });

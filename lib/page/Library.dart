@@ -43,6 +43,13 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   int _k = 0;
 
   @override
+  void initState() {
+    _distAnimation();
+    _onInitState();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
     timer?.cancel();
@@ -51,16 +58,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    _distAnimation();
-    _onInitState();
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
+    // double _height = MediaQuery.of(context).size.height;
+    // double _width = MediaQuery.of(context).size.width;
     Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
         CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
     if (_k % 2 == 0) {

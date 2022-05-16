@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:Krowl/api/my_api.dart';
@@ -9,60 +10,128 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 
-class ShapedWidget extends StatelessWidget {
-  //ShapedWidget();
+class ShapedWidget extends StatefulWidget {
+  @override
+  State<ShapedWidget> createState() => _ShapedWidgetState();
+}
 
+class _ShapedWidgetState extends State<ShapedWidget>
+    with SingleTickerProviderStateMixin {
+  //ShapedWidget();
   final double padding = 4.0;
+
+  AnimationController? animationController;
+  final int _animationDuration = 2;
+  int _k = 0;
+  Timer? timer;
+
+  @override
+  void initState() {
+    _distAnimation();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer?.cancel();
+    animationController?.stop();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: ScrollController(),
-      child: Center(
-        child: Material(
-            clipBehavior: Clip.antiAlias,
-            shape: _ShapedWidgetBorder(
-                borderRadius: BorderRadius.all(Radius.circular(padding)),
-                padding: padding),
-            elevation: 4.0,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              padding: EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 250.0,
-                height: 400.0,
-                child: ScrollConfiguration(
-                  behavior:
-                      MyCustomScrollBehavior().copyWith(scrollbars: false),
-                  child: ListView(
-                    controller: ScrollController(),
-                    children: [
-                      NotificationPopupChildren(),
-                      NotificationPopupChildren(),
-                      NotificationPopupChildren(),
-                      NotificationPopupChildren(),
-                      NotificationPopupChildren(),
-                      NotificationPopupChildren(),
-                      GestureDetector(
-                        onTap: () => print('Show More'),
-                        child: Container(
-                          padding: EdgeInsets.all(8.0),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Show More',
-                            style: TextStyle(color: globals.blue1),
+    Animation distAnimation = Tween(begin: 50.0, end: 10.0).animate(
+        CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
+    if (_k % 2 == 0) {
+      animationController!.forward();
+    } else {
+      animationController!.reverse();
+    }
+    return AnimatedBuilder(
+      animation: animationController!,
+      builder: (BuildContext context, Widget) => SingleChildScrollView(
+        controller: ScrollController(),
+        child: Center(
+          child: Material(
+              clipBehavior: Clip.antiAlias,
+              shape: _ShapedWidgetBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(padding)),
+                  padding: padding),
+              elevation: 4.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                padding: EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 250.0,
+                  height: 400.0,
+                  child: ScrollConfiguration(
+                    behavior:
+                        MyCustomScrollBehavior().copyWith(scrollbars: false),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            controller: ScrollController(),
+                            children: [
+                              NotificationPopupChildren(username: 'Clara'),
+                              NotificationPopupChildren(username: 'Mich'),
+                              NotificationPopupChildren(username: 'Samir'),
+                              NotificationPopupChildren(username: 'Samira'),
+                              NotificationPopupChildren(username: 'Bilal'),
+                              NotificationPopupChildren(username: 'Karen'),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                        Divider(
+                            indent: distAnimation.value,
+                            endIndent: distAnimation.value,
+                            height: 12,
+                            color: Colors.blue.shade900),
+                        GestureDetector(
+                          onTap: () => _showMore(),
+                          child: Container(
+                            padding: EdgeInsets.all(8.0),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: globals.blue1,
+                              borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                            ),
+                            child: Text(
+                              'Show More',
+                              style: TextStyle(color: globals.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
+  }
+
+  _showMore() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/Notifications', (route) => false);
+  }
+
+  void _distAnimation() {
+    animationController = AnimationController(
+        vsync: this, duration: Duration(seconds: _animationDuration));
+    timer =
+        Timer.periodic(Duration(seconds: _animationDuration), (Timer t) async {
+      if (mounted) {
+        setState(() {
+          _k++;
+          print('$_animationDuration Second');
+        });
+      }
+    });
   }
 }
 

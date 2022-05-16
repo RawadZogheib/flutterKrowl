@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NotificationContainer extends StatefulWidget {
-  NotificationContainer({this.onChanged, required this.username});
 
   var onChanged;
   var username;
+
+  NotificationContainer({this.onChanged, required this.username});
 
   @override
   State<NotificationContainer> createState() => _NotificationContainerState();
