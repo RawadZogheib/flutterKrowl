@@ -90,7 +90,7 @@ class _ShapedWidgetState extends State<ShapedWidget>
                             endIndent: distAnimation.value,
                             height: 12,
                             color: Colors.blue.shade900),
-                        GestureDetector(
+                        InkWell(
                           onTap: () => _showMore(),
                           child: Container(
                             padding: EdgeInsets.all(8.0),
