@@ -34,6 +34,8 @@ class _Students1State extends State<Students1>
   int _totalStudents = 11988;
   bool _load = true;
 
+  int _notifNBR =0;
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -145,6 +147,7 @@ class _Students1State extends State<Students1>
                 ),
                 CustomTabBar(
                   color: globals.blue1,
+                    notifNBR: _notifNBR
                 ),
               ],
             ),
@@ -240,6 +243,7 @@ class _Students1State extends State<Students1>
                 ),
                 CustomTabBar(
                   color: globals.blue1,
+                    notifNBR: _notifNBR
                 ),
               ],
             ),
@@ -287,22 +291,24 @@ class _Students1State extends State<Students1>
           });
         }
         if (body[0] == "success") {
+
           if (mounted) {
+            _notifNBR = int.parse(body[1]);
             setState(() {
-              _totalStudents = int.parse(body[1]);
+              _totalStudents = int.parse(body[2]);
               _totalPages = (_totalStudents / 20).ceil();
             });
           }
-          for (var i = 0; i < body[2].length; i++) {
+          for (var i = 0; i < body[3].length; i++) {
             children.add(
               StudentCard(
-                userId: body[2][i][0],
-                username: body[2][i][1] + ' ' + body[2][i][2],
-                universityName: body[2][i][4],
-                description: body[2][i][5],
-                nbrOfFriends: int.parse(body[2][i][6]),
-                isFriend: body[2][i][7],
-                userImg: body[2][i][3],
+                userId: body[3][i][0],
+                username: body[3][i][1] + ' ' + body[3][i][2],
+                universityName: body[3][i][4],
+                description: body[3][i][5],
+                nbrOfFriends: int.parse(body[3][i][6]),
+                isFriend: body[3][i][7],
+                userImg: body[3][i][3],
                 contextStudentPage: context,
                 // reload: () {
                 //   _loadNewPage();

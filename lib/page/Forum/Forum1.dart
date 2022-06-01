@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
+import 'package:badges/badges.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -37,6 +38,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   final int _animationDuration = 4;
   int _k = 0;
 
+  int _notifNBR = 0;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -253,7 +255,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   CustomTabBar(
-                    color: globals.blue1,
+                    color: globals.blue1, notifNBR: _notifNBR,
                   ),
                 ],
               ),
@@ -378,7 +380,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   CustomTabBar(
-                    color: globals.blue1,
+                    color: globals.blue1, notifNBR: _notifNBR,
                   ),
                 ],
               ),
@@ -422,16 +424,17 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           });
         }
         if (body[0] == "success") {
-          for (var i = 0; i < body[1].length; i++) {
+          _notifNBR = int.parse(body[1]);
+          for (var i = 0; i < body[2].length; i++) {
             Color _color;
             Color _color2;
-            if (int.parse(body[1][i][7]) == 0) {
+            if (int.parse(body[2][i][7]) == 0) {
               _color = Colors.grey.shade600;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[1][i][7]) == 1) {
+            } else if (int.parse(body[2][i][7]) == 1) {
               _color = globals.blue1;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[1][i][7]) == -1) {
+            } else if (int.parse(body[2][i][7]) == -1) {
               _color = Colors.grey.shade600;
               _color2 = globals.blue1;
             } else {
@@ -441,19 +444,19 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             children.addAll(
               [
                 Question(
-                  id: body[1][i][0],
+                  id: body[2][i][0],
                   // post_id
-                  username: body[1][i][1],
+                  username: body[2][i][1],
                   // username
-                  tag: body[1][i][2],
+                  tag: body[2][i][2],
                   // tag
-                  text: body[1][i][3],
+                  text: body[2][i][3],
                   // post_data
-                  val: int.parse(body[1][i][4]),
+                  val: int.parse(body[2][i][4]),
                   // post_val
-                  date: body[1][i][5],
+                  date: body[2][i][5],
                   // post_date
-                  question_context: body[1][i][6],
+                  question_context: body[2][i][6],
                   // context of the question
                   color: _color,
                   // like color

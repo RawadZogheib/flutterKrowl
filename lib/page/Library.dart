@@ -42,6 +42,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   final int _animationDuration = 4;
   int _k = 0;
 
+  int _notifNBR =0;
+
   @override
   void initState() {
     _distAnimation();
@@ -587,6 +589,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 ),
                 CustomTabBar(
                   color: globals.blue1,
+                    notifNBR: _notifNBR
                 ),
               ],
             ),
@@ -866,6 +869,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 ),
                 CustomTabBar(
                   color: globals.blue1,
+                    notifNBR: _notifNBR
                 ),
               ],
             ),
@@ -923,13 +927,15 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
         _children.clear();
         if (body[0] == "success") {
+
           if (mounted) {
+            _notifNBR = int.parse(body[1]);
             setState(() {
-              _totalTables = int.parse(body[1]);
+              _totalTables = int.parse(body[2]);
               _totalPages = (_totalTables / _maxTables).ceil();
             });
           }
-          for (var i = 0; i < body[2].length; i++) {
+          for (var i = 0; i < body[3].length; i++) {
             List<dynamic> _userId = ['', '', '', '', '', '', '', ''];
             List<dynamic> _userName = ['', '', '', '', '', '', '', ''];
             List<dynamic> _userPosition = [
@@ -949,33 +955,33 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             List<dynamic> _userNamePrivet = [];
             List<dynamic> _userImgUrlPrivet = [];
             if (_isPrivet == true) {
-              for (int j = 0; j < body[2][i][8].length; j++) {
-                _userIdPrivet.add(body[2][i][8][j][0]); // userId
-                _userNamePrivet.add(body[2][i][8][j][1]); // userName
+              for (int j = 0; j < body[3][i][8].length; j++) {
+                _userIdPrivet.add(body[3][i][8][j][0]); // userId
+                _userNamePrivet.add(body[3][i][8][j][1]); // userName
                 _userImgUrlPrivet.add(
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
                 // userImgUrl
               }
-              for (int j = 0; j < body[2][i][9].length; j++) {
-                _userId[int.parse(body[2][i][9][j][2]) - 1] =
-                    body[2][i][9][j][0]; // userId
-                _userName[int.parse(body[2][i][9][j][2]) - 1] =
-                    body[2][i][9][j][1]; // userName
-                _userPosition[int.parse(body[2][i][9][j][2]) - 1] =
-                    body[2][i][9][j][2]; // userPosition
-                _userImgUrl[int.parse(body[2][i][9][j][2]) - 1] =
+              for (int j = 0; j < body[3][i][9].length; j++) {
+                _userId[int.parse(body[3][i][9][j][2]) - 1] =
+                    body[3][i][9][j][0]; // userId
+                _userName[int.parse(body[3][i][9][j][2]) - 1] =
+                    body[3][i][9][j][1]; // userName
+                _userPosition[int.parse(body[3][i][9][j][2]) - 1] =
+                    body[3][i][9][j][2]; // userPosition
+                _userImgUrl[int.parse(body[3][i][9][j][2]) - 1] =
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
                 // userImgUrl
               }
             } else {
-              for (int j = 0; j < body[2][i][8].length; j++) {
-                _userId[int.parse(body[2][i][8][j][2]) - 1] =
-                    body[2][i][8][j][0]; // userId
-                _userName[int.parse(body[2][i][8][j][2]) - 1] =
-                    body[2][i][8][j][1]; // userName
-                _userPosition[int.parse(body[2][i][8][j][2]) - 1] =
-                    body[2][i][8][j][2]; // userPosition
-                _userImgUrl[int.parse(body[2][i][8][j][2]) - 1] =
+              for (int j = 0; j < body[3][i][8].length; j++) {
+                _userId[int.parse(body[3][i][8][j][2]) - 1] =
+                    body[3][i][8][j][0]; // userId
+                _userName[int.parse(body[3][i][8][j][2]) - 1] =
+                    body[3][i][8][j][1]; // userName
+                _userPosition[int.parse(body[3][i][8][j][2]) - 1] =
+                    body[3][i][8][j][2]; // userPosition
+                _userImgUrl[int.parse(body[3][i][8][j][2]) - 1] =
                     'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
                 // userImgUrl
               }
@@ -988,11 +994,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               new CustomTable(
                 account_Id: account_Id,
                 key: ValueKey(_key++),
-                id: body[2][i][0].toString(),
-                tableCode: body[2][i][1],
-                table_name: body[2][i][2],
-                seats: body[2][i][3],
-                isSilent: body[2][i][4],
+                id: body[3][i][0].toString(),
+                tableCode: body[3][i][1],
+                table_name: body[3][i][2],
+                seats: body[3][i][3],
+                isSilent: body[3][i][4],
                 isPrivet: _isPrivet,
                 color: Colors.green,
                 getIds: _userId,
@@ -1002,9 +1008,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 getIdsPrivet: _userIdPrivet,
                 getUsersPrivet: _userNamePrivet,
                 getImgsPrivet: _userImgUrlPrivet,
-                isNew: body[2][i][5],
-                isControlPanel: body[2][i][6],
-                isAdmin: body[2][i][7],
+                isNew: body[3][i][5],
+                isControlPanel: body[3][i][6],
+                isAdmin: body[3][i][7],
                 onRemoveTable: (tableId) => _onRemoveTable(tableId),
               ),
             );
