@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/page/Responsive.dart';
@@ -19,12 +21,15 @@ class MainChat extends StatefulWidget {
 
 class _MainChatState extends State<MainChat> {
   bool initBool = false;
+  Timer? timer;
 
   @override
   Future<void> dispose() async {
     // TODO: implement dispose
-    super.dispose();
     await client.disconnectUser();
+    timer?.cancel();
+    super.dispose();
+
   }
 
   @override
@@ -186,7 +191,28 @@ class _MainChatState extends State<MainChat> {
       _selectedIndex = index;
     });
   }
+  _loadNewPage() {
+    print(
+        '=========>>======================================================>>==================================================>>=========');
+    timer?.cancel();
+    //_loadPosts(); //0
+    _loadPage(); //1 -> INFINI
+  }
 
+  _loadPage() {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) async {
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print("30sec gone!!");
+      if (mounted) {
+        print("30sec gone,and _loadChildrenOnline!!");
+        //await _loadPosts();
+      } else {
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+    });
+  }
   initChat() async {
     var usernameChat = await SessionManager().get('username');
     var userToken = await SessionManager().get('userTokenChat');
@@ -212,6 +238,8 @@ class _MainChatState extends State<MainChat> {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Chat';
       initChat();
+      _loadNewPage();
+
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);

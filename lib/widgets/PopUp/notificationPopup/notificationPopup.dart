@@ -11,6 +11,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class ShapedWidget extends StatefulWidget {
+
+  List<Widget>children;
+
+  ShapedWidget(
+      {Key? key,
+        required this.children})
+      : super(key: key);
+
   @override
   State<ShapedWidget> createState() => _ShapedWidgetState();
 }
@@ -75,14 +83,16 @@ class _ShapedWidgetState extends State<ShapedWidget>
                         Expanded(
                           child: ListView(
                             controller: ScrollController(),
-                            children: [
-                              NotificationPopupChildren(username: 'Clara'),
-                              NotificationPopupChildren(username: 'Mich'),
-                              NotificationPopupChildren(username: 'Samir'),
-                              NotificationPopupChildren(username: 'Samira'),
-                              NotificationPopupChildren(username: 'Bilal'),
-                              NotificationPopupChildren(username: 'Karen'),
-                            ],
+                            children: widget.children
+                            //[
+
+                              //NotificationPopupChildren(username: 'Clara'),
+                              // NotificationPopupChildren(username: 'Mich'),
+                              // NotificationPopupChildren(username: 'Samir'),
+                              // NotificationPopupChildren(username: 'Samira'),
+                              // NotificationPopupChildren(username: 'Bilal'),
+                              // NotificationPopupChildren(username: 'Karen'),
+                            //],
                           ),
                         ),
                         Divider(

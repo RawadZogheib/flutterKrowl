@@ -1,12 +1,20 @@
+import 'dart:convert';
+
+import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/PopUp/ProfilePopUp.dart';
 import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopup.dart';
+import 'package:Krowl/widgets/PopUp/notificationPopup/notificationPopupChildren.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class CustomTabBar extends StatefulWidget {
+  int notifNBR;
   Color color;
 
   CustomTabBar({
+    this.notifNBR = 0,
     required this.color,
   });
 
@@ -20,6 +28,8 @@ class _CustomTabBarState extends State<CustomTabBar>
   AnimationController? animationController2;
   bool _menuShown = false;
   bool _profileIsClicked = false;
+  int _k = 0;
+  List<Widget>_children = [];
 
   @override
   void initState() {
@@ -33,14 +43,15 @@ class _CustomTabBarState extends State<CustomTabBar>
   @override
   Widget build(BuildContext context) {
     Animation<double> opacityAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(animationController!);
-    if (_menuShown)
-      animationController!.forward();
-    else
-      animationController!.reverse();
+    Tween(begin: 0.0, end: 1.0).animate(animationController!);
+    if (_menuShown) {
 
+      animationController!.forward();
+    } else {
+      animationController!.reverse();
+    }
     Animation<double> opacityAnimation2 =
-        Tween(begin: 0.0, end: 1.0).animate(animationController2!);
+    Tween(begin: 0.0, end: 1.0).animate(animationController2!);
     if (_profileIsClicked)
       animationController2!.forward();
     else
@@ -176,11 +187,40 @@ class _CustomTabBarState extends State<CustomTabBar>
                           )),
                     ),
                   ),
-                  IconButton(
+                  widget.notifNBR>0?Badge(
+                    position: BadgePosition.topEnd(top: -8, end: 4),
+                    badgeContent: Text(
+                      widget.notifNBR.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.notifications_none_outlined,
+                        ),
+                        onPressed: () async {
+                          if (_menuShown == false) {
+                            await _loadNotifications();
+                            // setState(() {
+                            //   _k++;
+                            // });
+                          }
+                          setState(() {
+                            if (_profileIsClicked == true)
+                              _profileIsClicked = false;
+                            _menuShown = !_menuShown;
+                          });
+                        }),
+                  ):IconButton(
                       icon: Icon(
                         Icons.notifications_none_outlined,
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        if (_menuShown == false) {
+                          await _loadNotifications();
+                          // setState(() {
+                          //   _k++;
+                          // });
+                        }
                         setState(() {
                           if (_profileIsClicked == true)
                             _profileIsClicked = false;
@@ -216,7 +256,8 @@ class _CustomTabBarState extends State<CustomTabBar>
                 Expanded(child: SizedBox()),
                 FadeTransition(
                   opacity: opacityAnimation,
-                  child: ShapedWidget(),
+                  child: ShapedWidget(
+                      key: ValueKey(_k), children: _children),
                 ),
                 SizedBox(
                   width: 12,
@@ -246,4 +287,38 @@ class _CustomTabBarState extends State<CustomTabBar>
       ],
     );
   }
+
+  Future<void> _loadNotifications() async {
+    print("fffffffffffffffffffffff"+widget.notifNBR.toString());
+    var account_Id = await SessionManager().get('account_Id');
+    var data = {'version': globals.version, 'account_Id': account_Id,'currentPage':1 ,'notif_nbr':widget.notifNBR};
+    var res = await CallApi()
+        .postData(data, 'Notification/(Control)loadNotifications.php');
+    print(res.body);
+    _children.clear();
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      for (var i = 0; i < body[1].length; i++) {
+        _children.add(NotificationPopupChildren(
+          notification_id: int.parse(body[1][i][0]),
+          sender_id: int.parse(body[1][i][1]),
+          sender_name: body[1][i][2],
+          notification_type: int.parse(body[1][i][3]),
+          notification_status: int.parse(body[1][i][4]),
+          notification_params: body[1][i][5],
+
+
+
+        ));
+        }
+            setState(()
+        {
+          _k++;
+          _children;
+
+
+        });
+  }
+  }
+
 }

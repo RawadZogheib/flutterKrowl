@@ -65,6 +65,7 @@ dependencies:
   desktop_webview_window: ^0.1.6
   flutter_session_manager: ^1.0.3
   intl: ^0.17.0
+  badges: ^2.0.2
 
 
 
