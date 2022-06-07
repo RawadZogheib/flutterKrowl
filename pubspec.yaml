@@ -60,7 +60,7 @@ dependencies:
   number_paginator: ^0.0.2
   stream_chat_flutter_core: ^3.3.1
   avatars: ^3.0.2
-  motion_toast: ^2.1.6
+  motion_toast: ^2.1.9
   #simple_tooltip: ^1.0.0
   desktop_webview_window: ^0.1.6
   flutter_session_manager: ^1.0.3
