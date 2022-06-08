@@ -1153,7 +1153,6 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   Future<void> _onInitState() async {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Library';
-      successPopup(context, 'text');
       _loadNewPage();
       if (await SessionManager().containsKey("arg")) {
         setState(() {
