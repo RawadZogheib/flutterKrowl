@@ -1,5 +1,6 @@
 //import 'package:flutter/cupertino.dart'; //CupertinoIcons.checkmark_alt_circle,//Success Icon
-import 'package:flutter/cupertino.dart' as cupertino;
+import 'package:Krowl/NewIcons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:motion_toast/motion_toast.dart';
@@ -69,7 +70,7 @@ warningPopup(BuildContext context, String? text) {
 
 successPopup(BuildContext context, String? text) {
   MotionToast(
-    icon: cupertino.CupertinoIcons.checkmark_alt_circle,
+    icon: CupertinoIcons.checkmark_alt_circle,
     primaryColor: globals.green2,
     secondaryColor: globals.green1,
     toastDuration: const Duration(seconds: 3),
