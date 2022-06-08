@@ -95,7 +95,7 @@ class _forgetPass2State extends State<forgetPass2> {
                       try {
                         _verifPass();
                       } catch (e) {
-                        WarningPopup(context, globals.errorException);
+                        warningPopup(context, globals.errorException);
                       }
                     },
                   ),

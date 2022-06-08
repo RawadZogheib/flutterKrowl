@@ -590,17 +590,17 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
         //toast success
         //show on forum1
       } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
+        errorPopup(context, globals.errorVersion);
       } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
+        errorPopup(context, globals.errorToken);
       } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
+        warningPopup(context, globals.warning7);
       } else {
-        ErrorPopup(context, globals.errorElse);
+        errorPopup(context, globals.errorElse);
       }
     } catch (e) {
       print(e);
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
     }
   }
 

@@ -1,21 +1,21 @@
+import 'dart:convert';
+
 import 'package:Krowl/Data/Degree_data.dart';
 import 'package:Krowl/Data/University_data.dart';
+import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/DateOfBirth.dart';
-import 'package:Krowl/widgets/Reminders/EditTextInput.dart';
+import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Settings/EditTextInput2.dart';
 import 'package:Krowl/widgets/Settings/ListOfUniversities.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
 class SettingsContainer extends StatefulWidget {
-
   SettingsContainer(
-      {
-        this.FirstName,
+      {this.FirstName,
       this.LastName,
       this.EmailAddress,
       required this.Username,
@@ -39,7 +39,13 @@ class _SettingsContainerState extends State<SettingsContainer> {
   String _universityName = "Lebanese University";
 
   @override
-  Widget build(BuildContext context) { 
+  void initState() {
+    _loadSettings();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(20),
       width: 540,
@@ -213,15 +219,16 @@ class _SettingsContainerState extends State<SettingsContainer> {
             spaceAllowed: true,
             enterAllowed: true,
             obscure: false,
-            fillColor: Colors.white, suffixIcon: InkWell(
-              onTap: () {
-                print("Testing icon");
-              },
-              child: Icon(
-                Icons.done,
-                color: globals.blue1,
-                size: 30,
-              )),
+            fillColor: Colors.white,
+            suffixIcon: InkWell(
+                onTap: () {
+                  print("Testing icon");
+                },
+                child: Icon(
+                  Icons.done,
+                  color: globals.blue1,
+                  size: 30,
+                )),
           ),
           SizedBox(
             height: 20,
@@ -233,8 +240,12 @@ class _SettingsContainerState extends State<SettingsContainer> {
               fontSize: 17,
             ),
           ),
-          SizedBox(height: 10,),
-          DateOfBirth(fillColor: Colors.white,),
+          SizedBox(
+            height: 10,
+          ),
+          DateOfBirth(
+            fillColor: Colors.white,
+          ),
           SizedBox(
             height: 20,
           ),
@@ -248,7 +259,11 @@ class _SettingsContainerState extends State<SettingsContainer> {
           SizedBox(
             height: 10,
           ),
-          ListOfUniversities(fillColor: Colors.white, focusedBorderColor: globals.blue1, enabledBorderColor: globals.blue1,),
+          ListOfUniversities(
+            fillColor: Colors.white,
+            focusedBorderColor: globals.blue1,
+            enabledBorderColor: globals.blue1,
+          ),
           SizedBox(
             height: 20,
           ),
@@ -277,110 +292,182 @@ class _SettingsContainerState extends State<SettingsContainer> {
             height: 10,
           ),
           buildCity3(),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              InkWell(
+                onTap: () => _updateSettings(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 180,
+                      decoration: BoxDecoration(
+                          color: globals.blue1,
+                          borderRadius: BorderRadius.all(Radius.circular(14)),
+                          border: Border.all(color: globals.blue1, width: 4)),
+                      child: Center(
+                        child: Text(
+                          'Save Profile',
+                          style: GoogleFonts.nunito(
+                            fontSize: 18,
+                            color: globals.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(child: SizedBox.shrink()),
+            ],
+          ),
+          SizedBox(height: 10),
         ],
       ),
     );
   }
-  Widget buildCity() => TypeAheadFormField<dynamic>(
-    // key: Key(widget.initialValue),
-    // initialValue: widget.initialValue!,
-    textFieldConfiguration: TextFieldConfiguration(
-      autofocus: true,
-      onEditingComplete: (){},
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: globals.blue1),
-            borderRadius: BorderRadius.circular(5)),
-        filled: true,
-        fillColor: Colors.white,
-        hintText: "Find your university",
-        hintStyle: TextStyle(
-          fontSize: 15.0,
-          color: Colors.grey.shade400,
-        ),
-        border: InputBorder.none,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: globals.blue1)),
-      ),
-      controller: controllerCity,
-    ),
-    suggestionsCallback: CityData.getSuggestions,
-    itemBuilder: (context, dynamic suggestion) => ListTile(
-      title: Text(suggestion!),
-    ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity.text = suggestion!;
-      globals.uniId = suggestion!;
-      print(globals.uniId);
-    },
-  );
 
+  Widget buildCity() => TypeAheadFormField<dynamic>(
+        // key: Key(widget.initialValue),
+        // initialValue: widget.initialValue!,
+        textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
+          onEditingComplete: () {},
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: globals.blue1),
+                borderRadius: BorderRadius.circular(5)),
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Find your university",
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+              color: Colors.grey.shade400,
+            ),
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: globals.blue1)),
+          ),
+          controller: controllerCity,
+        ),
+        suggestionsCallback: CityData.getSuggestions,
+        itemBuilder: (context, dynamic suggestion) => ListTile(
+          title: Text(suggestion!),
+        ),
+        onSuggestionSelected: (dynamic suggestion) {
+          controllerCity.text = suggestion!;
+          globals.uniId = suggestion!;
+          print(globals.uniId);
+        },
+      );
 
   Widget buildCity2() => TypeAheadFormField<dynamic>(
-    textFieldConfiguration: TextFieldConfiguration(
-      autofocus: true,
-      onEditingComplete: (){},
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: globals.blue1),
-            borderRadius: BorderRadius.circular(5)),
-        filled: true,
-        fillColor: Colors.white,
-        hintText: "Find your Major",
-        hintStyle: TextStyle(
-          fontSize: 15.0,
-          color: Colors.grey.shade400,
+        textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
+          onEditingComplete: () {},
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: globals.blue1),
+                borderRadius: BorderRadius.circular(5)),
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Find your Major",
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+              color: Colors.grey.shade400,
+            ),
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: globals.blue1)),
+          ),
+          controller: controllerCity1,
         ),
-        border: InputBorder.none,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: globals.blue1)),
-      ),
-      controller: controllerCity1,
-    ),
-    suggestionsCallback: CityData2.getSuggestions,
-    itemBuilder: (context, dynamic suggestion) => ListTile(
-      title: Text(suggestion!),
-    ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity1.text = suggestion!;
-      globals.majorId = suggestion!;
-      print(globals.majorId);
-    },
-  );
+        suggestionsCallback: CityData2.getSuggestions,
+        itemBuilder: (context, dynamic suggestion) => ListTile(
+          title: Text(suggestion!),
+        ),
+        onSuggestionSelected: (dynamic suggestion) {
+          controllerCity1.text = suggestion!;
+          globals.majorId = suggestion!;
+          print(globals.majorId);
+        },
+      );
 
   Widget buildCity3() => TypeAheadFormField<dynamic>(
-    textFieldConfiguration: TextFieldConfiguration(
-      autofocus: true,
-      onEditingComplete: (){},
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: globals.blue1),
-            borderRadius: BorderRadius.circular(5)),
-        filled: true,
-        fillColor: Colors.white,
-        hintText: "Find your Minor",
-        hintStyle: TextStyle(
-          fontSize: 15.0,
-          color: Colors.grey.shade400,
+        textFieldConfiguration: TextFieldConfiguration(
+          autofocus: true,
+          onEditingComplete: () {},
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: globals.blue1),
+                borderRadius: BorderRadius.circular(5)),
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Find your Minor",
+            hintStyle: TextStyle(
+              fontSize: 15.0,
+              color: Colors.grey.shade400,
+            ),
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: globals.blue1)),
+          ),
+          controller: controllerCity2,
         ),
-        border: InputBorder.none,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(color: globals.blue1)),
-      ),
-      controller: controllerCity2,
-    ),
-    suggestionsCallback: CityData2.getSuggestions,
-    itemBuilder: (context, dynamic suggestion) => ListTile(
-      title: Text(suggestion!),
-    ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity2.text = suggestion!;
-      globals.minorId = suggestion!;
-      print(globals.minorId);
-    },
-  );
-}
+        suggestionsCallback: CityData2.getSuggestions,
+        itemBuilder: (context, dynamic suggestion) => ListTile(
+          title: Text(suggestion!),
+        ),
+        onSuggestionSelected: (dynamic suggestion) {
+          controllerCity2.text = suggestion!;
+          globals.minorId = suggestion!;
+          print(globals.minorId);
+        },
+      );
 
+  void _updateSettings() {
+    debugPrint('Update Settings');
+  }
+
+  Future<void> _loadSettings() async {
+    try {
+      print('load Settings');
+
+      var account_Id = await SessionManager().get('account_Id');
+
+      var data = {
+        'version': globals.version,
+        'account_Id': account_Id,
+      };
+
+      var res = await CallApi().postData(data, '(Control)loadSettings.php');
+      print(res.body);
+      List<dynamic> body = json.decode(res.body);
+
+      if (body[0] == "success") {
+        // body[1] : first_name, last_name, email, username, bio, date_of_birth, uni_name, major, minor
+        // body[2] : uni list
+        // body[3] : major list
+      } else if (body[0] == "errorVersion") {
+        errorPopup(context, globals.errorVersion);
+      } else if (body[0] == "errorToken") {
+        errorPopup(context, globals.errorToken);
+      } else if (body[0] == "error7") {
+        warningPopup(context, globals.warning7);
+      } else {
+        errorPopup(context, globals.errorElse);
+      }
+    } catch (e) {
+      print(e);
+      errorPopup(context, globals.errorException);
+    }
+    print('load Settings end!!!');
+    print(
+        '=========<<======================================================<<==================================================<<=========');
+  }
+}

@@ -265,10 +265,10 @@ class _NextButtonState extends State<CreateTable> {
       if (expTable.hasMatch(globals.tableName.toString())) {
         _createTable();
       } else {
-        ErrorPopup(context, globals.error14);
+        errorPopup(context, globals.error14);
       }
     } else {
-      ErrorPopup(context, globals.error13);
+      errorPopup(context, globals.error13);
     }
   }
 
@@ -336,21 +336,21 @@ class _NextButtonState extends State<CreateTable> {
           widget.onTap(body[0].toString(), body[1]);
 
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error10") {
-          WarningPopup(context, globals.warning10);
+          warningPopup(context, globals.warning10);
         } else {
           globals.loadCreateTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadCreateTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

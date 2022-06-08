@@ -51,7 +51,7 @@ class _Registration2State extends State<Registration2> {
                   globals.minorId != null) {
                 Navigator.pushNamed(context, '/Registration3');
               } else {
-                WarningPopup(context, globals.warning7);
+                warningPopup(context, globals.warning7);
               }
             }
             setState(() => keys.add(key));
@@ -122,7 +122,7 @@ class _Registration2State extends State<Registration2> {
                                   globals.minorId != null) {
                                 Navigator.pushNamed(context, '/Registration3');
                               } else {
-                                WarningPopup(context, globals.warning7);
+                                warningPopup(context, globals.warning7);
                               }
                             },
                           ),
@@ -171,11 +171,11 @@ class _Registration2State extends State<Registration2> {
       //});
       print("asdasdsadsadsadsdsd");
     } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
+      errorPopup(context, globals.errorVersion);
     }else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
+      errorPopup(context, globals.errorToken);
     } else if (body[0] == "error4") {
-      ErrorPopup(context, globals.error4);
+      errorPopup(context, globals.error4);
     }
   }
 

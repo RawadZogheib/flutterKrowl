@@ -260,31 +260,31 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
             primaryColor: globals.blue2,
             secondaryColor: globals.blue1,
             toastDuration: Duration(seconds: 3),
-            backgroundType: BACKGROUND_TYPE.solid,
+            backgroundType: BackgroundType.solid,
             title: Text(
               'Success',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             description: Text('Friend request sent Successfully'),
-            position: MOTION_TOAST_POSITION.bottom,
-            animationType: ANIMATION.fromRight,
+            position: MotionToastPosition.bottom,
+            animationType: AnimationType.fromRight,
             height: 100,
           ).show(context);
 
           print('addFriend Success');
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
           Navigator.pop(context);
           globals.loadButtonStudentProfile = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
         _loadButton = false;
         globals.loadButtonStudentProfile = false;
@@ -296,7 +296,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
         _loadButton = false;
         Navigator.pop(context);
         globals.loadButtonStudentProfile = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -365,31 +365,31 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
             primaryColor: globals.blue2,
             secondaryColor: globals.blue1,
             toastDuration: Duration(seconds: 3),
-            backgroundType: BACKGROUND_TYPE.solid,
+            backgroundType: BackgroundType.solid,
             title: Text(
               'Success',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             description: Text(text),
-            position: MOTION_TOAST_POSITION.bottom,
-            animationType: ANIMATION.fromRight,
+            position: MotionToastPosition.bottom,
+            animationType: AnimationType.fromRight,
             height: 100,
           ).show(context);
 
           print('cancelFriend Success');
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           _loadButton = false;
           Navigator.pop(context);
           globals.loadButtonStudentProfile = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
         globals.loadButtonStudentProfile = false;
         _loadButton = false;
@@ -401,7 +401,7 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
         _loadButton = false;
         Navigator.pop(context);
         globals.loadButtonStudentProfile = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

@@ -473,17 +473,17 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             children;
           });
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           if (mounted) {
             setState(() {
               load = true;
             });
-            ErrorPopup(context, globals.errorElse);
+            errorPopup(context, globals.errorElse);
           }
           globals.loadForm1 = false;
         }
@@ -497,7 +497,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           setState(() {
             load = true;
           });
-          ErrorPopup(context, globals.errorException);
+          errorPopup(context, globals.errorException);
         }
         globals.loadForm1 = false;
         print(

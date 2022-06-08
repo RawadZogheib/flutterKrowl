@@ -1039,11 +1039,11 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             //WarningPopup(context, globals.warningEmptyLibrary);
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           if (mounted) {
             setState(() {
@@ -1051,7 +1051,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             });
           }
           globals.loadLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
@@ -1059,7 +1059,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         if (mounted) {
           setState(() {
             load = true;
-            ErrorPopup(context, globals.errorException);
+            errorPopup(context, globals.errorException);
           });
         }
       }

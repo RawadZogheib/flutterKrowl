@@ -331,16 +331,16 @@ class _Students1State extends State<Students1>
               });
             }
           } else {
-            WarningPopup(context, globals.warningEmptyLibrary);
+            warningPopup(context, globals.warningEmptyLibrary);
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           if (mounted) {
             setState(() {
@@ -348,7 +348,7 @@ class _Students1State extends State<Students1>
             });
           }
           globals.loadStudent = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
@@ -357,7 +357,7 @@ class _Students1State extends State<Students1>
           setState(() {
             _load = true;
             //Navigator.pop(context);
-            ErrorPopup(context, globals.errorException);
+            errorPopup(context, globals.errorException);
           });
         }
       }

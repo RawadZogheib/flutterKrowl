@@ -85,4 +85,4 @@ successPopup(BuildContext context, String? text) {
     animationType: AnimationType.fromRight,
     height: 100,
   ).show(context);
-}}
+}

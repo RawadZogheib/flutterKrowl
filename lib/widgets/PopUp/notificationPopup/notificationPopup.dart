@@ -391,25 +391,25 @@ class _MemberState extends State<Member> {
 
         if (body[0] == "success") {
           widget.removeParticipant(widget.idsPrivet);
-          SuccessPopup(context, globals.success415);
+          successPopup(context, globals.success415);
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error417") {
-          ErrorPopup(context, globals.error417);
+          errorPopup(context, globals.error417);
         } else {
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -505,7 +505,7 @@ class ShapedWidget3 extends StatelessWidget {
                                         'https://krowl.dataflow.com.lb:8070/?private=' +
                                             tableCode))
                                 .then((value) {
-                              SuccessPopup(
+                              successPopup(
                                   context, 'Link copied successfully.');
                               print('copy');
                             });

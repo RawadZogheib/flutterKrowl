@@ -400,19 +400,19 @@ class _RegistrationState extends State<Registration> {
             if (if44 == true) {
               _reg();
             } else {
-              WarningPopup(context, globals.warning2_4);
+              warningPopup(context, globals.warning2_4);
             }
           } else {
-            WarningPopup(context, globals.warning2_2);
+            warningPopup(context, globals.warning2_2);
           }
         } else {
-          WarningPopup(context, globals.warning2_1);
+          warningPopup(context, globals.warning2_1);
         }
       } else {
-        WarningPopup(context, globals.warning1);
+        warningPopup(context, globals.warning1);
       }
     } else {
-      WarningPopup(context, globals.warning7);
+      warningPopup(context, globals.warning7);
     }
   }
 
@@ -444,44 +444,44 @@ class _RegistrationState extends State<Registration> {
             });
             Navigator.pushNamed(context, '/Registration2');
           } else if (body[0] == "errorVersion") {
-            ErrorPopup(context, globals.errorVersion);
+            errorPopup(context, globals.errorVersion);
           } else if (body[0] == "errorToken") {
-            ErrorPopup(context, globals.errorToken);
+            errorPopup(context, globals.errorToken);
           } else if (body[0] == "error1") {
             setState(() {
               col3 = Colors.red.shade50;
               col3_1 = Colors.red.shade900;
               col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning1);
+            warningPopup(context, globals.warning1);
           } else if (body[0] == "error2_1") {
             setState(() {
               col3 = Colors.red.shade50;
               col3_1 = Colors.red.shade900;
               col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning2_1);
+            warningPopup(context, globals.warning2_1);
           } else if (body[0] == "error2_2") {
             setState(() {
               col3 = Colors.red.shade50;
               col3_1 = Colors.red.shade900;
               col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning2_2);
+            warningPopup(context, globals.warning2_2);
           } else if (body[0] == "error2_4") {
             setState(() {
               col4 = Colors.red.shade50;
               col4_1 = Colors.red.shade900;
               col4_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning2_4);
+            warningPopup(context, globals.warning2_4);
           } else if (body[0] == "error5") {
             setState(() {
               col3 = Colors.red.shade50;
               col3_1 = Colors.red.shade900;
               col3_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning5);
+            warningPopup(context, globals.warning5);
           } else if (body[0] == "error7") {
             setState(() {
               col1 = Colors.red.shade50;
@@ -500,14 +500,14 @@ class _RegistrationState extends State<Registration> {
               col4_1 = Colors.red.shade900;
               col4_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            WarningPopup(context, globals.warning7);
+            warningPopup(context, globals.warning7);
           } else {
             setState(() {
               col1 = Colors.red.shade50;
               col1_1 = Colors.red.shade900;
               col1_2 = Colors.red.shade900.withOpacity(0.5);
             });
-            ErrorPopup(context, globals.errorElse);
+            errorPopup(context, globals.errorElse);
           }
         } else {
           setState(() {
@@ -515,7 +515,7 @@ class _RegistrationState extends State<Registration> {
             col1_1 = Colors.red.shade900;
             col1_2 = Colors.red.shade900.withOpacity(0.5);
           });
-          WarningPopup(context, globals.warning1);
+          warningPopup(context, globals.warning1);
         }
       } else {
         setState(() {
@@ -523,7 +523,7 @@ class _RegistrationState extends State<Registration> {
           col1_1 = Colors.red.shade900;
           col1_2 = Colors.red.shade900.withOpacity(0.5);
         });
-        WarningPopup(context, globals.warning7);
+        warningPopup(context, globals.warning7);
       }
     } else {
       setState(() {
@@ -531,7 +531,7 @@ class _RegistrationState extends State<Registration> {
         col1_1 = Colors.red.shade900;
         col1_2 = Colors.red.shade900.withOpacity(0.5);
       });
-      WarningPopup(context, globals.warning7);
+      warningPopup(context, globals.warning7);
     }
   }
 

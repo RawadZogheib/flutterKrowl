@@ -258,16 +258,16 @@ class _StudentProfileState extends State<StudentProfile> {
             });
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           globals.loadStudentProfile = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
 
         globals.loadStudentProfile = false;
@@ -277,7 +277,7 @@ class _StudentProfileState extends State<StudentProfile> {
       } catch (e) {
         print(e);
         globals.loadStudentProfile = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

@@ -315,32 +315,32 @@ class _Login2State extends State<Login2> {
                   context, "/CodeLog", (route) => false);
             } else {
               await SessionManager().set('isLoggedIn', false);
-              ErrorPopup(context, globals.errorElse);
+              errorPopup(context, globals.errorElse);
             }
           } else if (body[0] == "errorToken") {
-            ErrorPopup(context, globals.errorToken);
+            errorPopup(context, globals.errorToken);
           } else if (body[0] == "errorVersion") {
-            ErrorPopup(context, globals.errorToken);
+            errorPopup(context, globals.errorToken);
           } else if (body[0] == "false") {
-            WarningPopup(context, 'Invalid username or password.');
+            warningPopup(context, 'Invalid username or password.');
           } else if (body[0] == "error7") {
-            WarningPopup(context, globals.warning7);
+            warningPopup(context, globals.warning7);
           } else {
             Navigator.pop(context);
-            ErrorPopup(context, globals.errorElse);
+            errorPopup(context, globals.errorElse);
           }
         } else {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
           Navigator.pop(context);
         }
       } else {
-        WarningPopup(context, globals.warning7);
+        warningPopup(context, globals.warning7);
         Navigator.pop(context);
       }
     } catch (e) {
       print(e);
       Navigator.pop(context);
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
     }
   }
 

@@ -753,17 +753,17 @@ class _CustomContainerState extends State<CustomTable>
             });
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error410") {
-          ErrorPopup(context, globals.error410);
+          errorPopup(context, globals.error410);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error8") {
-          WarningPopup(context, globals.warning8);
+          warningPopup(context, globals.warning8);
         } else if (body[0] == "error9") {
           if (mounted) {
             setState(() {
@@ -772,15 +772,15 @@ class _CustomContainerState extends State<CustomTable>
               widget.enablee[position - 1] = true;
             });
           }
-          ErrorPopup(context, globals.error9);
+          errorPopup(context, globals.error9);
         } else {
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -868,7 +868,7 @@ class _CustomContainerState extends State<CustomTable>
         } catch (e) {
           print(e);
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorException);
+          errorPopup(context, globals.errorException);
           print(
               '=========<<======================================================<<==================================================<<=========');
         }
@@ -918,7 +918,7 @@ class _CustomContainerState extends State<CustomTable>
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -955,25 +955,25 @@ class _CustomContainerState extends State<CustomTable>
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
-          SuccessPopup(context, globals.success415);
+          successPopup(context, globals.success415);
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error417") {
-          ErrorPopup(context, globals.error417);
+          errorPopup(context, globals.error417);
         } else {
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -1012,26 +1012,26 @@ class _CustomContainerState extends State<CustomTable>
         List<dynamic> body = json.decode(res.body);
 
         if (body[0] == "success") {
-          SuccessPopup(context, globals.success416);
+          successPopup(context, globals.success416);
           widget.onRemoveTable(widget.id);
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error418") {
-          WarningPopup(context, globals.error418);
+          warningPopup(context, globals.error418);
         } else {
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -1135,11 +1135,11 @@ class _CustomContainerState extends State<CustomTable>
           });
         }
       } else {
-        ErrorPopup(context, globals.errorElse);
+        errorPopup(context, globals.errorElse);
       }
     } catch (e) {
       print("Exeption: " + e.toString());
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
     }
   } // Done
 
@@ -1188,23 +1188,23 @@ class _CustomContainerState extends State<CustomTable>
             });
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else if (body[0] == "error417") {
-          ErrorPopup(context, globals.error417);
+          errorPopup(context, globals.error417);
         } else {
           globals.loadJoinTableLibrary = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadJoinTableLibrary = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

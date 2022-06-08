@@ -99,7 +99,7 @@ class _forgetPassState extends State<forgetPass> {
                             try {
                               _verifAcc();
                             } catch (e) {
-                              ErrorPopup(context, globals.errorException);
+                              errorPopup(context, globals.errorException);
                             }
                           },
                         ),

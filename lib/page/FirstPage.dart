@@ -70,7 +70,7 @@ class _FirstPage extends State<FirstPage> {
           } else {
             await SessionManager().remove("arg");
             //print("Wrong Link, Please retry again");
-            ErrorPopup(context, "Wrong Link, Please retry again");
+            errorPopup(context, "Wrong Link, Please retry again");
           }
         }
       } else {

@@ -254,21 +254,21 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           //toast success
           //show on forum1
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           globals.loadCreateReplyPage = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
       } catch (e) {
         print(e);
         globals.loadCreateReplyPage = false;
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }
@@ -329,17 +329,17 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           });
         }
       } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
+        errorPopup(context, globals.errorVersion);
       } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
+        errorPopup(context, globals.errorToken);
       } else if (body[0] == "error4") {
-        ErrorPopup(context, globals.error4);
+        errorPopup(context, globals.error4);
       } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
+        warningPopup(context, globals.warning7);
       } else {
         _loadLike = false;
         globals.loadLikeDislikeReplyPage = false;
-        ErrorPopup(context, globals.errorElse);
+        errorPopup(context, globals.errorElse);
       }
 
       globals.loadLikeDislikeReplyPage = false;
@@ -351,7 +351,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       print(e);
       _loadLike = false;
       globals.loadLikeDislikeReplyPage = false;
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
       print(
           '=========<<======================================================<<==================================================<<=========');
     }
@@ -405,17 +405,17 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
           });
         }
       } else if (body[0] == "errorVersion") {
-        ErrorPopup(context, globals.errorVersion);
+        errorPopup(context, globals.errorVersion);
       } else if (body[0] == "errorToken") {
-        ErrorPopup(context, globals.errorToken);
+        errorPopup(context, globals.errorToken);
       } else if (body[0] == "error4") {
-        ErrorPopup(context, globals.error4);
+        errorPopup(context, globals.error4);
       } else if (body[0] == "error7") {
-        WarningPopup(context, globals.warning7);
+        warningPopup(context, globals.warning7);
       } else {
         _loadDislike = false;
         globals.loadLikeDislikeReplyPage = false;
-        ErrorPopup(context, globals.errorElse);
+        errorPopup(context, globals.errorElse);
       }
 
       globals.loadLikeDislikeReplyPage = false;
@@ -427,7 +427,7 @@ class _DetailedReplyContainerState extends State<DetailedReplyContainer> {
       print(e);
       _loadDislike = false;
       globals.loadLikeDislikeReplyPage = false;
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
       print(
           '=========<<======================================================<<==================================================<<=========');
     }

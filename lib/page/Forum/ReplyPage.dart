@@ -437,14 +437,14 @@ class _ReplyPageState extends State<ReplyPage>
             });
             _loadNewPage();
           } else {
-            WarningPopup(context, globals.warningEmptyReplyPage);
+            warningPopup(context, globals.warningEmptyReplyPage);
           }
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
           if (mounted) {
             setState(() {
@@ -452,7 +452,7 @@ class _ReplyPageState extends State<ReplyPage>
             });
           }
           globals.loadReplyPage = false;
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
         globals.loadReplyPage = false;
         print('load replyPage end!!!');
@@ -466,7 +466,7 @@ class _ReplyPageState extends State<ReplyPage>
             _load = true;
           });
         }
-        ErrorPopup(context, globals.errorException);
+        errorPopup(context, globals.errorException);
         print(
             '=========<<======================================================<<==================================================<<=========');
       }

@@ -50,7 +50,7 @@ class _Registration3State extends State<Registration3> {
                 if(_testpass() == true)
                   _reg();
               } catch (e) {
-                ErrorPopup(context, globals.errorException);
+                errorPopup(context, globals.errorException);
               }
             }
             setState(() => keys.add(key));
@@ -158,7 +158,7 @@ class _Registration3State extends State<Registration3> {
                               if(_testpass() == true)
                                 _reg();
                             } catch (e) {
-                              ErrorPopup(context, globals.errorException);
+                              errorPopup(context, globals.errorException);
                             }
                           },)
                         ),
@@ -229,7 +229,7 @@ _testpass() {
              col2_1 = Colors.red.shade900;
              col2_2 = Colors.red.shade900.withOpacity(0.5);
            });
-           WarningPopup(context, globals.error3);
+           warningPopup(context, globals.error3);
          }
        } else {
          setState(() {
@@ -237,10 +237,10 @@ _testpass() {
            col1_1 = Colors.red.shade900;
            col1_2 = Colors.red.shade900.withOpacity(0.5);
          });
-         WarningPopup(context, globals.warning2_3);
+         warningPopup(context, globals.warning2_3);
        }
      }else {
-       WarningPopup(context, globals.warning7);
+       warningPopup(context, globals.warning7);
      }
    }
 
@@ -321,33 +321,33 @@ _testpass() {
            Navigator.pushNamed(context, '/CodeReg');
 
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "error1") {
-          WarningPopup(context, globals.warning1);
+          warningPopup(context, globals.warning1);
         } else if (body[0] == "error2_1") {
-          WarningPopup(context, globals.warning2_1);
+          warningPopup(context, globals.warning2_1);
         } else if (body[0] == "error2_2") {
-          WarningPopup(context, globals.warning2_2);
+          warningPopup(context, globals.warning2_2);
         } else if (body[0] == "error2_3") {
-          WarningPopup(context, globals.warning2_3);
+          warningPopup(context, globals.warning2_3);
         } else if (body[0] == "error2_4") {
-          WarningPopup(context, globals.warning2_4);
+          warningPopup(context, globals.warning2_4);
         } else if (body[0] == "error2_5") {
-          WarningPopup(context, globals.warning2_5);
+          warningPopup(context, globals.warning2_5);
         }else if (body[0] == "error2_6") {
-          WarningPopup(context, globals.warning2_6);
+          warningPopup(context, globals.warning2_6);
         } else if (body[0] == "error3") {
-          ErrorPopup(context, globals.error3);
+          errorPopup(context, globals.error3);
         } else if (body[0] == "error4") {
-          ErrorPopup(context, globals.error4);
+          errorPopup(context, globals.error4);
         } else if (body[0] == "error5") {
-          WarningPopup(context, globals.warning5);
+          warningPopup(context, globals.warning5);
         } else if (body[0] == "error6") {
-          WarningPopup(context, globals.warning6);
+          warningPopup(context, globals.warning6);
         } else if (body[0] == "error7") {
-          WarningPopup(context, globals.warning7);
+          warningPopup(context, globals.warning7);
         } else {
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
         /* } else {
             showDialog<String>(
@@ -383,10 +383,10 @@ _testpass() {
           );
         }  } */
       }else {
-        WarningPopup(context, globals.warning1);
+        warningPopup(context, globals.warning1);
       }
     } else {
-      WarningPopup(context, globals.warning7);
+      warningPopup(context, globals.warning7);
     }
   }
  // _saveLogin() async{

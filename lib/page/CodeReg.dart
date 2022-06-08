@@ -310,18 +310,18 @@ class _CodeRegState extends State<CodeReg> {
           Navigator.pushNamedAndRemoveUntil(
               cont, '/intro_page2', (route) => false);
         } else if (body[0] == "errorVersion") {
-          ErrorPopup(context, globals.errorVersion);
+          errorPopup(context, globals.errorVersion);
         } else if (body[0] == "errorToken") {
-          ErrorPopup(context, globals.errorToken);
+          errorPopup(context, globals.errorToken);
         } else if (body[0] == "false") {
-          ErrorPopup(context, 'Wrong Code !');
+          errorPopup(context, 'Wrong Code !');
         } else if (body[0] == "error7") {
-          ErrorPopup(context, globals.warning7);
+          errorPopup(context, globals.warning7);
         } else {
-          ErrorPopup(context, globals.errorElse);
+          errorPopup(context, globals.errorElse);
         }
     } catch (e) {
-      ErrorPopup(context, globals.errorException);
+      errorPopup(context, globals.errorException);
     }
   }
 

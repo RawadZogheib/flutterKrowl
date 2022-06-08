@@ -153,13 +153,13 @@ class _ChatPage2State extends State<ChatPage2> {
         });
       }
     } else if (body[0] == "empty") {
-      WarningPopup(context, globals.warningEmptyFriends);
+      warningPopup(context, globals.warningEmptyFriends);
     } else if (body[0] == "errorVersion") {
-      ErrorPopup(context, globals.errorVersion);
+      errorPopup(context, globals.errorVersion);
     } else if (body[0] == "errorToken") {
-      ErrorPopup(context, globals.errorToken);
+      errorPopup(context, globals.errorToken);
     } else if (body[0] == "error7") {
-      WarningPopup(context, globals.warning7);
+      warningPopup(context, globals.warning7);
     }
   }
 

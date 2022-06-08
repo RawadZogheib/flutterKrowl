@@ -42,10 +42,10 @@ class _LoginState extends State<Login> {
               if (_email!.isNotEmpty && _email != "") {
                 Navigator.pushNamed(context, '/login2', arguments: _email);
               } else {
-                WarningPopup(context, globals.warning1);
+                warningPopup(context, globals.warning1);
               }
             } else {
-              WarningPopup(context, globals.warning7);
+              warningPopup(context, globals.warning7);
             }
           }
           setState(() => keys.add(key));
@@ -148,10 +148,10 @@ class _LoginState extends State<Login> {
                                   Navigator.pushNamed(context, '/login2',
                                       arguments: _email);
                                 } else {
-                                  WarningPopup(context, globals.warning1);
+                                  warningPopup(context, globals.warning1);
                                 }
                               } else {
-                                WarningPopup(context, globals.warning7);
+                                warningPopup(context, globals.warning7);
                               }
                             },
                           ),
