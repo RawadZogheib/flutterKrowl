@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:Krowl/widgets/newTypeAhead.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Krowl/Data/Degree_data.dart';
@@ -10,8 +11,8 @@ import 'package:Krowl/widgets/Buttons/NextButton.dart';
 import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Stack.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sizer/sizer.dart';
+import 'package:textfield_search/textfield_search.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -29,11 +30,26 @@ class _Registration2State extends State<Registration2> {
   final controllerCity2 = TextEditingController();
   String? selectedCity;
 
+  // final _testList = [
+  //   'Test Item 1',
+  //   'Test Item 2',
+  //   'Test Item 3',
+  //   'Test Item 4',
+  // ];
+
   @override
   void initState() {
     super.initState();
     _getLists();
   }
+
+
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    super.dispose();
+  }
+
   List<LogicalKeyboardKey> keys = [];
   @override
   Widget build(BuildContext context) {
@@ -74,16 +90,16 @@ class _Registration2State extends State<Registration2> {
                   children: [
                     Container(
                       width: 470,
-                      child: buildCity(),
+                      child: TypeAhead(Items: globals.univercitiesName, name: "University", onTap: (val) => _setUniversity(val), )
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    Container(width: 470, child: buildCity2()),
+                    Container(width: 470, child: TypeAhead(Items: globals.degrees, name: "Major", onTap: (val) => _setMajor(val),)),
                     SizedBox(
                       height: 20,
                     ),
-                    Container(width: 470, child: buildCity3()),
+                    Container(width: 470, child: TypeAhead(Items: globals.degrees, name: "Minor", onTap: (val) => _setMinor(val),)),
                     SizedBox(
                       height: 20,
                     ),
@@ -178,110 +194,129 @@ class _Registration2State extends State<Registration2> {
       errorPopup(context, globals.error4);
     }
   }
-
-  Widget buildCity() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: (){},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue.shade50),
-                borderRadius: BorderRadius.circular(10)),
-            filled: true,
-            fillColor: Colors.blue.shade50,
-            hintText: "Find your university",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.blue.shade900,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.blue.shade900)),
-          ),
-          controller: controllerCity,
-        ),
-        suggestionsCallback: CityData.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity.text = suggestion!;
-      globals.uniId = suggestion!;
-      print(globals.uniId);
-    },
-      );
-
-  Widget buildCity2() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: (){},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue.shade50),
-                borderRadius: BorderRadius.circular(10)),
-            filled: true,
-            fillColor: Colors.blue.shade50,
-            hintText: "Find your Major",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.blue.shade900,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.blue.shade900)),
-          ),
-          controller: controllerCity1,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-    onSuggestionSelected: (dynamic suggestion) {
-      controllerCity1.text = suggestion!;
-      globals.majorId = suggestion!;
-      print(globals.majorId);
-    },
-      );
-
-  Widget buildCity3() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: (){},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue.shade50),
-                borderRadius: BorderRadius.circular(10)),
-            filled: true,
-            fillColor: Colors.blue.shade50,
-            hintText: "Find your Minor",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.blue.shade900,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.blue.shade900)),
-          ),
-          controller: controllerCity2,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-            controllerCity2.text = suggestion!;
-            globals.minorId = suggestion!;
-            print(globals.minorId);
-        },
-      );
+  //
+  // Widget buildCity() => TypeAheadFormField<dynamic>(
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: (){},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: Colors.blue.shade50),
+  //               borderRadius: BorderRadius.circular(10)),
+  //           filled: true,
+  //           fillColor: Colors.blue.shade50,
+  //           hintText: "Find your university",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.blue.shade900,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(10),
+  //               borderSide: BorderSide(color: Colors.blue.shade900)),
+  //         ),
+  //         controller: controllerCity,
+  //       ),
+  //       suggestionsCallback: CityData.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //   onSuggestionSelected: (dynamic suggestion) {
+  //     controllerCity.text = suggestion!;
+  //     globals.uniId = suggestion!;
+  //     print(globals.uniId);
+  //   },
+  //     );
+  //
+  // Widget buildCity2() => TypeAheadFormField<dynamic>(
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: (){},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: Colors.blue.shade50),
+  //               borderRadius: BorderRadius.circular(10)),
+  //           filled: true,
+  //           fillColor: Colors.blue.shade50,
+  //           hintText: "Find your Major",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.blue.shade900,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(10),
+  //               borderSide: BorderSide(color: Colors.blue.shade900)),
+  //         ),
+  //         controller: controllerCity1,
+  //       ),
+  //       suggestionsCallback: CityData2.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //   onSuggestionSelected: (dynamic suggestion) {
+  //     controllerCity1.text = suggestion!;
+  //     globals.majorId = suggestion!;
+  //     print(globals.majorId);
+  //   },
+  //     );
+  //
+  // Widget buildCity3() => TypeAheadFormField<dynamic>(
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: (){},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: Colors.blue.shade50),
+  //               borderRadius: BorderRadius.circular(10)),
+  //           filled: true,
+  //           fillColor: Colors.blue.shade50,
+  //           hintText: "Find your Minor",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.blue.shade900,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(10),
+  //               borderSide: BorderSide(color: Colors.blue.shade900)),
+  //         ),
+  //         controller: controllerCity2,
+  //       ),
+  //       suggestionsCallback: CityData2.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //       onSuggestionSelected: (dynamic suggestion) {
+  //           controllerCity2.text = suggestion!;
+  //           globals.minorId = suggestion!;
+  //           print(globals.minorId);
+  //       },
+  //     );
 
   _back() {
     globals.uniId = null;
     globals.majorId = null;
     globals.minorId = null;
     return true;
+  }
+
+  _setUniversity(String val) {
+    // globals.uniId = val;
+    globals.uniId = globals.univercitiesName.indexWhere((element) => element == val).toString();
+    print(val);
+    print(globals.uniId);
+  }
+
+  _setMajor(String val) {
+    globals.majorId = globals.degrees.indexWhere((element) => element == val).toString();
+    print(val);
+    print(globals.majorId);
+  }
+
+  _setMinor(String val) {
+    globals.minorId = globals.degrees.indexWhere((element) => element == val).toString();
+    print(val);
+    print(globals.minorId);
   }
 }

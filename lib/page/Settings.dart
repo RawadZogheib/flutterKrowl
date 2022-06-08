@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:Krowl/Data/Degree_data.dart';
 import 'package:Krowl/Data/University_data.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -9,9 +8,9 @@ import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Settings/EditTextInput2.dart';
 import 'package:Krowl/widgets/Settings/ListOfUniversities.dart';
+import 'package:Krowl/widgets/newTypeAhead.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/TabBar/CustomTabBar.dart';
@@ -326,11 +325,7 @@ class _SettingsState extends State<Settings>
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    ListOfUniversities(
-                                      fillColor: Colors.white,
-                                      focusedBorderColor: globals.blue1,
-                                      enabledBorderColor: globals.blue1,
-                                    ),
+                                    TypeAhead(Items: globals.univercitiesName, name: "University", onTap: (val) => _setUniversity(val), ),
                                     SizedBox(
                                       height: 20,
                                     ),
@@ -344,7 +339,7 @@ class _SettingsState extends State<Settings>
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    buildCity2(),
+                                    TypeAhead(Items: globals.degrees, name: "Major", onTap: (val) => _setMajor(val), ),
                                     SizedBox(
                                       height: 20,
                                     ),
@@ -358,7 +353,7 @@ class _SettingsState extends State<Settings>
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    buildCity3(),
+                                    TypeAhead(Items: globals.degrees, name: "Minor", onTap: (val) => _setMinor(val), ),
                                     SizedBox(height: 20),
                                     Row(
                                       children: [
@@ -599,104 +594,27 @@ class _SettingsState extends State<Settings>
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 
-  Widget buildCity() => TypeAheadFormField<dynamic>(
-        // key: Key(widget.initialValue),
-        // initialValue: widget.initialValue!,
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your university",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity,
-        ),
-        suggestionsCallback: CityData.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity.text = suggestion!;
-          globals.uniId = suggestion!;
-          print(globals.uniId);
-        },
-      );
 
-  Widget buildCity2() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your Major",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity1,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity1.text = suggestion!;
-          globals.majorId = suggestion!;
-          print(globals.majorId);
-        },
-      );
+}
 
-  Widget buildCity3() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your Minor",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity2,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity2.text = suggestion!;
-          globals.minorId = suggestion!;
-          print(globals.minorId);
-        },
-      );
+_setUniversity(String val) {
+  // globals.uniId = val;
+  /// TODO : LEZIM NZID PRIVATE VARIABLE UNID
+  // globals.uniId = globals.univercitiesName.indexWhere((element) => element == val).toString();
+  print(val);
+  // print(globals.uniId);
+}
+
+_setMajor(String val) {
+  /// TODO : LEZIM NZID PRIVATE VARIABLE MAJORID
+  // globals.majorId = globals.degrees.indexWhere((element) => element == val).toString();
+  print(val);
+  // print(globals.majorId);
+}
+
+_setMinor(String val) {
+  /// TODO : LEZIM NZID PRIVATE VARIABLE MINORID
+  // globals.minorId = globals.degrees.indexWhere((element) => element == val).toString();
+  print(val);
+  // print(globals.minorId);
 }

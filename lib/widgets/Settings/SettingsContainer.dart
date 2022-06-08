@@ -10,7 +10,6 @@ import 'package:Krowl/widgets/Settings/EditTextInput2.dart';
 import 'package:Krowl/widgets/Settings/ListOfUniversities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsContainer extends StatefulWidget {
@@ -259,11 +258,11 @@ class _SettingsContainerState extends State<SettingsContainer> {
           SizedBox(
             height: 10,
           ),
-          ListOfUniversities(
-            fillColor: Colors.white,
-            focusedBorderColor: globals.blue1,
-            enabledBorderColor: globals.blue1,
-          ),
+          // ListOfUniversities(
+          //   fillColor: Colors.white,
+          //   focusedBorderColor: globals.blue1,
+          //   enabledBorderColor: globals.blue1,
+          // ),
           SizedBox(
             height: 20,
           ),
@@ -277,21 +276,21 @@ class _SettingsContainerState extends State<SettingsContainer> {
           SizedBox(
             height: 10,
           ),
-          buildCity2(),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            "Select your minor degrees (Optional)",
-            style: GoogleFonts.nunito(
-              color: Colors.black,
-              fontSize: 17,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          buildCity3(),
+          // buildCity2(),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          // Text(
+          //   "Select your minor degrees (Optional)",
+          //   style: GoogleFonts.nunito(
+          //     color: Colors.black,
+          //     fontSize: 17,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // buildCity3(),
           SizedBox(height: 20),
           Row(
             children: [
@@ -329,106 +328,106 @@ class _SettingsContainerState extends State<SettingsContainer> {
     );
   }
 
-  Widget buildCity() => TypeAheadFormField<dynamic>(
-        // key: Key(widget.initialValue),
-        // initialValue: widget.initialValue!,
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your university",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity,
-        ),
-        suggestionsCallback: CityData.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity.text = suggestion!;
-          globals.uniId = suggestion!;
-          print(globals.uniId);
-        },
-      );
-
-  Widget buildCity2() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your Major",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity1,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity1.text = suggestion!;
-          globals.majorId = suggestion!;
-          print(globals.majorId);
-        },
-      );
-
-  Widget buildCity3() => TypeAheadFormField<dynamic>(
-        textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
-          onEditingComplete: () {},
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: globals.blue1),
-                borderRadius: BorderRadius.circular(5)),
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "Find your Minor",
-            hintStyle: TextStyle(
-              fontSize: 15.0,
-              color: Colors.grey.shade400,
-            ),
-            border: InputBorder.none,
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: globals.blue1)),
-          ),
-          controller: controllerCity2,
-        ),
-        suggestionsCallback: CityData2.getSuggestions,
-        itemBuilder: (context, dynamic suggestion) => ListTile(
-          title: Text(suggestion!),
-        ),
-        onSuggestionSelected: (dynamic suggestion) {
-          controllerCity2.text = suggestion!;
-          globals.minorId = suggestion!;
-          print(globals.minorId);
-        },
-      );
+  // Widget buildCity() => TypeAheadFormField<dynamic>(
+  //       // key: Key(widget.initialValue),
+  //       // initialValue: widget.initialValue!,
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: () {},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: globals.blue1),
+  //               borderRadius: BorderRadius.circular(5)),
+  //           filled: true,
+  //           fillColor: Colors.white,
+  //           hintText: "Find your university",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.grey.shade400,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(5),
+  //               borderSide: BorderSide(color: globals.blue1)),
+  //         ),
+  //         controller: controllerCity,
+  //       ),
+  //       suggestionsCallback: CityData.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //       onSuggestionSelected: (dynamic suggestion) {
+  //         controllerCity.text = suggestion!;
+  //         globals.uniId = suggestion!;
+  //         print(globals.uniId);
+  //       },
+  //     );
+  //
+  // Widget buildCity2() => TypeAheadFormField<dynamic>(
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: () {},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: globals.blue1),
+  //               borderRadius: BorderRadius.circular(5)),
+  //           filled: true,
+  //           fillColor: Colors.white,
+  //           hintText: "Find your Major",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.grey.shade400,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(5),
+  //               borderSide: BorderSide(color: globals.blue1)),
+  //         ),
+  //         controller: controllerCity1,
+  //       ),
+  //       suggestionsCallback: CityData2.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //       onSuggestionSelected: (dynamic suggestion) {
+  //         controllerCity1.text = suggestion!;
+  //         globals.majorId = suggestion!;
+  //         print(globals.majorId);
+  //       },
+  //     );
+  //
+  // Widget buildCity3() => TypeAheadFormField<dynamic>(
+  //       textFieldConfiguration: TextFieldConfiguration(
+  //         autofocus: true,
+  //         onEditingComplete: () {},
+  //         decoration: InputDecoration(
+  //           enabledBorder: OutlineInputBorder(
+  //               borderSide: BorderSide(color: globals.blue1),
+  //               borderRadius: BorderRadius.circular(5)),
+  //           filled: true,
+  //           fillColor: Colors.white,
+  //           hintText: "Find your Minor",
+  //           hintStyle: TextStyle(
+  //             fontSize: 15.0,
+  //             color: Colors.grey.shade400,
+  //           ),
+  //           border: InputBorder.none,
+  //           focusedBorder: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(5),
+  //               borderSide: BorderSide(color: globals.blue1)),
+  //         ),
+  //         controller: controllerCity2,
+  //       ),
+  //       suggestionsCallback: CityData2.getSuggestions,
+  //       itemBuilder: (context, dynamic suggestion) => ListTile(
+  //         title: Text(suggestion!),
+  //       ),
+  //       onSuggestionSelected: (dynamic suggestion) {
+  //         controllerCity2.text = suggestion!;
+  //         globals.minorId = suggestion!;
+  //         print(globals.minorId);
+  //       },
+  //     );
 
   void _updateSettings() {
     debugPrint('Update Settings');
