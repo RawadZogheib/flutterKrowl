@@ -189,9 +189,10 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                                           await _unFriend();
                                         },
                                       )),
+                                  SizedBox(width: 10),
                                   Container(
                                       margin: EdgeInsets.only(
-                                          bottom: 15, right: 15),
+                                         right: 15),
                                       child: StudentButton(
                                         height: 25,
                                         fontSize: 12.0,

@@ -299,11 +299,11 @@ class _NotificationPopupChildrenState extends State<NotificationPopupChildren> {
           child: myBtn2(
               btnText: Text("Cancel"),
               height: 20,
-              width: 75,
+              width: 85,
               onPress: () {
                 _cancelRequest();
               },
-              color1: Colors.white,
+              color1: Colors.grey.shade200,
               color2: globals.blue1),
         ),
       ],
