@@ -13,8 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-    ));
+  debugShowCheckedModeBanner: false,
+));
 
 class Login2 extends StatefulWidget {
   // This widget is the root of your application.
@@ -51,24 +51,24 @@ class _Login2State extends State<Login2> {
         if (event is RawKeyDownEvent) {
           if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
             //if (_password != null) {
-              if (_password.isNotEmpty && _password != ""){
-                try {
-                  _login();
-                } catch (e) {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text(globals.errorException),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
+            if (_password.isNotEmpty && _password != ""){
+              try {
+                _login();
+              } catch (e) {
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(globals.errorException),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              }
             } else {
               showDialog<String>(
                 context: context,
@@ -134,7 +134,7 @@ class _Login2State extends State<Login2> {
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:
-                                BorderSide(color: Colors.blue.shade900)),
+                            BorderSide(color: Colors.blue.shade900)),
                         hintText: "type your password here...",
                         hintStyle: TextStyle(
                           fontSize: 20.0,
@@ -163,13 +163,13 @@ class _Login2State extends State<Login2> {
                       width: 111,
                       child: InkWell(
                           child: PreviousButton(
-                        text: "previous",
-                        color: globals.blue1,
-                        icon: Icons.arrow_back,
-                        onTap: () {
-                          Navigator.pop(context, '/login');
-                        },
-                      )),
+                            text: "previous",
+                            color: globals.blue1,
+                            icon: Icons.arrow_back,
+                            onTap: () {
+                              Navigator.pop(context, '/login');
+                            },
+                          )),
                     ),
                     Center(
                       child: Row(
@@ -177,80 +177,81 @@ class _Login2State extends State<Login2> {
                         children: [
                           Container(
                             width: 111,
+                            // margin: EdgeInsets.only(left: 100.sp),
                             child: InkWell(
                                 child: NextButton(
-                              text: "login",
-                              color: globals.blue1,
-                              icon: Icons.arrow_forward,
-                              onTap: () {
-                                if (_password != null) {
-                                  if (_password.isNotEmpty && _password != "")
-                                    try {
-                                      _login();
-                                    } catch (e) {
+                                  text: "login",
+                                  color: globals.blue1,
+                                  icon: Icons.arrow_forward,
+                                  onTap: () {
+                                    if (_password != null) {
+                                      if (_password.isNotEmpty && _password != "")
+                                        try {
+                                          _login();
+                                        } catch (e) {
+                                          showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                                  title: const Text('Error'),
+                                                  content:
+                                                  const Text(globals.errorException),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(context, 'OK'),
+                                                      child: const Text('OK'),
+                                                    ),
+                                                  ],
+                                                ),
+                                          );
+                                        }
+                                    } else {
                                       showDialog<String>(
                                         context: context,
                                         builder: (BuildContext context) =>
                                             AlertDialog(
-                                          title: const Text('Error'),
-                                          content:
-                                              const Text(globals.errorException),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context, 'OK'),
-                                              child: const Text('OK'),
+                                              title: const Text('Error'),
+                                              content: const Text(
+                                                  'Password can not be empty.'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context, 'OK'),
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
                                       );
                                     }
-                                } else {
-                                  showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text(
-                                          'Password can not be empty.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, 'OK'),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              },
-                            )),
+                                  },
+                                )),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Flexible(
-                                  child: InkWell(
-                                    onTap: () => Navigator.pushNamedAndRemoveUntil(
-                                        context, '/forgetPass', (route) => false),
-                                    child: Text(
-                                      "Forget Password",
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+
                         ],
+
+                      ),
+                    ),
+
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: InkWell(
+                        onTap: () => Navigator.pushNamedAndRemoveUntil(
+                            context, '/forgetPass', (route) => false),
+                        child: Text(
+                          "Forget Password",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),

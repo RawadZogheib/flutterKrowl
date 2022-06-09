@@ -215,7 +215,7 @@ class _MainChatState extends State<MainChat> {
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
-         _loadNotifications();
+         await _loadNotifications();
       } else {
         print(
             '=========<<======================================================<<==================================================<<=========');
