@@ -42,7 +42,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   final int _animationDuration = 4;
   int _k = 0;
 
-  int _notifNBR =0;
+  int _notifNBR = 0;
 
   @override
   void initState() {
@@ -154,83 +154,83 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                                               ),
                                             )
                                           : Column(
-                                            children: [
-                                              Column(
-                                                  children:
-                                                      _children.toList()),
-                                              _totalPages != 0
-                                                  ? Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                              .all(8.0),
-                                                      child: NumberPaginator(
-                                                        numberPages:
-                                                            _totalPages,
-                                                        onPageChange:
-                                                            (int index) {
-                                                          if (mounted) {
-                                                            setState(() {
-                                                              _currentPage =
-                                                                  index + 1;
-                                                              _loadNewPage();
-                                                              print(
-                                                                  index + 1);
-                                                            });
-                                                          }
-                                                        },
-                                                        // initially selected index
-                                                        initialPage:
-                                                            _currentPage - 1,
-                                                        // default height is 48
-                                                        buttonShape:
-                                                            BeveledRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8),
+                                              children: [
+                                                Column(
+                                                    children:
+                                                        _children.toList()),
+                                                _totalPages != 0
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: NumberPaginator(
+                                                          numberPages:
+                                                              _totalPages,
+                                                          onPageChange:
+                                                              (int index) {
+                                                            if (mounted) {
+                                                              setState(() {
+                                                                _currentPage =
+                                                                    index + 1;
+                                                                _loadNewPage();
+                                                                print(
+                                                                    index + 1);
+                                                              });
+                                                            }
+                                                          },
+                                                          // initially selected index
+                                                          initialPage:
+                                                              _currentPage - 1,
+                                                          // default height is 48
+                                                          buttonShape:
+                                                              BeveledRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                          ),
+                                                          buttonSelectedForegroundColor:
+                                                              globals.blue2,
+                                                          buttonUnselectedForegroundColor:
+                                                              globals.blue1,
+                                                          buttonUnselectedBackgroundColor:
+                                                              globals.blue2,
+                                                          buttonSelectedBackgroundColor:
+                                                              globals.blue1,
                                                         ),
-                                                        buttonSelectedForegroundColor:
-                                                            globals.blue2,
-                                                        buttonUnselectedForegroundColor:
-                                                            globals.blue1,
-                                                        buttonUnselectedBackgroundColor:
-                                                            globals.blue2,
-                                                        buttonSelectedBackgroundColor:
-                                                            globals.blue1,
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      height: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .height *
-                                                          0.75,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Image(
-                                                            image: AssetImage(
-                                                              'Assets/krowl_logo.gif',
+                                                      )
+                                                    : Container(
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.75,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Image(
+                                                              image: AssetImage(
+                                                                'Assets/krowl_logo.gif',
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                              height: 250,
+                                                              width: 250,
                                                             ),
-                                                            fit: BoxFit.cover,
-                                                            height: 250,
-                                                            width: 250,
-                                                          ),
-                                                          Text(
-                                                            globals
-                                                                .warningEmptyLibrary,
-                                                            style: TextStyle(
-                                                                fontSize: 32),
-                                                          ),
-                                                        ],
+                                                            Text(
+                                                              globals
+                                                                  .warningEmptyLibrary,
+                                                              style: TextStyle(
+                                                                  fontSize: 32),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                            ],
-                                          ),
+                                              ],
+                                            ),
                                     ],
                                   ),
                                 ),
@@ -589,7 +589,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 ),
                 CustomTabBar(
                   color: globals.blue1,
-                    notifNBR: _notifNBR
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
                 ),
               ],
             ),
@@ -869,7 +870,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 ),
                 CustomTabBar(
                   color: globals.blue1,
-                    notifNBR: _notifNBR
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
                 ),
               ],
             ),
@@ -927,10 +929,9 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
 
         _children.clear();
         if (body[0] == "success") {
-
           if (mounted) {
-            _notifNBR = int.parse(body[1]);
             setState(() {
+              _notifNBR = int.parse(body[1]);
               _totalTables = int.parse(body[2]);
               _totalPages = (_totalTables / _maxTables).ceil();
             });
@@ -1128,7 +1129,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   isAdmin: true,
                   onRemoveTable: (tableId) => _onRemoveTable(tableId),
                 ));
-          } 
+          }
 
           //globals.occupenTable.add('0');
         }
@@ -1180,6 +1181,12 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
     //Navigator.pop(context);
     await SessionManager().set('isLoggedIn', false);
     Navigator.pushNamedAndRemoveUntil(context, '/intro_page', (route) => false);
+  }
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
   }
 
 // _columnChecker(int val, int nb) {

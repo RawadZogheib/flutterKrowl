@@ -52,6 +52,8 @@ class _StudentProfileState extends State<StudentProfile> {
   //ProfileReplies
   List<ProfileReplies> children2 = [];
 
+  int _notifNBR =0;
+
   // List<String> TheAskedQuestion = [];
   // List<String> reply = [];
   // List<String> DateOfReply = [];
@@ -142,7 +144,10 @@ class _StudentProfileState extends State<StudentProfile> {
               ),
             ),
             CustomTabBar(
+
               color: globals.blue1,
+              notifNBR: _notifNBR,
+              onTap: () => _onNotifTap(),
             ),
           ],
         ),
@@ -180,23 +185,24 @@ class _StudentProfileState extends State<StudentProfile> {
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              widget.username = body[1][0] + ' ' + body[1][1];
-              widget.universityName = body[1][2];
-              widget.description = body[1][3];
-              widget.nbrOfFriends = int.parse(body[1][4]);
-              widget.isFriend = body[1][5];
+              _notifNBR = int.parse(body[1]);
+              widget.username = body[2][0] + ' ' + body[2][1];
+              widget.universityName = body[2][2];
+              widget.description = body[2][3];
+              widget.nbrOfFriends = int.parse(body[2][4]);
+              widget.isFriend = body[2][5];
 
               children1.clear();
-              for (int i = 0; i < body[2].length; i++) {
+              for (int i = 0; i < body[3].length; i++) {
                 Color _color;
                 Color _color2;
-                if (int.parse(body[2][i][4]) == 0) {
+                if (int.parse(body[3][i][4]) == 0) {
                   _color = Colors.grey.shade600;
                   _color2 = Colors.grey.shade600;
-                } else if (int.parse(body[2][i][4]) == 1) {
+                } else if (int.parse(body[3][i][4]) == 1) {
                   _color = globals.blue1;
                   _color2 = Colors.grey.shade600;
-                } else if (int.parse(body[2][i][4]) == -1) {
+                } else if (int.parse(body[3][i][4]) == -1) {
                   _color = Colors.grey.shade600;
                   _color2 = globals.blue1;
                 } else {
@@ -205,31 +211,31 @@ class _StudentProfileState extends State<StudentProfile> {
                 }
                 children1.add(
                   ProfileQuestions(
-                    Id: body[2][i][0],
-                    firstLastName: body[2][i][1],
-                    Post_tag: body[2][i][2],
-                    Post_val: int.parse(body[2][i][3]),
+                    Id: body[3][i][0],
+                    firstLastName: body[3][i][1],
+                    Post_tag: body[3][i][2],
+                    Post_val: int.parse(body[3][i][3]),
                     color: _color,
                     color2: _color2,
-                    TheQuestion: body[2][i][5],
-                    contextQuestion: body[2][i][6],
-                    nbrOfReplies: body[2][i][7],
-                    dateOfQuestion: 'on ' + body[2][i][8],
+                    TheQuestion: body[3][i][5],
+                    contextQuestion: body[3][i][6],
+                    nbrOfReplies: body[3][i][7],
+                    dateOfQuestion: 'on ' + body[3][i][8],
                   ),
                 );
               }
 
               children2.clear();
-              for (int j = 0; j < body[3].length; j++) {
+              for (int j = 0; j < body[4].length; j++) {
                 Color _color;
                 Color _color2;
-                if (int.parse(body[3][j][5]) == 0) {
+                if (int.parse(body[4][j][5]) == 0) {
                   _color = Colors.grey.shade600;
                   _color2 = Colors.grey.shade600;
-                } else if (int.parse(body[3][j][5]) == 1) {
+                } else if (int.parse(body[4][j][5]) == 1) {
                   _color = globals.blue1;
                   _color2 = Colors.grey.shade600;
-                } else if (int.parse(body[3][j][5]) == -1) {
+                } else if (int.parse(body[4][j][5]) == -1) {
                   _color = Colors.grey.shade600;
                   _color2 = globals.blue1;
                 } else {
@@ -239,19 +245,19 @@ class _StudentProfileState extends State<StudentProfile> {
 
                 children2.add(
                   ProfileReplies(
-                    postId: body[3][j][0],
-                    Id: body[3][j][1],
-                    userName: body[3][j][2],
-                    firstLastName: body[1][0] + ' ' + body[1][1],
-                    Post_tag: body[3][j][3],
-                    Post_val: int.parse(body[3][j][4]),
+                    postId: body[4][j][0],
+                    Id: body[4][j][1],
+                    userName: body[4][j][2],
+                    firstLastName: body[2][0] + ' ' + body[2][1],
+                    Post_tag: body[4][j][3],
+                    Post_val: int.parse(body[4][j][4]),
                     color: _color,
                     color2: _color2,
-                    TheAskedQuestion: body[3][j][6],
-                    Post_context: body[3][j][7],
-                    post_date: body[3][j][8],
-                    reply: body[3][j][9],
-                    DateOfReply: 'on ' + body[3][j][10],
+                    TheAskedQuestion: body[4][j][6],
+                    Post_context: body[4][j][7],
+                    post_date: body[4][j][8],
+                    reply: body[4][j][9],
+                    DateOfReply: 'on ' + body[4][j][10],
                   ),
                 );
               }
@@ -314,4 +320,12 @@ class _StudentProfileState extends State<StudentProfile> {
           context, '/intro_page', (route) => false);
     }
   }
+
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
+  }
+
 }

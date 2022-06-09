@@ -28,6 +28,7 @@ class ReplyPage extends StatefulWidget {
   var date;
   Color color;
   Color color2;
+  String? reply_id;
 
   ReplyPage({
     required this.id,
@@ -39,6 +40,7 @@ class ReplyPage extends StatefulWidget {
     required this.date,
     required this.color,
     required this.color2,
+    this.reply_id
   });
 
   @override
@@ -60,6 +62,8 @@ class _ReplyPageState extends State<ReplyPage>
   AnimationController? animationController;
   final int _animationDuration = 4;
   int _k = 0;
+
+  int _notifNBR =0;
 
   @override
   void dispose() {
@@ -290,7 +294,11 @@ class _ReplyPageState extends State<ReplyPage>
                       ),
                     ),
                   ]),
-                  CustomTabBar(color: globals.blue1,),
+                  CustomTabBar(
+                    color: globals.blue1,
+                    notifNBR: _notifNBR,
+                    onTap: () => _onNotifTap(),
+                  ),
                 ],
               ),
             );
@@ -343,21 +351,22 @@ class _ReplyPageState extends State<ReplyPage>
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              _totalReplies = int.parse(body[1]);
+              _notifNBR = int.parse(body[1]);
+              _totalReplies = int.parse(body[2]);
               _totalPages = (_totalReplies / _maxReplies).ceil();
             });
           }
 
-          for (var i = 0; i < body[3].length; i++) {
+          for (var i = 0; i < body[4].length; i++) {
             Color _color;
             Color _color2;
-            if (int.parse(body[3][i][5]) == 0) {
+            if (int.parse(body[4][i][5]) == 0) {
               _color = Colors.grey.shade600;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[3][i][5]) == 1) {
+            } else if (int.parse(body[4][i][5]) == 1) {
               _color = globals.blue1;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[3][i][5]) == -1) {
+            } else if (int.parse(body[4][i][5]) == -1) {
               _color = Colors.grey.shade600;
               _color2 = globals.blue1;
             } else {
@@ -366,17 +375,17 @@ class _ReplyPageState extends State<ReplyPage>
             }
             children.add(
               new Replies(
-                id: body[3][i][0],
+                id: body[4][i][0],
                 // reply_date
                 postId: widget.id,
                 // replyPageId
-                username: body[3][i][1],
+                username: body[4][i][1],
                 // username
-                reply: body[3][i][2],
+                reply: body[4][i][2],
                 // reply_data
-                val: int.parse(body[3][i][3]),
+                val: int.parse(body[4][i][3]),
                 // reply_like
-                date: body[3][i][4],
+                date: body[4][i][4],
                 // reply_date
                 color: _color,
                 //
@@ -387,13 +396,13 @@ class _ReplyPageState extends State<ReplyPage>
 
           Color _color;
           Color _color2;
-          if (int.parse(body[2][6]) == 0) {
+          if (int.parse(body[3][6]) == 0) {
             _color = Colors.grey.shade600;
             _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[2][6]) == 1) {
+          } else if (int.parse(body[3][6]) == 1) {
             _color = globals.blue1;
             _color2 = Colors.grey.shade600;
-          } else if (int.parse(body[2][6]) == -1) {
+          } else if (int.parse(body[3][6]) == -1) {
             _color = Colors.grey.shade600;
             _color2 = globals.blue1;
           } else {
@@ -404,14 +413,14 @@ class _ReplyPageState extends State<ReplyPage>
           children2.add(
             DetailedReplyContainer(
               id: widget.id,
-              question: body[2][2],
-              subject: body[2][1],
-              username: body[2][0],
-              val: int.parse(body[2][3]),
+              question: body[3][2],
+              subject: body[3][1],
+              username: body[3][0],
+              val: int.parse(body[3][3]),
               color: _color,
               color2: _color2,
-              contextQuestion: body[2][5],
-              date: body[2][4],
+              contextQuestion: body[3][5],
+              date: body[3][4],
               onTap: (id, date) => _addReply(id, date),
             ),
           );
@@ -587,6 +596,12 @@ class _ReplyPageState extends State<ReplyPage>
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
+  }
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
   }
 
 }

@@ -146,8 +146,10 @@ class _Students1State extends State<Students1>
                   ),
                 ),
                 CustomTabBar(
+
                   color: globals.blue1,
-                    notifNBR: _notifNBR
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
                 ),
               ],
             ),
@@ -242,8 +244,10 @@ class _Students1State extends State<Students1>
                   ),
                 ),
                 CustomTabBar(
+
                   color: globals.blue1,
-                    notifNBR: _notifNBR
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
                 ),
               ],
             ),
@@ -293,8 +297,8 @@ class _Students1State extends State<Students1>
         if (body[0] == "success") {
 
           if (mounted) {
-            _notifNBR = int.parse(body[1]);
             setState(() {
+              _notifNBR = int.parse(body[1]);
               _totalStudents = int.parse(body[2]);
               _totalPages = (_totalStudents / 20).ceil();
             });
@@ -397,5 +401,11 @@ class _Students1State extends State<Students1>
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);
     }
+  }
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:Krowl/api/my_api.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/page/Responsive.dart';
@@ -23,6 +25,8 @@ class _MainChatState extends State<MainChat> {
   bool initBool = false;
   Timer? timer;
 
+  int _notifNBR=0;
+
   @override
   Future<void> dispose() async {
     // TODO: implement dispose
@@ -35,6 +39,7 @@ class _MainChatState extends State<MainChat> {
   @override
   void initState() {
     // TODO: implement initState
+
     _onInitState();
     super.initState();
   }
@@ -150,6 +155,8 @@ class _MainChatState extends State<MainChat> {
               ),
               CustomTabBar(
                 color: globals.blue1,
+                notifNBR: _notifNBR,
+                onTap: () => _onNotifTap(),
               ),
             ],
           ),
@@ -178,6 +185,8 @@ class _MainChatState extends State<MainChat> {
               ),
               CustomTabBar(
                 color: globals.blue1,
+                notifNBR: _notifNBR,
+                onTap: () => _onNotifTap(),
               ),
             ],
           ),
@@ -195,7 +204,7 @@ class _MainChatState extends State<MainChat> {
     print(
         '=========>>======================================================>>==================================================>>=========');
     timer?.cancel();
-    //_loadPosts(); //0
+    _loadNotifications(); //0
     _loadPage(); //1 -> INFINI
   }
 
@@ -206,7 +215,7 @@ class _MainChatState extends State<MainChat> {
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
-        //await _loadPosts();
+         _loadNotifications();
       } else {
         print(
             '=========<<======================================================<<==================================================<<=========');
@@ -251,4 +260,22 @@ class _MainChatState extends State<MainChat> {
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 
+ _loadNotifications() async {
+    var account_Id = await SessionManager().get('account_Id');
+    var data = {
+      'version': globals.version,
+      'account_Id': account_Id,
+    };
+    var res = await CallApi().postData(data, 'Notification/(Control)countNotifications.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      _notifNBR = int.parse(body[1]);}
+
+  }
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
+  }
 }

@@ -280,11 +280,11 @@ class _RemindersState extends State<Reminders>
                 ),
               ),
             ),
-            MediaQuery.of(context).size.width > 700
-                ? CustomTabBar(
-                    color: globals.blue1,
-                  )
-                : Container(),
+            // MediaQuery.of(context).size.width > 700
+            //     ? CustomTabBar(
+            //         color: globals.blue1,
+            //       )
+            //     : Container(),
           ],
         ),
       ),

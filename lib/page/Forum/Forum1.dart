@@ -255,7 +255,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   CustomTabBar(
-                    color: globals.blue1, notifNBR: _notifNBR,
+                    color: globals.blue1,
+                    notifNBR: _notifNBR,
+                    onTap: () => _onNotifTap(),
                   ),
                 ],
               ),
@@ -380,7 +382,10 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   CustomTabBar(
-                    color: globals.blue1, notifNBR: _notifNBR,
+
+                    color: globals.blue1,
+                    notifNBR: _notifNBR,
+                    onTap: () => _onNotifTap(),
                   ),
                 ],
               ),
@@ -559,6 +564,12 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   _back() {
     //Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
+  }
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
   }
 
 }

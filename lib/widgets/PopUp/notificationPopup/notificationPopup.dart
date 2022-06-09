@@ -12,12 +12,11 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class ShapedWidget extends StatefulWidget {
 
-  List<Widget>children;
+  List<NotificationPopupChildren>? children1 = [];
+  List<Widget>? children2 = [];
+  bool isEmpty;
 
-  ShapedWidget(
-      {Key? key,
-        required this.children})
-      : super(key: key);
+  ShapedWidget({Key? key, this.children1,this.children2,required this.isEmpty}) : super(key: key);
 
   @override
   State<ShapedWidget> createState() => _ShapedWidgetState();
@@ -73,7 +72,7 @@ class _ShapedWidgetState extends State<ShapedWidget>
                 ),
                 padding: EdgeInsets.all(8.0),
                 child: SizedBox(
-                  width: 250.0,
+                  width: 340.0,
                   height: 400.0,
                   child: ScrollConfiguration(
                     behavior:
@@ -81,18 +80,31 @@ class _ShapedWidgetState extends State<ShapedWidget>
                     child: Column(
                       children: [
                         Expanded(
-                          child: ListView(
-                            controller: ScrollController(),
-                            children: widget.children
-                            //[
+                          child: widget.isEmpty==false?
+                          ListView.builder(
+                            itemCount: widget.children1!.length,
+                            itemBuilder: (context, index) {
+                              return Dismissible(
+                                key: ValueKey(widget.children1![index]),
+                                onDismissed: (direction) {
+                                  _changeStatus(widget.children1![index].notification_id);
+                                  setState(() {
+                                    widget.children1!.removeAt(index);
+                                  });
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(content: Text('Notification dismissed')));
 
-                              //NotificationPopupChildren(username: 'Clara'),
-                              // NotificationPopupChildren(username: 'Mich'),
-                              // NotificationPopupChildren(username: 'Samir'),
-                              // NotificationPopupChildren(username: 'Samira'),
-                              // NotificationPopupChildren(username: 'Bilal'),
-                              // NotificationPopupChildren(username: 'Karen'),
-                            //],
+                                },
+                                background: Container(color:globals.blue2),
+                                child: widget.children1![index],
+
+                              );
+                            },
+                          )
+
+                              :ListView(
+                              controller: ScrollController(),
+                              children: widget.children2!
                           ),
                         ),
                         Divider(
@@ -146,8 +158,20 @@ class _ShapedWidgetState extends State<ShapedWidget>
     });
   }
 
- }
 
+  Future<void> _changeStatus(int notif_id) async {
+    var account_Id = await SessionManager().get('account_Id');
+    var data = {
+      'version': globals.version,
+      'account_Id': account_Id,
+      'notif_id': notif_id,
+      'status_after':3
+    };
+    var res = await CallApi().postData(data, 'Notification/(Control)updateNotifStatus.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+  }
+}
 class _ShapedWidgetBorder extends RoundedRectangleBorder {
   _ShapedWidgetBorder({
     required this.padding,

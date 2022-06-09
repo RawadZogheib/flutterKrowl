@@ -396,9 +396,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ]),
                     ),
                   ),
-                  CustomTabBar(
-                    color: Colors.white,
-                  ),
+                  // CustomTabBar(
+                  //   color: Colors.white,
+                  // ),
                 ],
               ),
               desktop: Stack(
@@ -559,9 +559,9 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ]),
                     ),
                   ),
-                  CustomTabBar(
-                    color: Colors.white,
-                  ),
+                  // CustomTabBar(
+                  //   color: Colors.white,
+                  // ),
                 ],
               ),
             )),

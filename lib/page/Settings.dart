@@ -402,7 +402,7 @@ class _SettingsState extends State<Settings>
                     ],
                   ),
                   CustomTabBar(
-                    color: Colors.black,
+                    color: Colors.black, onTap: () {  },
                   ),
                 ],
               ),

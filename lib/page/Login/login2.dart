@@ -107,6 +107,7 @@ class _Login2State extends State<Login2> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(left: 5.0),
                   child: Text("What is your password ?",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.blue.shade900,
                         fontFamily: 'Rubik',
@@ -156,9 +157,10 @@ class _Login2State extends State<Login2> {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
+                      width: 111,
                       child: InkWell(
                           child: PreviousButton(
                         text: "previous",
@@ -169,71 +171,83 @@ class _Login2State extends State<Login2> {
                         },
                       )),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 70,
-                          margin: EdgeInsets.only(left: 100.sp),
-                          child: InkWell(
-                              child: NextButton(
-                            text: "login",
-                            color: globals.blue1,
-                            icon: Icons.arrow_forward,
-                            onTap: () {
-                              if (_password != null) {
-                                if (_password.isNotEmpty && _password != "")
-                                  try {
-                                    _login();
-                                  } catch (e) {
-                                    showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        title: const Text('Error'),
-                                        content:
-                                            const Text(globals.errorException),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, 'OK'),
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                              } else {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Error'),
-                                    content: const Text(
-                                        'Password can not be empty.'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                          )),
-                        ),
-                        InkWell(
-                          onTap: () => Navigator.pushNamedAndRemoveUntil(
-                              context, '/forgetPass', (route) => false),
-                          child: Text(
-                            "Forget Password",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                            ),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 111,
+                            child: InkWell(
+                                child: NextButton(
+                              text: "login",
+                              color: globals.blue1,
+                              icon: Icons.arrow_forward,
+                              onTap: () {
+                                if (_password != null) {
+                                  if (_password.isNotEmpty && _password != "")
+                                    try {
+                                      _login();
+                                    } catch (e) {
+                                      showDialog<String>(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: const Text('Error'),
+                                          content:
+                                              const Text(globals.errorException),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, 'OK'),
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                } else {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Error'),
+                                      content: const Text(
+                                          'Password can not be empty.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              },
+                            )),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () => Navigator.pushNamedAndRemoveUntil(
+                                        context, '/forgetPass', (route) => false),
+                                    child: Text(
+                                      "Forget Password",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
