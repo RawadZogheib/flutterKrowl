@@ -1,8 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/widgets/Forum/Forum1/AskQuestionButton.dart';
@@ -11,6 +9,9 @@ import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/TabBar/CustomTabBar.dart';
 import 'package:Krowl/widgets/TextInput1.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,16 @@ class Forum2 extends StatefulWidget {
 
 class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
   List<LogicalKeyboardKey> keys = [];
+  Timer? timer;
+
+  int _notifNBR = 0;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -276,7 +287,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                         child: AnimatedTextKit(
                                           totalRepeatCount: 5,
                                           animatedTexts: [
-                                            WavyAnimatedText('Ask a question ?'),
+                                            WavyAnimatedText(
+                                                'Ask a question ?'),
                                           ],
                                           isRepeatingAnimation: true,
                                           onTap: () {
@@ -339,8 +351,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                                   'Enter your question here',
                                               onChanged: (val) {
                                                 globals.question = val;
-                                                print(
-                                                    globals.question.toString());
+                                                print(globals.question
+                                                    .toString());
                                               },
                                             )),
                                         SizedBox(
@@ -359,9 +371,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                             child: TextInput1(
                                                 spaceAllowed: true,
                                                 fillColor: Colors.white,
-                                                hintText: 'Give some context...',
+                                                hintText:
+                                                    'Give some context...',
                                                 onChanged: (val) {
-                                                  globals.context_question = val;
+                                                  globals.context_question =
+                                                      val;
                                                   print(globals.context_question
                                                       .toString());
                                                 })),
@@ -396,9 +410,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ]),
                     ),
                   ),
-                  // CustomTabBar(
-                  //   color: Colors.white,
-                  // ),
+                  CustomTabBar(
+                    color: globals.blue1,
+                    notifNBR: _notifNBR,
+                    onTap: () => _onNotifTap(),
+                  ),
                 ],
               ),
               desktop: Stack(
@@ -439,7 +455,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                         child: AnimatedTextKit(
                                           totalRepeatCount: 5,
                                           animatedTexts: [
-                                            WavyAnimatedText('Ask a question ?'),
+                                            WavyAnimatedText(
+                                                'Ask a question ?'),
                                           ],
                                           isRepeatingAnimation: true,
                                           onTap: () {
@@ -502,8 +519,8 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                                   'Enter your question here',
                                               onChanged: (val) {
                                                 globals.question = val;
-                                                print(
-                                                    globals.question.toString());
+                                                print(globals.question
+                                                    .toString());
                                               },
                                             )),
                                         SizedBox(
@@ -522,9 +539,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                                             child: TextInput1(
                                                 spaceAllowed: true,
                                                 fillColor: Colors.white,
-                                                hintText: 'Give some context...',
+                                                hintText:
+                                                    'Give some context...',
                                                 onChanged: (val) {
-                                                  globals.context_question = val;
+                                                  globals.context_question =
+                                                      val;
                                                   print(globals.context_question
                                                       .toString());
                                                 })),
@@ -559,9 +578,11 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                       ]),
                     ),
                   ),
-                  // CustomTabBar(
-                  //   color: Colors.white,
-                  // ),
+                  CustomTabBar(
+                    color: globals.blue1,
+                    notifNBR: _notifNBR,
+                    onTap: () => _onNotifTap(),
+                  ),
                 ],
               ),
             )),
@@ -604,9 +625,33 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
     }
   }
 
+  _loadNewPage() {
+    print(
+        '=========>>======================================================>>==================================================>>=========');
+    timer?.cancel();
+    _loadNotifications(); //0
+    _loadPage(); //1 -> INFINI
+  }
+
+  _loadPage() {
+    timer = Timer.periodic(const Duration(seconds: 30), (Timer t) async {
+      print(
+          '=========>>======================================================>>==================================================>>=========');
+      print("30sec gone!!");
+      if (mounted) {
+        print("30sec gone,and _loadChildrenOnline!!");
+        await _loadNotifications();
+      } else {
+        print(
+            '=========<<======================================================<<==================================================<<=========');
+      }
+    });
+  }
+
   Future<void> _onInitState() async {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Forum2';
+      _loadNewPage();
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/intro_page', (route) => false);
@@ -618,4 +663,24 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
     Navigator.pushNamedAndRemoveUntil(context, '/Library', (route) => false);
   }
 
+  _loadNotifications() async {
+    var account_Id = await SessionManager().get('account_Id');
+    var data = {
+      'version': globals.version,
+      'account_Id': account_Id,
+    };
+    var res = await CallApi()
+        .postData(data, 'Notification/(Control)countNotifications.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+    if (body[0] == "success") {
+      _notifNBR = int.parse(body[1]);
+    }
+  }
+
+  void _onNotifTap() {
+    setState(() {
+      _notifNBR = 0;
+    });
+  }
 }
