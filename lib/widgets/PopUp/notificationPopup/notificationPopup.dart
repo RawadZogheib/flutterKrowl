@@ -87,7 +87,7 @@ class _ShapedWidgetState extends State<ShapedWidget>
                               return Dismissible(
                                 key: ValueKey(widget.children1![index]),
                                 onDismissed: (direction) {
-                                  _changeStatus(widget.children1![index].notification_id);
+                                  _changeStatus(widget.children1![index].notification_id,widget.children1![index].notification_status);
                                   setState(() {
                                     widget.children1!.removeAt(index);
                                   });
@@ -159,13 +159,16 @@ class _ShapedWidgetState extends State<ShapedWidget>
   }
 
 
-  Future<void> _changeStatus(int notif_id) async {
+  Future<void> _changeStatus(int notif_id,int notif_status) async {
     var account_Id = await SessionManager().get('account_Id');
+    int status_after;
+    if(notif_status == 2)status_after=4;
+    else status_after=3;
     var data = {
       'version': globals.version,
       'account_Id': account_Id,
       'notif_id': notif_id,
-      'status_after':3
+      'status_after':status_after
     };
     var res = await CallApi().postData(data, 'Notification/(Control)updateNotifStatus.php');
     print(res.body);

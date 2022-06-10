@@ -276,7 +276,7 @@ class _NotificationContainerState extends State<NotificationContainer> {
         notification_icon = Icons.people;
         break;
     }
-    if (status == 2) {
+    if (status == 2 || status == 4) {
       _boxColor = Colors.white;
     }
   }
@@ -354,12 +354,17 @@ class _NotificationContainerState extends State<NotificationContainer> {
 
   Future<void> _changeToWhite() async {
     var account_Id = await SessionManager().get('account_Id');
+    int status_after;
+    if(widget.notification_status == 3 || widget.notification_status == 4) status_after=4;
+    else status_after=2;
+
     var data = {
       'version': globals.version,
       'account_Id': account_Id,
       'notif_id': widget.notification_id,
-      'status_after':2
+      'status_after':status_after
     };
+    print("DATAAAAA"+data.toString());
     var res = await CallApi().postData(data, 'Notification/(Control)updateNotifStatus.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
