@@ -95,7 +95,7 @@ class MyDrawer extends StatelessWidget {
                               text: 'Logout',
                               icon: Icons.logout,
                               color: globals.white,
-                              onClicked: () => selectedItem(context, 5),
+                              onClicked: () => selectedItem(context, 7),
                             ),
                           ],
                         ),
@@ -143,10 +143,10 @@ class MyDrawer extends StatelessWidget {
         }
         break;
       case 5: // Notifications
-        // if (globals.currentPage != 'Notifications') {
-        //   Navigator.pushNamedAndRemoveUntil(
-        //       context, '/Notifications', (route) => false);
-        // }
+        if (globals.currentPage != 'Notifications') {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/Notifications', (route) => false);
+        }
         break;
       case 6: // Settings
         if (globals.currentPage != 'Settings') {
