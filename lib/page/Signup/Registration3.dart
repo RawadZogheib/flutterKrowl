@@ -246,6 +246,7 @@ _testpass() {
 
 
   _reg() async {
+
     globals.photo = "test";
     globals.terms = "test";
     globals.cropX = "test";
@@ -288,9 +289,9 @@ _testpass() {
           'crop_y': globals.cropY,
           'crop_width': globals.cropWidth,
           'crop_height': globals.cropHeight,
-          'university_ids': (globals.univercitiesName.indexOf(globals.uniId) + 1).toString(),
-          'major_degree_ids': (globals.degrees.indexOf(globals.majorId) + 1).toString(),
-          'minor_degree_ids': (globals.degrees.indexOf(globals.minorId) + 1).toString(),
+          'university_ids': (int.parse(globals.uniId!) + 1).toString(),
+          'major_degree_ids': (int.parse(globals.majorId!) + 1).toString(),
+          'minor_degree_ids': (int.parse(globals.minorId!) + 1).toString(),
           'isRegistered': globals.isRegistered,
         };
 
