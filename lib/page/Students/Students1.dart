@@ -85,6 +85,7 @@ class _Students1State extends State<Students1>
             mobile: ScrollConfiguration(
               behavior: MyCustomScrollBehavior(),
               child: SingleChildScrollView(
+                primary: false,
                 reverse: false,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -111,6 +112,7 @@ class _Students1State extends State<Students1>
                 ScrollConfiguration(
                   behavior: MyCustomScrollBehavior(),
                   child: SingleChildScrollView(
+                    primary: false,
                     reverse: false,
                     child: Column(
                       children: [
@@ -158,6 +160,7 @@ class _Students1State extends State<Students1>
                 ScrollConfiguration(
                   behavior: MyCustomScrollBehavior(),
                   child: SingleChildScrollView(
+                    primary: false,
                     reverse: false,
                     child: Column(children: [
                       SizedBox(
@@ -235,7 +238,7 @@ class _Students1State extends State<Students1>
                                             ),
                                           ),
                                         ],
-                                      )),
+                                      ),),
                             ],
                           ),
                         ],
@@ -251,7 +254,7 @@ class _Students1State extends State<Students1>
                 ),
               ],
             ),
-          )),
+          ),),
     );
   }
 
