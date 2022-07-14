@@ -55,7 +55,7 @@ class _QuestionState extends State<Question> {
     return InkWell(
       borderRadius: BorderRadius.circular(5),
       splashColor: globals.blue1,
-      hoverColor: globals.blue1.withOpacity(0.5),
+      hoverColor:Colors.transparent,//globals.blue1.withOpacity(0.5)
       onTap: () => _openReply(),
       child: Column(
         children: [
@@ -63,9 +63,9 @@ class _QuestionState extends State<Question> {
             width: MediaQuery.of(context).size.width * 0.62,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white,
               border: Border.all(
-                color: Colors.grey.shade400,
+                color: globals.blue_1.withOpacity(0.6),
                 width: 0.5,
               ),
               borderRadius: BorderRadius.circular(5),
@@ -74,7 +74,8 @@ class _QuestionState extends State<Question> {
                   color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: Offset(0, 6),
+                  blurStyle: BlurStyle.normal// changes position of shadow
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:Krowl/globals/globals.dart' as globals;
 
 class SearchBar extends StatelessWidget {
 
@@ -24,12 +24,15 @@ class SearchBar extends StatelessWidget {
         ),
         child: TextField(
           onChanged: onChanged,
+          textAlign: TextAlign.justify,
           cursorColor: Colors.black,
           decoration: InputDecoration(
-            suffixIcon: Icon(Icons.search),
+            suffixIcon: Icon(Icons.search, color:globals.blue_2),
+            filled: true,
+            fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400, width: 0.7),
-                borderRadius: BorderRadius.circular(5),),
+                borderSide: BorderSide(color:globals.blue_2 , width: 0.6),
+                borderRadius: BorderRadius.circular(35),),
 
             hintText: '$hintText',
             hintStyle: TextStyle(
@@ -38,8 +41,8 @@ class SearchBar extends StatelessWidget {
             ),
             border: InputBorder.none,
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: Colors.grey.shade400)),
+                borderRadius: BorderRadius.circular(35),
+                borderSide: BorderSide(color: globals.blue_1.withOpacity(0.6))),
           ),
         ),
       ),

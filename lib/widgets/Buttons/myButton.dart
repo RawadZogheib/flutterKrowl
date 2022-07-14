@@ -19,7 +19,7 @@ class btn extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9.0),
           color: Colors.blue.shade200,
-        ));
+        ),);
   }
 }
 

@@ -9,7 +9,7 @@ const String version = "v1.0";
 //Server Ip  (page[/my_api.dart])
 //const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphpTest/";
 //const String myIP = "https://kwikcode.net/krowlphp/";
-const String myIP = "http://127.0.0.1:8080/krowl_PHP/";
+const String myIP = "http://127.0.0.1/krowl_PHP/";
 const String jaasUrl = "${myIP}jit/?table=";
 
 // const String myIP = "https://krowl.epizy.com";
@@ -60,6 +60,7 @@ const String warningEmptyLibrary = "There is no Table yet";
 const String warningEmptyContacts = "You don't have contacts yet";
 const String warningEmptyFriends = "You don't have friends yet";
 const String warningEmptyReplyPage = "There is no Replies yet";
+const String warningEmptyPostPage = "There is no Posts yet";
 const String errorToken = "Token Expired.";
 const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException =

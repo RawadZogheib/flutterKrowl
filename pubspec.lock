@@ -190,6 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  eeffects:
+    dependency: "direct main"
+    description:
+      name: eeffects
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   equatable:
     dependency: transitive
     description:
@@ -310,6 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
+  imageview360:
+    dependency: "direct main"
+    description:
+      name: imageview360
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   intl:
     dependency: "direct main"
     description:
