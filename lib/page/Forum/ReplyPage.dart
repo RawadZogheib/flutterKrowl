@@ -53,8 +53,8 @@ class _ReplyPageState extends State<ReplyPage>
   var children2 = <Widget>[];
   Timer? timer;
   int _currentPage = 1;
-  int _totalPages = 999;
-  int _totalReplies = 11988;
+  int _totalPages = 1;
+  int _totalReplies = 0;
   int _maxReplies = 20;
   bool _load = true;
 
@@ -446,8 +446,53 @@ class _ReplyPageState extends State<ReplyPage>
               _currentPage = 1;
             });
             _loadNewPage();
-          } else {
+          } if(_currentPage == 1) {
+            _load=false;
             warningPopup(context, globals.warningEmptyReplyPage);
+            Color _color;
+            Color _color2;
+            if (int.parse(body[3][6]) == 0) {
+              _color = Colors.grey.shade600;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[3][6]) == 1) {
+              _color = globals.blue1;
+              _color2 = Colors.grey.shade600;
+            } else if (int.parse(body[3][6]) == -1) {
+              _color = Colors.grey.shade600;
+              _color2 = globals.blue1;
+            } else {
+              _color = Colors.transparent;
+              _color2 = Colors.transparent;
+            }
+
+            children2.add(
+              DetailedReplyContainer(
+                id: widget.id,
+                question: body[3][2],
+                subject: body[3][1],
+                username: body[3][0],
+                val: int.parse(body[3][3]),
+                color: _color,
+                color2: _color2,
+                contextQuestion: body[3][5],
+                date: body[3][4],
+                onTap: (id, date) => _addReply(id, date),
+              ),
+            );
+
+            if (mounted) {
+              setState(() {
+                // widget.username = ;
+                // widget.subject = ;
+                // widget.question = ;
+                // widget.val = ;
+                // widget.date = ;
+                // widget.contextQuestion = ;
+                // widget.color = ;
+                // widget.color2 = ;
+                children2;
+              });
+            }
           }
         } else if (body[0] == "errorVersion") {
           errorPopup(context, globals.errorVersion);
