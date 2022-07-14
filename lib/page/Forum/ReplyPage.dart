@@ -440,6 +440,7 @@ class _ReplyPageState extends State<ReplyPage>
             });
           }
         } else if (body[0] == "empty") {
+         _notifNBR = int.parse(body[1]);
           if (_currentPage != 1) {
             setState(() {
               _currentPage = 1;
@@ -455,6 +456,7 @@ class _ReplyPageState extends State<ReplyPage>
         } else if (body[0] == "error7") {
           warningPopup(context, globals.warning7);
         } else {
+
           if (mounted) {
             setState(() {
               _load = true;

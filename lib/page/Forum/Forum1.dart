@@ -782,10 +782,12 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           warningPopup(context, globals.warning7);
         }
         if (body[0] == "empty" && state == 4) {
+          _notifNBR = int.parse(body[1]);
           setState(() {
             loader = false;
           });
         } else if (body[0] == "empty") {
+          _notifNBR = int.parse(body[1]);
           if (mounted) {
             setState(() {
               displayIcon = true;
