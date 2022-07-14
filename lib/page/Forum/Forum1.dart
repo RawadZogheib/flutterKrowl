@@ -98,7 +98,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             ERelative(24, ERelative.absolute),
             ERelative(0, ERelative.absolute),
             EGradient([
-              EColorShift([Color.fromARGB(90,192,192,192)], 0),
+              EColorShift([Color.fromARGB(100,192,192,192)], 0),
               //EColorShift([Color.fromARGB(120, 255, 220, 100)], 0),
               //EColorShift([Color.fromARGB(120, 255, 190, 0)], 0),
             ]),
@@ -130,7 +130,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    scene!.resize(312, 300);
+    scene!.resize(320, 300);
     Animation distAnimation = Tween(begin: 4.0, end: 20.0).animate(
         CurvedAnimation(parent: animationController!, curve: Curves.easeIn));
     if (_k % 2 == 0) {
