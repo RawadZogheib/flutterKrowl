@@ -98,7 +98,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             ERelative(24, ERelative.absolute),
             ERelative(0, ERelative.absolute),
             EGradient([
-              EColorShift([Color.fromARGB(100,192,192,192)], 0),
+              EColorShift([Color.fromARGB(170,192,192,192)], 0),
               //EColorShift([Color.fromARGB(120, 255, 220, 100)], 0),
               //EColorShift([Color.fromARGB(120, 255, 190, 0)], 0),
             ]),
@@ -357,7 +357,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.01,
+                              width: MediaQuery.of(context).size.width * 0.02,
                             ),
                             Column(
                               children: [
@@ -569,19 +569,31 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             SizedBox(
-                              width: 335,
-                              child: Row(
+                              child:Row(
                                 children: [
                                   SizedBox(
-                                    width: 15,
-                                    height: 600,
+                                    width: 40,
                                   ),
                                   Column(
                                     children: [
+                                      SizedBox(
+                                        height: 54,
+                                      ),
+                                      SizedBox(
+                                        height: distAnimation.value,
+                                      ),
+                                      Contributors(
+                                        height: double.parse(
+                                            (170 + distAnimation.value)
+                                                .toString()),
+                                        width: double.parse(
+                                            (300 + distAnimation.value)
+                                                .toString()),
+                                      ),
                                       SingleChildScrollView(
                                         child: Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.only(top: 72.0),
+                                            padding: const EdgeInsets.only(top: 32.0),
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -606,20 +618,9 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       Container(
+                                        height:200,
                                         child:scene,
                                       ),
-                                      // SizedBox(
-                                      //   height: distAnimation.value,
-                                      // ),
-                                      // Contributors(
-                                      //   height: double.parse(
-                                      //       (220 + distAnimation.value)
-                                      //           .toString()),
-                                      //   width: double.parse(
-                                      //       (350 + distAnimation.value)
-                                      //           .toString()),
-                                      // ),
-
                                     ],
                                   ),
 

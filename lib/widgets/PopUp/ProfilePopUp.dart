@@ -99,10 +99,10 @@ class ShapedWidgetProfile extends StatelessWidget {
   selectedItem(BuildContext context, int index) {
     switch (index) {
       case 0: // My Profile
-        // if (globals.currentPage != 'Library') {
-        //   Navigator.pushNamedAndRemoveUntil(
-        //       context, '/Library', (route) => false);
-        // }
+        if (globals.currentPage != 'MyProfile') {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/Test', (route) => false);
+        }
       print('0');
         break;
       case 1: // Upgrade Plan

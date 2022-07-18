@@ -23,16 +23,7 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(width: 500, height: 300,),
-            myProfile(userId: 1, username: "Clara", universityName: "Lebanese University", description:"I am clara ", isFriend: "blue", nbrOfFriends: 15),
-          ],
-        ),
-      ),
+      body: MyProfile(userId: 1, username: "Clara", universityName: "Lebanese University", description:"I am clara ", isFriend: "blue", nbrOfFriends: 15),
     );
   }
 }
