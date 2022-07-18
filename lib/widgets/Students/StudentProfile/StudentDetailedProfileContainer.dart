@@ -13,7 +13,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 import 'package:http/http.dart' as http;
@@ -54,8 +56,8 @@ class StudentDetailedProfile extends StatefulWidget {
 
 class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
   bool _loadButton = false;
-  //PickedFile? _imageFile;
-  //final ImagePicker _picker = ImagePicker();
+  PickedFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -97,21 +99,42 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                   ),
                 ],
               ),
-              file == null
+              _imageFile == null
                   ? Positioned(
                 top: MediaQuery.of(context).size.height * 0.17,
-                child: CircleAvatar(
-                    radius: 80.0,
-                    backgroundImage:
-                    AssetImage("Assets/incognitoProfile.png")),
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage:
+                      AssetImage("Assets/incognitoProfile.png")),
+                ),
               )
                   : Positioned(
                 top: MediaQuery.of(context).size.height * 0.17,
-                child: CircleAvatar(
-                    radius: 80.0,
-                    backgroundImage: FileImage(File(file.path))),
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage: FileImage(File(_imageFile!.path))),
+                ),
               ),
-
+              // file == null
+              //     ? Positioned(
+              //   top: MediaQuery.of(context).size.height * 0.17,
+              //   child: FullScreenWidget(
+              //     child: CircleAvatar(
+              //         radius: 80.0,
+              //         backgroundImage:
+              //         AssetImage("Assets/incognitoProfile.png")),
+              //   ),
+              // )
+              //     : Positioned(
+              //   top: MediaQuery.of(context).size.height * 0.17,
+              //   child: FullScreenWidget(
+              //     child: CircleAvatar(
+              //         radius: 80.0,
+              //         backgroundImage: FileImage(File(file.path))),
+              //   ),
+              // ),
 
               widget.hisProfile
                   ? Positioned(
@@ -293,24 +316,32 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
+              (Platform.isAndroid || Platform.isIOS)
+              ?ElevatedButton.icon(
                 onPressed: () {
-                  //takePhoto(ImageSource.camera);
+                  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS){
                   selectFile();
                   setState(() {
                     filePicked;
                   });
+                  }if (Platform.isAndroid || Platform.isIOS){
+                    takePhoto(ImageSource.camera);
+                  }
                 },
                 icon: Icon(Icons.camera),
                 label: Text("Camera"),
-              ),
+              ):Container(),
+
               ElevatedButton.icon(
                 onPressed: () {
-                  //takePhoto(ImageSource.gallery);
-                  selectFile();
-                  setState(() {
-                    filePicked;
-                  });
+                  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS){
+                    selectFile();
+                    setState(() {
+                      filePicked;
+                    });
+                  }if (Platform.isAndroid || Platform.isIOS) {
+                    takePhoto(ImageSource.gallery);
+                  }
                 },
                 icon: Icon(Icons.image),
                 label: Text("Gallery"),
@@ -532,14 +563,14 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
     return x;
   }
 
-  // void takePhoto(ImageSource source) async {
-  //   final pickedFile = await _picker.getImage(
-  //     source: source,
-  //   );
-  //   setState(() {
-  //     _imageFile = pickedFile;
-  //   });
-  // }
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
   Future selectFile() async {
     FilePickerResult? result=await FilePicker.platform.pickFiles(type:FileType.image);
     if(result==null)return;

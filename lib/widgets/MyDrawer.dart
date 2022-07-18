@@ -86,6 +86,13 @@ class MyDrawer extends StatelessWidget {
                               onClicked: () => selectedItem(context, 5),
                             ),
                             MenuItem(
+                              text: 'My Profile',
+                              icon: Icons.person,
+                              color: Colors.white,
+                              onClicked: () => selectedItem(context, 8),
+                            ),
+
+                            MenuItem(
                               text: 'Settings',
                               icon: Icons.settings,
                               color: globals.white,
@@ -160,6 +167,13 @@ class MyDrawer extends StatelessWidget {
         Navigator.pushNamedAndRemoveUntil(
             context, '/intro_page', (route) => false);
         print('7');
+        break;
+      case 8: // My Profile
+        if (globals.currentPage != 'MyProfile') {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/Test', (route) => false);
+        }
+        print('0');
         break;
     }
   }
