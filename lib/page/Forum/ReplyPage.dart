@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Krowl/widgets/Buttons/PreviousButton.dart';
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
@@ -141,11 +142,44 @@ class _ReplyPageState extends State<ReplyPage>
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 12.0),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    // Container(
+                                    //   width: 50,
+                                    //   child: InkWell(
+                                    //       child: PreviousButton(
+                                    //         text: "previous",
+                                    //         color: globals.blue1,
+                                    //         icon: Icons.arrow_back,
+                                    //         onTap: () {
+                                    //           Navigator.pushNamedAndRemoveUntil(
+                                    //               context, "/Forum1", (route) => false);
+                                    //         },
+                                    //       )),
+                                    // ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                      onTap: (){
+                              Navigator.pushNamedAndRemoveUntil(
+                                                 context, "/Forum1", (route) => false);
+                              },
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.arrow_back,
+                                              color: globals.blue1,
+                                              size: 45,
+                                            ),
+                                          ],
+                                      ),),
+                                    ],
+                                  ),
                                     Wrap(
                                       direction: Axis.vertical,
-                                      children: children2.toList(), // My Children
+                                      children:
+                                      children2.toList(), // My Children
                                     ),
 
                                     // DetailedReplyContainer(

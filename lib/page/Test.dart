@@ -23,7 +23,7 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyProfile(userId: 1, username: "Clara", universityName: "Lebanese University", description:"I am clara ", isFriend: "blue", nbrOfFriends: 15),
+      body: MyProfile(userId: 1, username: "Dana M.", universityName: "Lebanese University", description:"I am clara ", isFriend: "blue", nbrOfFriends: 15),
     );
   }
 }
