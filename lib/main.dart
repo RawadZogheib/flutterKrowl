@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
             '/Registration2': (context) => Registration2(),
             '/Registration3': (context) => Registration3(),
             '/Library': (context) => Library(),
-            '/Test': (context) => Test(),
+            // '/Test': (context) => Test(),
             //'/VideoConference': (context) => VideoConference(),
             '/MainChat': (context) => MainChat(),
             //'/VideoConference2': (context) => VideoConference2(),
