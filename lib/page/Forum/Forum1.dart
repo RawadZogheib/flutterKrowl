@@ -175,75 +175,243 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
             //Colors.grey.shade50.withOpacity(0.98),
             body: Responsive(
               mobile: ScrollConfiguration(
-                behavior: MyCustomScrollBehavior(),
-                child: SingleChildScrollView(
-                  controller: ScrollController(),
-                  reverse: false,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BouncingWidget(
-                            duration: Duration(milliseconds: 100),
-                            scaleFactor: 1.5,
-                            onPressed: () {
-                              print("onPressed");
-                            },
-                            child: Text(
-                              "Forum",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Rubik',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                              ),
+                    behavior: MyCustomScrollBehavior(),
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      reverse: false,
+                      child: Column(
+                          children: [
+                            SizedBox(
+                              height: 130,
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.1,
-                          ),
-                          AskQuestionButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/Forum2');
-                            },
-                            text: 'Ask a question',
-                            color1: globals.blue2,
-                            color2: Colors.blueGrey,
-                            textcolor: globals.blue1,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SearchBar(hintText: "Search a subject..."),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      displayIcon == true
-                          ? SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.57,
-                              child: Center(
-                                child: Image(
-                                  image: AssetImage('Assets/krowl_logo.gif'),
-                                  fit: BoxFit.cover,
-                                  height: 150,
-                                  width: 150,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.02,
                                 ),
-                              ))
-                          : Wrap(
-                              direction: Axis.vertical,
-                              children: children, // My Children
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        BouncingWidget(
+                                          duration: Duration(milliseconds: 100),
+                                          scaleFactor: 1.5,
+                                          onPressed: () {
+                                            print("onPressed");
+                                          },
+                                          child: Text(
+                                            "Forum",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'Rubik',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 40,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.01,
+                                        ),
+                                        AskQuestionButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(context, '/Forum2');
+                                          },
+                                          text: 'Ask a question',
+                                          color1: globals.blue2,
+                                          color2: Colors.blueGrey,
+                                          textcolor: globals.blue1,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    SearchBar(
+                                      hintText: "Search a subject...",
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    displayIcon == true
+                                        ? SizedBox(
+                                      width:
+                                      MediaQuery.of(context).size.width *
+                                          0.57,
+                                      child: Center(
+                                        child: Image(
+                                          image: AssetImage(
+                                              'Assets/krowl_logo.gif'),
+                                          fit: BoxFit.cover,
+                                          height: 150,
+                                          width: 150,
+                                        ),
+                                      ),
+                                    )
+                                        : LayoutBuilder(
+                                        builder: (context, constraints) {
+                                          return SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                                1.64,
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height /
+                                                1.55,
+                                            child: Stack(
+                                              children: [
+                                                ListView.builder(
+                                                    shrinkWrap: true,
+                                                    controller: _scrollController,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return children[index];
+                                                    },
+                                                    itemCount: children.length),
+                                                if (loader) ...[
+                                                  Positioned(
+                                                    left: 0,
+                                                    bottom: 0,
+                                                    child: Container(
+                                                      width:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                          1.64,
+                                                      height: 80,
+                                                      child: Center(
+                                                          child: LoadingAnimationWidget
+                                                              .flickr(
+                                                              leftDotColor:
+                                                              globals
+                                                                  .blue1,
+                                                              rightDotColor:
+                                                              Colors.pink,
+                                                              size: 60)),
+                                                    ),
+                                                  ),
+                                                ],
+                                                newPosts
+                                                    ? Positioned(
+                                                  left:
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                      4,
+                                                  top: 0,
+                                                  child: Center(
+                                                    child: ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                          MaterialStateProperty.all<
+                                                              Color>(
+                                                              globals
+                                                                  .blue),
+                                                          shadowColor:
+                                                          MaterialStateProperty.all<
+                                                              Color>(
+                                                              globals
+                                                                  .blue_1),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                              RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  19.0),
+                                                              //shadowColor: Colors.transparent,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .arrow_upward,
+                                                              color: globals
+                                                                  .blue1,
+                                                              size: 20,
+                                                            ),
+                                                            SizedBox(
+                                                                width: 3),
+                                                            Text(
+                                                              "New Posts",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  17,
+                                                                  fontFamily:
+                                                                  'Rubik',
+                                                                  color: globals
+                                                                      .blue1),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        onPressed:
+                                                            () async {
+                                                          _scrollController.animateTo(
+                                                              1,
+                                                              duration:
+                                                              Duration(
+                                                                  seconds:
+                                                                  2),
+                                                              curve: Curves
+                                                                  .ease);
+                                                          //_scrollController.jumpTo(1);
+                                                          newPosts = false;
+                                                          print(
+                                                              "NEEEEEWW POSTSS BUTTTONNNNNNN PRESSEDDDDDDDDDDDDDDD");
+                                                          _count = 2;
+                                                          tmpID.clear();
+                                                          await _loadPosts(
+                                                              1, 3);
+                                                        }),
+                                                  ),
+                                                )
+                                                    : Container(),
+                                              ],
+                                            ),
+                                          );
+                                          // }
+                                          // } else {
+                                          //   return SizedBox(
+                                          //     width: MediaQuery.of(context)
+                                          //             .size
+                                          //             .width *
+                                          //         0.57,
+                                          //     child: Center(
+                                          //       child: Image(
+                                          //         image: AssetImage(
+                                          //             'Assets/krowl_logo.gif'),
+                                          //         fit: BoxFit.cover,
+                                          //         height: 150,
+                                          //         width: 150,
+                                          //       ),
+                                          //     ),
+                                          //   );
+                                          // }
+                                        }),
+                                  ],
+                                ),
+
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.01,
+                                ),
+
+                              ],
                             ),
-                    ],
+                          ]),
+                    ),
                   ),
-                ),
-              ),
               tablet: Stack(
+                clipBehavior: Clip.none,
                 children: [
                   ScrollConfiguration(
                     behavior: MyCustomScrollBehavior(),
@@ -251,87 +419,291 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                       controller: ScrollController(),
                       reverse: false,
                       child: Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 130,
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      BouncingWidget(
-                                        duration: Duration(milliseconds: 100),
-                                        scaleFactor: 1.5,
-                                        onPressed: () {
-                                          print("onPressed");
-                                        },
-                                        child: Text(
-                                          "Forum",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Rubik',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 40,
+                          children: [
+                            SizedBox(
+                              height: 130,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.02,
+                                ),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        BouncingWidget(
+                                          duration: Duration(milliseconds: 100),
+                                          scaleFactor: 1.5,
+                                          onPressed: () {
+                                            print("onPressed");
+                                          },
+                                          child: Text(
+                                            "Forum",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'Rubik',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 40,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.2,
-                                      ),
-                                      AskQuestionButton(
-                                        onPressed: () {
-                                          // Navigator.pushNamed(
-                                          //     context, '/Forum2');
-                                        },
-                                        text: 'Ask a question',
-                                        color1: globals.blue2,
-                                        color2: Colors.blueGrey,
-                                        textcolor: globals.blue1,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  SearchBar(hintText: "Search a subject..."),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  displayIcon == true
-                                      ? SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.57,
-                                          child: Center(
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'Assets/krowl_logo.gif'),
-                                              fit: BoxFit.cover,
-                                              height: 150,
-                                              width: 150,
-                                            ),
-                                          ))
-                                      : Wrap(
-                                          direction: Axis.vertical,
-                                          children: children, // My Children
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.01,
                                         ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                                        AskQuestionButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(context, '/Forum2');
+                                          },
+                                          text: 'Ask a question',
+                                          color1: globals.blue2,
+                                          color2: Colors.blueGrey,
+                                          textcolor: globals.blue1,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    SearchBar(
+                                      hintText: "Search a subject...",
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    displayIcon == true
+                                        ? SizedBox(
+                                      width:
+                                      MediaQuery.of(context).size.width *
+                                          0.57,
+                                      child: Center(
+                                        child: Image(
+                                          image: AssetImage(
+                                              'Assets/krowl_logo.gif'),
+                                          fit: BoxFit.cover,
+                                          height: 150,
+                                          width: 150,
+                                        ),
+                                      ),
+                                    )
+                                        : LayoutBuilder(
+                                        builder: (context, constraints) {
+                                          return SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                                1.64,
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height /
+                                                1.55,
+                                            child: Stack(
+                                              children: [
+                                                ListView.builder(
+                                                    shrinkWrap: true,
+                                                    controller: _scrollController,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return children[index];
+                                                    },
+                                                    itemCount: children.length),
+                                                if (loader) ...[
+                                                  Positioned(
+                                                    left: 0,
+                                                    bottom: 0,
+                                                    child: Container(
+                                                      width:
+                                                      MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                          1.64,
+                                                      height: 80,
+                                                      child: Center(
+                                                          child: LoadingAnimationWidget
+                                                              .flickr(
+                                                              leftDotColor:
+                                                              globals
+                                                                  .blue1,
+                                                              rightDotColor:
+                                                              Colors.pink,
+                                                              size: 60)),
+                                                    ),
+                                                  ),
+                                                ],
+                                                newPosts
+                                                    ? Positioned(
+                                                  left:
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                      4,
+                                                  top: 0,
+                                                  child: Center(
+                                                    child: ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                          MaterialStateProperty.all<
+                                                              Color>(
+                                                              globals
+                                                                  .blue),
+                                                          shadowColor:
+                                                          MaterialStateProperty.all<
+                                                              Color>(
+                                                              globals
+                                                                  .blue_1),
+                                                          shape: MaterialStateProperty
+                                                              .all<
+                                                              RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  19.0),
+                                                              //shadowColor: Colors.transparent,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .arrow_upward,
+                                                              color: globals
+                                                                  .blue1,
+                                                              size: 20,
+                                                            ),
+                                                            SizedBox(
+                                                                width: 3),
+                                                            Text(
+                                                              "New Posts",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  17,
+                                                                  fontFamily:
+                                                                  'Rubik',
+                                                                  color: globals
+                                                                      .blue1),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        onPressed:
+                                                            () async {
+                                                          _scrollController.animateTo(
+                                                              1,
+                                                              duration:
+                                                              Duration(
+                                                                  seconds:
+                                                                  2),
+                                                              curve: Curves
+                                                                  .ease);
+                                                          //_scrollController.jumpTo(1);
+                                                          newPosts = false;
+                                                          print(
+                                                              "NEEEEEWW POSTSS BUTTTONNNNNNN PRESSEDDDDDDDDDDDDDDD");
+                                                          _count = 2;
+                                                          tmpID.clear();
+                                                          await _loadPosts(
+                                                              1, 3);
+                                                        }),
+                                                  ),
+                                                )
+                                                    : Container(),
+                                              ],
+                                            ),
+                                          );
+                                          // }
+                                          // } else {
+                                          //   return SizedBox(
+                                          //     width: MediaQuery.of(context)
+                                          //             .size
+                                          //             .width *
+                                          //         0.57,
+                                          //     child: Center(
+                                          //       child: Image(
+                                          //         image: AssetImage(
+                                          //             'Assets/krowl_logo.gif'),
+                                          //         fit: BoxFit.cover,
+                                          //         height: 150,
+                                          //         width: 150,
+                                          //       ),
+                                          //     ),
+                                          //   );
+                                          // }
+                                        }),
+                                  ],
+                                ),
+                                SizedBox(
+                                  child:Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 54,
+                                          ),
+                                          SizedBox(
+                                            height: distAnimation.value,
+                                          ),
+                                          Contributors(
+                                            height: double.parse(
+                                                (170 + distAnimation.value)
+                                                    .toString()),
+                                            width: double.parse(
+                                                (200 + distAnimation.value)
+                                                    .toString()),
+                                          ),
+                                          SingleChildScrollView(
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(top: 32.0),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    (imagePrecached == true)
+                                                        ? ImageView360(
+                                                      key: ValueKey(rndm),
+                                                      imageList: imageList,
+                                                      autoRotate: autoRotate,
+                                                      rotationCount: rotationCount,
+                                                      rotationDirection: RotationDirection.anticlockwise,
+                                                      frameChangeDuration: Duration(milliseconds: 1000),
+                                                      swipeSensitivity: swipeSensitivity,
+                                                      allowSwipeToRotate: allowSwipeToRotate,
+                                                      onImageIndexChanged: (currentImageIndex) {
+                                                        print("currentImageIndex: $currentImageIndex");
+                                                      },
+                                                    )
+                                                        : Container(),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height:200,
+                                            child:scene,
+                                          ),
+                                        ],
+                                      ),
+
+                                    ],
+
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.01,
+                                ),
+
+                              ],
+                            ),
+                          ]),
                     ),
                   ),
                   CustomTabBar(
