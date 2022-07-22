@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Students/StudentProfile/MyProfile.dart';
+
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,30 @@ class MyDrawer extends StatelessWidget {
                               text: 'My Profile',
                               icon: Icons.person,
                               color: Colors.white,
-                              onClicked: () => selectedItem(context, 8),
+                              onClicked: () async {
+    if (globals.currentPage != 'MyProfile') {
+    int _account_Id = await SessionManager()
+        .get('account_Id');
+    String _username = await SessionManager()
+        .get('username');
+    // String _universityName =
+    //     await SessionManager()
+    //         .get('universityName');
+    String _description =
+    await SessionManager().get('bio').toString();
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => MyProfile(
+    userId: _account_Id,
+    username: _username,
+    universityName: "Savannah College of Art and Design",
+    description: _description,
+    profilePath: globals.initialProfilePath),
+    ));
+    }
+    }
+
                             ),
 
                             MenuItem(
