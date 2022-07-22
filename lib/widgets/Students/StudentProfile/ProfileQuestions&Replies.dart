@@ -24,7 +24,7 @@ class _StudentQuestionsRepliesState extends State<StudentQuestionsReplies> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.6,
+      width: MediaQuery.of(context).size.width * 0.77,
       margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: Colors.white,

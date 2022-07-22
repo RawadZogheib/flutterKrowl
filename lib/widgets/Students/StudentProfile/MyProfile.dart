@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Krowl/page/Responsive.dart';
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
 import 'package:Krowl/widgets/MyDrawer.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +21,19 @@ class MyProfile extends StatefulWidget {
   String username;
   String universityName;
   String description;
+  String profilePath;
   int nbrOfFriends;
   String isFriend;
+
 
   MyProfile({
     required this.userId,
     required this.username,
     required this.universityName,
     required this.description,
+    required this.profilePath,
     this.nbrOfFriends = 0,
-     this.isFriend = "3",
+    this.isFriend = "3",
   });
 
   // This widget is the root of your application.
@@ -42,6 +46,7 @@ class _MyProfileState extends State<MyProfile> {
 
   //ProfileQuestions
   List<ProfileQuestions> children1 = [];
+  String _profilePath =globals.initialProfilePath;
 
   // List<String> TheQuestion = [];
   // List<String> contextQuestion = [];
@@ -99,55 +104,160 @@ class _MyProfileState extends State<MyProfile> {
         backgroundColor: globals.white,
         body: Stack(
           children: [
-            ScrollConfiguration(
-              behavior: MyCustomScrollBehavior(),
-              child: SingleChildScrollView(
-                controller: ScrollController(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+            Responsive(
+              mobile: ScrollConfiguration(
+                behavior: MyCustomScrollBehavior(),
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          StudentDetailedProfile(
+                            userId: widget.userId,
+                            username: widget.username,
+                            universityName: widget.universityName,
+                            description: widget.description,
+                            isFriend: widget.isFriend,
+                            nbrOfFriends: widget.nbrOfFriends,
+                            profilePath: widget.profilePath,
+                            hisProfile: true,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          StudentQuestionsReplies(
+                            children1: children1,
+                            children2: children2,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          )
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [],
+                      )
+                    ],
+                  ),
+                ),
+              ), tablet: Stack(
+              children: [
+                ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 130,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 130,
+                            ),
+                            StudentDetailedProfile(
+                              userId: widget.userId,
+                              username: widget.username,
+                              universityName: widget.universityName,
+                              description: widget.description,
+                              isFriend: widget.isFriend,
+                              nbrOfFriends: widget.nbrOfFriends,
+                              profilePath: widget.profilePath,
+                              hisProfile: true,
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            StudentQuestionsReplies(
+                              children1: children1,
+                              children2: children2,
+                            ),
+                            SizedBox(
+                              height: 30,
+                            )
+                          ],
                         ),
-                        StudentDetailedProfile(
-                          userId: widget.userId,
-                          username: widget.username,
-                          universityName: widget.universityName,
-                          description: widget.description,
-                          isFriend: widget.isFriend,
-                          nbrOfFriends: widget.nbrOfFriends,
-                          hisProfile: true,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        StudentQuestionsReplies(
-                          children1: children1,
-                          children2: children2,
-                        ),
-                        SizedBox(
-                          height: 30,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [],
                         )
                       ],
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [],
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                CustomTabBar(
+                  color: globals.blue1,
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
+                    profilePath: _profilePath
+                ),
+              ],
+            ), desktop: Stack(
+              children: [
+                ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 130,
+                            ),
+                            StudentDetailedProfile(
+                              userId: widget.userId,
+                              username: widget.username,
+                              universityName: widget.universityName,
+                              description: widget.description,
+                              isFriend: widget.isFriend,
+                              nbrOfFriends: widget.nbrOfFriends,
+                              profilePath: widget.profilePath,
+                              hisProfile: true,
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            StudentQuestionsReplies(
+                              children1: children1,
+                              children2: children2,
+                            ),
+                            SizedBox(
+                              height: 30,
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                CustomTabBar(
+                  color: globals.blue1,
+                  notifNBR: _notifNBR,
+                  onTap: () => _onNotifTap(),
+                    profilePath: _profilePath
+                ),
+              ],
             ),
-            CustomTabBar(
-
-              color: globals.blue1,
-              notifNBR: _notifNBR,
-              onTap: () => _onNotifTap(),
             ),
           ],
         ),
@@ -184,12 +294,15 @@ class _MyProfileState extends State<MyProfile> {
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              _notifNBR = int.parse(body[1]);
+              _notifNBR = int.parse(body[1][0]);
+              _profilePath=body[1][1];
               widget.username = body[2][0] + ' ' + body[2][1];
               widget.universityName = body[2][2];
               widget.description = body[2][3];
-              widget.nbrOfFriends = int.parse(body[2][4]);
-              widget.isFriend = body[2][5];
+              widget.profilePath =body[2][4];
+              widget.nbrOfFriends = int.parse(body[2][5]);
+              widget.isFriend = body[2][6];
+
 
               children1.clear();
               for (int i = 0; i < body[3].length; i++) {

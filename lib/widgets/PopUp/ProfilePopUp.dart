@@ -1,6 +1,7 @@
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/hexColor/hexColor.dart';
 import 'package:Krowl/widgets/MyCustomScrollBehavior.dart';
+import 'package:Krowl/widgets/Students/StudentProfile/MyProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,11 +43,32 @@ class ShapedWidgetProfile extends StatelessWidget {
                           child: Column(
                             children: [
                               MenuItem(
-                                text: 'My Profile',
-                                icon: Icons.person,
-                                color: Colors.white,
-                                onClicked: () => selectedItem(context, 0),
-                              ),
+                                  text: 'My Profile',
+                                  icon: Icons.person,
+                                  color: Colors.white,
+                                  onClicked: () async {
+                                    if (globals.currentPage != 'MyProfile') {
+                                      int _account_Id = await SessionManager()
+                                          .get('account_Id');
+                                      String _username = await SessionManager()
+                                          .get('username');
+                                      // String _universityName =
+                                      //     await SessionManager()
+                                      //         .get('universityName');
+                                      String _description =
+                                          await SessionManager().get('bio').toString();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyProfile(
+                                                userId: _account_Id,
+                                                username: _username,
+                                                universityName: "Savannah College of Art and Design",
+                                                description: _description,
+                                                profilePath: globals.initialProfilePath),
+                                          ));
+                                    }
+                                  }),
                               const SizedBox(height: 5),
                               MenuItem(
                                 text: 'Upgrade Plan',
@@ -96,14 +118,29 @@ class ShapedWidgetProfile extends StatelessWidget {
     );
   }
 
-  selectedItem(BuildContext context, int index) {
+  selectedItem(BuildContext context, int index) async {
     switch (index) {
       case 0: // My Profile
         if (globals.currentPage != 'MyProfile') {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Test', (route) => false);
+          // int _account_Id = await SessionManager().get('account_Id');
+          // String _username = await SessionManager().get('username');
+          // String _universityName = await SessionManager().get('universityName');
+          // String _description = await SessionManager().get('bio');
+          // String _profilePath = await SessionManager().get('photo');
+
+          // Navigator.pushNamedAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => MyProfile(
+          //           userId: _account_Id,
+          //           username: _username,
+          //           universityName: _universityName,
+          //           description: _description,
+          //           profilePath: _profilePath),
+          //     ),
+          //     (route) => false);
         }
-      print('0');
+        print('0');
         break;
       case 1: // Upgrade Plan
         // if (globals.currentPage != 'Chat') {
@@ -144,23 +181,19 @@ class ShapedWidgetProfile extends StatelessWidget {
 
   Future<void> _logout() async {
     if (await SessionManager().get('rememberMe') == true) {
-    SharedPreferences localStorage =
-    await SharedPreferences.getInstance();
-    String _email = (await localStorage.getString('email')).toString();
-    String _password =
-    (await localStorage.getString('password')).toString();
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      String _email = (await localStorage.getString('email')).toString();
+      String _password = (await localStorage.getString('password')).toString();
 
-    await SessionManager().destroy();
+      await SessionManager().destroy();
 
-    if (_email.toUpperCase() != 'NULL' &&
-    _password.toUpperCase() != 'NULL') {
-    SharedPreferences localStorage =
-    await SharedPreferences.getInstance();
-    await localStorage.setString('email', _email);
-    await localStorage.setString('password', _password);
-    }
+      if (_email.toUpperCase() != 'NULL' && _password.toUpperCase() != 'NULL') {
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        await localStorage.setString('email', _email);
+        await localStorage.setString('password', _password);
+      }
     } else {
-    await SessionManager().destroy();
+      await SessionManager().destroy();
     }
   }
 }

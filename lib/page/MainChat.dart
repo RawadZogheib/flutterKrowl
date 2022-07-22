@@ -26,6 +26,7 @@ class _MainChatState extends State<MainChat> {
   Timer? timer;
 
   int _notifNBR=0;
+  String _profilePath =globals.initialProfilePath;
 
   @override
   Future<void> dispose() async {
@@ -157,6 +158,7 @@ class _MainChatState extends State<MainChat> {
                 color: globals.blue1,
                 notifNBR: _notifNBR,
                 onTap: () => _onNotifTap(),
+                profilePath:_profilePath,
               ),
             ],
           ),
@@ -187,6 +189,7 @@ class _MainChatState extends State<MainChat> {
                 color: globals.blue1,
                 notifNBR: _notifNBR,
                 onTap: () => _onNotifTap(),
+                profilePath:_profilePath,
               ),
             ],
           ),
@@ -270,7 +273,10 @@ class _MainChatState extends State<MainChat> {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
-      _notifNBR = int.parse(body[1]);}
+      setState((){
+        _notifNBR = int.parse(body[1][0]);
+        _profilePath=body[1][1];
+      });}
 
   }
   void _onNotifTap() {

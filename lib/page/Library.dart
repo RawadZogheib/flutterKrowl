@@ -34,7 +34,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
   int _totalTables = 0;
   int _maxTables = 12;
   bool load = true;
-
+  String _profilePath =globals.initialProfilePath;
   int _key = 0;
 
   Timer? timer2;
@@ -591,6 +591,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   color: globals.blue1,
                   notifNBR: _notifNBR,
                   onTap: () => _onNotifTap(),
+                  profilePath: _profilePath,
                 ),
               ],
             ),
@@ -872,6 +873,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                   color: globals.blue1,
                   notifNBR: _notifNBR,
                   onTap: () => _onNotifTap(),
+                  profilePath: _profilePath,
                 ),
               ],
             ),
@@ -931,7 +933,8 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              _notifNBR = int.parse(body[1]);
+              _notifNBR = int.parse(body[1][0]);
+              _profilePath=body[1][1];
               _totalTables = int.parse(body[2]);
               _totalPages = (_totalTables / _maxTables).ceil();
             });
@@ -959,8 +962,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
               for (int j = 0; j < body[3][i][8].length; j++) {
                 _userIdPrivet.add(body[3][i][8][j][0]); // userId
                 _userNamePrivet.add(body[3][i][8][j][1]); // userName
-                _userImgUrlPrivet.add(
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'); // body[2][i][4][j][2]
+                _userImgUrlPrivet.add(body[3][i][8][j][2]); // body[2][i][4][j][2]
                 // userImgUrl
               }
               for (int j = 0; j < body[3][i][9].length; j++) {
@@ -971,7 +973,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 _userPosition[int.parse(body[3][i][9][j][2]) - 1] =
                     body[3][i][9][j][2]; // userPosition
                 _userImgUrl[int.parse(body[3][i][9][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][5][j][3]
+                body[3][i][9][j][3]; // body[2][i][5][j][3]
                 // userImgUrl
               }
             } else {
@@ -983,7 +985,7 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
                 _userPosition[int.parse(body[3][i][8][j][2]) - 1] =
                     body[3][i][8][j][2]; // userPosition
                 _userImgUrl[int.parse(body[3][i][8][j][2]) - 1] =
-                    'https://picsum.photos/50/50/?${Random().nextInt(1000)}'; // body[2][i][4][j][3]
+                body[3][i][8][j][3]; // body[2][i][4][j][3]
                 // userImgUrl
               }
             }
@@ -1027,6 +1029,10 @@ class _TestState extends State<Library> with SingleTickerProviderStateMixin {
             });
           }
         } else if (body[0] == "empty") {
+          setState((){
+            _notifNBR = int.parse(body[1][0]);
+            _profilePath=body[1][1];
+          });
           if (_currentPage != 1) {
             setState(() {
               _currentPage = 1;

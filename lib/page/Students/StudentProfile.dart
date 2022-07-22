@@ -23,12 +23,14 @@ class StudentProfile extends StatefulWidget {
   String description;
   int nbrOfFriends;
   String isFriend;
+  String profilePath;
 
   StudentProfile({
     required this.userId,
     required this.username,
     required this.universityName,
     required this.description,
+    required this.profilePath,
     this.nbrOfFriends = 0,
     required this.isFriend,
   });
@@ -43,7 +45,7 @@ class _StudentProfileState extends State<StudentProfile> {
 
   //ProfileQuestions
   List<ProfileQuestions> children1 = [];
-
+  String _profilePath =globals.initialProfilePath;
   // List<String> TheQuestion = [];
   // List<String> contextQuestion = [];
   // List<String> dateOfQuestion = [];
@@ -121,6 +123,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           description: widget.description,
                           isFriend: widget.isFriend,
                           nbrOfFriends: widget.nbrOfFriends,
+                          profilePath: widget.profilePath,
                         ),
                         SizedBox(
                           height: 15,
@@ -148,6 +151,7 @@ class _StudentProfileState extends State<StudentProfile> {
               color: globals.blue1,
               notifNBR: _notifNBR,
               onTap: () => _onNotifTap(),
+              profilePath: _profilePath
             ),
           ],
         ),
@@ -185,12 +189,15 @@ class _StudentProfileState extends State<StudentProfile> {
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              _notifNBR = int.parse(body[1]);
+              _notifNBR = int.parse(body[1][0]);
+              _profilePath=body[1][1];
               widget.username = body[2][0] + ' ' + body[2][1];
               widget.universityName = body[2][2];
               widget.description = body[2][3];
-              widget.nbrOfFriends = int.parse(body[2][4]);
-              widget.isFriend = body[2][5];
+              widget.profilePath = body[2][4];
+              widget.nbrOfFriends = int.parse(body[2][5]);
+              widget.isFriend = body[2][6];
+
 
               children1.clear();
               for (int i = 0; i < body[3].length; i++) {

@@ -45,9 +45,8 @@ class CallApi{
   getPublicData(apiUrl) async {
 
   }
-  uploadFileRequest(){
-    var uri = Uri.parse(
-        "${_url}/Demo/Control/(Control)uploadFile.php");
+  uploadFileRequest(apiUrl){
+    var uri = Uri.parse(_url+ apiUrl);
     var request = new http.MultipartRequest("POST", uri);
     return request;
 

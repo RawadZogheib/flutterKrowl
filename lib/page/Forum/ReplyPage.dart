@@ -66,6 +66,7 @@ class _ReplyPageState extends State<ReplyPage>
 
   int _notifNBR =0;
 
+  String _profilePath =globals.initialProfilePath;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -332,6 +333,7 @@ class _ReplyPageState extends State<ReplyPage>
                     color: globals.blue1,
                     notifNBR: _notifNBR,
                     onTap: () => _onNotifTap(),
+                    profilePath: _profilePath,
                   ),
                 ],
               ),
@@ -385,7 +387,8 @@ class _ReplyPageState extends State<ReplyPage>
         if (body[0] == "success") {
           if (mounted) {
             setState(() {
-              _notifNBR = int.parse(body[1]);
+              _notifNBR = int.parse(body[1][0]);
+              _profilePath=body[1][1];
               _totalReplies = int.parse(body[2]);
               _totalPages = (_totalReplies / _maxReplies).ceil();
             });
@@ -474,7 +477,10 @@ class _ReplyPageState extends State<ReplyPage>
             });
           }
         } else if (body[0] == "empty") {
-         _notifNBR = int.parse(body[1]);
+         _notifNBR = int.parse(body[1][0]);
+         setState((){
+           _profilePath=body[1][1];
+         });
           if (_currentPage != 1) {
             setState(() {
               _currentPage = 1;

@@ -12,6 +12,7 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class CustomTabBar extends StatefulWidget {
   int notifNBR;
+  String profilePath;
   Color color;
   bool isBellHidden;
   Function() onTap;
@@ -19,6 +20,8 @@ class CustomTabBar extends StatefulWidget {
   CustomTabBar({
     Key? key,
     this.notifNBR = 0,
+    //this.profilePath ="http://127.0.0.1/krowl_PHP/Assets/incognitoProfile.png",
+    required this.profilePath,
     required this.color,
     this.isBellHidden = false,
     required this.onTap,
@@ -38,18 +41,21 @@ class _CustomTabBarState extends State<CustomTabBar>
   List<NotificationPopupChildren> _children1 = [];
   List<Widget> _children2 = [];
   bool _isEmpty = false;
+  // var _profilePath ="http://127.0.0.1/krowl_PHP/Assets/incognitoProfile.png";
 
   @override
   void initState() {
+   //_getProfilePicture();
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animationController2 =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
+
   }
 
   @override
-  Widget build(BuildContext context) {
+   build(BuildContext context) {
     // double _height = MediaQuery.of(context).size.height;
     Animation<double> opacityAnimation =
         Tween(begin: 0.0, end: 1.0).animate(animationController!);
@@ -246,15 +252,16 @@ class _CustomTabBarState extends State<CustomTabBar>
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15),
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           if (_menuShown == true) _menuShown = false;
                           _profileIsClicked = !_profileIsClicked;
                         });
                       },
                       child: CircleAvatar(
-                        backgroundImage: AssetImage('Assets/userImage6.jpeg'),
-                        maxRadius: 20,
+                         //backgroundImage: Image.network("http://127.0.0.1/krowl_PHP/Assets/userImage7.jpeg").image,
+                        backgroundImage: Image.network(widget.profilePath).image,
+                        // maxRadius: 20,
                       ),
                     ),
                   ),
@@ -331,7 +338,7 @@ class _CustomTabBarState extends State<CustomTabBar>
           sender_name: body[1][i][2],
           notification_type: int.parse(body[1][i][3]),
           notification_status: int.parse(body[1][i][4]),
-          notification_params: body[1][i][5],
+          notification_params: body[1][i][5], profilePath: body[1][i][6],
         ));
       }
       setState(() {
@@ -391,4 +398,12 @@ class _CustomTabBarState extends State<CustomTabBar>
       });
     }
   }
+
+  // Future<void> _getProfilePicture() async {
+  //   String x= await SessionManager().get('photo');
+  //   setState((){
+  //     _profilePath=x;
+  //     print("AJHGHSUYHSYHSIU8HSIUHSSSSSSSSSSSSSS     "+'"${_profilePath}"');
+  //   });
+  // }
 }

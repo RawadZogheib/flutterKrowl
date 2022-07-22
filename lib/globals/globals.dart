@@ -9,9 +9,9 @@ const String version = "v1.0";
 //Server Ip  (page[/my_api.dart])
 //const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphpTest/";
 //const String myIP = "https://kwikcode.net/krowlphp/";
-const String myIP = "http://127.0.0.1/krowl_PHP/";
+const String myIP = "https://krowl.dataflow.com.lb:8070/krowlphpTest/";
 const String jaasUrl = "${myIP}jit/?table=";
-
+const String initialProfilePath ='https://krowl.dataflow.com.lb:8070/krowlphpTest/Assets/incognitoProfile.png';
 // const String myIP = "https://krowl.epizy.com";
 // const String jaasUrl = "https://krowl.epizy.com/krowlphp/jit/?table=";
 // const String myIP = "https://krowl.42web.io";

@@ -18,7 +18,7 @@ class Question extends StatefulWidget {
   String tag;
   String text;
   String question_context;
-
+  String profilePath;
   // bool like;
   // bool dislike;
 
@@ -40,6 +40,7 @@ class Question extends StatefulWidget {
       required this.color2,
       required this.date,
       required this.question_context,
+      required this.profilePath,
       this.onTap});
 
   @override
@@ -112,7 +113,7 @@ class _QuestionState extends State<Question> {
                           alignment: Alignment.topLeft,
                           child: CircleAvatar(
                             backgroundImage:
-                                AssetImage("Assets/userImage1.jpeg"),
+                            Image.network(widget.profilePath).image,
                             maxRadius: 16,
                           ),
                         ),

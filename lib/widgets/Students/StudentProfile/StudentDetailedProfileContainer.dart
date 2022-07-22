@@ -3,29 +3,25 @@ import 'dart:io';
 
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
-import 'package:Krowl/widgets/Buttons/myButton.dart';
 import 'package:Krowl/widgets/PopUp/Loading/LoadingRequestAddUnFriendPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Students/Students1/StudentButton.dart';
 import 'package:async/async.dart';
 import 'package:file_picker/file_picker.dart';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
 
-var file;
-var filepath;
-String? filePicked = "";
-PlatformFile? selectedFile;
+
 class StudentDetailedProfile extends StatefulWidget {
   var userId;
   String username;
@@ -36,6 +32,7 @@ class StudentDetailedProfile extends StatefulWidget {
   var color1; //light
   var color2; //dark
   var onTap;
+  String profilePath;
   bool hisProfile;
 
   StudentDetailedProfile({
@@ -45,6 +42,7 @@ class StudentDetailedProfile extends StatefulWidget {
     required this.description,
     required this.isFriend,
     required this.nbrOfFriends,
+     this.profilePath =globals.initialProfilePath,
     this.hisProfile = false,
     this.color2,
     this.onTap,
@@ -56,14 +54,30 @@ class StudentDetailedProfile extends StatefulWidget {
 
 class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
   bool _loadButton = false;
+
+  // Android, iOS, Web
   PickedFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
+  var _imageWeb;
+
+  // Desktop
+  var file;
+  var filepath;
+  String? filePicked = "";
+
+  var _imageWebFile;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.57,
-      height: MediaQuery.of(context).size.height * 0.7,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * 0.77,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.7,
       margin: EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -89,8 +103,14 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
               Column(
                 children: [
                   Image(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.25,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     image: AssetImage('Assets/CoverPhoto.jpg'),
                     fit: BoxFit.cover,
                   ),
@@ -99,47 +119,91 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
                   ),
                 ],
               ),
-              _imageFile == null
+              kIsWeb
+                  ? _imageWeb == null
                   ? Positioned(
-                top: MediaQuery.of(context).size.height * 0.17,
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
                 child: FullScreenWidget(
                   child: CircleAvatar(
                       radius: 80.0,
                       backgroundImage:
-                      AssetImage("Assets/incognitoProfile.png")),
+                      Image.network(widget.profilePath).image),
                 ),
               )
                   : Positioned(
-                top: MediaQuery.of(context).size.height * 0.17,
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage: _imageWeb),
+                ),
+              )
+                  : Platform.isIOS || Platform.isAndroid
+                  ? _imageFile == null
+                  ? Positioned(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage:
+                      Image.network(widget.profilePath).image),
+                ),
+              )
+                  : Positioned(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
                 child: FullScreenWidget(
                   child: CircleAvatar(
                       radius: 80.0,
                       backgroundImage: FileImage(File(_imageFile!.path))),
                 ),
+              )
+                  : file == null
+                  ? Positioned(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage:
+                      Image.network(widget.profilePath).image),
+                ),
+              )
+                  : Positioned(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.17,
+                child: FullScreenWidget(
+                  child: CircleAvatar(
+                      radius: 80.0,
+                      backgroundImage: FileImage(File(file.path))),
+                ),
               ),
-              // file == null
-              //     ? Positioned(
-              //   top: MediaQuery.of(context).size.height * 0.17,
-              //   child: FullScreenWidget(
-              //     child: CircleAvatar(
-              //         radius: 80.0,
-              //         backgroundImage:
-              //         AssetImage("Assets/incognitoProfile.png")),
-              //   ),
-              // )
-              //     : Positioned(
-              //   top: MediaQuery.of(context).size.height * 0.17,
-              //   child: FullScreenWidget(
-              //     child: CircleAvatar(
-              //         radius: 80.0,
-              //         backgroundImage: FileImage(File(file.path))),
-              //   ),
-              // ),
 
               widget.hisProfile
                   ? Positioned(
-                top: MediaQuery.of(context).size.height * 0.28,
-                right: MediaQuery.of(context).size.width * 0.24,
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.28,
+                right: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.35,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -298,68 +362,104 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
   }
 
   Widget bottomSheet() {
-    return Container(
-      height: 100.0,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: [
-          Text(
-            "Choose Profile photo",
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              (Platform.isAndroid || Platform.isIOS)
-              ?ElevatedButton.icon(
-                onPressed: () {
-                  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS){
-                  selectFile();
-                  setState(() {
-                    filePicked;
-                  });
-                  }if (Platform.isAndroid || Platform.isIOS){
-                    takePhoto(ImageSource.camera);
-                  }
-                },
-                icon: Icon(Icons.camera),
-                label: Text("Camera"),
-              ):Container(),
-
-              ElevatedButton.icon(
-                onPressed: () {
-                  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS){
-                    selectFile();
-                    setState(() {
-                      filePicked;
-                    });
-                  }if (Platform.isAndroid || Platform.isIOS) {
-                    takePhoto(ImageSource.gallery);
-                  }
-                },
-                icon: Icon(Icons.image),
-                label: Text("Gallery"),
-
+    if (kIsWeb) {
+      return Container(
+        height: 100.0,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          children: [
+            Text(
+              "Choose Profile photo",
+              style: TextStyle(
+                fontSize: 20.0,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(38.0),
-              //   child: myButton(btnText: "Submit",
-              //     onPress:(){
-              //       uploadFile('file', File('${filepath}'));
-              //     } ,
-              //   ),
-              // ),
-            ],
-          ),
-        ],
-      ),
-    );
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    takePhoto(ImageSource.gallery);
+                  },
+                  icon: Icon(Icons.image),
+                  label: Text("Gallery"),
+
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+    else if (Platform.isAndroid || Platform.isIOS || Platform.isWindows ||
+        Platform.isLinux || Platform.isMacOS || Platform.isFuchsia) {
+      return Container(
+        height: 100.0,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          children: [
+            Text(
+              "Choose Profile photo",
+              style: TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                (Platform.isAndroid || Platform.isIOS)
+                    ? ElevatedButton.icon(
+                  onPressed: () {
+                    takePhoto(ImageSource.camera);
+                  },
+                  icon: Icon(Icons.camera),
+                  label: Text("Camera"),
+                ) : Container(),
+
+                ElevatedButton.icon(
+                  onPressed: () {
+                    if (Platform.isWindows || Platform.isLinux ||
+                        Platform.isMacOS) {
+                      selectFile();
+                    }
+                    if (Platform.isAndroid || Platform.isIOS) {
+                      takePhoto(ImageSource.gallery);
+                    }
+                  },
+                  icon: Icon(Icons.image),
+                  label: Text("Gallery"),
+
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(38.0),
+                //   child: myButton(btnText: "Submit",
+                //     onPress:(){
+                //       uploadFile('file', File('${filepath}'));
+                //     } ,
+                //   ),
+                // ),
+              ],
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   _addFriend() async {
@@ -555,30 +655,10 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
     }
   }
 
-  bool _PlatformType() {
-    bool x = false;
-    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      x = true;
-    }
-    return x;
-  }
 
-  void takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.getImage(
-      source: source,
-    );
-    setState(() {
-      _imageFile = pickedFile;
-    });
-  }
-  Future selectFile() async {
-    FilePickerResult? result=await FilePicker.platform.pickFiles(type:FileType.image);
-    if(result==null)return;
-    file = result.files.first;
-    filepath=file.path;
-    filePicked=file.name;
-  }
   uploadFile(String title, File file) async {
+    var account_Id = await SessionManager().get('account_Id');
+    print("IDDDDDDDDDDDDDDDDDD: "+account_Id.toString());
     //edit
 // open a bytestream
     var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
@@ -590,13 +670,24 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
     // var request = new http.MultipartRequest("POST", uri);
     // var multipartFile = new http.MultipartFile('file', stream, length,
     //     filename: basename(file.path));
-    var request= await CallApi().uploadFileRequest();
+    var request = await CallApi().uploadFileRequest(
+        'Profile/(Control)uploadMyProfilePicture.php');
 
     var multipartFile = http.MultipartFile(title, stream, length,
         filename: p.basename(file.path));
 
     request.fields["version"] = globals.version;
-    request.fields["contratId"] = filepath;
+    request.fields["account_Id"]= account_Id.toString();
+    if(kIsWeb){
+      request.fields["profilePath"] = _imageWebFile;
+    }
+    else if(Platform.isWindows || Platform.isLinux || Platform.isMacOS){
+      request.fields["profilePath"] = filepath;
+    }else{
+      request.fields["profilePath"] =_imageFile!.path;
+    }
+
+
     request.files.add(multipartFile);
 
     // send
@@ -609,4 +700,42 @@ class _StudentDetailedProfileState extends State<StudentDetailedProfile> {
     });
   }
 
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    if (kIsWeb) {
+        setState(() {
+          _imageWebFile =File('${pickedFile!.path}');
+
+          _imageWeb = Image
+              .network(pickedFile!.path)
+              .image;
+          print("UTTTTTTTTTTTTTTTTTTT:  "+_imageWeb.toString());
+        });
+        uploadFile('file',File('${pickedFile!.path}') );
+        await SessionManager().set('photo',"PATH");
+    } else {
+    uploadFile('file', File('${pickedFile!.path}'));
+        setState(() {
+          _imageFile = pickedFile;
+        });
+    await SessionManager().set('photo', _imageFile!.path);
+    }
+  }
+
+
+  Future selectFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image);
+    if (result == null) return;
+    setState(() {
+      file = result.files.first;
+      filepath = file.path;
+      filePicked = file.name;
+    });
+
+    uploadFile('file', File('${filepath}'));
+    await SessionManager().set('photo', file.path);
+  }
 }

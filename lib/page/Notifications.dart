@@ -21,6 +21,7 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   var _children = <Widget>[];
+  String _profilePath =globals.initialProfilePath;
 
   @override
   void initState() {
@@ -63,6 +64,7 @@ class _NotificationsState extends State<Notifications> {
                 color: Colors.black,
                 isBellHidden: true,
                 onTap: () => _onNotifTap(),
+                profilePath:_profilePath,
               ),
             ],
           ),
@@ -103,10 +105,12 @@ class _NotificationsState extends State<Notifications> {
           notification_type: int.parse(body[1][i][3]),
           notification_status: int.parse(body[1][i][4]),
           notification_params: body[1][i][5],
+          profilePath: body[1][i][6],
         ));
       }
       setState(() {
         _children;
+        _profilePath=body[2];
       });
     } else if (body[0] == "empty") {
       _children.add(
@@ -153,6 +157,7 @@ class _NotificationsState extends State<Notifications> {
       );
       setState(() {
         _children;
+        _profilePath=body[2];
       });
     }
   }

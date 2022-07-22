@@ -1,19 +1,18 @@
 import 'dart:convert';
 
-import 'package:avatars/avatars.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:Krowl/api/my_api.dart';
 import 'package:Krowl/globals/globals.dart' as globals;
 import 'package:Krowl/page/Students/StudentProfile.dart';
 import 'package:Krowl/widgets/PopUp/Loading/LoadingRequestAddUnFriendPopUp.dart';
 import 'package:Krowl/widgets/PopUp/errorWarningPopup.dart';
 import 'package:Krowl/widgets/Students/Students1/StudentButton.dart';
+import 'package:avatars/avatars.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentCard extends StatefulWidget {
   String userId;
@@ -23,7 +22,7 @@ class StudentCard extends StatefulWidget {
   int nbrOfFriends;
   String isFriend;
   BuildContext contextStudentPage;
-  var userImg;
+  var profilePath;
   var color1; //light
   var color2; //dark
   var onTap;
@@ -36,7 +35,7 @@ class StudentCard extends StatefulWidget {
     required this.nbrOfFriends,
     required this.isFriend,
     required this.contextStudentPage,
-    this.userImg,
+    required this.profilePath,
     this.color1,
     this.color2,
     this.onTap,
@@ -63,6 +62,7 @@ class _StudentCardState extends State<StudentCard> {
                 description: widget.description,
                 nbrOfFriends: widget.nbrOfFriends,
                 isFriend: widget.isFriend,
+                profilePath: widget.profilePath,
               ),
             ),
             (route) => false);
@@ -109,14 +109,18 @@ class _StudentCardState extends State<StudentCard> {
                 ),
                 Positioned(
                   top: 50,
-                  child: widget.userImg.isEmpty
+                  child: widget.profilePath.isEmpty
                       ? Avatar(
                           elevation: 3,
                           shape: AvatarShape.circle(27),
                           name: '${widget.username}',
                           placeholderColors: [globals.blue1],
                         )
-                      : Image.network(globals.myIP + '/' + widget.userImg),
+                      : Image.network(
+                        widget.profilePath,
+                        width: 100,
+                        fit: BoxFit.fill,
+                      ),
                 ),
               ]),
               Expanded(

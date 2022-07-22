@@ -16,6 +16,7 @@ class NotificationPopupChildren extends StatefulWidget {
   int notification_type;
   int notification_status;
   var notification_params;
+  var profilePath;
 
   NotificationPopupChildren(
       {Key? key,
@@ -25,6 +26,7 @@ class NotificationPopupChildren extends StatefulWidget {
       required this.notification_type,
       required this.notification_status,
       required this.notification_params,
+      required this.profilePath,
       })
       : super(key: key);
 
@@ -94,6 +96,7 @@ class _NotificationPopupChildrenState extends State<NotificationPopupChildren> {
                       isFriend: widget.notification_params["info"][3],
                       nbrOfFriends:
                           int.parse(widget.notification_params["info"][4]),
+                      profilePath: widget.profilePath["info"][5],
                     ),
                   ),
                   (route) => false);

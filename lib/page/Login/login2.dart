@@ -305,6 +305,7 @@ class _Login2State extends State<Login2> {
             await SessionManager().set('user_uni', body[4]);
             await SessionManager().set('photo', body[5]);
             await SessionManager().set('userTokenChat', body[6]);
+            await SessionManager().set('bio', body[8].toString());
 
             if (body[7] == '1') {
               showDialog<String>(

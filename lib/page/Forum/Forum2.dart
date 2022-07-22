@@ -33,6 +33,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
   Timer? timer;
 
   int _notifNBR = 0;
+  String _profilePath =globals.initialProfilePath;
 
   @override
   void dispose() {
@@ -414,6 +415,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                     color: globals.blue1,
                     notifNBR: _notifNBR,
                     onTap: () => _onNotifTap(),
+                    profilePath:_profilePath,
                   ),
                 ],
               ),
@@ -582,6 +584,7 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
                     color: globals.blue1,
                     notifNBR: _notifNBR,
                     onTap: () => _onNotifTap(),
+                    profilePath:_profilePath,
                   ),
                 ],
               ),
@@ -674,7 +677,10 @@ class _Forum2State extends State<Forum2> with SingleTickerProviderStateMixin {
     print(res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
-      _notifNBR = int.parse(body[1]);
+      setState((){
+        _notifNBR = int.parse(body[1][0]);
+        _profilePath=body[1][1];
+      });
     }
   }
 

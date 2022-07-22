@@ -35,6 +35,7 @@ class _Students1State extends State<Students1>
   bool _load = true;
 
   int _notifNBR =0;
+  String _profilePath =globals.initialProfilePath;
 
   @override
   void dispose() {
@@ -152,6 +153,7 @@ class _Students1State extends State<Students1>
                   color: globals.blue1,
                   notifNBR: _notifNBR,
                   onTap: () => _onNotifTap(),
+                  profilePath: _profilePath,
                 ),
               ],
             ),
@@ -247,10 +249,10 @@ class _Students1State extends State<Students1>
                   ),
                 ),
                 CustomTabBar(
-
                   color: globals.blue1,
                   notifNBR: _notifNBR,
                   onTap: () => _onNotifTap(),
+                  profilePath: _profilePath,
                 ),
               ],
             ),
@@ -301,7 +303,8 @@ class _Students1State extends State<Students1>
 
           if (mounted) {
             setState(() {
-              _notifNBR = int.parse(body[1]);
+              _notifNBR = int.parse(body[1][0]);
+              _profilePath=body[1][1];
               _totalStudents = int.parse(body[2]);
               _totalPages = (_totalStudents / 20).ceil();
             });
@@ -315,7 +318,7 @@ class _Students1State extends State<Students1>
                 description: body[3][i][5],
                 nbrOfFriends: int.parse(body[3][i][6]),
                 isFriend: body[3][i][7],
-                userImg: body[3][i][3],
+                profilePath: body[3][i][3],
                 contextStudentPage: context,
                 // reload: () {
                 //   _loadNewPage();
@@ -330,6 +333,10 @@ class _Students1State extends State<Students1>
             });
           }
         } else if (body[0] == "empty") {
+          setState((){
+            _notifNBR = int.parse(body[1][0]);
+            _profilePath=body[1][1];
+          });
           if (_currentPage != 1) {
             if (mounted) {
               setState(() {

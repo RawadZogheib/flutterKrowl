@@ -65,6 +65,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   bool allowSwipeToRotate = true;
   bool imagePrecached = false;
 
+  String _profilePath =globals.initialProfilePath;
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -335,6 +337,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                   CustomTabBar(
                     color: globals.blue1,
                     notifNBR: _notifNBR,
+                    profilePath: _profilePath,
                     onTap: () => _onNotifTap(),
                   ),
                 ],
@@ -641,6 +644,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                   CustomTabBar(
                     color: globals.blue1,
                     notifNBR: _notifNBR,
+                    profilePath: _profilePath,
                     onTap: () => _onNotifTap(),
                   ),
                 ],
@@ -693,7 +697,10 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
 
         if (body[0] == "success") {
           await Future.delayed(Duration(milliseconds: 1000));
-          _notifNBR = int.parse(body[1]);
+          _notifNBR = int.parse(body[1][0]);
+          setState((){
+            _profilePath=body[1][1];
+          });
           if (state == 3 || state == 1) {
             children.clear();
           }
@@ -701,13 +708,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           for (var i = 0; i < body[2].length; i++) {
             Color _color;
             Color _color2;
-            if (int.parse(body[2][i][7]) == 0) {
+            if (int.parse(body[2][i][8]) == 0) {
               _color = Colors.grey.shade600;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[2][i][7]) == 1) {
+            } else if (int.parse(body[2][i][8]) == 1) {
               _color = globals.blue1;
               _color2 = Colors.grey.shade600;
-            } else if (int.parse(body[2][i][7]) == -1) {
+            } else if (int.parse(body[2][i][8]) == -1) {
               _color = Colors.grey.shade600;
               _color2 = globals.blue1;
             } else {
@@ -750,10 +757,13 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
                     // post_date
                     question_context: body[2][i][6],
                     // context of the question
+
+                    //profile picture
                     color: _color,
                     // like color
                     color2: _color2,
                     // dislike color
+                    profilePath: body[2][i][7],
                   ),
                   SizedBox(
                     height: 20,
@@ -783,15 +793,17 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
           warningPopup(context, globals.warning7);
         }
         if (body[0] == "empty" && state == 4) {
-          _notifNBR = int.parse(body[1]);
+          _notifNBR = int.parse(body[1][0]);
           setState(() {
             loader = false;
+            _profilePath = body[1][1];
           });
         } else if (body[0] == "empty") {
-          _notifNBR = int.parse(body[1]);
+          _notifNBR = int.parse(body[1][0]);
           if (mounted) {
             setState(() {
               displayIcon = true;
+              _profilePath = body[1][1];
             });
             warningPopup(context, globals.warningEmptyPostPage);
           }
@@ -828,7 +840,7 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
     }
   }
 
-  _loadNewPage() {
+  _loadNewPage(){
     // print(
     //     '=========>>======================================================>>==================================================>>=========');
     timer?.cancel();
@@ -869,6 +881,8 @@ class _Forum1State extends State<Forum1> with SingleTickerProviderStateMixin {
   Future<void> _onInitState() async {
     if (await SessionManager().get('isLoggedIn') == true) {
       globals.currentPage = 'Forum';
+
+
       _loadNewPage();
     } else {
       Navigator.pushNamedAndRemoveUntil(

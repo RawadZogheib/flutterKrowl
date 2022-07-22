@@ -17,6 +17,7 @@ class NotificationContainer extends StatefulWidget {
   int notification_type;
   int notification_status;
   var notification_params;
+  var profilePath;
 
   NotificationContainer(
       {Key? key,
@@ -25,7 +26,8 @@ class NotificationContainer extends StatefulWidget {
       required this.sender_name,
       required this.notification_type,
       required this.notification_status,
-      required this.notification_params});
+      required this.notification_params,
+      required this.profilePath,});
 
   @override
   State<NotificationContainer> createState() => _NotificationContainerState();
@@ -92,6 +94,7 @@ class _NotificationContainerState extends State<NotificationContainer> {
                       isFriend: widget.notification_params["info"][3],
                       nbrOfFriends:
                           int.parse(widget.notification_params["info"][4]),
+                      profilePath: widget.profilePath["info"][5],
                     ),
                   ),
                   (route) => false);
